@@ -1,6 +1,9 @@
-import { Inter, Calistoga } from "next/font/google";
 import "./globals.css";
-import { twMerge } from "tailwind-merge";
+import { Inter, Calistoga } from "next/font/google";
+import { StarsCanvas } from "@/components/StarBackground";
+import { Header } from "@/sections/Header";
+import { Footer } from "@/sections/Footer";
+import { cn } from "@/utils";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -22,9 +25,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={twMerge(inter.variable, calistoga.variable, 'bg-[#030014] text-white antialiased font-sans')}
+        className={cn(inter.variable, calistoga.variable, 'bg-[#030014] text-white font-sans overflow-y-scroll overflow-x-hidden')}
       >
+        <StarsCanvas/>
+        <Header/>
         {children}
+        <Footer/>
       </body>
     </html>
   );

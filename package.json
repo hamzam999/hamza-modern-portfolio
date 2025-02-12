@@ -10,16 +10,18 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@react-three/fiber": "^9.0.0-alpha.8",
     "@svgr/webpack": "^8.1.0",
+    "clsx": "^2.1.1",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@react-three/drei": "^9.121.4",
-    "@react-three/fiber": "^8.17.14",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
