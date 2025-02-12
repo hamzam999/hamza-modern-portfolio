@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import { Footer } from "@/sections/Footer";
 import { Header } from "@/sections/Header";
 import { Projects } from "@/sections/Projects";
 import { Skills } from "@/sections/Skills";
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <Skills/>
         <Projects/>
+        <Footer/>
       </div>
     </main>
   );

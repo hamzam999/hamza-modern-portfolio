@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <StarsCanvas/>
         <Header/>
         {children}
-        <Footer/>
+        {/* <Footer/> */}
       </body>
     </html>
   );
