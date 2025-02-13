@@ -28,7 +28,7 @@ const HeroSection = () => {
           variants={slideInFromLeft(0.5)}
         >
           <span>
-            Providing <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">the best</span> project experience.
+         Transforming Concepts into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">Seamless User Experiences</span>.
           </span>
         </motion.div>
         <motion.p
