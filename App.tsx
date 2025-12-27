@@ -19,7 +19,8 @@ export default function App() {
   });
 
   return (
-    <div className="relative min-h-screen selection:bg-blue-500/40 selection:text-white">
+    <div className="relative min-h-screen selection:bg-blue-500/40 selection:text-white overflow-x-hidden w-full">
+      {/* Progress Bar */}
       <motion.div 
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 z-[200] origin-left" 
         style={{ scaleX }}
@@ -27,13 +28,13 @@ export default function App() {
       
       <Navbar />
       
-      <main>
+      <main className="relative z-10 w-full overflow-x-hidden">
         <Hero />
         <About />
         <TechFoundation />
         <Work />
         <ExperienceTimeline />
-        <Values />
+        {/* <Values /> */}
         <CTA />
       </main>
 

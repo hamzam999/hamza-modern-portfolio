@@ -101,7 +101,8 @@ export const SKILLS: SkillCategory[] = [
       { name: "Tailwind CSS", icon: "tailwindcss" },
       { name: "Redux", icon: "redux" },
       { name: "Chart.js", icon: "chartdotjs" },
-      { name: "Recharts", icon: "recharts" }
+      { name: "WordPress", icon: "wordpress" }
+      // { name: "Recharts", icon: "recharts" }
     ]
   },
   {
@@ -110,21 +111,21 @@ export const SKILLS: SkillCategory[] = [
       { name: "Wagmi", icon: "wagmi" },
       { name: "Ethers.js", icon: "ethers" },
       { name: "Solana Web3.js", icon: "solana" },
-      { name: "RainbowKit", icon: "rainbow" },
+      // { name: "RainbowKit", icon: "image-wallet" },
       { name: "AppKit", icon: "walletconnect" },
-      { name: "ERC-721/1155", icon: "ethereum" },
-      { name: "DEX/CEX APIs", icon: "coinbase" }
+      // { name: "ERC-721/1155", icon: "ethereum" },
+      // { name: "DEX/CEX APIs", icon: "coinbase" }
     ]
   },
   {
-    title: "Security & Tools",
+    title: "Tools",
     skills: [
-      { name: "Multi-Sig Auth", icon: "gnosis" },
-      { name: "RBAC", icon: "auth0" },
+      { name: "Multi-Sig Auth", icon: "keystone" },
       { name: "Git", icon: "git" },
       { name: "GitHub", icon: "github" },
       { name: "Cursor", icon: "cursor" },
-      { name: "WordPress", icon: "wordpress" }
+      { name: "Postman", icon: "postman" },
+      { name: "Figma", icon: "figma" },
     ]
   }
 ];
