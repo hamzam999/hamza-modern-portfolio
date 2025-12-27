@@ -1,35 +1,23 @@
 {
-  "name": "hamza-modern-portfolio",
-  "version": "0.1.0",
+  "name": "mohammad-hamza---senior-frontend-&-web3-engineer-portfolio",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "@react-three/fiber": "^9.0.0-alpha.8",
-    "@svgr/webpack": "^8.1.0",
-    "clsx": "^2.1.1",
-    "next": "15.1.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0",
-    "sass": "^1.84.0",
-    "tailwind-merge": "^3.0.1"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "lucide-react": "^0.562.0",
+    "framer-motion": "^12.23.26"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@react-three/drei": "^9.121.4",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.7",
-    "framer-motion": "^12.4.2",
-    "postcss": "^8",
-    "react-intersection-observer": "^9.15.1",
-    "tailwindcss": "^3.4.1",
-    "three": "^0.173.0"
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
   }
 }
