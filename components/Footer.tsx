@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const SOCIAL_LINKS = {
   email: "erhamza.dev@gmail.com",
@@ -9,9 +10,17 @@ const SOCIAL_LINKS = {
 const Footer = () => (
   <footer className="py-12 md:py-24 border-t border-white/5 container mx-auto px-4 md:px-8">
     <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12 text-center md:text-left">
-      <div className="text-xl md:text-3xl font-black tracking-tighter text-white">HAMZA.DEV</div>
-      <div className="text-white/20 text-[8px] md:text-xs font-black uppercase tracking-[0.4em] max-w-xs md:max-w-none px-4">
-        © 2024 MOHAMMAD HAMZA — ENGINEERED FOR THE FUTURE.
+    <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-lg md:text-2xl font-black tracking-tighter flex items-center space-x-2"
+        >
+          <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg glass-shine glass flex items-center justify-center border-blue-500/30">
+            <span className="text-blue-400 text-xl md:text-3xl">ء</span>
+          </div>
+          <span className="text-gradient">ER. HAMZA</span>
+        </motion.div>      <div className="text-white/20 text-[8px] md:text-xs font-black uppercase tracking-[0.4em] max-w-xs md:max-w-none px-4">
+        © {new Date().getFullYear()} MOHAMMAD HAMZA — ENGINEERED FOR THE FUTURE.
       </div>
       <div className="flex items-center space-x-6 md:space-x-12 text-[9px] md:text-[11px] font-black uppercase tracking-widest text-white/30">
         <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors">Github</a>
