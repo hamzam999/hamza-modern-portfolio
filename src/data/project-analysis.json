@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "nighatahmadofficial",
+    "url": "https://nighatahmadofficial.com",
+    "techStack": ["Shopify", "Liquid", "Shopify CDN", "Meta Pixel", "WhatsApp app integration"],
+    "businessModel": "D2C fashion retail",
+    "keyFeatures": ["Collection-led navigation", "Cart + checkout", "Marketing pixels", "Social integration"],
+    "uxMaturity": "High",
+    "engineeringComplexity": "Medium"
+  },
+  {
+    "slug": "lammles",
+    "url": "https://www.lammles.com/",
+    "techStack": ["Shopify", "Liquid", "Google Tag Manager", "Klaviyo"],
+    "businessModel": "Omnichannel retail e-commerce",
+    "keyFeatures": ["High-SKU menu architecture", "Store/help flows", "Lifecycle campaigns", "Tracking governance"],
+    "uxMaturity": "High",
+    "engineeringComplexity": "High"
+  },
+  {
+    "slug": "slurvo",
+    "url": "http://slurvo.co/",
+    "techStack": ["Next.js", "React", "App Router chunks"],
+    "businessModel": "B2B lead generation for pet-treat exports",
+    "keyFeatures": ["Corporate storytelling", "Product showcase", "Testimonials", "Contact CTAs"],
+    "uxMaturity": "Medium",
+    "engineeringComplexity": "Medium"
+  },
+  {
+    "slug": "wanhamleathers",
+    "url": "https://wanhamleathers.com/",
+    "techStack": ["Next.js", "React", "Static bundle delivery"],
+    "businessModel": "B2B leather and equestrian export",
+    "keyFeatures": ["Category segmentation", "Credibility copy", "Export positioning", "Contact flows"],
+    "uxMaturity": "Medium",
+    "engineeringComplexity": "Medium"
+  },
+  {
+    "slug": "sedefanatolia",
+    "url": "https://sedefanatolia.com/",
+    "techStack": ["Shopify", "Liquid", "Storefront scripts"],
+    "businessModel": "D2C fragrance e-commerce",
+    "keyFeatures": ["Promo banners", "Collection browsing", "Brand story", "Checkout"],
+    "uxMaturity": "High",
+    "engineeringComplexity": "Medium"
+  }
+]

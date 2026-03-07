@@ -5,6 +5,7 @@ export interface Project {
   tech: string[];
   impact: string[];
   image: string;
+  link?: string;
 }
 
 export interface Experience {

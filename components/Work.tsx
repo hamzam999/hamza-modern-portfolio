@@ -26,7 +26,7 @@ const Work = () => (
               <img 
                 src={project.image} 
                 alt={project.title} 
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
+                className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -35,11 +35,11 @@ const Work = () => (
                   <span key={t} className="px-3 py-1 md:px-4 md:py-1.5 glass rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-widest border-white/10 whitespace-nowrap">{t}</span>
                 ))}
               </div>
-              <div className="absolute bottom-4 right-4 md:bottom-10 md:right-10">
+             { project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="absolute bottom-4 right-4 md:bottom-10 md:right-10">
                 <div className="w-10 h-10 md:w-16 md:h-16 rounded-full glass flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-all scale-90 md:scale-75 group-hover:scale-100 duration-500 hover:bg-white hover:text-black">
                   <ExternalLink size={18} />
                 </div>
-              </div>
+              </a>}
             </div>
             
             <h3 className="text-xl md:text-4xl font-black mb-3 md:mb-6 tracking-tighter text-white">{project.title}</h3>

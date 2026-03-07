@@ -2,6 +2,34 @@
 import { Project, Experience, SkillCategory } from './types';
 
 export const PROJECTS: Project[] = [
+  // lammles-shopify
+  {
+    title: "Lammle's Western Wear (CA)",
+    description: "Enterprise-scale Shopify retail experience with dense catalog and omnichannel journeys.",
+    tech: ["Shopify Apps", "SHopify funcions API","Shopify Extensions", "Liquid"],
+    impact: [
+     "Created a custom shopify extension to handle pickup and delivery options on checkout page",
+     "Created payment customization extension to handle payment options on checkout page"
+    ],
+    image: "/projects/lammles.png",
+    link: "https://www.lammles.com/"
+  },
+
+  // louis cardin-shopify
+  {
+    title: "Louis Cardin (UAE)",
+    description: "Story-led Shopify fragrance commerce implementation with strong promotional UX.",
+    tech: ["Shopify", "Liquid", "Theme JS", "Analytics"],
+    impact: [
+      "Balanced premium brand narrative with direct conversion for launch in INDIA",
+      "Enabled campaign-friendly homepage composition",
+      "Improved collection discoverability and checkout flow"
+    ],
+    image: "/projects/louis-cardin.png",
+    link: "https://louiscardin.in/"
+  },
+
+  // gesim-web3
   {
     title: "GeSIM.xyz",
     description: "Founding Engineer for global telecom coordination layer using on-chain identity and billing.",
@@ -11,8 +39,10 @@ export const PROJECTS: Project[] = [
       "Created cross-platform apps with embedded wallet integration",
       "Enabled minting of SBTs and purchase of data plans via stablecoins"
     ],
-    image: "https://picsum.photos/seed/gesim/800/600"
+    image: "/projects/gesim.png",
+    link: "https://gesim.xyz"
   },
+  // cursor-vscode
   {
     title: "Bizthon Cursor (AI)",
     description: "VSCode extension in React enabling AI-powered coding assistance across 10+ LLMs.",
@@ -22,10 +52,11 @@ export const PROJECTS: Project[] = [
       "Responsive in-editor developer workflow",
       "Optimized caching and seamless LLM switching"
     ],
-    image: "https://picsum.photos/seed/bizthon/800/600"
+    image: "/projects/cursor.png"
   },
+  // nft-marketplace
   {
-    title: "NFT Marketplace",
+    title: "NFT Marketplace (CA)",
     description: "Cross-chain NFT marketplace supporting ERC-721/1155 on Base, Sui, and Solana.",
     tech: ["React", "Solidity", "Paymaster", "Solana Web3"],
     impact: [
@@ -33,8 +64,22 @@ export const PROJECTS: Project[] = [
       "Instant sale & auction modules with countdown timers",
       "Creator dashboard for managing minting and sales history"
     ],
-    image: "https://picsum.photos/seed/nft/800/600"
+    image: "/projects/nft.png"
   },
+    // nighat ahmad official-shopify
+  {
+    title: "Nighat Ahmad Official",
+    description: "Shopify-powered premium fashion storefront for D2C and international audiences.",
+    tech: ["Shopify", "Liquid", "Meta Pixel", "CDN"],
+    impact: [
+      "Improved campaign-to-checkout continuity",
+      "Enabled rich merchandising with conversion intent",
+      "Integrated social and messaging-driven buyer touchpoints"
+    ],
+    image: "/projects/nighatahmadofficial.png",
+    link: "https://nighatahmadofficial.com"
+  },
+  // multi-owner-safe
   {
     title: "Multi-Owner Safe",
     description: "Multi-signature wallet platform for secure team token management and governance.",
@@ -44,48 +89,87 @@ export const PROJECTS: Project[] = [
       "Wallet tagging and secure recovery mechanisms",
       "Governance dashboards for managing token holdings"
     ],
-    image: "https://picsum.photos/seed/safe/800/600"
-  }
+    image: "/projects/safe.png"
+  },
+  // slurvo-nextjs
+  {
+    title: "Slurvo",
+    description: "Next.js B2B website focused on trust-building and export lead generation.",
+    tech: ["Next.js", "React", "SEO", "Performance"],
+    impact: [
+      "Improved conversion path from story to inquiry",
+      "Built credibility with testimonials and product sections",
+      "Delivered fast first-load with optimized bundle strategy"
+    ],
+    image: "/projects/slurvo.png",
+    link: "https://slurvo.co"
+  },
+  // wanhamleathers-nextjs
+  {
+    title: "WanHam Leathers",
+    description: "Conversion-ready export website for leather and equestrian product lines.",
+    tech: ["Next.js", "React", "App Router", "Static Assets"],
+    impact: [
+      "Clarified value proposition for international buyers",
+      "Segmented offerings for faster product comprehension",
+      "Enhanced lead readiness through inquiry-first structure"
+    ],
+    image: "/projects/wanhamleathers.png",
+    link: "https://wanhamleathers.com/"
+  },
+
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
-    role: "Frontend & Web3 Developer",
+    role: "Frontend Engineer (Retainer)",
+    company: "Meta Merchant",
+    period: "Jan 2026 – Feb 2026",
+    location: "Remote",
+    metrics: [],
+    details: [
+      "Built the complete frontend for a prediction marketplace integrating Polymarket trading infrastructure.",
+      "Implemented wallet-based trading flows using Next.js / React with seamless blockchain interactions.",
+      "Designed responsive trading interfaces and optimized performance for real-time prediction market interactions."
+    ]
+  },
+  {
+    role: "Frontend & Web3 Engineer",
     company: "ITH Technologies",
-    period: "Feb 2023 – Present",
-    location: "Kanpur, India",
-    metrics: ["350K+ Users", "30-50% Faster Loads", "40% Dev Efficiency"],
+    period: "Feb 2023 – Dec 2025",
+    location: "Kanpur, U.P",
+    metrics: [],
     details: [
-      "Developed multiple high-impact Web3 applications from scratch, implementing deep wallet integrations and real-time smart contract interactions.",
-      "Engineered automated referral reward systems and decentralized governance modules for over 350,000 active users.",
-      "Optimized complex DeFi dashboards with high-performance data fetching and real-time chart visualizations.",
-      "Architected a unified CRM system bridging legacy Angular platforms with modern Next.js infrastructures."
+      "Built DEX & CEX trading dashboards with real-time market data, wallet integrations, and optimized execution flows.",
+      "Integrated Solana exchanges using Raydium SDK, SPL tokens, and Solana RPCs with robust async handling.",
+      "Merged multiple DEX & CEX frontends into a unified CRM platform (Next.js), reducing load times by 35% and development effort by 40%.",
+      "Developed a multi-signature wallet (Multi-Owner Safe) with proposal, confirmation, and execution flows.",
+      "Improved application performance by 30–50% using memoization, SSR/SSG, and code splitting."
     ]
   },
   {
-    role: "Shopify Developer / Frontend Developer",
-    company: "House of THL",
-    period: "Mar 2022 – Feb 2023",
-    location: "Kanpur, India",
-    metrics: ["40% Load Reduction", "30% Organic Growth"],
+    role: "Shopify Developer",
+    company: "E-commerce Platforms",
+    period: "",
+    location: "Remote",
+    metrics: [],
     details: [
-      "Developed high-conversion e-commerce storefronts using Liquid and React, focusing on mobile-first architecture and performance.",
-      "Implemented advanced technical SEO strategies that directly led to a 30% increase in organic search traffic and user retention.",
-      "Created custom Shopify theme modules and interactive product visualization tools to enhance the digital luxury shopping experience.",
-      "Optimized critical rendering paths and asset delivery pipelines, achieving a 40% reduction in average page load times."
+      "Developed and customized multiple Shopify stores using Dawn theme with advanced UI/UX and performance optimizations.",
+      "Built custom Shopify extensions for payment customization, delivery logic, and checkout validations.",
+      "Implemented checkout UI blocks and custom checkout workflows to enforce business rules and improve conversion.",
+      "Delivered multiple Shopify stores with tailored themes, integrations, and scalable storefront architecture."
     ]
   },
   {
-    role: "WordPress & E-commerce Founder",
+    role: "WordPress & E-commerce Developer (Founder)",
     company: "Self-Founded Business",
-    period: "Jan 2020 – Mar 2022",
-    location: "Kanpur, India",
-    metrics: ["Full Lifecycle Management", "D2C Scaling"],
+    period: "",
+    location: "Remote",
+    metrics: [],
     details: [
-      "Founded and scaled a D2C home décor brand, architecting the entire digital commerce stack and logistics integration from the ground up.",
-      "Designed conversion-optimized storefronts and managed the end-to-end technical lifecycle, from product procurement to secure payment processing.",
-      "Executed data-driven growth strategies and optimized customer acquisition funnels to establish a profitable digital brand identity.",
-      "Integrated complex third-party logistics and automated inventory management systems to streamline operations during rapid scaling."
+      "Built and operated a direct-to-consumer home décor brand, owning the complete WordPress (WooCommerce) stack.",
+      "Designed conversion-optimized storefronts, handled payments, SEO, order flows, and performance tuning.",
+      "Delivered additional Shopify & WordPress projects alongside the business for external clients."
     ]
   }
 ];

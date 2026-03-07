@@ -57,7 +57,7 @@ const About = () => (
               <div className="glass p-4 md:p-8 rounded-xl md:rounded-3xl backdrop-blur-3xl border-white/5 flex items-center justify-between">
                 <div className="overflow-hidden">
                   <p className="text-[8px] md:text-[10px] font-black uppercase text-white/30 tracking-[0.3em] mb-1 truncate">Currently Building</p>
-                  <p className="font-black text-sm md:text-lg tracking-tight truncate">Prediction Platform</p>
+                  <p className="font-black text-sm md:text-lg tracking-tight truncate">Scroll Based 3D Websites</p>
                 </div>
                 <Terminal size={20} className="text-blue-400 shrink-0 ml-4" />
               </div>
