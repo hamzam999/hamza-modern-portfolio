@@ -210,7 +210,7 @@ export const EXPERIENCES: Experience[] = [
     ]
   },
   {
-    role: "Shopify Developer / Frontend Developer",
+    role: "Shopify Developer",
     company: "House of THL",
     period: "Mar 2022 – Jan 2023",
     location: "Kanpur, U.P",
