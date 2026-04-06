@@ -1,43 +1,121 @@
-import React from 'react';
-import { ArrowRight, Linkedin, Github } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Linkedin, Github, Mail } from 'lucide-react';
+import { SOCIAL_LINKS } from '../constants';
+import ScrollReveal from './ScrollReveal';
 
-const SOCIAL_LINKS = {
-  email: "erhamza.dev@gmail.com",
-  linkedin: "https://www.linkedin.com/in/er-mohammad-hamza/",
-  github: "https://github.com/hamzam999"
+const CTA = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end end'],
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+  const ghostY = useTransform(scrollYProgress, [0, 1], [50, 0]);
+
+  return (
+    <section id="section-cta" ref={sectionRef} className="section-full relative overflow-hidden bg-[#02020a]">
+      {/* Glow Orbs — Large Finale Glows */}
+      <div className="glow-orb glow-orb-purple" style={{ width: '1000px', height: '1000px', bottom: '-400px', left: '50%', transform: 'translateX(-50%)', opacity: 0.2 }} />
+      <div className="glow-orb glow-orb-blue" style={{ width: '800px', height: '800px', top: '10%', left: '50%', transform: 'translateX(-50%)', opacity: 0.1 }} />
+
+      <div className="section-content text-center relative z-10 py-20">
+        {/* Ghost Background — Antimatter-style visible ghost text */}
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
+          style={{ y: ghostY }}
+        >
+          <span
+            className="text-[18vw] font-black tracking-tighter leading-none"
+            style={{
+              fontFamily: 'var(--font-heading)',
+              color: 'rgba(124, 108, 240, 0.03)',
+              userSelect: 'none'
+            }}
+            aria-hidden="true"
+          >
+            BUILD
+          </span>
+        </motion.div>
+
+        <motion.div style={{ scale, opacity }}>
+          <ScrollReveal>
+            <div className="flex flex-col items-center gap-6 mb-12">
+              <span className="text-label text-[rgba(155,175,255,0.6)] uppercase tracking-[0.4em]">Next Steps</span>
+              <h2
+                className="heading-hero text-white max-w-[15ch] leading-[0.85]"
+                style={{ fontSize: 'clamp(3rem, 10vw, 10rem)' }}
+              >
+                Let's Build{' '}
+                <span className="heading-italic-glow">Something Rare.</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.2}>
+            <p className="text-body-lg max-w-2xl mx-auto mb-16 px-4 text-white/40 leading-relaxed font-medium">
+              Ready to take your platform to the next level? Currently available for selective engineering collaborations and high-impact projects.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.4}>
+            <div className="flex flex-col items-center gap-12">
+              {/* CTA Button — Oversized Glowy Button */}
+              <a
+                href={`mailto:${SOCIAL_LINKS.email}`}
+                className="group relative px-14 py-8 bg-gradient-to-r from-[#7c6cf0] to-[#5a4ed4] text-white rounded-full font-bold text-sm md:text-base uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_50px_rgba(124,108,240,0.4)]"
+              >
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10 flex items-center gap-4">
+                  Initiate Conversation
+                  <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform duration-300" />
+                </span>
+              </a>
+
+              {/* Social Links — Modern Transparent Icons */}
+              <div className="flex items-center gap-6">
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                </a>
+                <a
+                  href={SOCIAL_LINKS.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
+                  aria-label="GitHub"
+                >
+                  <Github size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                </a>
+                <a
+                  href={`mailto:${SOCIAL_LINKS.email}`}
+                  className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
+                  aria-label="Email"
+                >
+                  <Mail size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
+        </motion.div>
+      </div>
+
+      {/* Extreme Bottom Radial Glow */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-screen h-[40%] pointer-events-none opacity-40"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 100%, rgba(124, 108, 240, 0.2) 0%, transparent 70%)',
+        }}
+      />
+    </section>
+  );
 };
 
-const CTA = () => (
-  <section id="contact" className="py-12 md:py-32 container mx-auto px-4 md:px-8">
-    <div className="section-glow-box p-8 sm:p-16 md:p-32 text-center group">
-      <div className="relative z-10">
-        <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[9rem] font-black tracking-tighter mb-8 md:mb-12 leading-[1] md:leading-[0.85] text-white">
-          Let's Build <br className="hidden md:block" /><span className="text-gradient">Something Rare.</span>
-        </h2>
-        <p className="text-base sm:text-lg md:text-3xl text-white/40 max-w-3xl mx-auto mb-10 md:mb-20 leading-relaxed font-medium">
-          Ready to take your platform to the next level? Currently available for selective engineering collaborations.
-        </p>
-        
-        <div className="flex flex-col items-center gap-8 md:gap-12">
-          <a href={`mailto:${SOCIAL_LINKS.email}`} className="group/btn relative w-full sm:w-auto px-10 py-5 md:px-16 md:py-8 bg-white text-black rounded-full font-black text-xs md:text-sm uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 flex items-center justify-center overflow-hidden">
-            <div className="absolute inset-0 bg-blue-500 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-            <span className="relative z-10 group-hover/btn:text-white transition-colors">Initiate Conversation</span>
-            <ArrowRight className="relative z-10 ml-4 group-hover/btn:translate-x-2 transition-all group-hover/btn:text-white" size={20} />
-          </a>
-          
-          <div className="flex items-center space-x-8 md:space-x-12">
-            <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="p-4 md:p-5 glass rounded-xl md:rounded-3xl hover:bg-white hover:text-black transition-all hover:-translate-y-2 border-white/5" aria-label="LinkedIn Profile">
-              <Linkedin size={28} />
-            </a>
-            <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer" className="p-4 md:p-5 glass rounded-xl md:rounded-3xl hover:bg-white hover:text-black transition-all hover:-translate-y-2 border-white/5" aria-label="Github Profile">
-              <Github size={28} />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
 export default CTA;
-

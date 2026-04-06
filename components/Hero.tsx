@@ -1,90 +1,141 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight } from 'lucide-react';
-import Typewriter from './Typewriter';
-import HeroBackground from './HeroBackground';
-
-const slideInFromLeft = (delay: number) => ({
-  hidden: { x: -100, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      delay: delay,
-      duration: 0.5,
-    },
-  },
-});
-
-const slideInFromTop = {
-  hidden: { y: -100, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      delay: 0.5,
-      duration: 0.5,
-    },
-  },
-};
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowDown } from 'lucide-react';
+import { HERO_CONTENT, SOCIAL_LINKS } from '../constants';
 
 const Hero = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const subtitleY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const ghostScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const ghostOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const arrowOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
   return (
-    <section className="relative min-h-screen flex items-center pt-24 md:pt-20 overflow-hidden px-4">
-      <motion.div 
-        initial="hidden"
-        animate="visible"
-        className="container mx-auto relative z-10 flex flex-col items-center justify-center text-center"
+    <section
+      ref={sectionRef}
+      id="section-hero"
+      className="section-full relative overflow-hidden"
+      style={{ minHeight: '100vh' }}
+    >
+      {/* Glow Orbs */}
+      <div className="glow-orb glow-orb-purple" style={{ width: '600px', height: '600px', top: '-200px', left: '-100px' }} />
+      <div className="glow-orb glow-orb-blue" style={{ width: '500px', height: '500px', bottom: '-150px', right: '-100px' }} />
+
+      {/* Ghost Background Text — Antimatter style (solid, low opacity, large) */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        style={{ scale: ghostScale, opacity: ghostOpacity }}
       >
-        {/* <HeroBackground /> */}
-        <div className="max-w-5xl w-full">
-          <motion.div 
-            variants={slideInFromTop}
-            className="welcome-box inline-flex items-center space-x-2 px-4 py-2 glass rounded-full mb-8 md:mb-12 border-[#7042f88b] opacity-[0.9]"
-          >
-            <Sparkles className="text-[#b49bff] w-4 h-4" />
-            <h1 className="text-[10px] md:text-[12px] font-black tracking-[0.2em] text-white uppercase">Available for New Projects</h1>
-          </motion.div>
-          
-          <motion.h1 
-            variants={slideInFromLeft(0.4)}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-[8rem] font-black tracking-tighter mb-6 md:mb-10 leading-[1] md:leading-[0.85] text-white"
-          >
-            Engineering <br /><span className="text-gradient">Business Impact.</span>
-          </motion.h1>
-
-          <motion.div 
-            variants={slideInFromLeft(0.7)}
-            className="text-base sm:text-lg md:text-3xl text-white/40 mb-10 md:mb-20 max-w-4xl mx-auto leading-tight min-h-[4rem] px-2 font-medium"
-          >
-            <Typewriter text="Building high-performance storefronts, decentralized economies, and scalable systems for the modern web." />
-          </motion.div>
-
-          <motion.div 
-            variants={slideInFromLeft(1)}
-            className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center px-4"
-          >
-            <a href="#work" className="group px-8 py-4 md:px-12 md:py-6 bg-white text-black rounded-full font-black text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 flex items-center justify-center">
-              Selected Work <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={18} />
-            </a>
-            <a href="#contact" className="px-8 py-4 md:px-12 md:py-6 glass glass-shine rounded-full font-black text-xs uppercase tracking-widest transition-all hover:bg-white/10 active:scale-95 border-white/10">
-              Hire Me
-            </a>
-          </motion.div>
-        </div>
+        <span
+          className="text-[25vw] md:text-[20vw] font-black tracking-tighter leading-none whitespace-nowrap"
+          style={{
+            fontFamily: 'var(--font-heading)',
+            color: 'rgba(124, 108, 240, 0.04)',
+          }}
+          aria-hidden="true"
+        >
+          HAMZA
+        </span>
       </motion.div>
-      
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 opacity-20 pointer-events-none"
+
+      <div className="section-content flex flex-col items-center text-center relative z-10">
+        {/* Availability Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-8 md:mb-12"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(124,108,240,0.2)] bg-[rgba(124,108,240,0.05)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+            <span className="text-label text-[rgba(155,175,255,0.7)]" style={{ letterSpacing: '0.15em', fontSize: '0.6rem' }}>
+              {HERO_CONTENT.availability}
+            </span>
+          </span>
+        </motion.div>
+
+        {/* Main Heading — Antimatter style staggered slide-up with italic glow */}
+        <motion.div style={{ y: headingY, opacity }}>
+          <h1 className="heading-hero text-white mb-6 md:mb-8 max-w-[14ch] mx-auto">
+            {HERO_CONTENT.tagline.split(' ').map((word, i) => {
+              const isAccent = word === 'Impact.' || word === 'Business';
+              return (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.4 + i * 0.12,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className={`inline-block mr-[0.2em] ${isAccent ? 'heading-italic-glow' : ''}`}
+                >
+                  {word}
+                </motion.span>
+              );
+            })}
+          </h1>
+        </motion.div>
+
+        {/* Subtitle */}
+        <motion.div style={{ y: subtitleY, opacity }}>
+          <motion.p
+            initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="text-body-lg max-w-2xl mx-auto mb-10 md:mb-16 px-4"
+          >
+            {HERO_CONTENT.subtitle}
+          </motion.p>
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.3 }}
+          className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
+          style={{ opacity: opacity as any }}
+        >
+          <a
+            href={`mailto:${SOCIAL_LINKS.email}`}
+            className="group relative px-8 py-4 bg-gradient-to-r from-[#7c6cf0] to-[#5a4ed4] text-white rounded-full font-bold text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_30px_rgba(124,108,240,0.3)]"
+          >
+            <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10">Get in Touch</span>
+          </a>
+          <a
+            href="#section-work"
+            className="px-8 py-4 rounded-full border border-[rgba(124,108,240,0.2)] text-xs uppercase tracking-[0.2em] font-bold text-white/50 hover:text-white hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.1)] transition-all"
+          >
+            View Work ↓
+          </a>
+        </motion.div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        style={{ opacity: arrowOpacity as any }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[8px] font-black tracking-widest uppercase">Explore</span>
-        <div className="w-[1px] h-10 bg-gradient-to-b from-white to-transparent" />
+        <span className="text-label text-white/20" style={{ fontSize: '0.5rem' }}>Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ArrowDown size={16} className="text-[rgba(124,108,240,0.4)]" />
+        </motion.div>
       </motion.div>
     </section>
   );
 };
 
 export default Hero;
-
