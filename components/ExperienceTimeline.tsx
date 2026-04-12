@@ -1,140 +1,103 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERIENCES } from '../constants';
-import MarqueeText from './MarqueeText';
 import ScrollReveal from './ScrollReveal';
+import { History, MapPin, Milestone, Box } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const ExperienceCard: React.FC<{ exp: typeof EXPERIENCES[0]; index: number; total: number }> = ({ exp, index, total }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
+const ExperienceCard = ({ exp, index }: { exp: typeof EXPERIENCES[0]; index: number }) => {
   return (
-    <div
-      className="experience-card-fullscreen w-full flex flex-col items-center justify-center p-6 md:p-20 relative transition-all duration-1000"
-      style={{ zIndex: index + 1 }}
-      ref={cardRef}
-    >
-      {/* Glass Card Container — Uniform Size & Wider Desktop */}
-      <div className="experience-glass-wrapper glass-card w-full max-w-7xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16 relative z-10 shadow-2xl transition-all duration-1000"
-           style={{ minHeight: 'min(700px, 75vh)' }}>
+    <ScrollReveal delay={index * 0.1}>
+      <div className="relative pl-12 md:pl-24 mb-32 group">
         
-        {/* Left side: Timeline/Number */}
-        <div className="md:w-1/4 flex flex-col items-center md:items-start p-6 md:p-16 md:pb-0">
-          <div className="relative mb-8 md:mb-12">
-            <span className="number-outline reveal-text" style={{ fontSize: 'clamp(4rem, 12vw, 10rem)', lineHeight: 0.8 }}>
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div className="absolute top-1/2 left-full ml-6 md:ml-12 w-12 md:w-24 h-[1px] bg-[rgba(234,239,255,0.2)]" />
+        {/* Journey Marker / Milestone */}
+        <div className="absolute left-0 top-0 w-8 h-8 md:w-12 md:h-12 flex items-center justify-center bg-cyan-500/10 border border-cyan-500/20 rounded-md group-hover:border-cyan-400 group-hover:bg-cyan-500/20 transition-all z-20">
+          <Milestone size={18} className="text-cyan-400" />
+          {/* Neon Pulse */}
+          <div className="absolute inset-0 bg-cyan-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+        </div>
+
+        {/* Content Console */}
+        <div className="glass-console p-6 md:p-10 rounded-xl hud-border relative">
+          {/* Header Metadata */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-bold text-cyan-500/50 uppercase tracking-[0.3em] mb-1">
+                Node_Location: {exp.location}
+              </span>
+              <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+                {exp.role}
+              </h3>
+            </div>
+            <div className="flex flex-col md:items-end">
+              <span className="text-sm font-bold text-white/80">{exp.company}</span>
+              <span className="text-[10px] font-mono text-cyan-500/40 uppercase">{exp.period}</span>
+            </div>
           </div>
 
-          {exp.period && (
-            <span className="inline-block px-6 py-3 rounded-full text-[0.7rem] md:text-[0.8rem] font-black tracking-[0.3em] uppercase text-[rgba(234,239,255,0.9)] bg-[rgba(234,239,255,0.08)] border border-[rgba(234,239,255,0.15)] mb-8 md:mb-12 shadow-[0_0_20px_rgba(234,239,255,0.05)] reveal-text">
-              {exp.period}
-            </span>
-          )}
-        </div>
-
-        {/* Right side: Content */}
-        <div className="md:w-3/4 p-6 md:p-16 md:pl-0">
-          <h3 className="heading-card text-white mb-4 pr-12 reveal-text font-black leading-tight" style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)' }}>
-            {exp.role.split(' ').map((word, i) => (
-                <span key={i} className={word.toLowerCase().includes('engineer') || word.toLowerCase().includes('dev') ? 'heading-italic-glow' : ''} style={{ paddingRight: '0.2em' }}>
-                  {word}{' '}
-                </span>
-            ))}
-          </h3>
-          <p className="text-label text-[rgba(234,239,255,0.6)] mb-12 reveal-text" style={{ letterSpacing: '0.25em', fontSize: 'clamp(0.75rem, 1.2vw, 0.9rem)' }}>
-            {exp.company} — <span className="opacity-60">{exp.location}</span>
-          </p>
-
-          <ul className="space-y-6 md:space-y-8">
-            {exp.details.map((detail, i) => (
-              <li 
-                key={i} 
-                className="reveal-stagger flex items-start gap-6 text-white/50 text-sm md:text-xl leading-relaxed group/li hover:text-white/90 transition-colors"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="mt-2.5 shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-[rgba(234,239,255,0.4)] shadow-[0_0_12px_rgba(234,239,255,0.3)]" />
-                </div>
-                <span>{detail}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Details / Task List */}
+          <div className="space-y-4">
+            <div className="text-[9px] font-bold text-cyan-500/30 uppercase tracking-widest flex items-center gap-2 mb-4">
+              <div className="w-4 h-[1px] bg-cyan-500/30" />
+              <span>Project_Details.log</span>
+            </div>
+            
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+              {exp.details.map((detail, i) => (
+                <li key={i} className="flex gap-4 text-sm md:text-base text-white/40 leading-relaxed group/item transition-colors">
+                  <span className="text-cyan-500/20 font-mono mt-1">[{String(i+1).padStart(2, '0')}]</span>
+                  <span className="group-hover/item:text-white/70 transition-colors uppercase text-[12px] md:text-[13px] font-medium tracking-wide">
+                    {detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Decorative HUD Corner */}
+          <div className="absolute bottom-4 right-4 text-[10px] text-zinc-800 font-mono select-none hidden md:block">
+            0X{index * 1234}AF.SYS
+          </div>
         </div>
       </div>
-    </div>
+    </ScrollReveal>
   );
 };
 
 const ExperienceTimeline = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const sections = containerRef.current.querySelectorAll('.experience-card-fullscreen');
-
-    // Create a context for GSAP
-    const ctx = gsap.context(() => {
-      // Pin and Track Active State
-      sections.forEach((section, i) => {
-        // Pinning logic
-        if (i !== sections.length - 1) {
-          ScrollTrigger.create({
-            trigger: section,
-            start: "top top",
-            pin: true,
-            pinSpacing: false,
-          });
-        }
-
-        // Active State logic
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top center",
-          end: "bottom center",
-          onToggle: (self) => {
-            if (self.isActive) {
-              section.classList.add('active');
-              // Blur others
-              sections.forEach((other, j) => {
-                if (i !== j) other.classList.add('card-blur-background');
-              });
-            } else {
-              section.classList.remove('active');
-              // Unblur if no others are active (simple cleanup)
-              sections.forEach((other) => other.classList.remove('card-blur-background'));
-            }
-          }
-        });
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
+  
   return (
-    <section id="section-experience" className="relative overflow-hidden">
-      {/* Marquee Divider */}
-      <MarqueeText text="EXPERIENCE" className="py-4 md:py-8" speed={38} reverse />
-
-      <div ref={containerRef} className="relative">
-        {EXPERIENCES.map((exp, idx) => (
-          <ExperienceCard
-            key={idx}
-            exp={exp}
-            index={idx}
-            total={EXPERIENCES.length}
-          />
-        ))}
+    <section id="section-experience" className="py-24 md:py-32 relative bg-[#0A0A0B]">
+      {/* Background Perspective Lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-10">
+        <div className="absolute left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-cyan-400 via-zinc-800 to-transparent" />
       </div>
 
-      {/* Decorative vertical line in the center for depth */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-b from-transparent via-[rgba(234,239,255,0.06)] to-transparent pointer-events-none" />
+      <div className="section-content px-6 relative z-10">
+        <ScrollReveal>
+          <div className="mb-24">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-4 bg-cyan-400" />
+              <span className="hud-label">History.Sequence</span>
+            </div>
+            <h2 className="heading-section text-white">
+              Professional <span className="text-cyan-400">Journey.</span>
+            </h2>
+            <p className="text-white/30 max-w-lg mt-6 text-lg">
+              Tracing the core architectural decisions and successful implementations over a 6+ year professional timeline.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <div className="max-w-6xl mx-auto relative pl-0">
+          {/* Dynamic Road Line (Vertical in 2D, matches Perspective Road in 3D) */}
+          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-white/5 md:ml-[-1px]" />
+          
+          {EXPERIENCES.map((exp, idx) => (
+            <ExperienceCard key={idx} exp={exp} index={idx} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

@@ -1,145 +1,125 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ABOUT_CONTENT } from '../constants';
-import MarqueeText from './MarqueeText';
-import TextHighlight from './TextHighlight';
 import ScrollReveal from './ScrollReveal';
+import { User, Award, GraduationCap, Cpu, Fingerprint, Activity } from 'lucide-react';
 
-const StatCounter = ({ label, value }: { label: string; value: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-
+const StatBox = ({ label, value, index }: { label: string; value: string; index: number }) => {
   return (
-    <motion.div
-      ref={ref}
-      className="text-center"
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <div className="heading-section text-white mb-2" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}>
-        <motion.span
-          initial={{ opacity: 0, filter: 'blur(10px)' }}
-          animate={isInView ? { opacity: 1, filter: 'blur(0px)' } : {}}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="heading-italic-glow"
-        >
-          {value}
-        </motion.span>
-      </div>
-      <span className="text-label text-[rgba(155,175,255,0.4)] tracking-[0.2em]">{label}</span>
-    </motion.div>
+    <div className="bento-card flex flex-col items-center justify-center text-center group">
+       <span className="text-4xl md:text-5xl font-black text-cyan-400 mb-2 neon-glow transition-all group-hover:scale-110" style={{ fontFamily: 'var(--font-heading)' }}>
+         {value}
+       </span>
+       <span className="hud-label tracking-[0.2em]">{label}</span>
+       <div className="absolute top-2 right-2 text-[8px] font-mono text-cyan-500/20">0{index + 1}</div>
+    </div>
   );
 };
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 1]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
-  const contentY = useTransform(scrollYProgress, [0, 0.4], [100, 0]);
 
   return (
-    <section id="section-about" ref={sectionRef} className="relative overflow-hidden">
-      {/* Background Glows */}
-      <div className="glow-orb glow-orb-purple" style={{ width: '800px', height: '800px', top: '20%', left: '-200px' }} />
-      <div className="glow-orb glow-orb-blue" style={{ width: '600px', height: '600px', bottom: '10%', right: '-150px' }} />
+    <section id="section-about" ref={sectionRef} className="py-24 md:py-32 relative bg-[#0A0A0B] overflow-hidden">
+      <div className="absolute inset-0 bg-grid-tech opacity-5" />
+      
+      <div className="section-content px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          
+          {/* Header & Bio (Span 7) */}
+          <div className="lg:col-span-7 flex flex-col">
+            <ScrollReveal>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-1 h-4 bg-cyan-400" />
+                <span className="hud-label">Biometric.Profile</span>
+              </div>
+              <h2 className="heading-section text-white mb-8">
+                Engineering <span className="glitch-text text-cyan-400" data-text="Impact.">Impact.</span>
+              </h2>
+            </ScrollReveal>
 
-      {/* Marquee Divider */}
-      <MarqueeText text="ABOUT" className="py-4 md:py-8" speed={40} />
-
-      {/* Main Content */}
-      <div className="section-full" style={{ minHeight: 'auto', padding: 'var(--section-padding) clamp(1rem, 4vw, 4rem)' }}>
-        <div className="section-content">
-          <motion.div 
-            style={{ y: contentY }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start"
-          >
-            {/* Left — Text Content */}
-            <div className="relative z-10">
-              <ScrollReveal>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-[1px] bg-[rgba(234,239,255,0.2)]" />
-                  <span className="text-label text-[rgba(234,239,255,0.8)] tracking-[0.2em]">Who I Am</span>
+            <ScrollReveal delay={0.2}>
+              <div className="glass-console p-10 rounded-xl hud-border relative mb-12">
+                <div className="flex items-center gap-3 mb-6 text-cyan-500/40">
+                  <Fingerprint size={18} />
+                  <span className="text-[10px] font-mono uppercase tracking-widest">Identity_Authorized</span>
                 </div>
-                <h2 className="heading-section text-white mb-8">
-                  Engineering <span className="heading-italic-glow">Business Impact.</span>
-                </h2>
-              </ScrollReveal>
+                <p className="text-white/60 text-lg md:text-xl font-medium leading-relaxed italic border-l-2 border-cyan-500/20 pl-8">
+                  {ABOUT_CONTENT.bio}
+                </p>
+                <div className="absolute top-4 right-6 flex gap-1">
+                  <div className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
+                  <div className="w-1 h-1 rounded-full bg-cyan-400/50" />
+                  <div className="w-1 h-1 rounded-full bg-cyan-400/20" />
+                </div>
+              </div>
+            </ScrollReveal>
 
-              {/* Scroll-based text highlight */}
-              <TextHighlight
-                text={ABOUT_CONTENT.bio}
-                className="text-lg md:text-xl lg:text-2xl leading-relaxed font-medium mb-16 text-white/40"
-                highlightColor="rgba(255, 255, 255, 0.95)"
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Achievement */}
-                <ScrollReveal delay={0.2}>
-                  <div className="glass-card p-8 group relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#EAEFFF] to-transparent opacity-40" />
-                    <span className="text-label text-[rgba(124,108,240,0.8)] mb-4 block">Recognition</span>
-                    <p className="text-white/50 text-sm md:text-base leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <ScrollReveal delay={0.3}>
+                  <div className="bento-card group">
+                    <Award className="text-cyan-400 mb-4 opacity-50 group-hover:opacity-100 transition-opacity" size={20} />
+                    <span className="hud-label mb-2 block text-cyan-400/60">Recognition</span>
+                    <p className="text-white/40 text-sm leading-relaxed">
                       {ABOUT_CONTENT.achievement}
                     </p>
                   </div>
-                </ScrollReveal>
-
-                {/* Education */}
-                <ScrollReveal delay={0.3}>
-                  <div className="glass-card p-8 group relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#9BAFFF] to-transparent opacity-40" />
-                    <span className="text-label text-[rgba(155,175,255,0.8)] mb-4 block">Education</span>
-                    <p className="text-white/50 text-sm md:text-base">
+               </ScrollReveal>
+               <ScrollReveal delay={0.4}>
+                  <div className="bento-card group">
+                    <GraduationCap className="text-cyan-500 mb-4 opacity-50 group-hover:opacity-100 transition-opacity" size={20} />
+                    <span className="hud-label mb-2 block text-cyan-400/60">Education</span>
+                    <p className="text-white/40 text-sm leading-relaxed">
                       {ABOUT_CONTENT.education}
                     </p>
                   </div>
+               </ScrollReveal>
+            </div>
+          </div>
+
+          {/* Stats & Profile Overlay (Span 5) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <div className="grid grid-cols-2 gap-6">
+              {ABOUT_CONTENT.stats.map((stat, i) => (
+                <ScrollReveal key={stat.label} delay={i * 0.1}>
+                  <StatBox label={stat.label} value={stat.value} index={i} />
                 </ScrollReveal>
-              </div>
+              ))}
             </div>
 
-            {/* Right — Stats & Profile Image */}
-            <div className="lg:sticky lg:top-32 relative z-10">
-              <div className="grid grid-cols-2 gap-6 md:gap-8 mb-12">
-                {ABOUT_CONTENT.stats.map((stat, i) => (
-                  <ScrollReveal key={stat.label} delay={i * 0.1}>
-                    <div className="glass-card p-6 md:p-10 flex flex-col items-center justify-center border-[rgba(234,239,255,0.08)] hover:border-[rgba(234,239,255,0.3)] transition-all">
-                      <StatCounter label={stat.label} value={stat.value} />
+            {/* Profile Visualization Piece */}
+            <ScrollReveal delay={0.5}>
+              <div className="bento-card p-0 overflow-hidden aspect-square md:aspect-video lg:aspect-square relative group">
+                 <div className="absolute inset-0 bg-[#0c0c1a] flex items-center justify-center">
+                    {/* Abstract HUD Wireframe Visualization */}
+                    <div className="relative w-48 h-48 md:w-64 md:h-64">
+                       <div className="absolute inset-0 border border-cyan-500/10 rounded-full animate-spin-slow" />
+                       <div className="absolute inset-4 border border-cyan-500/20 rounded-full animate-reverse-spin" style={{ animationDuration: '10s' }} />
+                       <div className="absolute inset-8 border-2 border-dashed border-cyan-500/5 rounded-full" />
+                       <div className="absolute inset-0 flex items-center justify-center">
+                          <Activity size={48} className="text-cyan-400/20 animate-pulse" />
+                       </div>
                     </div>
-                  </ScrollReveal>
-                ))}
+                    <div className="absolute bottom-8 left-8 right-8">
+                       <div className="flex items-center justify-between mb-2">
+                          <span className="text-[10px] font-mono text-cyan-500/40 tracking-[0.3em]">CORE_STABILITY</span>
+                          <span className="text-[10px] font-mono text-cyan-400">99.8%</span>
+                       </div>
+                       <div className="h-[2px] w-full bg-white/5 overflow-hidden">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            whileInView={{ width: '100%' }}
+                            transition={{ duration: 2, delay: 1 }}
+                            className="h-full bg-cyan-400" 
+                          />
+                       </div>
+                    </div>
+                 </div>
+                 <div className="absolute top-4 left-6 text-[9px] font-mono text-white/10 uppercase tracking-[0.5em]">SYSTEM_SCAN_ACTIVE</div>
               </div>
+            </ScrollReveal>
+          </div>
 
-              {/* Profile Image with Antimatter Glow */}
-              <ScrollReveal delay={0.4}>
-                <motion.div
-                  className="aspect-[4/5] rounded-[2rem] overflow-hidden glass-card p-1"
-                  style={{ scale: imageScale, opacity: imageOpacity }}
-                >
-                  <div className="w-full h-full rounded-[1.8rem] bg-[#0c0c1a] overflow-hidden relative group">
-                    {/* Placeholder gradient with glow orb */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#0c0c1a] via-[#12122b] to-[#0c0c1a]" />
-                    <div className="absolute -top-1/4 -left-1/4 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(124,108,240,0.1),transparent_70%)] group-hover:opacity-100 transition-opacity" />
-                    
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/5 border border-white/10 mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
-                          <span className="text-4xl md:text-5xl heading-italic-glow">ء</span>
-                        </div>
-                        <span className="text-label text-white/30 tracking-[0.3em]">Mohammad Hamza</span>
-                        <div className="w-8 h-[1px] bg-[rgba(234,239,255,0.3)] mx-auto mt-4" />
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

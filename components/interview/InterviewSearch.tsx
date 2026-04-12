@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, Shield } from 'lucide-react';
 
 interface InterviewSearchProps {
     searchQuery: string;
@@ -17,32 +17,41 @@ const InterviewSearch: React.FC<InterviewSearchProps> = ({
     categories
 }) => {
     return (
-        <section className="space-y-6 mb-12">
-            <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+        <section className="space-y-6">
+            <div className="flex flex-col gap-8">
+                {/* Search Input HUD */}
+                <div className="relative group">
+                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-cyan-500/40 group-focus-within:text-cyan-400 transition-colors" size={20} />
                     <input
                         type="text"
                         placeholder="Search questions, keywords, or technology tags..."
-                        className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white/5 border border-white/10 text-white outline-none focus:border-blue-500/50 transition-all placeholder:text-white/20"
+                        className="w-full pl-16 pr-6 py-5 rounded-lg bg-black/40 border border-white/5 text-white outline-none focus:border-cyan-500/30 transition-all placeholder:text-zinc-700 font-medium"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
-                </div>
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-white/40">
-                        <Filter size={18} />
+                    <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
+                       <span className="text-[9px] font-mono text-cyan-500/20 uppercase tracking-widest hidden sm:block">Filter_Mode_Ready</span>
+                       <Shield size={14} className="text-cyan-500/20" />
                     </div>
-                    <div className="flex gap-2">
+                </div>
+
+                {/* Category Filters HUD */}
+                <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-2 mb-2">
+                        <Filter size={14} className="text-cyan-500" />
+                        <span className="hud-label !text-[9px] opacity-60">Category_Selector</span>
+                    </div>
+                    <div className="flex gap-3 overflow-x-auto pb-4 no-scrollbar">
                         {categories.map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`px-5 py-3 rounded-xl text-xs font-bold tracking-wider uppercase transition-all whitespace-nowrap border ${
+                                className={`px-6 py-2.5 rounded border text-xs font-bold tracking-widest uppercase transition-all whitespace-nowrap ${
                                     selectedCategory === cat
-                                        ? 'bg-white text-black border-white'
-                                        : 'bg-white/5 text-white/50 border-white/10 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-cyan-500 text-black border-cyan-500 shadow-[0_0_15px_rgba(34,211,238,0.4)]'
+                                        : 'bg-white/5 text-white/40 border-white/5 hover:border-cyan-500/30 hover:text-white'
                                 }`}
+                                style={{ fontFamily: 'var(--font-heading)' }}
                             >
                                 {cat}
                             </button>

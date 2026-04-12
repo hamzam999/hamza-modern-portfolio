@@ -1,175 +1,123 @@
-import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Github, ExternalLink, Box, Tag, Layers } from 'lucide-react';
 import { PROJECTS } from '../constants';
-import { Project } from '../types';
-import MarqueeText from './MarqueeText';
 import ScrollReveal from './ScrollReveal';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const ProjectCard: React.FC<{ project: Project | null; index: number }> = ({ project, index }) => {
-  if (!project) {
-    // 3D Visuals Spacer (Antimatter style)
-    return <div className="horizontal-scroll-card h-full min-w-[30vw] md:min-w-[45vw]" />;
-  }
-
-  const num = String(index).padStart(2, '0');
-
+const ProjectCard = ({ project, index }: { project: any; index: number }) => {
+  const isEven = index % 2 === 0;
+  
   return (
-    <div className="horizontal-scroll-card h-full group/card">
-      <div className="glass-card h-full flex flex-col p-6 md:p-8 lg:p-10 relative transition-all duration-700">
-        {/* Glow effect */}
-        <div className="absolute inset-0 opacity-0 group-[.active]/card:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[inherit]"
-          style={{ background: 'radial-gradient(circle at 50% 0%, rgba(234, 239, 255, 0.1) 0%, transparent 70%)' }}
-        />
+    <ScrollReveal delay={index * 0.1}>
+      <motion.div 
+        whileHover={{ scale: 1.02 }}
+        className={`relative group mb-12 lg:mb-24 flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-16`}
+      >
+        {/* Project Image / Visual Block */}
+        <div className="w-full lg:w-1/2 relative aspect-video overflow-hidden border border-white/10 bg-zinc-900 group-hover:border-cyan-400/50 transition-all duration-500 rounded-lg">
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
+          
+          {/* Animated Scanlines for Image */}
+          <div className="absolute inset-0 scanlines opacity-0 group-hover:opacity-20 transition-opacity z-10" />
+          
+          {/* Mock Image Placeholder with Project Title */}
+          <div className="w-full h-full flex items-center justify-center bg-zinc-950">
+             <div className="text-zinc-800 text-6xl font-black select-none tracking-tighter uppercase opacity-20">
+               {project.title.split(' ')[0]}
+             </div>
+          </div>
 
-        {/* Top — Number + Arrow */}
-        <div className="flex justify-between items-start mb-6 md:mb-8 relative z-10">
-          <span className="number-outline reveal-text" style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}>
-            {num}
-          </span>
+          {/* HUD Brackets around image on hover */}
+          <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 z-20" />
+          <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-cyan-400 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 z-20" />
+        </div>
+
+        {/* Project Info */}
+        <div className="w-full lg:w-1/2 flex flex-col">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[10px] font-mono text-cyan-500/50">DATA_SET_{String(index + 1).padStart(2, '0')}</span>
+            <div className="h-px flex-grow bg-white/5" />
+          </div>
+
+          <h3 className="text-3xl md:text-4xl font-black text-white mb-4 group-hover:text-cyan-400 transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
+            {project.title}
+          </h3>
+
+          <p className="text-white/40 text-lg leading-relaxed mb-8">
+            {project.description}
+          </p>
+
+          {/* Tech Stack Chips */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.tech.map((t: string) => (
+              <span key={t} className="px-3 py-1 border border-white/5 bg-white/[0.02] text-[10px] font-bold text-white/30 uppercase tracking-[0.1em] rounded group-hover:border-cyan-400/20 group-hover:text-white/60 transition-all">
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Impact Stats / Highlights */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {project.impact.slice(0, 2).map((item: string, i: number) => (
+              <div key={i} className="flex gap-3 text-xs text-white/30 leading-relaxed p-3 border border-white/5 rounded">
+                <Layers size={14} className="text-cyan-500/30 flex-shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Action Link */}
           {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
+            <a 
+              href={project.link} 
+              target="_blank" 
               rel="noopener noreferrer"
-              className="arrow-icon group-hover:border-[rgba(124,108,240,0.5)] group-hover:shadow-[0_0_16px_rgba(124,108,240,0.3)]"
+              className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-cyan-400 hover:text-white transition-colors group/link"
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
-              <ArrowUpRight size={16} className="text-white/40 group-hover:text-white transition-colors" />
+              <span>Access Direct Link</span>
+              <ArrowUpRight size={14} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
             </a>
           )}
         </div>
-
-        {/* Title */}
-        <h3 className="heading-card text-white mb-3 relative z-10 reveal-text" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)' }}>
-          {project.title}
-        </h3>
-
-        {/* Description */}
-        <p className="text-white/35 text-sm md:text-base leading-relaxed mb-6 flex-1 relative z-10 reveal-text">
-          {project.description}
-        </p>
-
-        {/* Impact Bullets — Wave Animation */}
-        <ul className="space-y-2 mb-6 relative z-10">
-          {project.impact.slice(0, 3).map((item, i) => (
-            <li
-              key={i}
-              className="reveal-stagger flex items-start gap-2 text-white/30 text-xs md:text-sm leading-relaxed"
-              style={{ transitionDelay: `${i * 100}ms` }}
-            >
-              <div className="mt-1.5 shrink-0">
-                <div className="w-1 h-1 rounded-full bg-[rgba(234,239,255,0.6)]" />
-              </div>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Bottom — Tech Tags */}
-        <div className="mt-auto relative z-10 border-t border-[rgba(234,239,255,0.08)] pt-4 reveal-text">
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map((t) => (
-              <span key={t} className="pill-tag text-[10px]">{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+      </motion.div>
+    </ScrollReveal>
   );
 };
 
 const Work = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !scrollContainerRef.current) return;
-
-    const scrollContainer = scrollContainerRef.current;
-    const totalWidth = scrollContainer.scrollWidth - window.innerWidth;
-    const cards = scrollContainer.querySelectorAll('.horizontal-scroll-card');
-
-    const ctx = gsap.context(() => {
-      // Main horizontal animation
-      const scrollTween = gsap.to(scrollContainer, {
-        x: -totalWidth,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: () => `+=${totalWidth}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
-
-      // Active state triggers for each card
-      cards.forEach((card) => {
-        if (card.children.length === 0) return; // Skip spacer
-
-        ScrollTrigger.create({
-          containerAnimation: scrollTween,
-          trigger: card,
-          start: "left center+=20%",
-          end: "right center-=20%",
-          onToggle: (self) => {
-            if (self.isActive) card.classList.add('active');
-            else card.classList.remove('active');
-          }
-        });
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <>
-      <MarqueeText text="PORTFOLIO" className="py-4 md:py-8" speed={20} />
-      <section id="section-work" ref={sectionRef} className="relative min-h-screen overflow-hidden flex flex-col">
-        {/* Marquee Divider */}
-
-        {/* Header */}
-        <div className="section-content px-4 md:px-8 pt-12">
-          <ScrollReveal>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              <div>
-                <span className="text-label text-[rgba(234,239,255,0.7)] mb-4 block">Portfolio</span>
-                <h2 className="heading-section text-white">
-                  Selected <span className="heading-italic-glow">Work</span>
-                </h2>
-              </div>
-              <p className="text-white/35 text-base md:text-lg max-w-md leading-relaxed">
-                Engineered for impact across e-commerce, Web3, and SaaS.
-              </p>
+    <section id="section-work" className="py-24 md:py-32 bg-[#0A0A0B] relative">
+      <div className="absolute inset-0 bg-grid-tech opacity-5" />
+      
+      <div className="section-content px-6 relative z-10">
+        <ScrollReveal>
+          <div className="mb-24">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-4 bg-cyan-400" />
+              <span className="hud-label">Production.Archive</span>
             </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Horizontal Scroll Container — Center Aligned */}
-        <div className="flex-1 flex items-center">
-          <div
-            ref={scrollContainerRef}
-            className="horizontal-scroll-container flex items-center py-12 md:py-20"
-            style={{ height: 'min(800px, 70vh)' }}
-          >
-            {/* Antimatter style: Start with an empty space for 3D visuals */}
-            <ProjectCard project={null} index={-1} />
-            {PROJECTS.slice(0, 8).map((project, idx) => (
-              <ProjectCard key={project.title} project={project} index={idx + 1} />
-            ))}
-            {/* End spacer for balance */}
-            <ProjectCard project={null} index={-1} />
+            <h2 className="heading-section text-white max-w-2xl">
+              Selected <span className="text-cyan-400">Implementations.</span>
+            </h2>
+            <p className="text-white/30 max-w-lg mt-6 text-lg">
+              A curated selection of mission-critical platforms and experiences architected for maximum business impact.
+            </p>
           </div>
+        </ScrollReveal>
+
+        <div className="space-y-0">
+          {PROJECTS.map((project, idx) => (
+            <ProjectCard key={project.title} project={project} index={idx} />
+          ))}
         </div>
-      </section>
-    </>
+        
+        {/* Symmetric Divider Decorative Line */}
+        <div className="flex justify-center mt-24">
+          <div className="h-24 w-px bg-gradient-to-b from-cyan-400 to-transparent" />
+        </div>
+      </div>
+    </section>
   );
 };
 
