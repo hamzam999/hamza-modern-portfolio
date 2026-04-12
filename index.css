@@ -5,19 +5,19 @@
 
 /* ---------- Custom Properties ---------- */
 :root {
-  --bg: #050510;
-  --bg-card: #0c0c1a;
-  --text: #F8FAFC;
-  --text-muted: rgba(255, 255, 255, 0.4);
-  --text-ghost: rgba(255, 255, 255, 0.06);
-  --accent-primary: #7c6cf0;
+  --bg: #101010;
+  --bg-card: #151520;
+  --text: #EAEFFF;
+  --text-muted: rgba(234, 239, 255, 0.4);
+  --text-ghost: rgba(234, 239, 255, 0.04);
+  --accent-primary: #EAEFFF;
   --accent-secondary: #9BAFFF;
-  --accent-glow: rgba(124, 108, 240, 0.2);
-  --accent-glow-strong: rgba(124, 108, 240, 0.4);
-  --gradient-text: linear-gradient(135deg, #fff 0%, #9BAFFF 40%, #7c6cf0 60%, #9BAFFF 80%, #fff 100%);
-  --gradient-glow: radial-gradient(circle, rgba(124, 108, 240, 0.15) 0%, transparent 70%);
-  --card-bg: rgba(255, 255, 255, 0.02);
-  --card-border: rgba(124, 108, 240, 0.12);
+  --accent-glow: rgba(234, 239, 255, 0.12);
+  --accent-glow-strong: rgba(234, 239, 255, 0.3);
+  --gradient-text: linear-gradient(135deg, #fff 0%, #9BAFFF 50%, #EAEFFF 100%);
+  --gradient-glow: radial-gradient(circle, rgba(234, 239, 255, 0.12) 0%, transparent 70%);
+  --card-bg: rgba(255, 255, 255, 0.015);
+  --card-border: rgba(234, 239, 255, 0.08);
   --card-radius: 1.5rem;
   --max-width: 1400px;
   --section-padding: clamp(2rem, 6vw, 8rem);
@@ -82,6 +82,7 @@ body {
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.03em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .heading-card {
@@ -179,6 +180,7 @@ body {
   letter-spacing: -0.02em;
   padding-right: 2rem;
   flex-shrink: 0;
+  text-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes marquee-scroll {

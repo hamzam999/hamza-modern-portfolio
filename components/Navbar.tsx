@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { Menu, X, BookOpen } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SECTION_MAP, SOCIAL_LINKS } from '../constants';
 
 const NAV_ITEMS = SECTION_MAP.filter(s => s.label !== 'Home');
@@ -11,6 +12,8 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const lastScrollRef = useRef(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { scrollYProgress } = useScroll();
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -28,29 +31,54 @@ const Navbar = () => {
       }
       lastScrollRef.current = scrollY;
 
-      // Active section detection
-      const sections = SECTION_MAP.map(s => document.getElementById(s.id));
-      const viewportCenter = scrollY + window.innerHeight / 3;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = sections[i];
-        if (el && el.offsetTop <= viewportCenter) {
-          setActiveSection(SECTION_MAP[i].id);
-          break;
+      // Active section detection (only on home page)
+      if (location.pathname === '/') {
+        const sections = SECTION_MAP.map(s => document.getElementById(s.id));
+        const viewportCenter = scrollY + window.innerHeight / 3;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = sections[i];
+          if (el && el.offsetTop <= viewportCenter) {
+            setActiveSection(SECTION_MAP[i].id);
+            break;
+          }
         }
+      } else {
+        setActiveSection('');
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const scrollToSection = (id: string) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: id } });
+      setMobileMenuOpen(false);
+      return;
+    }
+
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
       setMobileMenuOpen(false);
     }
   };
+
+  // Effect to handle scrolling when navigating back to home page
+  useEffect(() => {
+    if (location.pathname === '/' && location.state && (location.state as any).scrollTo) {
+      const targetId = (location.state as any).scrollTo;
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      // Clear state after scrolling
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.pathname, location.state]);
 
   return (
     <>
@@ -64,7 +92,7 @@ const Navbar = () => {
       >
         <div
           className={`max-w-4xl mx-auto rounded-full transition-all duration-500 ${
-            isScrolled
+            isScrolled || location.pathname !== '/'
               ? 'bg-black/60 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
               : 'bg-transparent'
           }`}
@@ -105,13 +133,34 @@ const Navbar = () => {
                   <span className="relative z-10">{item.label}</span>
                 </button>
               ))}
+              
+              {/* Interview Tool Link */}
+              <Link
+                to="/interview-framework"
+                className={`relative px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wider uppercase transition-all flex items-center gap-1.5 ${
+                  location.pathname === '/interview-framework'
+                    ? 'text-white'
+                    : 'text-white/40 hover:text-white/70'
+                }`}
+              >
+                {location.pathname === '/interview-framework' && (
+                  <motion.div
+                    layoutId="activeNav"
+                    className="absolute inset-0 bg-white/10 rounded-full"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-1">
+                  <BookOpen size={11} /> Interview Tool
+                </span>
+              </Link>
             </div>
 
             {/* CTA + Mobile Toggle */}
             <div className="flex items-center gap-3">
               <a
                 href={`mailto:${SOCIAL_LINKS.email}`}
-                className="hidden sm:block px-4 py-2 bg-white text-black rounded-full text-[10px] font-bold uppercase tracking-wider hover:bg-blue-500 hover:text-white transition-all duration-300"
+                className="hidden sm:block px-4 py-2 bg-[#EAEFFF] text-[#101010] rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300"
               >
                 Let's Build!
               </a>
@@ -125,11 +174,13 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Progress Bar */}
-          <motion.div
-            className="absolute bottom-0 left-6 right-6 h-[1px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 origin-left"
-            style={{ width: progressWidth }}
-          />
+          {/* Progress Bar (only on portfolio) */}
+          {location.pathname === '/' && (
+            <motion.div
+              className="absolute bottom-0 left-6 right-6 h-[1px] rounded-full bg-gradient-to-r from-[#EAEFFF] via-[#9BAFFF] to-[#EAEFFF] origin-left"
+              style={{ width: progressWidth }}
+            />
+          )}
         </div>
 
         {/* Mobile Menu */}
@@ -155,9 +206,22 @@ const Navbar = () => {
                     {item.label}
                   </button>
                 ))}
+                <Link
+                  to="/interview-framework"
+                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                    location.pathname === '/interview-framework'
+                      ? 'text-white bg-white/10'
+                      : 'text-white/50 hover:text-white hover:bg-white/5'
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <BookOpen size={14} /> Interview Tool
+                  </span>
+                </Link>
                 <a
                   href={`mailto:${SOCIAL_LINKS.email}`}
-                  className="block w-full text-center py-3 mt-2 bg-white text-black rounded-xl font-bold text-xs uppercase tracking-widest"
+                  className="block w-full text-center py-3 mt-2 bg-[#EAEFFF] text-[#101010] rounded-xl font-bold text-xs uppercase tracking-widest"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Let's Build!

@@ -16,29 +16,13 @@ const CTA = () => {
   const ghostY = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
   return (
-    <section id="section-cta" ref={sectionRef} className="section-full relative overflow-hidden bg-[#02020a]">
+    <section id="section-cta" ref={sectionRef} className="section-full relative overflow-hidden">
       {/* Glow Orbs — Large Finale Glows */}
       <div className="glow-orb glow-orb-purple" style={{ width: '1000px', height: '1000px', bottom: '-400px', left: '50%', transform: 'translateX(-50%)', opacity: 0.2 }} />
       <div className="glow-orb glow-orb-blue" style={{ width: '800px', height: '800px', top: '10%', left: '50%', transform: 'translateX(-50%)', opacity: 0.1 }} />
 
       <div className="section-content text-center relative z-10 py-20">
-        {/* Ghost Background — Antimatter-style visible ghost text */}
-        <motion.div 
-          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-          style={{ y: ghostY }}
-        >
-          <span
-            className="text-[18vw] font-black tracking-tighter leading-none"
-            style={{
-              fontFamily: 'var(--font-heading)',
-              color: 'rgba(124, 108, 240, 0.03)',
-              userSelect: 'none'
-            }}
-            aria-hidden="true"
-          >
-            BUILD
-          </span>
-        </motion.div>
+
 
         <motion.div style={{ scale, opacity }}>
           <ScrollReveal>
@@ -65,9 +49,9 @@ const CTA = () => {
               {/* CTA Button — Oversized Glowy Button */}
               <a
                 href={`mailto:${SOCIAL_LINKS.email}`}
-                className="group relative px-14 py-8 bg-gradient-to-r from-[#7c6cf0] to-[#5a4ed4] text-white rounded-full font-bold text-sm md:text-base uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_50px_rgba(124,108,240,0.4)]"
+                className="group relative px-14 py-8 bg-[#EAEFFF] text-[#101010] rounded-full font-bold text-sm md:text-base uppercase tracking-[0.3em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_50px_rgba(234,239,255,0.4)]"
               >
-                <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10 flex items-center gap-4">
                   Initiate Conversation
                   <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -83,7 +67,7 @@ const CTA = () => {
                   className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                  <Linkedin size={24} className="text-white/40 group-hover:text-[#EAEFFF] transition-colors" />
                 </a>
                 <a
                   href={SOCIAL_LINKS.github}
@@ -92,14 +76,14 @@ const CTA = () => {
                   className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
                   aria-label="GitHub"
                 >
-                  <Github size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                  <Github size={24} className="text-white/40 group-hover:text-[#EAEFFF] transition-colors" />
                 </a>
                 <a
                   href={`mailto:${SOCIAL_LINKS.email}`}
                   className="p-5 glass-card rounded-2xl hover:border-[rgba(124,108,240,0.4)] hover:shadow-[0_0_20px_rgba(124,108,240,0.15)] transition-all hover:-translate-y-1.5 relative group"
                   aria-label="Email"
                 >
-                  <Mail size={24} className="text-white/40 group-hover:text-white transition-colors" />
+                  <Mail size={24} className="text-white/40 group-hover:text-[#EAEFFF] transition-colors" />
                 </a>
               </div>
             </div>

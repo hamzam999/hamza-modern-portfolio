@@ -27,11 +27,11 @@ const ExperienceCard: React.FC<{ exp: typeof EXPERIENCES[0]; index: number; tota
             <span className="number-outline reveal-text" style={{ fontSize: 'clamp(4rem, 12vw, 10rem)', lineHeight: 0.8 }}>
               {String(index + 1).padStart(2, '0')}
             </span>
-            <div className="absolute top-1/2 left-full ml-6 md:ml-12 w-12 md:w-24 h-[1px] bg-[rgba(124,108,240,0.3)]" />
+            <div className="absolute top-1/2 left-full ml-6 md:ml-12 w-12 md:w-24 h-[1px] bg-[rgba(234,239,255,0.2)]" />
           </div>
 
           {exp.period && (
-            <span className="inline-block px-6 py-3 rounded-full text-[0.7rem] md:text-[0.8rem] font-black tracking-[0.3em] uppercase text-[rgba(155,175,255,0.9)] bg-[rgba(124,108,240,0.15)] border border-[rgba(124,108,240,0.25)] mb-8 md:mb-12 shadow-[0_0_20px_rgba(124,108,240,0.1)] reveal-text">
+            <span className="inline-block px-6 py-3 rounded-full text-[0.7rem] md:text-[0.8rem] font-black tracking-[0.3em] uppercase text-[rgba(234,239,255,0.9)] bg-[rgba(234,239,255,0.08)] border border-[rgba(234,239,255,0.15)] mb-8 md:mb-12 shadow-[0_0_20px_rgba(234,239,255,0.05)] reveal-text">
               {exp.period}
             </span>
           )}
@@ -46,7 +46,7 @@ const ExperienceCard: React.FC<{ exp: typeof EXPERIENCES[0]; index: number; tota
                 </span>
             ))}
           </h3>
-          <p className="text-label text-[rgba(124,108,240,0.6)] mb-12 reveal-text" style={{ letterSpacing: '0.25em', fontSize: 'clamp(0.75rem, 1.2vw, 0.9rem)' }}>
+          <p className="text-label text-[rgba(234,239,255,0.6)] mb-12 reveal-text" style={{ letterSpacing: '0.25em', fontSize: 'clamp(0.75rem, 1.2vw, 0.9rem)' }}>
             {exp.company} — <span className="opacity-60">{exp.location}</span>
           </p>
 
@@ -58,7 +58,7 @@ const ExperienceCard: React.FC<{ exp: typeof EXPERIENCES[0]; index: number; tota
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="mt-2.5 shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-[rgba(124,108,240,0.5)] shadow-[0_0_12px_rgba(124,108,240,0.6)]" />
+                  <div className="w-2 h-2 rounded-full bg-[rgba(234,239,255,0.4)] shadow-[0_0_12px_rgba(234,239,255,0.3)]" />
                 </div>
                 <span>{detail}</span>
               </li>
@@ -118,7 +118,7 @@ const ExperienceTimeline = () => {
   }, []);
 
   return (
-    <section id="section-experience" className="relative bg-[#02020a] overflow-hidden">
+    <section id="section-experience" className="relative overflow-hidden">
       {/* Marquee Divider */}
       <MarqueeText text="EXPERIENCE" className="py-4 md:py-8" speed={38} reverse />
 
@@ -134,7 +134,7 @@ const ExperienceTimeline = () => {
       </div>
 
       {/* Decorative vertical line in the center for depth */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-b from-transparent via-[rgba(124,108,240,0.1)] to-transparent pointer-events-none" />
+      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-b from-transparent via-[rgba(234,239,255,0.06)] to-transparent pointer-events-none" />
     </section>
   );
 };

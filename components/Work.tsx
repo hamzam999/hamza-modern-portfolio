@@ -23,7 +23,7 @@ const ProjectCard: React.FC<{ project: Project | null; index: number }> = ({ pro
       <div className="glass-card h-full flex flex-col p-6 md:p-8 lg:p-10 relative transition-all duration-700">
         {/* Glow effect */}
         <div className="absolute inset-0 opacity-0 group-[.active]/card:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[inherit]"
-          style={{ background: 'radial-gradient(circle at 50% 0%, rgba(124, 108, 240, 0.15) 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle at 50% 0%, rgba(234, 239, 255, 0.1) 0%, transparent 70%)' }}
         />
 
         {/* Top — Number + Arrow */}
@@ -62,7 +62,7 @@ const ProjectCard: React.FC<{ project: Project | null; index: number }> = ({ pro
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <div className="mt-1.5 shrink-0">
-                <div className="w-1 h-1 rounded-full bg-[rgba(124,108,240,0.6)]" />
+                <div className="w-1 h-1 rounded-full bg-[rgba(234,239,255,0.6)]" />
               </div>
               <span>{item}</span>
             </li>
@@ -70,7 +70,7 @@ const ProjectCard: React.FC<{ project: Project | null; index: number }> = ({ pro
         </ul>
 
         {/* Bottom — Tech Tags */}
-        <div className="mt-auto relative z-10 border-t border-[rgba(124,108,240,0.08)] pt-4 reveal-text">
+        <div className="mt-auto relative z-10 border-t border-[rgba(234,239,255,0.08)] pt-4 reveal-text">
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t) => (
               <span key={t} className="pill-tag text-[10px]">{t}</span>
@@ -132,7 +132,7 @@ const Work = () => {
   return (
     <>
       <MarqueeText text="PORTFOLIO" className="py-4 md:py-8" speed={20} />
-      <section id="section-work" ref={sectionRef} className="relative min-h-screen bg-[#02020a] overflow-hidden flex flex-col">
+      <section id="section-work" ref={sectionRef} className="relative min-h-screen overflow-hidden flex flex-col">
         {/* Marquee Divider */}
 
         {/* Header */}
@@ -140,7 +140,7 @@ const Work = () => {
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
-                <span className="text-label text-[rgba(124,108,240,0.7)] mb-4 block">Portfolio</span>
+                <span className="text-label text-[rgba(234,239,255,0.7)] mb-4 block">Portfolio</span>
                 <h2 className="heading-section text-white">
                   Selected <span className="heading-italic-glow">Work</span>
                 </h2>

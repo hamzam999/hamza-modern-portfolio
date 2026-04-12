@@ -8,7 +8,7 @@ import ScrollReveal from './ScrollReveal';
 const CATEGORY_META: Record<string, { icon: React.ReactNode; color: string; description: string }> = {
   'Frontend': {
     icon: <Code2 size={24} />,
-    color: '#7c6cf0',
+    color: '#EAEFFF',
     description: 'Specializing in React, Next.js, and immersive 3D experiences. High-performance storefronts and scalable UI architecture.',
   },
   'Web3 / Blockchain': {
@@ -18,14 +18,14 @@ const CATEGORY_META: Record<string, { icon: React.ReactNode; color: string; desc
   },
   'Tools & Platform': {
     icon: <Wrench size={24} />,
-    color: '#a78bfa',
+    color: '#EAEFFF',
     description: 'Leveraging modern CI/CD, version control, and collaborative tooling for precise delivery across all domains.',
   },
 };
 
 const TechFoundation = () => {
   return (
-    <section id="section-tech" className="relative overflow-hidden bg-[#02020a]">
+    <section id="section-tech" className="relative overflow-hidden">
       {/* Background Glow Orbs */}
       <div className="glow-orb glow-orb-purple" style={{ width: '600px', height: '600px', top: '10%', right: '-100px' }} />
       <div className="glow-orb glow-orb-blue" style={{ width: '400px', height: '400px', bottom: '20%', left: '-50px' }} />
@@ -38,7 +38,7 @@ const TechFoundation = () => {
           {/* Header */}
           <ScrollReveal>
             <div className="text-center mb-16 md:mb-24">
-              <span className="text-label text-[rgba(124,108,240,0.7)] mb-4 block tracking-[0.25em]">Expertise</span>
+              <span className="text-label text-[rgba(234,239,255,0.7)] mb-4 block tracking-[0.25em]">Expertise</span>
               <h2 className="heading-section text-white mb-4">
                 Tech <span className="heading-italic-glow">Stack.</span>
               </h2>

@@ -44,7 +44,7 @@ const About = () => {
   const contentY = useTransform(scrollYProgress, [0, 0.4], [100, 0]);
 
   return (
-    <section id="section-about" ref={sectionRef} className="relative overflow-hidden bg-[#02020a]">
+    <section id="section-about" ref={sectionRef} className="relative overflow-hidden">
       {/* Background Glows */}
       <div className="glow-orb glow-orb-purple" style={{ width: '800px', height: '800px', top: '20%', left: '-200px' }} />
       <div className="glow-orb glow-orb-blue" style={{ width: '600px', height: '600px', bottom: '10%', right: '-150px' }} />
@@ -63,8 +63,8 @@ const About = () => {
             <div className="relative z-10">
               <ScrollReveal>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-[1px] bg-[rgba(124,108,240,0.5)]" />
-                  <span className="text-label text-[rgba(155,175,255,0.8)] tracking-[0.2em]">Who I Am</span>
+                  <div className="w-12 h-[1px] bg-[rgba(234,239,255,0.2)]" />
+                  <span className="text-label text-[rgba(234,239,255,0.8)] tracking-[0.2em]">Who I Am</span>
                 </div>
                 <h2 className="heading-section text-white mb-8">
                   Engineering <span className="heading-italic-glow">Business Impact.</span>
@@ -82,7 +82,7 @@ const About = () => {
                 {/* Achievement */}
                 <ScrollReveal delay={0.2}>
                   <div className="glass-card p-8 group relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#7c6cf0] to-transparent opacity-40" />
+                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#EAEFFF] to-transparent opacity-40" />
                     <span className="text-label text-[rgba(124,108,240,0.8)] mb-4 block">Recognition</span>
                     <p className="text-white/50 text-sm md:text-base leading-relaxed">
                       {ABOUT_CONTENT.achievement}
@@ -108,7 +108,7 @@ const About = () => {
               <div className="grid grid-cols-2 gap-6 md:gap-8 mb-12">
                 {ABOUT_CONTENT.stats.map((stat, i) => (
                   <ScrollReveal key={stat.label} delay={i * 0.1}>
-                    <div className="glass-card p-6 md:p-10 flex flex-col items-center justify-center border-[rgba(124,108,240,0.1)] hover:border-[rgba(124,108,240,0.3)] transition-all">
+                    <div className="glass-card p-6 md:p-10 flex flex-col items-center justify-center border-[rgba(234,239,255,0.08)] hover:border-[rgba(234,239,255,0.3)] transition-all">
                       <StatCounter label={stat.label} value={stat.value} />
                     </div>
                   </ScrollReveal>
@@ -132,7 +132,7 @@ const About = () => {
                           <span className="text-4xl md:text-5xl heading-italic-glow">ء</span>
                         </div>
                         <span className="text-label text-white/30 tracking-[0.3em]">Mohammad Hamza</span>
-                        <div className="w-8 h-[1px] bg-[rgba(124,108,240,0.5)] mx-auto mt-4" />
+                        <div className="w-8 h-[1px] bg-[rgba(234,239,255,0.3)] mx-auto mt-4" />
                       </div>
                     </div>
                   </div>
