@@ -1,140 +1,102 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERIENCES } from '../constants';
-import MarqueeText from './MarqueeText';
 import ScrollReveal from './ScrollReveal';
+import TextHighlight from './TextHighlight';
+import { History, MapPin, Milestone, Box } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const ExperienceCard: React.FC<{ exp: typeof EXPERIENCES[0]; index: number; total: number }> = ({ exp, index, total }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
+const ExperienceCard = ({ exp, index }: { exp: typeof EXPERIENCES[0]; index: number }) => {
   return (
-    <div
-      className="experience-card-fullscreen w-full flex flex-col items-center justify-center p-6 md:p-20 relative transition-all duration-1000"
-      style={{ zIndex: index + 1 }}
-      ref={cardRef}
-    >
-      {/* Glass Card Container — Uniform Size & Wider Desktop */}
-      <div className="experience-glass-wrapper glass-card w-full max-w-7xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16 relative z-10 shadow-2xl transition-all duration-1000"
-           style={{ minHeight: 'min(700px, 75vh)' }}>
+    <ScrollReveal delay={index * 0.1}>
+      <div className="relative pl-12 md:pl-24 mb-32 group">
         
-        {/* Left side: Timeline/Number */}
-        <div className="md:w-1/4 flex flex-col items-center md:items-start p-6 md:p-16 md:pb-0">
-          <div className="relative mb-8 md:mb-12">
-            <span className="number-outline reveal-text" style={{ fontSize: 'clamp(4rem, 12vw, 10rem)', lineHeight: 0.8 }}>
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div className="absolute top-1/2 left-full ml-6 md:ml-12 w-12 md:w-24 h-[1px] bg-[rgba(124,108,240,0.3)]" />
+        {/* Terminal Node Marker */}
+        <div className="absolute left-[-2px] md:left-[2px] top-0 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black border border-emerald/30 rounded-full group-hover:border-emerald group-hover:scale-110 transition-all z-20 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          <div className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
+        </div>
+
+        {/* Content Console */}
+        <div className="bg-black/50 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-white/5 relative overflow-hidden group-hover:border-emerald/20 transition-all duration-500 hover:shadow-2xl">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          {/* Header Metadata */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="flex flex-col">
+              <span className="text-[11px] font-mono text-emerald uppercase tracking-widest mb-3 flex items-center gap-2">
+                <span className="text-white/30">{`~/usr/local/`}</span>{exp.location}
+              </span>
+              <h3 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter" style={{ fontFamily: 'var(--font-heading)' }}>
+                {exp.role}
+              </h3>
+            </div>
+            <div className="flex flex-col md:items-end text-left md:text-right">
+              <span className="text-lg md:text-xl font-bold text-white mb-1 tracking-tight">{exp.company}</span>
+              <span className="text-[11px] font-mono text-white/40 uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">{exp.period}</span>
+            </div>
           </div>
 
-          {exp.period && (
-            <span className="inline-block px-6 py-3 rounded-full text-[0.7rem] md:text-[0.8rem] font-black tracking-[0.3em] uppercase text-[rgba(155,175,255,0.9)] bg-[rgba(124,108,240,0.15)] border border-[rgba(124,108,240,0.25)] mb-8 md:mb-12 shadow-[0_0_20px_rgba(124,108,240,0.1)] reveal-text">
-              {exp.period}
-            </span>
-          )}
-        </div>
-
-        {/* Right side: Content */}
-        <div className="md:w-3/4 p-6 md:p-16 md:pl-0">
-          <h3 className="heading-card text-white mb-4 pr-12 reveal-text font-black leading-tight" style={{ fontSize: 'clamp(2rem, 6vw, 4.5rem)' }}>
-            {exp.role.split(' ').map((word, i) => (
-                <span key={i} className={word.toLowerCase().includes('engineer') || word.toLowerCase().includes('dev') ? 'heading-italic-glow' : ''} style={{ paddingRight: '0.2em' }}>
-                  {word}{' '}
-                </span>
-            ))}
-          </h3>
-          <p className="text-label text-[rgba(124,108,240,0.6)] mb-12 reveal-text" style={{ letterSpacing: '0.25em', fontSize: 'clamp(0.75rem, 1.2vw, 0.9rem)' }}>
-            {exp.company} — <span className="opacity-60">{exp.location}</span>
-          </p>
-
-          <ul className="space-y-6 md:space-y-8">
-            {exp.details.map((detail, i) => (
-              <li 
-                key={i} 
-                className="reveal-stagger flex items-start gap-6 text-white/50 text-sm md:text-xl leading-relaxed group/li hover:text-white/90 transition-colors"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="mt-2.5 shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-[rgba(124,108,240,0.5)] shadow-[0_0_12px_rgba(124,108,240,0.6)]" />
-                </div>
-                <span>{detail}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Details / Task List as Terminal Logs */}
+          <div className="space-y-6">
+            <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest flex items-center gap-3">
+              <div className="w-6 h-px bg-white/10" />
+              <span>exec ./fetch_responsibilities.sh</span>
+            </div>
+            
+            <ul className="flex flex-col gap-4">
+              {exp.details.map((detail, i) => (
+                <li key={i} className="flex gap-4 text-[13px] md:text-[15px] font-mono text-white/60 leading-relaxed group/item transition-colors items-start">
+                  <span className="text-emerald mt-1 flex-shrink-0">{`>`}</span>
+                  <span className="group-hover/item:text-white transition-colors tracking-tight">
+                    {detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Decorative Terminal Footer */}
+          <div className="absolute bottom-6 right-6 text-[10px] text-white/10 font-mono select-none hidden md:block group-hover:text-emerald/20 transition-colors">
+            Process exited with code 0
+          </div>
         </div>
       </div>
-    </div>
+    </ScrollReveal>
   );
 };
 
 const ExperienceTimeline = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const sections = containerRef.current.querySelectorAll('.experience-card-fullscreen');
-
-    // Create a context for GSAP
-    const ctx = gsap.context(() => {
-      // Pin and Track Active State
-      sections.forEach((section, i) => {
-        // Pinning logic
-        if (i !== sections.length - 1) {
-          ScrollTrigger.create({
-            trigger: section,
-            start: "top top",
-            pin: true,
-            pinSpacing: false,
-          });
-        }
-
-        // Active State logic
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top center",
-          end: "bottom center",
-          onToggle: (self) => {
-            if (self.isActive) {
-              section.classList.add('active');
-              // Blur others
-              sections.forEach((other, j) => {
-                if (i !== j) other.classList.add('card-blur-background');
-              });
-            } else {
-              section.classList.remove('active');
-              // Unblur if no others are active (simple cleanup)
-              sections.forEach((other) => other.classList.remove('card-blur-background'));
-            }
-          }
-        });
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
+  
   return (
-    <section id="section-experience" className="relative bg-[#02020a] overflow-hidden">
-      {/* Marquee Divider */}
-      <MarqueeText text="EXPERIENCE" className="py-4 md:py-8" speed={38} reverse />
+    <section id="section-experience" className="py-24 md:py-32 relative bg-background">
+      {/* Background Perspective Lines */}
+      <div className="absolute inset-0 bg-grid-tech opacity-10 pointer-events-none" />
 
-      <div ref={containerRef} className="relative">
-        {EXPERIENCES.map((exp, idx) => (
-          <ExperienceCard
-            key={idx}
-            exp={exp}
-            index={idx}
-            total={EXPERIENCES.length}
-          />
-        ))}
+      <div className="section-content px-6 relative z-10 max-w-7xl mx-auto">
+        <ScrollReveal>
+          <div className="mb-32">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-4 bg-emerald" />
+              <span className="hud-label tracking-widest text-emerald">Runtime.Logs</span>
+            </div>
+            <h2 className="heading-section text-white text-5xl md:text-8xl tracking-tighter mix-blend-difference">
+              Professional <span className="text-emerald">Journey.</span>
+            </h2>
+            <div className="text-white/50 max-w-lg mt-8 text-lg md:text-xl font-light font-heading leading-relaxed">
+              <TextHighlight text="Tracing architectural decisions and system scale operations spanning a 6+ year timeline." highlightColor="#10B981" />
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="max-w-5xl relative pl-0 md:ml-12">
+          {/* Dynamic Road Line (Vertical) */}
+          <div className="absolute left-4 md:left-[21px] top-12 bottom-0 w-[2px] bg-white/5 bg-gradient-to-b from-emerald/50 via-white/5 to-transparent shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+          
+          {EXPERIENCES.map((exp, idx) => (
+            <ExperienceCard key={idx} exp={exp} index={idx} />
+          ))}
+        </div>
       </div>
-
-      {/* Decorative vertical line in the center for depth */}
-      <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-gradient-to-b from-transparent via-[rgba(124,108,240,0.1)] to-transparent pointer-events-none" />
     </section>
   );
 };
