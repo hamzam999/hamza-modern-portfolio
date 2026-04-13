@@ -22,6 +22,13 @@ const InterviewTool: React.FC = () => {
         });
     }, [searchQuery, selectedCategory]);
 
+    const [visibleCount, setVisibleCount] = useState(10);
+
+    // Reset visible count when filters change
+    useEffect(() => {
+        setVisibleCount(10);
+    }, [searchQuery, selectedCategory]);
+
     const activeIndex = useMemo(() => {
         if (!activeQuestionId) return -1;
         return filteredQuestions.findIndex(q => q.id === activeQuestionId);
@@ -39,6 +46,26 @@ const InterviewTool: React.FC = () => {
         }
     };
 
+    // Ensure the active item is always visible
+    useEffect(() => {
+        if (activeIndex >= visibleCount) {
+            setVisibleCount(activeIndex + 10);
+        }
+    }, [activeIndex, visibleCount]);
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const { scrollTop, clientHeight, scrollHeight } = e.currentTarget;
+        if (scrollHeight - scrollTop <= clientHeight + 100) {
+            if (visibleCount < filteredQuestions.length) {
+                setVisibleCount(prev => prev + 10);
+            }
+        }
+    };
+
+    const displayedQuestions = useMemo(() => {
+        return filteredQuestions.slice(0, visibleCount);
+    }, [filteredQuestions, visibleCount]);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -55,10 +82,10 @@ const InterviewTool: React.FC = () => {
 
                 <InterviewHeader />
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative lg:h-[calc(100vh-160px)] lg:min-h-[700px] mt-8">
-
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative h-[calc(100vh-150px)] min-h-[600px] lg:h-[calc(100vh-160px)] lg:min-h-[700px] mt-8 mb-24">
+                    
                     {/* LEFT PANE: Search & List */}
-                    <div className="lg:col-span-5 xl:col-span-4 h-auto lg:h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden backdrop-blur-md">
+                    <div className="lg:col-span-5 xl:col-span-4 h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden backdrop-blur-md">
                         {/* Sticky Search Header */}
                         <div className="p-6 border-b border-white/5 bg-black/40 backdrop-blur-md z-10 sticky top-0">
                             <InterviewSearch
@@ -71,9 +98,13 @@ const InterviewTool: React.FC = () => {
                         </div>
 
                         {/* Scrollable List */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar" data-lenis-prevent="true">
+                        <div 
+                            className="flex-1 overflow-y-auto custom-scrollbar" 
+                            data-lenis-prevent="true"
+                            onScroll={handleScroll}
+                        >
                             <InterviewList
-                                questions={filteredQuestions}
+                                questions={displayedQuestions}
                                 activeQuestionId={activeQuestionId}
                                 onSelectQuestion={setActiveQuestionId}
                                 onClearFilters={() => { setSearchQuery(""); setSelectedCategory("All"); }}
