@@ -1,13 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Monitor, Zap, Box as BoxIcon, ChevronUp, Terminal, Key } from 'lucide-react';
+import { Monitor, Zap, Box as BoxIcon, ChevronUp, ChevronDown, Terminal, Key } from 'lucide-react';
 import InterviewHeader from '../components/interview/InterviewHeader';
 import InterviewSearch from '../components/interview/InterviewSearch';
 import InterviewList from '../components/interview/InterviewList';
+import InterviewDetailPane from '../components/interview/InterviewDetailPane';
 import { INTERVIEW_DATA, CATEGORIES } from '../interviewData';
 
 const InterviewTool: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [activeQuestionId, setActiveQuestionId] = useState<number | string | null>(null);
 
     const filteredQuestions = useMemo(() => {
         return INTERVIEW_DATA.filter(item => {
@@ -20,6 +22,23 @@ const InterviewTool: React.FC = () => {
         });
     }, [searchQuery, selectedCategory]);
 
+    const activeIndex = useMemo(() => {
+        if (!activeQuestionId) return -1;
+        return filteredQuestions.findIndex(q => q.id === activeQuestionId);
+    }, [activeQuestionId, filteredQuestions]);
+
+    const handleNext = () => {
+        if (activeIndex !== -1 && activeIndex < filteredQuestions.length - 1) {
+            setActiveQuestionId(filteredQuestions[activeIndex + 1].id);
+        }
+    };
+
+    const handlePrev = () => {
+        if (activeIndex > 0) {
+            setActiveQuestionId(filteredQuestions[activeIndex - 1].id);
+        }
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -31,30 +50,48 @@ const InterviewTool: React.FC = () => {
             <div className="fixed inset-0 scanlines opacity-10 pointer-events-none" />
             <div className="fixed inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.02)_0%,transparent_100%)] pointer-events-none" />
 
-            <main className="max-w-5xl mx-auto px-6 py-24 relative z-10">
-                <div className="flex items-center gap-3 mb-8">
-                   <div className="p-2 bg-cyan-500/10 border border-cyan-500/20 rounded">
-                      <Key size={18} className="text-cyan-400" />
-                   </div>
-                   <span className="hud-label opacity-40">System_Access: Interview_Framework_v3.0</span>
-                </div>
+            <main className="max-w-7xl mx-auto px-6 py-24 relative z-10 min-h-screen">
+
 
                 <InterviewHeader />
-                
-                <div className="my-12 glass-console p-8 rounded-xl hud-border">
-                    <InterviewSearch 
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                        selectedCategory={selectedCategory}
-                        setSelectedCategory={setSelectedCategory}
-                        categories={CATEGORIES}
-                    />
-                </div>
 
-                <InterviewList 
-                    questions={filteredQuestions}
-                    onClearFilters={() => { setSearchQuery(""); setSelectedCategory("All"); }}
-                />
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative lg:h-[calc(100vh-160px)] lg:min-h-[700px] mt-8">
+
+                    {/* LEFT PANE: Search & List */}
+                    <div className="lg:col-span-5 xl:col-span-4 h-auto lg:h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden backdrop-blur-md">
+                        {/* Sticky Search Header */}
+                        <div className="p-6 border-b border-white/5 bg-black/40 backdrop-blur-md z-10 sticky top-0">
+                            <InterviewSearch
+                                searchQuery={searchQuery}
+                                setSearchQuery={setSearchQuery}
+                                selectedCategory={selectedCategory}
+                                setSelectedCategory={setSelectedCategory}
+                                categories={CATEGORIES}
+                            />
+                        </div>
+
+                        {/* Scrollable List */}
+                        <div className="flex-1 overflow-y-auto custom-scrollbar" data-lenis-prevent="true">
+                            <InterviewList
+                                questions={filteredQuestions}
+                                activeQuestionId={activeQuestionId}
+                                onSelectQuestion={setActiveQuestionId}
+                                onClearFilters={() => { setSearchQuery(""); setSelectedCategory("All"); }}
+                                onNext={activeIndex < filteredQuestions.length - 1 ? handleNext : undefined}
+                                onPrev={activeIndex > 0 ? handlePrev : undefined}
+                            />
+                        </div>
+                    </div>
+
+                    {/* RIGHT PANE: Details Card */}
+                    <div className="hidden lg:block lg:col-span-7 xl:col-span-8 h-full">
+                        <InterviewDetailPane
+                            question={activeQuestionId ? filteredQuestions.find(q => q.id === activeQuestionId) || null : null}
+                            onNext={activeIndex < filteredQuestions.length - 1 ? handleNext : undefined}
+                            onPrev={activeIndex > 0 ? handlePrev : undefined}
+                        />
+                    </div>
+                </div>
 
                 <footer className="mt-32 pt-12 border-t border-white/5 text-center space-y-12 pb-24">
                     <div className="flex justify-center flex-wrap gap-12">
@@ -77,7 +114,7 @@ const InterviewTool: React.FC = () => {
                             <span className="hud-label !text-[9px] opacity-40 group-hover:opacity-100 transition-opacity">System Design Focus</span>
                         </div>
                     </div>
-                    
+
                     <div className="flex flex-col items-center gap-2">
                         <Terminal size={14} className="text-cyan-500/20" />
                         <p className="text-[10px] font-mono !tracking-[0.4em] text-zinc-700 uppercase">

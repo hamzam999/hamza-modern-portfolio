@@ -6,26 +6,26 @@ const Footer = () => (
   <footer className="py-12 md:py-24 bg-[#0A0A0B] border-t border-white/5 relative overflow-hidden">
     {/* Decorative Terminal Accent */}
     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-    
+
     <div className="section-content px-6 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-        
+
         {/* Brand/Status */}
         <div className="flex flex-col gap-6 w-full md:w-1/3">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-              <Terminal size={16} className="text-cyan-400" />
+              <span className=" text-xl">ء</span>
             </div>
             <span className="text-xl font-black tracking-tighter text-white uppercase" style={{ fontFamily: 'var(--font-heading)' }}>
-              HAMZA.SYS
+              Er. HAMZA
             </span>
           </div>
           <p className="text-zinc-600 text-sm leading-relaxed max-w-xs uppercase tracking-wider font-medium">
             Engineering high-performance web solutions for the decentralized future.
           </p>
           <div className="flex items-center gap-4">
-             <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-             <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-widest">System_Status: Standby</span>
+            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="text-[10px] font-mono text-cyan-500/40 uppercase tracking-widest">System_Status: Standby</span>
           </div>
         </div>
 

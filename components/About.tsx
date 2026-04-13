@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ABOUT_CONTENT } from '../constants';
 import ScrollReveal from './ScrollReveal';
+import TextHighlight from './TextHighlight';
 import { User, Award, GraduationCap, Cpu, Fingerprint, Activity } from 'lucide-react';
 
 const StatBox = ({ label, value, index }: { label: string; value: string; index: number }) => {
@@ -44,9 +45,9 @@ const About = () => {
                   <Fingerprint size={18} />
                   <span className="text-[10px] font-mono uppercase tracking-widest">Identity_Authorized</span>
                 </div>
-                <p className="text-white/60 text-lg md:text-xl font-medium leading-relaxed italic border-l-2 border-cyan-500/20 pl-8">
-                  {ABOUT_CONTENT.bio}
-                </p>
+                <div className="text-white/60 text-lg md:text-xl font-medium leading-relaxed italic border-l-2 border-emerald/20 pl-8 font-heading">
+                  <TextHighlight text={ABOUT_CONTENT.bio} highlightColor="#ffffff" />
+                </div>
                 <div className="absolute top-4 right-6 flex gap-1">
                   <div className="w-1 h-1 rounded-full bg-cyan-400 animate-pulse" />
                   <div className="w-1 h-1 rounded-full bg-cyan-400/50" />

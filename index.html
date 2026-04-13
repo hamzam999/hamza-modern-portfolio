@@ -6,6 +6,40 @@
     <title>Mohammad Hamza | Senior Frontend & Web3 Engineer</title>
     <meta name="description" content="Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, and immersive 3D web experiences.">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: 'var(--bg)',
+              card: 'var(--bg-card)',
+              primary: 'var(--text)',
+              muted: 'var(--text-muted)',
+              emerald: 'var(--accent-emerald)',
+              blue: 'var(--accent-blue)',
+            },
+            fontFamily: {
+              heading: 'var(--font-heading)',
+              mono: 'var(--font-body)',
+            },
+            animation: {
+              'marquee': 'marquee 30s linear infinite',
+              'marquee-reverse': 'marquee-reverse 30s linear infinite',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              'marquee-reverse': {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(0%)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">

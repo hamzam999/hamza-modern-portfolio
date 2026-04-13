@@ -88,16 +88,14 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: isHidden ? -100 : 0 }}
         transition={{ duration: 0.3 }}
-        className={`fixed top-4 left-4 right-4 z-[100] transition-all duration-300 ${
-          isScrolled ? 'md:top-3' : 'md:top-6'
-        }`}
+        className={`fixed top-4 left-4 right-4 z-[100] transition-all duration-300 ${isScrolled ? 'md:top-3' : 'md:top-6'
+          }`}
       >
         <div
-          className={`max-w-5xl mx-auto glass-console transition-all duration-500 overflow-hidden hud-border ${
-            isScrolled || location.pathname !== '/'
-              ? 'rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]'
-              : 'rounded-2xl'
-          }`}
+          className={`max-w-5xl mx-auto glass-console transition-all duration-500 overflow-hidden hud-border ${isScrolled || location.pathname !== '/'
+            ? 'rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.8)]'
+            : 'rounded-2xl'
+            }`}
         >
           <div className="flex items-center justify-between px-4 md:px-8 py-3">
             {/* Logo Section */}
@@ -107,16 +105,16 @@ const Navbar = () => {
             >
               <div className="relative">
                 <div className="w-8 h-8 flex items-center justify-center bg-cyan-500/10 border border-cyan-500/30 group-hover:border-cyan-400 group-hover:bg-cyan-500/20 transition-all rounded">
-                  <Terminal size={16} className="text-cyan-400" />
+                  <span className="text-xl">ء</span>
                 </div>
                 <div className="absolute -inset-1 bg-cyan-500/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="flex flex-col items-start leading-none hidden sm:flex">
                 <span className="text-[10px] font-bold text-cyan-500/60 uppercase tracking-widest mb-0.5" style={{ fontFamily: 'var(--font-heading)' }}>
-                  System.Admin
+                  Er.
                 </span>
                 <span className="text-sm font-black tracking-tighter text-white" style={{ fontFamily: 'var(--font-heading)' }}>
-                  HAMZA.SYS
+                  HAMZA
                 </span>
               </div>
             </button>
@@ -130,9 +128,8 @@ const Navbar = () => {
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`group relative flex flex-col items-center px-4 py-1.5 transition-all ${
-                      isActive ? 'text-cyan-400' : 'text-white/40 hover:text-white/80'
-                    }`}
+                    className={`group relative flex flex-col items-center px-4 py-1.5 transition-all ${isActive ? 'text-cyan-400' : 'text-white/40 hover:text-white/80'
+                      }`}
                   >
                     <div className="flex items-center gap-2 mb-0.5">
                       <Icon size={14} className={isActive ? 'text-cyan-400' : 'text-white/40 group-hover:text-cyan-400/70 transition-colors'} />
@@ -149,16 +146,15 @@ const Navbar = () => {
                   </button>
                 );
               })}
-              
+
               <div className="w-px h-6 bg-white/10 mx-2" />
 
               <Link
                 to="/interview-framework"
-                className={`flex items-center gap-2 px-4 py-1.5 transition-all text-[11px] font-bold tracking-[0.2em] uppercase ${
-                  location.pathname === '/interview-framework'
-                    ? 'text-cyan-400'
-                    : 'text-white/40 hover:text-white/80'
-                }`}
+                className={`flex items-center gap-2 px-4 py-1.5 transition-all text-[11px] font-bold tracking-[0.2em] uppercase ${location.pathname === '/interview-framework'
+                  ? 'text-cyan-400'
+                  : 'text-white/40 hover:text-white/80'
+                  }`}
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 <BookOpen size={14} />
@@ -174,7 +170,7 @@ const Navbar = () => {
               >
                 <div className="absolute inset-0 bg-cyan-500 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300" />
                 <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.3em] text-cyan-400 group-hover:text-black transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
-                  Initialize Contact
+                  Hire Me
                 </span>
                 <div className="relative z-10 w-1.5 h-1.5 rounded-full bg-cyan-400 group-hover:bg-black animate-pulse" />
               </a>
@@ -245,7 +241,7 @@ const Navbar = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ fontFamily: 'var(--font-heading)' }}
                 >
-                  Terminate & Connect
+                  Hire Me
                 </a>
               </div>
             </motion.div>
