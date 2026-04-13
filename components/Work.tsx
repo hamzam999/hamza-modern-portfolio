@@ -126,7 +126,7 @@ const Work = () => {
       </div>
 
       {/* Horizontal Scroll Track */}
-      <div className="relative z-10 flex h-full items-center mt-24">
+      <div className="relative z-10 flex h-full items-center mt-24 md:mt-80">
         <div ref={scrollWrapperRef} className="flex pl-6 md:pl-12 pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             // @ts-ignore
