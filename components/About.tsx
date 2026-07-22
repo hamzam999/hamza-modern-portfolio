@@ -40,12 +40,12 @@ const About = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <div className="glass-console p-10 rounded-xl hud-border relative mb-12">
-                <div className="flex items-center gap-3 mb-6 text-cyan-500/40">
+              <div className="glass-console sm:p-10 rounded-xl hud-border relative mb-8 md:mb-12">
+                <div className="flex items-center gap-3 mb-4 md:mb-6 text-cyan-500/40">
                   <Fingerprint size={18} />
                   <span className="text-[10px] font-mono uppercase tracking-widest">Identity_Authorized</span>
                 </div>
-                <div className="text-white/60 text-lg md:text-xl font-medium leading-relaxed italic border-l-2 border-emerald/20 pl-8 font-heading">
+                <div className="text-white/60 text-base md:text-xl font-medium leading-relaxed border-l-2 border-emerald/20 pl-4 md:pl-8 font-heading">
                   <TextHighlight text={ABOUT_CONTENT.bio} highlightColor="#ffffff" />
                 </div>
                 <div className="absolute top-4 right-6 flex gap-1">
@@ -79,8 +79,8 @@ const About = () => {
           </div>
 
           {/* Stats & Profile Overlay (Span 5) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="grid grid-cols-2 gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-4 md:gap-6">
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
               {ABOUT_CONTENT.stats.map((stat, i) => (
                 <ScrollReveal key={stat.label} delay={i * 0.1}>
                   <StatBox label={stat.label} value={stat.value} index={i} />
@@ -93,18 +93,18 @@ const About = () => {
               <div className="bento-card p-0 overflow-hidden aspect-square md:aspect-video lg:aspect-square relative group">
                  <div className="absolute inset-0 bg-[#0c0c1a] flex items-center justify-center">
                     {/* Abstract HUD Wireframe Visualization */}
-                    <div className="relative w-48 h-48 md:w-64 md:h-64">
+                    <div className="relative w-36 h-36 sm:w-48 sm:h-48 md:w-64 md:h-64">
                        <div className="absolute inset-0 border border-cyan-500/10 rounded-full animate-spin-slow" />
                        <div className="absolute inset-4 border border-cyan-500/20 rounded-full animate-reverse-spin" style={{ animationDuration: '10s' }} />
                        <div className="absolute inset-8 border-2 border-dashed border-cyan-500/5 rounded-full" />
                        <div className="absolute inset-0 flex items-center justify-center">
-                          <Activity size={48} className="text-cyan-400/20 animate-pulse" />
+                          <Activity className="text-cyan-400/20 animate-pulse w-9 h-9 md:w-12 md:h-12" />
                        </div>
                     </div>
-                    <div className="absolute bottom-8 left-8 right-8">
+                    <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8">
                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-mono text-cyan-500/40 tracking-[0.3em]">CORE_STABILITY</span>
-                          <span className="text-[10px] font-mono text-cyan-400">99.8%</span>
+                          <span className="text-[9px] md:text-[10px] font-mono text-cyan-500/40 tracking-[0.2em] md:tracking-[0.3em]">CORE_STABILITY</span>
+                          <span className="text-[9px] md:text-[10px] font-mono text-cyan-400">99.8%</span>
                        </div>
                        <div className="h-[2px] w-full bg-white/5 overflow-hidden">
                           <motion.div 
@@ -116,7 +116,7 @@ const About = () => {
                        </div>
                     </div>
                  </div>
-                 <div className="absolute top-4 left-6 text-[9px] font-mono text-white/10 uppercase tracking-[0.5em]">SYSTEM_SCAN_ACTIVE</div>
+                 <div className="absolute top-4 left-6 text-[8px] md:text-[9px] font-mono text-white/10 uppercase tracking-[0.3em] md:tracking-[0.5em]">SYSTEM_SCAN_ACTIVE</div>
               </div>
             </ScrollReveal>
           </div>
