@@ -99,8 +99,8 @@ const Navbar = () => {
         >
           <div className="flex items-center justify-between px-4 md:px-8 py-3">
             {/* Logo Section */}
-            <button
-              onClick={() => scrollToSection('section-hero')}
+            <Link
+              to="/"
               className="flex items-center gap-3 group"
             >
               <div className="relative">
@@ -117,7 +117,7 @@ const Navbar = () => {
                   HAMZA
                 </span>
               </div>
-            </button>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1 xl:gap-2">

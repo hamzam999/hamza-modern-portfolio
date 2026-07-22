@@ -21,7 +21,7 @@ export default function App() {
             />
 
             <Navbar />
-            <BackgroundSystem />
+            {/* <BackgroundSystem /> */}
 
             {/* Contrast Shield — Tuned for Cyber Cyan */}
             <div className="fixed inset-0 z-[5] pointer-events-none bg-[radial-gradient(circle_at_center,rgba(10,10,11,0.2)_0%,rgba(10,10,11,0.8)_100%)]" />

@@ -36,7 +36,7 @@ const TextHighlight: FC<TextHighlightProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.85', 'start 0.3'],
+    offset: ['start 0.45', 'start 0.1'],
   });
 
   const words = text.split(' ');

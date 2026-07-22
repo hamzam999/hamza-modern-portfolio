@@ -40,13 +40,13 @@ const CTA = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <p className="text-white/40 text-lg md:text-xl max-w-2xl mx-auto mb-20 leading-relaxed font-medium">
+            <p className="text-white/40 text-base md:text-xl max-w-2xl mx-auto mb-12 md:mb-20 leading-relaxed font-medium">
               Ready to take your platform to the next level? Currently available for selective engineering collaborations and high-impact technical leadership.
             </p>
           </ScrollReveal>
 
           <ScrollReveal delay={0.4}>
-            <div className="flex flex-col items-center gap-16">
+            <div className="flex flex-col items-center gap-12 md:gap-16">
               
               {/* Button HUD Wrapper */}
               <div className="relative group">
@@ -55,11 +55,11 @@ const CTA = () => {
                 
                 <a
                   href={`mailto:${SOCIAL_LINKS.email}`}
-                  className="group relative flex items-center gap-6 px-16 py-8 bg-cyan-500 text-black font-black text-sm md:text-base uppercase tracking-[0.4em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_80px_rgba(34,211,238,0.4)] rounded-sm"
+                  className="group relative flex items-center gap-4 sm:gap-6 px-8 py-4 sm:px-16 sm:py-8 bg-cyan-500 text-black font-black text-xs md:text-base uppercase tracking-[0.25em] md:tracking-[0.4em] transition-all hover:scale-105 active:scale-95 overflow-hidden shadow-[0_0_80px_rgba(34,211,238,0.4)] rounded-sm cursor-pointer"
                   style={{ fontFamily: 'var(--font-heading)' }}
                 >
                   <span className="relative z-10">Start Session</span>
-                  <ArrowRight size={20} className="relative z-10 group-hover:translate-x-2 transition-transform duration-300" />
+                  <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform duration-300 w-4 h-4 md:w-5 md:h-5" />
                   
                   {/* Internal Glitch Overlay on Hover */}
                   <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
@@ -67,7 +67,7 @@ const CTA = () => {
               </div>
 
               {/* Technical Statistics Overlay */}
-              <div className="flex flex-wrap items-center justify-center gap-12 md:gap-24 uppercase font-bold tracking-[0.3em] text-white/20 text-[10px] md:text-[11px]">
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-24 uppercase font-bold tracking-[0.15em] md:tracking-[0.3em] text-white/20 text-[9px] md:text-[11px]">
                   <div className="flex items-center gap-3">
                     <Cpu size={14} className="text-cyan-500/40" />
                     <span>Uptime: 99.9%</span>

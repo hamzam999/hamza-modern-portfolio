@@ -15,10 +15,10 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       <motion.div
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="relative group flex flex-col lg:flex-row bg-white/[0.01] border border-white/5 backdrop-blur-sm rounded-3xl overflow-hidden hover:border-blue/30 hover:bg-white/[0.03] transition-all duration-500 shadow-2xl h-[70vh] lg:h-[65vh]"
+        className="relative group flex flex-col lg:flex-row bg-white/[0.01] border border-white/5 backdrop-blur-sm rounded-3xl overflow-hidden hover:border-blue/30 hover:bg-white/[0.03] transition-all duration-500 shadow-2xl h-fit lg:h-[65vh]"
       >
         {/* Project Image Panel */}
-        <div className="w-full lg:w-1/2 relative overflow-hidden bg-black/50 border-b lg:border-b-0 lg:border-r border-white/5">
+        <div className="hidden lg:block w-full lg:w-1/2 relative overflow-hidden bg-black/50 border-b lg:border-b-0 lg:border-r border-white/5">
           <div className="absolute inset-0 bg-gradient-to-br from-blue/10 to-emerald/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10" />
 
           <div className="w-full h-full flex items-center justify-center p-8">
@@ -29,23 +29,23 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
 
         {/* Project Info Panel */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-between p-8 md:p-12">
+        <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 md:p-12">
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4 md:mb-6">
               <span className="text-xs font-mono text-emerald/70 bg-emerald/10 px-3 py-1 rounded-full border border-emerald/20">LOG_{String(index + 1).padStart(2, '0')}</span>
               <div className="h-px w-12 bg-white/10" />
             </div>
 
-            <h3 className="text-4xl md:text-5xl font-black text-white mb-6 group-hover:text-blue transition-colors duration-500 font-heading tracking-tight">
+            <h3 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-4 md:mb-6 group-hover:text-blue transition-colors duration-500 font-heading tracking-tight">
               {project.title}
             </h3>
 
-            <p className="text-white/50 text-lg leading-relaxed mb-8 font-light">
+            <p className="text-white/50 text-base md:text-lg leading-relaxed mb-6 md:mb-8 font-light">
               {project.description}
             </p>
 
             {/* Tech Stack Chips */}
-            <div className="flex flex-wrap gap-2 mb-8">
+            <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
               {project.tech.map((t: string) => (
                 <span key={t} className="px-3 py-1.5 border border-white/5 bg-white/[0.02] text-[10px] font-mono text-white/40 uppercase tracking-widest rounded-lg group-hover:border-blue/20 group-hover:text-white/80 transition-all">
                   {t}
@@ -66,12 +66,12 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
           {/* Action Link */}
           {project.link && (
-            <div className="mt-8 pt-6 border-t border-white/5">
+            <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/5">
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest text-emerald hover:text-white transition-colors group/link font-heading"
+                className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-widest text-emerald hover:text-white transition-colors group/link font-heading cursor-pointer"
               >
                 <span>Launch Project</span>
                 <ArrowUpRight size={16} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
@@ -113,7 +113,7 @@ const Work = () => {
       <div className="absolute inset-0 bg-grid-tech opacity-10 pointer-events-none" />
 
       {/* Absolute Header Overlay */}
-      <div className="absolute top-24 left-6 md:left-12 z-20 pointer-events-none">
+      <div className="absolute top-16 md:top-24 left-6 md:left-12 z-20 pointer-events-none">
         <ScrollReveal>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-1 h-4 bg-emerald" />
@@ -126,7 +126,7 @@ const Work = () => {
       </div>
 
       {/* Horizontal Scroll Track */}
-      <div className="relative z-10 flex h-full items-center mt-24 md:mt-80">
+      <div className="relative z-10 flex h-[calc(100vh-10rem)] md:h-[calc(100vh-20rem)] items-center mt-40 md:mt-80">
         <div ref={scrollWrapperRef} className="flex pl-6 md:pl-12 pr-[50vw]">
           {PROJECTS.map((project, idx) => (
             // @ts-ignore
