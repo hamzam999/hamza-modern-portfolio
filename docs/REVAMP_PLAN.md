@@ -34,6 +34,7 @@ Conventions used throughout:
 11. Testing plan
 12. Risks and open questions for the owner
 13. Appendices: CSS tokens, TypeScript data types, screenshot spec sheet, project data
+14. Execution status protocol
 
 ---
 
@@ -1238,7 +1239,7 @@ Intent groups and where each is targeted. "Primary" terms appear in titles and H
 | React and Next.js | React developer; Next.js developer | freelance React developer; remote Next.js developer; Next.js performance optimization | Angular to Next.js migration; offline-first Next.js app with IndexedDB sync | L3 H2, `/projects/unified-trading-crm`, `/projects/codeslytic-budget`, `/projects/muftimaaz` |
 | 3D and WebGL | Three.js developer; WebGL developer | GSAP scroll animation developer; GLSL shader developer | Three.js scroll particle website; GPU particle animation in GLSL | L3 branch "3D & Animation", `/projects/navig`, `/projects/motiongrid` |
 | Shopify | Shopify developer | Shopify Functions developer; Shopify checkout extensions developer; Shopify theme customization; Online Store 2.0 Dawn developer | Shopify checkout payment and delivery customization; Shopify Atelier theme custom sections | L3 branch "Shopify", `/projects/lammles`, `/projects/berbanto-atelier`, `/projects/nighat-ahmad-official`, `/projects/hefashion` |
-| Web3 | Web3 frontend developer | Solana frontend developer; crypto trading dashboard developer; dApp frontend developer | multi-signature wallet frontend React; ERC-721 and ERC-1155 NFT marketplace frontend; eSIM Web3 MVP with embedded wallets | L3 branch "Web3 & Blockchain", `/projects/dex-cex-multisig-wallet`, `/projects/nft-marketplace`, `/projects/gesim` |
+| Web3 | Web3 frontend developer | Solana frontend developer; crypto trading dashboard developer; dApp frontend developer | multi-signature wallet frontend React; ERC-721 and ERC-1155 NFT marketplace on Base; eSIM Web3 MVP with embedded wallets | L3 branch "Web3 & Blockchain", `/projects/dex-cex-multisig-wallet`, `/projects/nft-marketplace`, `/projects/gesim` |
 | Freelance and remote | freelance frontend developer; remote frontend developer | hire React developer; contract frontend engineer | hire freelance Shopify developer India | L6 H2 and lead, `/` description |
 | Location | frontend developer India | frontend developer Kanpur | React developer India remote for global clients | L2 quick facts, Person JSON-LD `address` |
 | ERP and services | ERPNext developer; WordPress developer | WordPress booking plugin; ERPNext customization for manufacturing; n8n automation | WordPress multilingual holiday rental site | `/projects/bookease`, `/projects/promenade-medulin`, `/projects/erpnext-manufacturing`, `/projects/ai-agent-team` |
@@ -1502,7 +1503,7 @@ This site is his portfolio. Every project below has its own page with a plain-la
 
 - [GeSIM](https://erhamza.tech/projects/gesim): built the first web MVP in React, mainly the blockchain integration (wallet connection, purchases, transactions and status), and worked on blockchain integration in the React Native mobile app; the product offers global eSIM data and privacy tools (React, React Native)
 - [DEX/CEX trading dashboards and multi-signature wallet](https://erhamza.tech/projects/dex-cex-multisig-wallet): live trading screens for crypto exchanges, and a multi-signature wallet that needs approvals from a minimum number of owners before any transaction (React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK); private
-- [NFT marketplace](https://erhamza.tech/projects/nft-marketplace): marketplace supporting ERC-721 and ERC-1155 with minting and trading flows, lazy minting, auctions and creator dashboards; the project has since shut down
+- [NFT marketplace](https://erhamza.tech/projects/nft-marketplace): marketplace with ERC-721 and ERC-1155 contracts on Base, plus Sui and Solana support alongside; minting and trading flows, lazy minting, auctions and creator dashboards; the project has since shut down
 
 ## Projects: full-stack and product
 
@@ -1642,7 +1643,7 @@ Goal: a clean, strict, Tailwind-v4 Vite app under `src/` that still serves the c
 
 | ID | Task | Files touched | Group |
 |---|---|---|---|
-| P0-1 | Install and remove dependencies (2.2); add scripts (10.0); copy the reference file to `docs/reference/directions.html`; add `.gitignore` entries for `dist-ssr/`, `test-results/` and `playwright-report/` (keep `media-src/fonts/*.ttf` tracked, because the font scripts need it) | `package.json`, `package-lock.json`, `.gitignore`, `docs/reference/directions.html` | Seq |
+| P0-1 | Install and remove dependencies (2.2); add scripts (10.0); copy the reference file to `docs/reference/directions.html`; create `docs/DEV_STATUS.md` per Section 14; add `.gitignore` entries for `dist-ssr/`, `test-results/` and `playwright-report/` (keep `media-src/fonts/*.ttf` tracked, because the font scripts need it) | `package.json`, `package-lock.json`, `.gitignore`, `docs/reference/directions.html` | Seq |
 | P0-2 | Move sources under `src/` (`App.tsx`, `index.tsx` to `main.tsx`, `pages/`, `components/`, `interviewData.ts`, `constants.tsx`, `types.ts`); update the `@` alias in `vite.config.ts` and `tsconfig.json`; remove the Gemini `define`; clean `index.html` (remove CDN script, importmap, Google Fonts, decorative divs; add `viewport-fit=cover`, `theme-color #ECE8E0`, `<!--app-head-->` and `<!--app-html-->` markers) | listed files | Seq |
 | P0-3 | Install Tailwind v4 via `@tailwindcss/vite`; create `src/styles/app.css` with `@import "tailwindcss"` and the temporary legacy `@theme` mappings (3.6) so the interview page renders; delete `index.css` after porting the few rules the interview page uses | `vite.config.ts`, `src/styles/app.css`, `src/main.tsx` | A |
 | P0-4 | Delete dead code listed in 2.1 (after copying the Earlier work source text into `EARLIER_WORK`); move old screenshots per 2.3; replace `design-system/hamza-portfolio-revamp/MASTER.md` content with a pointer to this plan; delete `metadata.json` | deletions, `media-src/` | A |
@@ -1892,35 +1893,35 @@ For each: first load feels instant; no horizontal wobble; the address bar collap
 
 ### 12.1 Open questions for the owner
 
-Status as of revision 2. Numbers are kept from revision 1; answered items show the owner's answer, which agents treat as fact.
+Status as of revision 2. Numbers are kept from revision 1; answered items show the owner's answer, which agents treat as fact. **Nothing here blocks development:** the owner chose to run the build on the defaults in the last column and to confirm the remaining items after the build. Every default lives in a content file (`src/content/*`) or `src/seo/site.ts`, so a later answer is a data edit, not a code change. Owner actions A1 to A3 (resume PDF, links) are also non-blocking: the resume link stays hidden until `public/resume.pdf` exists.
 
 | # | Question | Status and answer | Default or action now |
 |---|---|---|---|
 | Q1 | Production domain? | **Answered:** `https://erhamza.tech`. The email `erhamza.dev@gmail.com` is the email only, not the domain. | `VITE_SITE_URL` default, canonicals, sitemap, JSON-LD and llms files all use `erhamza.tech` |
-| Q2 | Year for each project | **Partly answered:** year ranges inferred from resume roles where the resume ties a project to a role (Appendix D, marked "inferred") | Others show "TBC"; `dateCreated` only for confirmed years |
-| Q3 | Your role on each project | **Partly answered:** roles stated for CodesLytic (solo developer), NAVIG (owned frontend architecture and design direction), GeSIM, Studio Solyn, ERPNext (mapped workflow, built custom frontend app) from the resume and owner answers | "Owner to confirm" for the rest |
+| Q2 | Year for each project | **Partly answered:** year ranges inferred from resume roles where the resume ties a project to a role (Appendix D, marked "inferred"). Rest: default in use; owner to confirm after build | Others show "TBC"; `dateCreated` only for confirmed years |
+| Q3 | Your role on each project | **Partly answered:** roles stated for CodesLytic (solo developer), NAVIG (owned frontend architecture and design direction), GeSIM, Studio Solyn, ERPNext (mapped workflow, built custom frontend app) from the resume and owner answers. Rest: default in use; owner to confirm after build | "Owner to confirm" for the rest |
 | Q4 | May private projects be named; Valerie Group assessment | **Answered:** the Valerie Group assessment (SkyAI) project is **removed entirely** (not on the site, not in any generated file). Private entries stay unnamed as planned. | Closed |
 | Q5 | GeSIM stack and contribution | **Answered:** React and React Native. Built the first MVP (web app) in React, mainly the blockchain integration: transactions, status, purchase, wallet connection. Also worked on the React Native mobile app for blockchain integration. Resume: "Built web and mobile MVP with embedded wallets and blockchain identity flows." Product features (190+ countries, VPN and so on) are labeled as product scope. | Closed |
 | Q6 | Promenade Medulin theme | **Answered:** Kadence theme with a custom child theme built on top of it. | Stack: WordPress, Kadence + custom child theme, PHP, custom plugin, custom post types, JSON translations, 5 languages. Closed |
-| Q7 | Public name and domain for "downtownsfashion.com / hefashion.in" | Open | Title "HE Fashion", link `https://hefashion.in` |
+| Q7 | Public name and domain for "downtownsfashion.com / hefashion.in" | **Default in use; owner to confirm after build** | Title "HE Fashion", link `https://hefashion.in` |
 | Q8 | Studio Solyn contribution | **Answered:** designed all the mobile screens of the whole website, because it was initially built for desktop only. | Closed (see new Q22) |
-| Q9 | AI agent team tool names (Paperclip, Hermes) and public listing | **Partly answered:** the resume lists "multi-agent workflows (Paperclip, Hermes)", so the names are confirmed as spelled | Listed; still marked "in testing" |
-| Q10 | NFT marketplace: show old screenshot; keep page? | Open | Page exists, "Out of print", no link; screenshot only if confirmed |
+| Q9 | AI agent team tool names (Paperclip, Hermes) and public listing | **Partly answered:** the resume lists "multi-agent workflows (Paperclip, Hermes)", so the names are confirmed as spelled. Rest: default in use; owner to confirm after build | Listed; still marked "in testing" |
+| Q10 | NFT marketplace: show old screenshot; keep page? | **Default in use; owner to confirm after build** | Page exists, "Out of print", no link; screenshot only if confirmed |
 | Q11 | Old projects not in the CSV | **Answered:** drop from shelf and index; keep as a plain "Earlier work / Out of print" list with no tapes, pages or links. Louis Cardin = UAE-based perfume brand launched in India; Sedef Anatolia = inspired-perfume brand from India; Slurvo and WanHam Leathers from old repo text. | Implemented in 5.4a (Bizthon Cursor included, as it is in the old data) |
 | Q12 | Which resume to publish | **Answered:** v6, as `/resume.pdf`. | **Action A1 (owner):** v6 contains the phone number; export a phone-free copy of v6 and save it as `public/resume.pdf`. Agents must not copy the original PDF into `public/` and must not edit the PDF themselves. The resume link stays hidden until the phone-free file exists. |
 | Q13 | Contact details and `sameAs` | **Answered from resume v6:** email `erhamza.dev@gmail.com`; LinkedIn, GitHub and Portfolio links (the PDF shows them as hyperlinks only, so exact URLs come from `constants.tsx`: `https://www.linkedin.com/in/er-mohammad-hamza/`, `https://github.com/hamzam999`). **Never publish the phone number** anywhere. | **Action A2 (owner):** in the phone-free PDF, point the "Portfolio" hyperlink to `https://erhamza.tech`. **Action A3 (owner):** set the website field on LinkedIn and GitHub to `https://erhamza.tech` (helps entity matching). |
-| Q14 | Location and engagement types | **Location answered:** Kanpur, India (resume header). Engagement types remain open. | Visible copy "Kanpur, India · Remote"; JSON-LD `address` included; L6 says "available for collaborations" without listing engagement types |
-| Q15 | Skill depth labels | **Partly answered:** the skill tree now mirrors the resume Skills section; depth follows the resume's bold emphasis mechanically | Owner may override |
+| Q14 | Location and engagement types | **Location answered:** Kanpur, India (resume header). Engagement types: default in use; owner to confirm after build. | Visible copy "Kanpur, India · Remote"; JSON-LD `address` included; L6 says "available for collaborations" without listing engagement types |
+| Q15 | Skill depth labels | **Partly answered:** the skill tree now mirrors the resume Skills section; depth follows the resume's bold emphasis mechanically. Rest: default in use; owner to confirm after build | Owner may override |
 | Q16 | First ruler tick | **Answered from resume:** 2020 (founder role and degree). The ruler now runs **2020 to 2026**. | Closed |
-| Q17 | Alias "Er. Hamza" in `alternateName` | Open | Omitted |
-| Q18 | Hosting | Open | Vercel config |
-| Q19 | AI crawlers policy | Open | Allow all |
-| Q20 | Approve genre tags, kanji and **[COPY: approve]** strings | Open | Used as drafted |
-| Q21 | Screenshots per Appendix C | Open | Typographic fallback posters; priority is the ten featured projects |
-| Q22 | **New.** Studio Solyn: did you also implement the mobile screens in Framer, or design them only? | Open | Role reads "Designed all mobile screens"; stack chips stay as in the CSV (Framer, React, Pointer Events API) |
-| Q23 | **New.** Keep the "25+ projects shipped" stat? It comes from the old site; the resume does not state it. | Open | Kept, labeled owner-stated; drop if not confirmed before launch |
-| Q24 | **New.** Public title for the agent project: CSV "AI Company agent team" versus resume "CodesLytic AI Company: Agent Workflows"? | Open | "AI Agent Team" with the subtitle "CodesLytic AI Company" |
-| Q25 | **New.** NFT marketplace chains and standards (see 12.2 item 3) | Open | Both stated: ERC-721 and ERC-1155, on Base, Sui and Solana |
+| Q17 | Alias "Er. Hamza" in `alternateName` | **Default in use; owner to confirm after build** | Omitted |
+| Q18 | Hosting | **Default in use; owner to confirm after build** | Vercel config |
+| Q19 | AI crawlers policy | **Default in use; owner to confirm after build** | Allow all |
+| Q20 | Approve genre tags, kanji and **[COPY: approve]** strings | **Default in use; owner to confirm after build** | Used as drafted |
+| Q21 | Screenshots per Appendix C | **Default in use; owner to confirm after build** | Typographic fallback posters; priority is the ten featured projects |
+| Q22 | **New.** Studio Solyn: did you also implement the mobile screens in Framer, or design them only? | **Default in use; owner to confirm after build** | Role reads "Designed all mobile screens"; stack chips stay as in the CSV (Framer, React, Pointer Events API) |
+| Q23 | **New.** Keep the "25+ projects shipped" stat? It comes from the old site; the resume does not state it. | **Default in use; owner to confirm after build** | Kept, labeled owner-stated; drop if not confirmed before launch |
+| Q24 | **New.** Public title for the agent project: CSV "AI Company agent team" versus resume "CodesLytic AI Company: Agent Workflows"? | **Default in use; owner to confirm after build** | "AI Agent Team" with the subtitle "CodesLytic AI Company" |
+| Q25 | **New.** NFT marketplace chains and standards | **Answered:** Base, Sui and Solana; ERC-721 and ERC-1155 contracts on Base | Closed (12.2 item 3) |
 
 ### 12.2 Data inconsistencies found (CSV, resume v6, old repository data)
 
@@ -1928,7 +1929,7 @@ Defaults below are what agents implement until the owner says otherwise.
 
 1. **Count:** the CSV has 18 rows; with the Valerie Group assessment removed, the site has **17 projects**, plus 5 Earlier work entries.
 2. **Experience (resume versus old `EXPERIENCES`):** titles differ ("Frontend & ERP Developer (Freelance)" versus "Frontend Developer (Freelance)"; "Shopify Developer / Frontend Developer" versus "Shopify Developer"), and bullets differ (the old freelance entry has Dawn customization and "Led projects with no predefined design direction" split into two bullets; the old ITH entry separates the Solana integration bullet; the old THL entry names structured data and cart progress indicators). **Default: resume wording everywhere.**
-3. **NFT marketplace:** CSV says Base, Sui and Solana, paymaster-sponsored minting, stack React, Solidity, Paymaster, Solana Web3; resume says ERC-721 and ERC-1155, lazy minting, auctions, creator dashboards; the old site said "ERC-721/1155 on Base, Sui, and Solana". **Default: synopsis states both** (ERC-721 and ERC-1155 on Base, Sui and Solana), "lazy minting" used for the CSV's "list before minting"; Q25.
+3. **NFT marketplace — closed (owner):** both sources are right. It ran on Base, Sui and Solana; ERC-721 and ERC-1155 are the contract standards on the EVM chain (Base). Copy says "ERC-721 and ERC-1155 contracts on Base; Sui and Solana support alongside" and never claims ERC on Sui or Solana. "Lazy minting" covers the CSV's "list before minting".
 4. **GeSIM:** CSV "React, React Native, wallet SDKs (confirm exact stack)"; resume "Web3, Embedded Wallets"; old site "Next.js, React Native, Web3, SBTs", "Founding Engineer", stablecoin purchases. **Default: owner's answer** (React, React Native) plus the resume line on embedded wallets and blockchain identity flows. SBTs, stablecoins and "Founding Engineer" are **not** published.
 5. **CodesLytic Budget test claim:** CSV "1,500+ automated checks and 160+ end-to-end tests"; resume "1,500+ unit/integration and 160+ E2E test cases with Claude Code". **Default: resume wording.** The resume adds solo-developer role and many feature details (used in highlights).
 6. **ERPNext stack:** CSV "ERPNext/Frappe, Next.js"; resume "ERPNext/Frappe, Docker", "custom frontend app", GitHub Actions CI/CD. **Default: union** (ERPNext/Frappe, Next.js, Docker, GitHub Actions); Next.js is flagged as CSV-only.
@@ -2176,7 +2177,7 @@ export type ProjectLink =
 export interface OwnerClaim {
   /** Exact wording as stated by the owner. Never paraphrase numbers. */
   text: string;
-  source: 'csv' | 'previous-site' | 'owner-confirmed';
+  source: 'csv' | 'resume' | 'previous-site' | 'owner-confirmed';
 }
 
 export interface ProjectMedia {
@@ -2205,8 +2206,8 @@ export interface Project {
   secondaryCategories?: ProjectCategory[];
   genre: string;                     // playful VHS genre tag, paired with category in UI
   year: string | null;               // e.g. '2024' or '2023–2025'; null until confirmed
-  yearStatus: 'confirmed' | 'tbc';
-  yearHint?: string;                 // planner's hint shown only in dev builds
+  yearStatus: 'confirmed' | 'inferred' | 'tbc'; // 'inferred' = derived from resume role dates; UI shows e.g. "2023–2025 (approx.)"
+  yearSource?: string;               // e.g. 'resume: ITH Technologies, Feb 2023 – Dec 2025'
   featured: boolean;
   shelfOrder?: number;               // 1..N for featured items
   synopsis: string;                  // plain-language, faithful to the CSV
@@ -2215,6 +2216,7 @@ export interface Project {
   tools?: string[];                  // AI or helper tools disclosed by the owner
   highlights?: string[];             // owner-written bullets from the previous site
   claims?: OwnerClaim[];
+  productScope?: string[];           // facts about the product, shown under "Product scope", never as the owner's work
   link: ProjectLink;
   spine: SpineSwatch;
   media: ProjectMedia;
@@ -2266,6 +2268,28 @@ export interface Experience<Slug extends string = string> {
   relatedProjects?: Slug[];
 }
 
+/** Earlier work (5.4a): plain list entries, no page, no link, no media. */
+export interface EarlierWork {
+  name: string;
+  description: string;
+  stack: string[];
+  source: 'owner-answer' | 'previous-site' | 'owner-answer+previous-site';
+}
+
+/** Profile from resume v6. Deliberately has no phone field. */
+export interface Profile {
+  name: string;
+  title: string;                 // "Senior Frontend Engineer"
+  currentRole: string;           // "Frontend & ERP Developer (Freelance)"
+  location: string;              // "Kanpur, India"
+  email: 'erhamza.dev@gmail.com';
+  links: { linkedin: string; github: string; site: 'https://erhamza.tech' };
+  summary: string[];             // resume Summary, split into paragraphs
+  education: { degree: string; school: string; city: string; year: 2020 };
+  award: string;
+  resumePdf: string | null;      // '/resume.pdf' once the phone-free export exists
+}
+
 export interface MediaManifestEntry {
   hero: { widths: number[]; ratio: number } | null;
   cover: { widths: number[] } | null;
@@ -2284,7 +2308,7 @@ export type ProjectSlug = (typeof PROJECTS)[number]['slug'];
 export const FEATURED = PROJECTS.filter(p => p.featured).sort((a, b) => (a.shelfOrder ?? 99) - (b.shelfOrder ?? 99));
 ```
 
-Skills are then typed as `SkillBranch<ProjectSlug>[]` and experiences as `Experience<ProjectSlug>[]`, so a typo in any evidence slug fails `npm run typecheck`. A unit test also asserts slug uniqueness, `shelfOrder` uniqueness and contiguity, featured count between 8 and 12, `spineTitle.length <= 14`, and that no private or offline project has an external URL.
+Skills are then typed as `SkillBranch<ProjectSlug>[]` and experiences as `Experience<ProjectSlug>[]`, so a typo in any evidence slug fails `npm run typecheck`. A unit test also asserts slug uniqueness, `shelfOrder` uniqueness and contiguity, featured count between 8 and 12, `spineTitle.length <= 14`, that no private or offline project has an external URL, that no slug equals `skyai-3d-robot` or mentions Valerie (removed by the owner), and that no string in `src/content/` matches a phone-number pattern.
 
 ### Appendix C: Screenshot spec sheet (for the owner)
 
@@ -2324,54 +2348,54 @@ Also please write one sentence of alt text per screenshot describing what it sho
 
 Priority order: the ten featured projects in shelf order (Appendix D), then the rest.
 
-### Appendix D: Project data (all 18)
+### Appendix D: Project data (all 17)
 
-Shelf order and grouping rationale: the featured ten alternate categories so neighbours on the shelf differ (3D, product, Shopify, Web3, 3D, Web3, Shopify, product, Web3, Shopify), lead with the strongest visual and technical pieces for the target roles (Three.js, React and Next.js, Shopify, Web3), and open with public work (live sites or repositories) in the first five positions, mixing in the private projects that best show depth after that. The remaining eight appear in the archive index and have full pages. The shelf opens on NAVIG.
+Shelf order and grouping rationale: the featured ten alternate categories so neighbours on the shelf differ (3D, product, Shopify, Web3, interactive design, Web3, Shopify, product, Web3, Shopify), lead with the strongest visual and technical pieces for the target roles (Three.js, React and Next.js, Shopify, Web3), and open with public work (live sites) in the first five positions, mixing in the private projects that best show depth after that. Studio Solyn takes the fifth slot left by the removed SkyAI project: it is live, interactive, and shows the owner's mobile design work. The remaining seven appear in the archive index and have full pages. The shelf opens on NAVIG. Earlier work (5 entries) is listed in 5.4a, not here.
 
-Summary table:
+Summary table ("inferred" years are derived from the resume role a project is tied to; the UI shows them with "approx."):
 
 | Shelf | Slug | Card title | Spine | Category | Genre tag | Year | Swatch | Link |
 |---|---|---|---|---|---|---|---|---|
 | 1 | `navig` | NAVIG | NAVIG | 3D and Interactive | SCI-FI · WEBGL | TBC | ink | live |
-| 2 | `codeslytic-budget` | CodesLytic Budget | CODESLYTIC | Full-stack and Product | SURVIVAL · OFFLINE-FIRST | TBC | cobalt | live |
-| 3 | `lammles` | Lammle’s Checkout | LAMMLE’S | E-commerce and Shopify | WESTERN · CHECKOUT | TBC | paper | live |
+| 2 | `codeslytic-budget` | CodesLytic Budget | CODESLYTIC | Full-stack and Product | SURVIVAL · OFFLINE-FIRST | 2026 (inferred: Freelance, Jan 2026–present) | cobalt | live |
+| 3 | `lammles` | Lammle’s Checkout | LAMMLE’S | E-commerce and Shopify | WESTERN · CHECKOUT | 2026 (inferred: Freelance; resume lists Checkout Extensions and Functions under this role) | paper | live |
 | 4 | `gesim` | GeSIM | GESIM | Web3 | ROAD MOVIE · ESIM | TBC | graphite | live |
-| 5 | `skyai-3d-robot` | SkyAI Robot | SKYAI ROBOT | 3D and Interactive | ROBOT · SCROLL 3D | TBC | cobalt | repo |
-| 6 | `dex-cex-multisig-wallet` | Trading Desk and Multi-sig | DEX · MULTISIG | Web3 | THRILLER · TRADING | TBC (hint: 2023–2025, ITH Technologies) | ink | private |
+| 5 | `studio-solyn` | Studio Solyn | STUDIO SOLYN | 3D and Interactive | DESIGN FILM · MOBILE | TBC | cobalt | live |
+| 6 | `dex-cex-multisig-wallet` | Trading Desk and Multi-sig | DEX · MULTISIG | Web3 | THRILLER · TRADING | 2023–2025 (inferred: ITH Technologies bullets) | ink | private |
 | 7 | `nighat-ahmad-official` | Nighat Ahmad Official | NIGHAT AHMAD | E-commerce and Shopify | COSTUME DRAMA · SHOPIFY | TBC | paper | live |
-| 8 | `unified-trading-crm` | Unified Trading CRM | TRADING CRM | Full-stack and Product (secondary: Web3) | ENSEMBLE · MIGRATION | TBC (hint: 2023–2025, ITH Technologies) | graphite | private |
-| 9 | `nft-marketplace` | NFT Marketplace | NFT MARKET | Web3 | LOST FILM · NFT | TBC | paper | offline (out of print) |
+| 8 | `unified-trading-crm` | Unified Trading CRM | TRADING CRM | Full-stack and Product (secondary: Web3) | ENSEMBLE · MIGRATION | 2023–2025 (inferred: ITH Technologies bullets) | graphite | private |
+| 9 | `nft-marketplace` | NFT Marketplace | NFT MARKET | Web3 | LOST FILM · NFT | 2023–2025 (inferred, unverified: the resume lists it under Projects without a role) | paper | offline (out of print) |
 | 10 | `berbanto-atelier` | Berbanto Atelier | BERBANTO | E-commerce and Shopify | MAKEOVER · THEME | TBC | cobalt | live |
 | – | `hefashion` | HE Fashion | HE FASHION | E-commerce and Shopify | SHOWCASE · SHOPIFY | TBC | ink | live |
-| – | `erpnext-manufacturing` | ERPNext for Manufacturing | ERPNEXT MFG | Full-stack and Product | DOCUMENTARY · ERP | TBC | graphite | private |
-| – | `ai-agent-team` | AI Agent Team | AGENT TEAM | AI and Automation | AUTOMATON · AI AGENTS | TBC | cobalt | private |
+| – | `erpnext-manufacturing` | ERPNext for Manufacturing | ERPNEXT MFG | Full-stack and Product | DOCUMENTARY · ERP | 2026 (inferred: Freelance bullet) | graphite | private |
+| – | `ai-agent-team` | AI Agent Team | AGENT TEAM | AI and Automation | AUTOMATON · AI AGENTS | 2026 (inferred: Freelance bullet) | cobalt | private |
 | – | `promenade-medulin` | Promenade Medulin | PROMENADE | WordPress and Client | TRAVELOGUE · WORDPRESS | TBC | paper | live |
 | – | `bookease` | BookEase | BOOKEASE | WordPress and Client | SHORT · WP PLUGIN | TBC | ink | repo |
 | – | `motiongrid` | MotionGrid | MOTIONGRID | 3D and Interactive | MONTAGE · SHOWCASE | TBC | cobalt | live |
 | – | `muftimaaz` | Muftimaaz.com | MUFTIMAAZ | Full-stack and Product | LECTURE SERIES · NEXT.JS | TBC | graphite | live |
-| – | `studio-solyn` | Studio Solyn | STUDIO SOLYN | 3D and Interactive | DESIGN FILM · FRAMER | TBC | paper | live |
 
-Category counts: 3D and Interactive 4, E-commerce and Shopify 4, Web3 3, Full-stack and Product 4, AI and Automation 1, WordPress and Client 2 (total 18).
+Category counts: 3D and Interactive 3, E-commerce and Shopify 4, Web3 3, Full-stack and Product 4, AI and Automation 1, WordPress and Client 2 (total 17).
 
-Detail-sheet fields per project. "Synopsis" is faithful to the CSV with light editing for grammar; numbers are unchanged. `role: null` renders "Owner to confirm". `updated` for all entries starts at the launch date.
+Detail-sheet fields per project. "Synopsis" is faithful to the CSV (or the resume, where noted) with light editing for grammar; numbers are unchanged. `role: null` renders "Owner to confirm". `updated` for all entries starts at the launch date.
 
 **1. `navig`** — NAVIG
 - Synopsis: A visually rich website for a crypto and AI intelligence product. As you scroll, a 3D scene of 25,000+ glowing particles reshapes itself into ocean waves, waterfalls and data streams, and it runs at 144 frames per second.
-- Role: "Frontend architecture and design direction" (from the previous site: "Took full ownership of frontend architecture and design direction in the absence of predefined UI/UX guidelines"; confirm).
+- Role: "Owned frontend architecture and design direction from an abstract product brief" (resume).
 - Stack: React, Three.js, GLSL, GSAP.
-- Highlights (previous site, owner-written): procedural shader-based visual states (ocean waves, waterfalls, data streams, grid structures); solved WebGL rendering and blending challenges for consistency across devices.
-- Claims: "25,000+ glowing particles" (csv); "runs at 144 frames per second" (csv).
+- Highlights: cinematic 3D scroll-driven web experience with 25,000+ GPU-driven particles at 144 FPS (resume); procedural shader-based visual states and WebGL blending work (previous site).
+- Claims: "25,000+ GPU-driven particles at 144 FPS" (resume; the CSV says the same).
 - Link: live `https://navig-app.vercel.app/`.
 - SEO title: NAVIG: Three.js and GLSL particle website | Mohammad Hamza
 - SEO description: NAVIG, a scroll-driven Three.js and GLSL website for a crypto and AI product: 25,000+ particles morph into waves and data streams. Built by Mohammad Hamza.
 - Alt placeholder: "NAVIG homepage with a 3D particle scene rendered in WebGL".
-- Flags: no screenshot in repo (old `navig.png` missing).
+- Flags: no screenshot in repo; year TBC (could be freelance or ITH period).
 
 **2. `codeslytic-budget`** — CodesLytic Budget
-- Synopsis: A budgeting app that keeps working without internet and syncs when you are back online. It tracks money in many currencies, repeats monthly bills on its own, and splits shared expenses between friends, including paying each other back through UPI. 1,500+ automated checks and 160+ end-to-end tests cover it.
-- Role: null.
-- Stack: Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker, GitHub Actions, AWS EC2.
-- Claims: "1,500+ automated checks and 160+ end-to-end tests" (csv).
+- Synopsis: A budgeting app that keeps working without internet and syncs when you are back online. It tracks money in many currencies, repeats monthly bills on its own, and splits shared expenses between friends, including paying each other back through UPI.
+- Role: "Built end to end as a solo developer" (resume).
+- Stack: Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker, GitHub Actions, AWS EC2. Tools: Claude Code (resume).
+- Highlights (resume): accounts, nested categories, multi-currency tracking, monthly budgets with alerts and projections, recurring transactions on a background worker (time zones, DST, month-end safe); Splitwise-style group expenses with exact-sum rounding, debt simplification and UPI settle-up; offline-first sync engine (IndexedDB, idempotent outbox, field-level merge, conflict inbox) and an installable PWA with WCAG 2.2 work; money stored as integer minor units with a shared TypeScript domain core; rotating refresh tokens, Argon2, CSRF checks and multi-tenant access control; GitHub Actions CI/CD with Docker deploy to AWS EC2 and automatic rollback.
+- Claims: "1,500+ unit/integration and 160+ E2E test cases" (resume).
 - Link: live `https://app.codeslytic.com`.
 - Schema: SoftwareApplication, FinanceApplication, Web.
 - SEO title: CodesLytic Budget: offline-first Next.js app | Mohammad Hamza
@@ -2381,34 +2405,35 @@ Detail-sheet fields per project. "Synopsis" is faithful to the CSV with light ed
 - Synopsis: Changes to the checkout of Lammle’s Shopify store. It checks the customer's details before they pay and adjusts which delivery and payment options show up.
 - Role: null.
 - Stack: Shopify Checkout Extensions, Shopify Functions.
-- Highlights (previous site): a custom Shopify extension for pickup and delivery options on the checkout page; a payment customization extension for payment options on the checkout page.
+- Highlights (resume): a Shopify Checkout Extension with checkout form validation; delivery and payment options customised via Shopify Functions.
 - Link: live `https://www.lammles.com/`, note "The checkout changes are visible during checkout."
 - SEO title: Lammle’s: Shopify checkout extensions | Mohammad Hamza
 - SEO description: Shopify checkout extensions and Shopify Functions for Lammle’s: validating customer details and tailoring delivery and payment options before payment.
 - Flags: interim screenshot shows the storefront, not the checkout.
 
 **4. `gesim`** — GeSIM
-- Synopsis: An app offering global eSIM mobile data across 190+ countries without traditional carrier ID requirements, alongside privacy-focused tools such as a built-in VPN, virtual numbers, global spending cards, and access to global and tokenized markets.
-- Role: null (previous site said "Founding Engineer"; publish only after confirmation).
-- Stack: React, React Native, wallet SDKs (flag: confirm exact stack).
+- Synopsis: The first MVP of GeSIM, a Web3 app for global eSIM mobile data. I built the web app in React, mainly the blockchain integration: wallet connection, purchases, transactions and their status. I also worked on blockchain integration in the React Native mobile app.
+- Role: "Built the web MVP's blockchain integration in React; worked on blockchain integration in the React Native app" (owner). Resume line used as a highlight: "Built web and mobile MVP with embedded wallets and blockchain identity flows."
+- Stack: React, React Native.
+- Product scope (labeled as the product, not the owner's work): global eSIM mobile data across 190+ countries without traditional carrier ID requirements; built-in VPN, virtual numbers, global spending cards, access to global and tokenized markets.
 - Link: live `https://gesim.xyz`.
-- Schema: SoftwareApplication, UtilitiesApplication, iOS and Android (after confirmation).
-- SEO title: GeSIM: global eSIM Web3 app | Mohammad Hamza
-- SEO description: GeSIM: an app for global eSIM data in 190+ countries with privacy tools. Frontend work in React and React Native with wallet integration by Mohammad Hamza.
-- Flags: Q5.
+- Schema: SoftwareApplication, UtilitiesApplication, Web, iOS, Android.
+- SEO title: GeSIM: Web3 eSIM MVP with embedded wallets | Mohammad Hamza
+- SEO description: GeSIM web and mobile MVP: wallet connection, purchases and transaction status built in React and React Native, with embedded wallets and blockchain identity flows.
 
-**5. `skyai-3d-robot`** — SkyAI Robot
-- Synopsis: A four-section landing page built for a job assessment, where a 3D robot turns and moves as you scroll. Desktop only.
-- Role: null.
-- Stack: React, Vite, React Three Fiber, GSAP ScrollTrigger, Tailwind CSS 4, Zustand.
-- Link: repo `https://github.com/hamzam999/3d-robot-landing`, note "Desktop only."
-- SEO title: 3D robot scroll landing page (React Three Fiber) | Mohammad Hamza
-- SEO description: A four-section React Three Fiber landing page where a 3D robot turns and moves with GSAP ScrollTrigger as you scroll. Source code on GitHub.
-- Flags: Q4 (company name "Valerie Group" withheld from public copy until approved).
+**5. `studio-solyn`** — Studio Solyn
+- Synopsis: The website of Studio Solyn, a contemporary product design studio for furniture, lighting and functional objects, was first built for desktop only. I designed all the mobile screens for the whole website.
+- Role: "Designed all mobile screens" (owner). Whether he also implemented them is Q22.
+- Stack: Framer, React, Pointer Events API (CSV).
+- Product scope: the studio's work blends material experimentation, geometric forms and craftsmanship (client description, not the owner's work).
+- Link: live `https://studiosolyn.com/`.
+- SEO title: Studio Solyn: mobile design for a Framer site | Mohammad Hamza
+- SEO description: Mobile screens designed by Mohammad Hamza for Studio Solyn, a product design studio's Framer website that was originally built for desktop only.
+- Media note: the cover art should use `mobile.png` (Appendix C).
 
 **6. `dex-cex-multisig-wallet`** — Trading Desk and Multi-sig
 - Synopsis: Live trading screens for crypto exchanges that show prices as they change, and a multi-signature smart-contract wallet in the style of Safe (formerly Gnosis Safe) that requires approvals from a set minimum number of owners (such as 2 of 3) before any transaction runs. It removes single points of failure for individuals, teams and DAOs managing digital assets on Ethereum and compatible chains.
-- Role: null (the ITH Technologies experience entry says "Built DEX & CEX trading dashboards with real-time market data, wallet integrations, and optimized execution flows" and "Developed a multi-signature wallet with secure transaction workflows").
+- Role: from the ITH Technologies bullets (resume): "Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs)" and "Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend."
 - Stack: React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK.
 - Highlights (previous site): proposal, confirm and execute flows; wallet tagging and recovery; governance dashboards.
 - Link: private (client-internal).
@@ -2424,22 +2449,22 @@ Detail-sheet fields per project. "Synopsis" is faithful to the CSV with light ed
 - SEO description: Nighat Ahmad Official: a fast, mobile-first Shopify Online Store 2.0 storefront on Dawn for a fashion brand selling in India and abroad.
 
 **8. `unified-trading-crm`** — Unified Trading CRM
-- Synopsis: Several separate trading tools built on Angular were merged into one Next.js customer management system, with access limited to what each client account should see. Pages load about 35% faster, and overall speed improved by 30 to 50%.
-- Role: null (ITH Technologies entry: "Merged multiple trading platforms into a Next.js CRM, reducing load times by 35%").
+- Synopsis: Several separate trading tools built on Angular were merged into one Next.js CRM, with multi-tenant access control so each client account sees only what it should. Load times dropped by 35%, and performance improved by 30–50% with SSR/SSG and code splitting.
+- Role: from the ITH Technologies bullets (resume): "Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%."
 - Stack: Angular, Next.js.
-- Claims: "Pages load about 35% faster, and overall speed improved by 30 to 50%" (csv).
+- Claims: "reducing load times by 35%" and "30-50%" performance improvement (resume; the CSV says "about 35% faster" and "30 to 50%").
 - Link: private (client-internal).
 - SEO title: Angular to Next.js trading CRM | Mohammad Hamza
-- SEO description: Several Angular trading tools merged into one Next.js CRM with per-account access. Pages load about 35% faster. Private client project by Mohammad Hamza.
+- SEO description: Several Angular trading tools merged into one Next.js CRM with multi-tenant access control, cutting load times by 35%. Private client project by Mohammad Hamza.
 
 **9. `nft-marketplace`** — NFT Marketplace
-- Synopsis: A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles (NFTs). Creators can list an item before it is minted, sell by auction or at a fixed price, and track their work on a dashboard. The platform covers the network fee when they mint. It worked on Base, Sui and Solana. The project has since shut down.
-- Role: null.
-- Stack: React, Solidity, Paymaster, Solana Web3.
+- Synopsis: A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles. It used ERC-721 and ERC-1155 contracts on Base, with Sui and Solana supported alongside (each with its own token standard). It had minting and trading flows, lazy minting (listing an item before it is minted), auctions and fixed-price sales, and creator dashboards, and the platform covered the network fee when creators minted. The project has since shut down.
+- Role: null (resume: "Built a marketplace supporting ERC-721 and ERC-1155 with minting and trading flows. Implemented lazy minting, auctions and creator dashboards.").
+- Stack: React, Solidity, Paymaster, Solana Web3 (CSV); ERC-721, ERC-1155 (resume).
 - Link: offline (shut down). Cover sticker "OUT OF PRINT".
 - SEO title: NFT marketplace on Base, Sui and Solana | Mohammad Hamza
-- SEO description: A cross-chain NFT marketplace on Base, Sui and Solana with auctions, pre-mint listings, a creator dashboard and sponsored minting. Now shut down.
-- Flags: Q10.
+- SEO description: An NFT marketplace with ERC-721 and ERC-1155 contracts on Base plus Sui and Solana support: lazy minting, auctions, creator dashboards. Now shut down.
+- Flags: Q10. Copy rule: never claim ERC standards on Sui or Solana.
 
 **10. `berbanto-atelier`** — Berbanto Atelier
 - Synopsis: Eleven new features for a client's online store, such as category carousels, popups and a tilted scrolling banner. The store owner can edit all of them from Shopify's visual editor.
@@ -2457,33 +2482,33 @@ Detail-sheet fields per project. "Synopsis" is faithful to the CSV with light ed
 - Link: live `https://hefashion.in`.
 - SEO title: Multi-brand Shopify fashion store features | Mohammad Hamza
 - SEO description: Custom Shopify design and features for a multi-brand fashion store, including customer reviews and product popularity notices, built with Liquid and GraphQL.
-- Flags: Q7 (name and domain; CSV row is "downtownsfashion.com /hefashion.in").
+- Flags: Q7.
 
 **12. `erpnext-manufacturing`** — ERPNext for Manufacturing
 - Synopsis: A custom app built on ERPNext that replaced a factory's manual production tracking by reproducing the existing workflow. It records what goes into each product, the work orders and how much each worker made, then creates the weekly payment vouchers for labourers.
-- Role: null.
-- Stack: ERPNext, Frappe, Next.js.
+- Role (resume): "Mapped the client's manual production workflow, then built a custom frontend app to replace it using native backend APIs and functions."
+- Stack: ERPNext, Frappe, Next.js (CSV only), Docker, GitHub Actions.
+- Highlights (resume): custom doctypes and workflows for BOM, work orders and production tracking; payment voucher generation for weekly completed quantities; Docker-based ERPNext environment with GitHub Actions CI/CD.
 - Link: private (client).
 - SEO title: ERPNext customization for manufacturing | Mohammad Hamza
 - SEO description: A custom ERPNext app that replaced a factory's manual production tracking: bills of materials, work orders, worker output and weekly labour vouchers.
 
-**13. `ai-agent-team`** — AI Agent Team
-- Synopsis: A team of AI assistants for marketing chores: finding leads, drafting social posts and scouting jobs. A control panel runs them, customer details live in a self-hosted CRM, and every output is approved by a person before it goes out. Still in testing.
-- Role: "Designed, built and operates it" (CSV is written in the first person: "I approve everything before it goes out"; confirm wording).
-- Stack: Paperclip, Hermes, n8n, Postiz, ERPNext CRM, Cloudflare Tunnel and Access, NVIDIA NIM, Ubuntu 24.04.
+**13. `ai-agent-team`** — AI Agent Team (subtitle: CodesLytic AI Company)
+- Synopsis: A team of AI assistants for marketing chores: finding leads, drafting social posts and scouting jobs. A control panel runs them, customer details live in a self-hosted ERPNext CRM, and every output is approved by a person before it goes out. Still in testing.
+- Role: "Designed, built and operates it" (CSV is first person; confirm wording).
+- Stack: Paperclip, Hermes, n8n, Postiz, ERPNext CRM, Cloudflare Tunnel and Access, NVIDIA NIM, Ubuntu 24.04. Tools: Claude Code (resume).
 - Link: private (private repo).
 - SEO title: AI agent team for marketing automation | Mohammad Hamza
 - SEO description: A team of AI agents for marketing chores, run from a control panel with a self-hosted CRM and human approval of every output. Built with n8n and ERPNext.
-- Flags: Q9.
+- Flags: Q24.
 
 **14. `promenade-medulin`** — Promenade Medulin
-- Synopsis: A website for a holiday property in Medulin, Croatia, available in five languages, built on WordPress with a customised theme.
+- Synopsis: A website for a holiday property in Medulin, Croatia, available in five languages, built on WordPress with the Kadence theme and a custom child theme on top of it.
 - Role: null.
-- Stack: WordPress, PHP, Impreza, WPBakery, custom plugin, custom post types, JSON translations.
+- Stack: WordPress, Kadence theme with a custom child theme, PHP, custom plugin, custom post types, JSON translations.
 - Link: live `https://promenade-medulin.com`.
 - SEO title: Promenade Medulin: multilingual WordPress site | Mohammad Hamza
-- SEO description: A five-language WordPress website for a holiday property in Medulin, Croatia, with a custom plugin, custom post types and JSON-based translations.
-- Flags: Q6 (Kadence versus Impreza).
+- SEO description: A five-language WordPress website for a holiday property in Medulin, Croatia, built on Kadence with a custom child theme, custom plugin and post types.
 
 **15. `bookease`** — BookEase
 - Synopsis: A booking plugin for WordPress sites. Hotels, restaurants and clinics let customers pick a free time slot, get confirmation emails, and cancel or reschedule from a link. Staff can export bookings to CSV.
@@ -2510,14 +2535,49 @@ Detail-sheet fields per project. "Synopsis" is faithful to the CSV with light ed
 - SEO title: Muftimaaz.com: Next.js site with YouTube API | Mohammad Hamza
 - SEO description: Muftimaaz.com: a Next.js website for an Islamic scholar with YouTube channel integration, API caching and audio streaming from Cloudflare R2.
 
-**18. `studio-solyn`** — Studio Solyn
-- Synopsis (client description from the CSV; the owner's contribution is pending, Q8): Website for a contemporary product design studio specializing in furniture, lighting and functional objects, whose work blends material experimentation, geometric forms and craftsmanship.
-- Role: null.
-- Stack: Framer, React, Pointer Events API.
-- Link: live `https://studiosolyn.com/`.
-- SEO title: Studio Solyn: Framer site for a design studio | Mohammad Hamza
-- SEO description: Studio Solyn: a Framer website with custom React pointer interactions for a product design studio working in furniture, lighting and objects.
-- Flags: Q8.
+---
+
+## 14. Execution status protocol
+
+Work will run across many agent sessions and may stop when a usage limit is reached. To let a watchdog (or a fresh orchestrator session) resume without re-reading history, the orchestrator keeps **`docs/DEV_STATUS.md`** current.
+
+**Who writes it:** only the orchestrating session, never developer agents (they report back; the orchestrator records). It is updated **after every task** state change (started, done, blocked, review gate passed or failed) and committed together with that task's commit, or on its own commit (`chore(status): <task id> <status>`) when there is no code change.
+
+**Format** (keep it short; newest entries first in the log):
+
+```markdown
+# Dev status
+
+Updated: 2026-12-02T14:05:00Z
+Plan: docs/REVAMP_PLAN.md (revision 2)
+Current phase: 3 (Shelf)
+Current gate: G3 pending
+Branch: revamp/archive-quest
+Last commit: 1a2b3c4 P3-4 shelf DOM and pool
+Next task(s): P3-5, P3-6, P3-7 (parallel group C)
+Blockers: none
+
+## Tasks
+
+| Task | Status | Agent | Branch | Last commit | Notes / blockers |
+|---|---|---|---|---|---|
+| P3-4 | done | sonnet-2 | revamp/archive-quest | 1a2b3c4 | chunk 15.8 KB |
+| P3-5 | in_progress | sonnet-1 | revamp/archive-quest | – | started 13:40Z |
+| P3-6 | todo | – | – | – | |
+
+## Log
+- 2026-12-02T14:05Z P3-4 done (1a2b3c4); typecheck, test, e2e @shelf passed
+- 2026-12-02T13:40Z P3-5 started
+```
+
+Rules:
+
+- Status values: `todo`, `in_progress`, `blocked`, `review`, `done`, `failed`. A task stays `in_progress` only while an agent is actively on it; when a session stops unexpectedly, the watchdog treats any `in_progress` row older than 2 hours as interrupted and re-runs that task from its last commit.
+- "Blockers" names the exact problem and what unblocks it (for example "needs owner screenshot for navig" is **not** a blocker, since fallbacks exist; "build fails: prerender cannot import lazy route" is).
+- Owner questions never appear as blockers (12.1: defaults are in use).
+- The watchdog resumes by: reading `docs/DEV_STATUS.md`, checking out the recorded branch at the recorded last commit, running the verification commands of the current phase, then continuing with "Next task(s)".
+- The file contains no secrets, no tokens and no personal data beyond what is already public on the site (never the phone number).
+- Created in task `P0-1` with all Phase 0 tasks listed as `todo`.
 
 ---
 
