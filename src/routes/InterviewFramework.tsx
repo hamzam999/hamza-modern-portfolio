@@ -77,7 +77,7 @@ const InterviewFramework: React.FC = () => {
             <div className="fixed inset-0 scanlines opacity-10 pointer-events-none" />
             <div className="fixed inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.02)_0%,transparent_100%)] pointer-events-none" />
 
-            <main className="max-w-7xl mx-auto px-6 py-24 relative z-10 min-h-screen">
+            <main id="main" tabIndex={-1} className="max-w-7xl mx-auto px-6 py-24 relative z-10 min-h-screen">
 
 
                 <InterviewHeader />

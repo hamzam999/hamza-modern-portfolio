@@ -2,11 +2,11 @@
 
 Updated: 2026-11-25T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 0 (Housekeeping)
-Current gate: G0 pending (Opus review)
+Current phase: 1 (Tokens, fonts, shell, prerender skeleton)
+Current gate: G1 pending (Opus review)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G0 review, then Phase 1 (P1-1..P1-3 group A)
+Next task(s): G1 review, then Phase 2
 Blockers: none
 
 ## Tasks
@@ -19,6 +19,14 @@ Blockers: none
 | P0-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | dead code, orphan data/projects, metadata.json deleted; old Portfolio sections/Navbar/Footer/pages deleted too (replaced per 2.1); screenshots moved per 2.3 (public/projects now gone); MASTER.md is a pointer. Earlier work text taken from the plan table |
 | P0-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | src/types/content.ts, src/content/{projects,profile,experience,skills,levels,jp}.ts, projects.test.ts; interview data at src/content/interview.ts unchanged. Old constants.tsx/types.ts deleted |
 | P0-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | strict + noUncheckedIndexedAccess; vitest.config.ts, playwright.config.ts (11.1 projects), smoke specs; README rewritten |
+| P1-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | tokens.css (Appendix A verbatim), base.css, app.css @theme inline; legacy interview mappings kept (minus conflicting `muted`) until P2-7; body padding-bottom moved to `.app--ruler` wrapper so routes without a ruler have none |
+| P1-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | fonts.css, fontaine in vite.config.ts (fallbackName "X Fallback"), scripts/subset-jp-fonts.mjs (7 KB woff2, 23 glyphs), kanji-paths.mjs (12 glyphs, 13 KB), build-grain.mjs (10 KB webp); Noto Sans JP variable TTF downloaded into media-src/fonts (tracked); npm scripts fonts:jp, grain |
+| P1-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | entry-server.tsx, seo/{site,meta,Head}, scripts/prerender.mjs (fails on empty main, h1 != 1, title > 70), hydrateRoot in main.tsx, inline js/reduced script in index.html; scripts build:client/server/build/build:e2e; vite preview plugin serves clean URLs + real 404 |
+| P1-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | src/game/{rules,storage,store,useLevelTracker,testHooks}.ts + 2 test files (27 tests total) |
+| P1-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | Button, MaskLine, HalftoneKanji, Grain, Stamp, Toast, SkipLink, lib/motion, lib/useInView, lib/scroll, lib/useLevelNav, icons/Icons.tsx |
+| P1-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | TopBar, Ruler (level mode), XPCounter, LevelLabel, Passport + Menu dialogs on shared ModalDialog (native dialog, Tab wrap, animated close), Settings toggles |
+| P1-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | Cursor.tsx |
+| P1-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | App.tsx (modal-route location override in place, sheet route lands Phase 3), Home with six LevelShells, ProjectsIndex, ProjectPage, Arcade, NotFound (all with one H1), Footer, LevelShell/PageShell, routes/lazyRoutes.tsx |
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -29,5 +37,20 @@ Blockers: none
 - Skill depth: bold-in-resume nodes marked core per plan 5.3 table; Learning branch = familiar; everything else working, `depthStatus: assumed`.
 - Experience founder role has empty location (resume gives none). resumePdf is null (action A1).
 
+- Phase 1 deviations: extra CSS files `src/styles/ui.css` and `hud.css` hold primitive and HUD styles (plan 4.1 lists hud.css; ui.css added); icons live in `components/icons/Icons.tsx`; `routes/lazyRoutes.tsx` added for the SSR-eager/client-lazy switch (9.6); `src/lib/useLevelNav.ts`, `hud/ModalDialog.tsx`, `hud/MenuDialog.tsx`, `hud/Settings.tsx`, `src/vite-env.d.ts` and `scripts/` extras added.
+- HalftoneKanji renders a CSS dot grid masked by the glyph SVG (data-URI mask) instead of an inline `<svg>` with a shared `<pattern>`: a userSpaceOnUse pattern scales with the viewBox and cannot keep a 3 px pitch at fluid sizes. Still no font, no request, no layout shift, aria-hidden.
+- Grain low-end mode drops mix-blend-mode and lowers opacity (no second pre-darkened tile).
+- Interview route title shortened to "Frontend interview questions: React, Next.js, JS | Mohammad Hamza" (plan wording is 73 chars, plan fails the build above 70).
+- Reduced motion: cursor follows without lag but stays visible (plan 3.5/3.11) rather than being disabled (7.6); plan conflict, chose the two-source reading.
+- Button press scale 0.97 (plan) not 0.96 (better-ui skill).
+- Persisted JSON is zustand's `{state, version}` envelope under key `aq:v1`, not the flat shape in 7.5.
+- Reset progress is an inline two-step confirm (passport and footer), not a separate small dialog.
+- Footer links to `/llms.txt` (generated in Phase 5; 404 until then). Resume link omitted while `resumePdf` is null.
+- Footer nav landmarks are labelled "Footer levels"/"Footer archive" so `nav[aria-label=Levels]` stays the ruler only.
+- `/interview-framework` still uses the legacy dark skin, so its axe test is `test.fixme` until P2-7. Only change there: `<main id="main" tabIndex={-1}>`.
+- Ruler career mode, shelf, detail sheet route element, arcade game, XP wiring beyond the level tracker (project open, pong, boss) are later phases.
+- Playwright webServer runs `npm run build:e2e` then preview; WebKit/Firefox projects skipped here (not installed).
+
 ## Log
+- P1-1..P1-8 done; typecheck, vitest (27), build, build:e2e, `@shell|@a11y` and shots green (see below); 22 prerendered files each with one H1
 - P0-1..P0-6 done; typecheck, vitest (9 tests), vite build, playwright smoke (8 passed) green; G0 greps clean

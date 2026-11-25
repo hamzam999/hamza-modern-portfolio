@@ -1,34 +1,48 @@
 @import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+
+/* Tailwind utility names backed by the tokens (plan 3.6 and Appendix A). */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-deep: var(--cobalt-deep);
+  --color-vermilion: var(--vermilion);
+  --color-vermilion-ink: var(--vermilion-ink);
+  --color-graphite: var(--graphite);
+  --font-ui: var(--font-ui);
+  --font-read: var(--font-read);
+  --font-jp: var(--font-jp);
+  --font-mono: var(--font-mono);
+  --ease-archive: var(--ease);
+  --ease-sheet: var(--ease-sheet);
+  --radius-tape: var(--r-1);
+  --radius-sheet: var(--r-2);
+}
 
 /*
  * TEMPORARY legacy mappings (plan 3.6). They keep the interview page readable
- * until it is re-skinned in P2-7, where this whole block is deleted.
+ * until it is re-skinned in P2-7, where this block is deleted.
  */
 @theme {
   --color-background: #000000;
   --color-card: #0a0a0a;
   --color-primary: #f3f4f6;
-  --color-muted: rgb(243 244 246 / 0.5);
   --color-emerald: #10b981;
   --color-blue: #0099ff;
   --font-heading: system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* Legacy interview-page rules ported from the old index.css. */
-html {
-  -webkit-font-smoothing: antialiased;
-}
+@import "./base.css";
+@import "./ui.css";
+@import "./hud.css";
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-background);
-  color: var(--color-primary);
-  overflow-x: hidden;
-  width: 100%;
-}
-
+/* Legacy interview-page rules (deleted in P2-7). */
 .hud-label {
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -38,24 +52,13 @@ body {
   color: var(--color-emerald);
   opacity: 0.8;
 }
-
 .bg-grid-tech {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 40px 40px;
 }
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.3);
-}
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.3); }

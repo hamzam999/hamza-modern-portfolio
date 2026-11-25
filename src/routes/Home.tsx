@@ -1,16 +1,17 @@
-import { Link } from 'react-router-dom';
+import { LEVELS } from '@/content/levels';
+import { useLevelTracker } from '@/game/useLevelTracker';
+import { LevelShell } from '@/components/ui/LevelShell';
 
-/** Temporary placeholder until the six levels land in Phase 2. */
+/** Six empty level shells (Phase 1); real content lands in Phase 2. */
 export default function Home() {
+  useLevelTracker();
   return (
-    <main className="mx-auto max-w-3xl px-6 py-24">
-      <h1 className="font-heading text-4xl font-bold">Mohammad Hamza</h1>
-      <p className="mt-4 text-primary/80">Senior Frontend Engineer. Portfolio revamp in progress.</p>
-      <p className="mt-6">
-        <Link className="text-blue underline" to="/interview-framework">
-          Frontend interview framework
-        </Link>
-      </p>
+    <main id="main" tabIndex={-1}>
+      {LEVELS.map((level) => (
+        <LevelShell key={level.id} level={level} kanjiPosition={level.index % 2 === 0 ? 'left' : 'right'}>
+          <p className="level__body">Level {level.index} content arrives in Phase 2.</p>
+        </LevelShell>
+      ))}
     </main>
   );
 }

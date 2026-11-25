@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#ECE8E0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      /* Runs before first paint: html.js enables reveal states; html.reduced mirrors the saved Motion setting. */
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var s = JSON.parse(localStorage.getItem('aq:v1') || 'null');
+          if (s && s.state && s.state.settings && s.state.settings.motion === 'off') d.classList.add('reduced');
+        } catch (e) {}
+      })();
+    </script>
     <!--app-head-->
-    <title>Mohammad Hamza | Senior Frontend Engineer</title>
-    <meta name="description" content="Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences." />
   </head>
   <body>
     <div id="root"><!--app-html--></div>
