@@ -8,6 +8,9 @@ interface Props {
   level: Level;
   children?: ReactNode;
   kanjiPosition?: 'left' | 'right';
+  /** Replaces the masked heading with plain markup (used for the hero H1 so the LCP element paints at once). */
+  heading?: ReactNode;
+  className?: string;
 }
 
 /**
@@ -15,11 +18,11 @@ interface Props {
  * (H1 for level 1, H2 otherwise), content, and an end sentinel for the level tracker. The heading takes focus
  * after a ruler jump.
  */
-export function LevelShell({ level, children, kanjiPosition = 'right' }: Props) {
+export function LevelShell({ level, children, kanjiPosition = 'right', heading, className }: Props) {
   const headingId = `${level.anchor}-heading`;
   const n = String(level.index).padStart(2, '0');
   return (
-    <section id={level.anchor} aria-labelledby={headingId} data-level={level.index} className={`level level--kanji-${kanjiPosition}`}>
+    <section id={level.anchor} aria-labelledby={headingId} data-level={level.index} className={`level level--kanji-${kanjiPosition}${className ? ` ${className}` : ''}`}>
       <HalftoneKanji text={level.kanji} />
       <div className="level__inner">
         <p className="level__eyebrow">
@@ -28,9 +31,21 @@ export function LevelShell({ level, children, kanjiPosition = 'right' }: Props) 
             {JP.level} · {level.jpLabel}
           </span>
         </p>
-        <MaskLine as={level.index === 1 ? 'h1' : 'h2'} id={headingId} className="level__heading" tabIndex={-1} data-level-heading="">
-          {level.heading}
-        </MaskLine>
+        {heading !== undefined ? (
+          level.index === 1 ? (
+            <h1 id={headingId} className="level__heading" tabIndex={-1} data-level-heading="">
+              {heading}
+            </h1>
+          ) : (
+            <h2 id={headingId} className="level__heading" tabIndex={-1} data-level-heading="">
+              {heading}
+            </h2>
+          )
+        ) : (
+          <MaskLine as={level.index === 1 ? 'h1' : 'h2'} id={headingId} className="level__heading" tabIndex={-1} data-level-heading="">
+            {level.heading}
+          </MaskLine>
+        )}
         {children}
       </div>
       <div data-level-end aria-hidden="true" className="level__end" />

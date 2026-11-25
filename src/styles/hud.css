@@ -163,3 +163,11 @@ main:focus { outline: none; }
 .footer__colophon { margin-top: var(--space-6); font-size: var(--fs-small); color: var(--muted-strong); }
 @media (min-width: 768px) { .footer__cols { grid-template-columns: repeat(4, minmax(0, 1fr)); } .footer__col--intro { grid-column: 1 / -1; } }
 @media (min-width: 1024px) { .footer__cols { grid-template-columns: 1.6fr repeat(4, minmax(0, 1fr)); } .footer__col--intro { grid-column: auto; } .footer__settings { grid-template-columns: 1fr auto; align-items: start; } }
+
+/* ---------- Ruler career mode (P2-5, plan 5.5) ---------- */
+.ruler--career .ruler__pip { border-color: var(--muted-strong); }
+.ruler--career .ruler__years li { color: var(--ink); font-weight: 600; }
+.ruler--career .ruler__years i { height: 9px; }
+.ruler__label { position: absolute; top: -22px; left: 0; padding-inline: 2px; white-space: nowrap; font-size: var(--fs-label); font-weight: 600; letter-spacing: 0.04em; color: var(--cobalt); font-variant-numeric: tabular-nums; background: var(--paper); transform: translateX(-50%); }
+.ruler__label[data-align='start'] { transform: translateX(-12px); }
+.ruler__label[data-align='end'] { transform: translateX(calc(-100% + 12px)); }

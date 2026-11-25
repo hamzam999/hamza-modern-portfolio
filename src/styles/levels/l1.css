@@ -1,0 +1,51 @@
+/* Level 1, Spawn (plan 5.1) */
+.l1 { padding-top: calc(var(--space-6) + var(--space-3)); padding-bottom: var(--space-7); display: flex; flex-direction: column; justify-content: center; }
+.l1 .level__inner { width: 100%; }
+.l1 .level__eyebrow { margin-bottom: var(--space-4); }
+.l1 .level__heading {
+  max-width: 11ch; font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--tr-display);
+}
+.l1__role { display: block; margin-top: var(--space-3); font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3); color: var(--cobalt); }
+.l1__lead { margin-top: var(--space-5); max-width: 36ch; font-family: var(--font-read); font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: -0.005em; }
+.l1__tagline { margin-top: var(--space-3); font-family: var(--font-read); font-style: italic; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--cobalt-deep); }
+.l1__meta { margin-top: var(--space-4); display: grid; gap: var(--space-1); }
+.l1__focus { list-style: none; display: flex; flex-wrap: wrap; gap: 0 var(--space-3); font-size: var(--fs-ui); font-weight: 500; }
+.l1__focus li + li::before { content: '·'; margin-inline-end: var(--space-3); color: var(--muted-strong); }
+.l1__avail { font-size: var(--fs-small); font-weight: 500; color: var(--muted-strong); }
+.l1__actions { margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+.l1__actions .btn { width: 100%; }
+.l1__note { margin-top: var(--space-4); max-width: 44ch; font-size: var(--fs-small); color: var(--muted-strong); }
+.l1__credits { margin-top: var(--space-6); padding-top: var(--space-3); border-top: 1px solid var(--line-strong); max-width: 640px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--ink); }
+
+.l1 .halftone { top: var(--space-6); width: calc(var(--fs-kanji) * 0.55); height: calc(var(--fs-kanji) * 0.55 * var(--n, 1)); opacity: 0.8; }
+
+@media (min-width: 768px) {
+  .l1 { padding-top: var(--space-8); }
+  .l1__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .l1__actions .btn { width: auto; }
+  .l1 .halftone { width: var(--fs-kanji); height: calc(var(--fs-kanji) * var(--n, 1)); opacity: 1; top: var(--space-7); }
+  .l1 .level__heading { max-width: 12ch; }
+}
+@media (min-width: 1024px) {
+  .l1 .level__heading { max-width: none; }
+  .l1__lead { max-width: 34ch; }
+  .l1 .halftone { right: var(--gutter); }
+}
+
+/* Entrance: kanji clip, ruler baseline and ticks (only with JS and motion allowed). */
+html.js:not(.reduced) .l1 .halftone { animation: l1-kanji 900ms var(--ease) 200ms both; }
+@keyframes l1-kanji { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+html.js:not(.reduced) .ruler__line { transform-origin: 0 50%; animation: l1-ruler 700ms var(--ease) 300ms both; }
+html.js:not(.reduced) .ruler__years i { transform-origin: 50% 0; animation: l1-tick 320ms var(--ease) both; }
+html.js:not(.reduced) .ruler__years li:nth-child(1) i { animation-delay: 700ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(2) i { animation-delay: 730ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(3) i { animation-delay: 760ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(4) i { animation-delay: 790ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(5) i { animation-delay: 820ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(6) i { animation-delay: 850ms; }
+html.js:not(.reduced) .ruler__years li:nth-child(7) i { animation-delay: 880ms; }
+@keyframes l1-ruler { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes l1-tick { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  html.js .l1 .halftone, html.js .ruler__line, html.js .ruler__years i { animation: none; }
+}

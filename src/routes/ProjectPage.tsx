@@ -1,22 +1,30 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { CATEGORY_LABEL } from '@/types/content';
 import { PROJECTS } from '@/content/projects';
-import { PageShell } from '@/components/ui/LevelShell';
+import { projectOpenId } from '@/game/rules';
+import { useGame } from '@/game/store';
+import { ProjectDetail } from '@/components/projects/ProjectDetail';
 import NotFound from './NotFound';
 
-/** Standalone project page (title only in Phase 1; ProjectDetail arrives in P2-8). */
+/** Standalone project page (plan 4.4). Visiting it counts as opening the project (7.2). */
 export default function ProjectPage() {
   const { slug } = useParams();
   const project = PROJECTS.find((p) => p.slug === slug);
+  useEffect(() => {
+    if (project) useGame.getState().grant(projectOpenId(project.slug));
+  }, [project]);
   if (!project) return <NotFound />;
   return (
-    <PageShell eyebrow={`${CATEGORY_LABEL[project.category].toUpperCase()} · ${project.genre}`} heading={project.title}>
-      <p className="level__body">{project.synopsis}</p>
-      <div className="level__actions">
-        <Link className="btn btn--secondary" to="/projects">
-          All projects
-        </Link>
+    <main id="main" tabIndex={-1} className="level level--page project-page">
+      <div className="level__inner">
+        <nav aria-label="Breadcrumb" className="crumbs">
+          <Link to="/projects">All projects</Link>
+          <span aria-hidden="true"> / </span>
+          <span>{CATEGORY_LABEL[project.category]}</span>
+        </nav>
+        <ProjectDetail project={project} headingLevel={1} />
       </div>
-    </PageShell>
+    </main>
   );
 }

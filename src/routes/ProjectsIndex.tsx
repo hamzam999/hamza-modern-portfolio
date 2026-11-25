@@ -1,18 +1,20 @@
-import { Link } from 'react-router-dom';
-import { PROJECTS } from '@/content/projects';
 import { JP, KANJI } from '@/content/jp';
+import { FEATURED, PROJECTS } from '@/content/projects';
+import { ArchiveIndex } from '@/components/projects/ArchiveIndex';
+import { EarlierWork } from '@/components/projects/EarlierWork';
 import { PageShell } from '@/components/ui/LevelShell';
 
 export default function ProjectsIndex() {
   return (
-    <PageShell eyebrow="ARCHIVE" heading="Project archive" jp={`${JP.levels.archive}`} kanji={KANJI.archive}>
-      <ul className="level__list">
-        {PROJECTS.map((p) => (
-          <li key={p.slug}>
-            <Link to={`/projects/${p.slug}`}>{p.title}</Link>
-          </li>
-        ))}
-      </ul>
+    <PageShell eyebrow="ARCHIVE" heading="Project archive" jp={JP.levels.archive} kanji={KANJI.archive}>
+      <p className="level__body">
+        All {PROJECTS.length} projects, grouped by kind of work: {FEATURED.length} of them are on the shelf on the home page. Years marked TBC are not
+        confirmed yet.
+      </p>
+      <div className="projects-index">
+        <ArchiveIndex variant="full" />
+        <EarlierWork variant="open" />
+      </div>
     </PageShell>
   );
 }

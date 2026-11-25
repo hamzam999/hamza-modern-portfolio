@@ -1,0 +1,32 @@
+/* Level 6, Final Boss and the red door (plan 5.6) */
+.l6 .level__heading { max-width: 14ch; }
+.l6__lead { margin-top: var(--space-5); max-width: 40ch; font-family: var(--font-read); font-size: var(--fs-lead); line-height: var(--lh-lead); }
+.l6__stage { position: relative; margin-top: var(--space-7); max-width: 640px; perspective: 1200px; }
+.l6__card { position: relative; padding: var(--space-6) var(--space-5); background: var(--sheet); border: 1px solid var(--line-strong); border-radius: var(--r-2); }
+.l6__cardlabel { font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--muted); }
+.l6__email { margin-top: var(--space-3); font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3); font-weight: 600; overflow-wrap: anywhere; }
+.l6__email a { display: inline-block; padding-block: 4px; }
+.l6__row { margin-top: var(--space-4); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.l6__copied { min-height: 1.45em; font-size: var(--fs-small); font-weight: 500; color: var(--cobalt-deep); }
+.l6__links { list-style: none; margin: var(--space-5) 0 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
+.l6__links a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-ui); font-weight: 600; }
+.l6__thanks { margin-top: var(--space-7); font-family: var(--font-read); font-style: italic; font-size: var(--fs-lead); color: var(--muted-strong); }
+
+/* Door: overlay on the card; leaves hinge on their outer edges. Open (default, SSR, no-JS) hides it. */
+.l6__door { position: absolute; inset: 0; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; padding: 28px 10px 0; background: var(--ink); border-radius: var(--r-2); visibility: hidden; pointer-events: none; transition: visibility 0s linear var(--dur-door); }
+.l6__exit { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); font-size: var(--fs-label); font-weight: 600; letter-spacing: 0.3em; color: var(--paper); }
+.l6__leaf { position: relative; display: block; background: var(--vermilion); transition: transform var(--dur-door) var(--ease-sheet); backface-visibility: hidden; }
+.l6__leaf--l { transform-origin: 0 50%; border-right: 1px solid var(--ink); }
+.l6__leaf--r { transform-origin: 100% 50%; }
+.l6__leaf i { position: absolute; top: 52%; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); }
+.l6__leaf--l i { right: 12px; }
+.l6__leaf--r i { left: 12px; }
+.l6__stage[data-door='closed'] .l6__door { visibility: visible; pointer-events: auto; transition: none; }
+.l6__stage[data-door='open'] .l6__leaf--l { transform: rotateY(-82deg); }
+.l6__stage[data-door='open'] .l6__leaf--r { transform: rotateY(82deg); }
+.l6__stage[data-door='open'] .l6__door { background: transparent; }
+.l6__open { position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.l6__open:active { transform: translate(-50%, -50%) scale(0.97); }
+
+.l6__stamp { position: absolute; right: var(--space-4); top: -18px; padding: 6px 14px; border: 3px solid var(--vermilion); border-radius: var(--r-1); color: var(--vermilion); background: var(--sheet); font-size: 1.5rem; line-height: 1.1; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; transform: rotate(-6deg); animation: stamp-land var(--dur-stamp) var(--ease-stamp) var(--dur-door) both; }
+@media (prefers-reduced-motion: reduce) { .l6__stamp { animation: none; } }
