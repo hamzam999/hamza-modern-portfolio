@@ -16,7 +16,7 @@
 .l5__co { margin-top: var(--space-2); font-size: var(--fs-ui); font-weight: 500; color: var(--cobalt); }
 .l5__cp--edu .l5__co { color: var(--ink); margin-top: var(--space-1); }
 .l5__dates { margin-top: var(--space-1); font-size: var(--fs-small); color: var(--muted-strong); }
-.l5__bul { margin: var(--space-4) 0 0; padding: 0 0 0 1.1em; display: grid; gap: var(--space-2); max-width: 62ch; font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); }
+.l5__bul { list-style: disc; margin: var(--space-4) 0 0; padding: 0 0 0 1.1em; display: grid; gap: var(--space-2); max-width: 62ch; font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); }
 .l5__bul li::marker { color: var(--cobalt); }
 .l5__award { margin-top: var(--space-4); font-size: var(--fs-small); font-weight: 600; color: var(--vermilion-ink); }
 .l5__rel { margin-top: var(--space-3); font-size: var(--fs-small); font-weight: 500; }

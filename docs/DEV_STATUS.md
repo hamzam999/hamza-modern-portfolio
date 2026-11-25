@@ -2,11 +2,11 @@
 
 Updated: 2026-11-25T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 1 (Tokens, fonts, shell, prerender skeleton)
-Current gate: G1 pending (Opus review)
+Current phase: 2 (Level builds)
+Current gate: G2 pending (Opus review)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G1 review, then Phase 2
+Next task(s): G2 review, then Phase 3
 Blockers: none
 
 ## Tasks
@@ -27,6 +27,15 @@ Blockers: none
 | P1-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | TopBar, Ruler (level mode), XPCounter, LevelLabel, Passport + Menu dialogs on shared ModalDialog (native dialog, Tab wrap, animated close), Settings toggles |
 | P1-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | Cursor.tsx |
 | P1-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | App.tsx (modal-route location override in place, sheet route lands Phase 3), Home with six LevelShells, ProjectsIndex, ProjectPage, Arcade, NotFound (all with one H1), Footer, LevelShell/PageShell, routes/lazyRoutes.tsx |
+| P2-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | L1Spawn + l1.css; plain H1 (LCP), mask lead/tagline, kanji clip, ruler baseline/tick draw; LevelShell got `heading` and `className` props |
+| P2-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | L2Origin + l2.css; bio, dl facts, 5 stats (5th hidden on mobile), stat numbers mask-slide |
+| P2-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | L3SkillTree + l3.css; 10 resume branches, depth by text, visa stamp lands on view, Seen-in links |
+| P2-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | L4Archive + TapeGrid, PosterFallback, ArchiveIndex, EarlierWork, l4.css; shelf box reserved, static grid only |
+| P2-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | L5CareerPath + l5.css; Ruler career mode (label rides the dot, p formula per 5.5) |
+| P2-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | L6FinalBoss + l6.css; door open in SSR/no-JS/reduced, closes by script, opens on level active, button or focusin |
+| P2-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | Interview page restyled (src/styles/interview.css, plain CSS); legacy Tailwind mappings and rules removed; axe fixme removed |
+| P2-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | ProjectDetail, ProjectPage, ProjectsIndex, NotFound, projects.css |
+| P2-9 | done | sonnet | claude/bold-tesla-le6sg7 | - | Home composes L1..L6; project-open XP on /projects/:slug; boss XP on contact actions (level + footer); levels.spec.ts; app.css imports |
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -51,6 +60,18 @@ Blockers: none
 - Ruler career mode, shelf, detail sheet route element, arcade game, XP wiring beyond the level tracker (project open, pong, boss) are later phases.
 - Playwright webServer runs `npm run build:e2e` then preview; WebKit/Firefox projects skipped here (not installed).
 
+- Phase 2 deviations: styles for each level in src/styles/levels/l<n>.css plus common.css (kanji scroll reveal via animation-timeline, progressive), projects.css, interview.css (no Tailwind utilities left in the interview page). Interview page: icons and legacy skin dropped; list items are buttons with aria-pressed.
+- Archive index group headings are H4 in Level 4 (under "Full archive" H3) and H2 on /projects (plan says H3). L2 bio DOM order is bio then facts; facts sit left on desktop via grid placement.
+- L3 "Seen in" for `experience:*` evidence links to the company at `#level-career`. Skill-tree "trunk" is a single top rule, not an SVG. Visa stamp shows the page number (P.01), not a kanji.
+- Tape grid fallback lists the ten featured tapes with an OUT OF PRINT badge for the offline project; no "Show as shelf" button yet (Phase 3).
+- Door overlay uses a solid ink frame; leaves rotate with transform only. "BOSS DEFEATED" stamp shows only when the door was opened by script and Play mode is on.
+- Project open XP fires on /projects/:slug visit (sheet arrives Phase 3). ProjectDetail renders "Owner to confirm" for null roles, per plan.
+- Level 1 padding-bottom includes the ruler height so the credits strip is not covered.
+
+[COPY: approve] strings for the owner: L1 game note ("This page is a six-level run..."); L2 H2 (levels.ts) ; L3 intro ("Skills as listed on my resume...") and legend labels ("core skill / working skill / currently learning"); L4 intro ("Ten tapes on the shelf, seventeen in the archive. Open a tape for the full story." shelf sentence omitted until Phase 3), "Full archive", "Open the archive page", "Earlier work · out of print (5)" and the /projects earlier-work intro; L5 "Now:" summary line and "Earlier client stores from this period"; L6 lead (engagement types unconfirmed), "Open the red door", "Boss defeated", "Thanks for playing."; project page: private notes ("Built for a client...", etc.), "Visit live site", "View repository", "Out of print. This project has shut down.", result source labels, "Owner to confirm"; /projects intro; interview H1/lead ("Frontend interview questions: ..."); 404 text.
+Open data flags kept: 25+ projects stat (previous site only), skill depth (assumed), years TBC, resume link hidden until resumePdf exists.
+
 ## Log
+- P2-1..P2-9 done; typecheck, vitest (27), build:e2e, `@levels|@a11y|@nojs` (76 passed), shots and build green
 - P1-1..P1-8 done; typecheck, vitest (27), build, build:e2e, `@shell|@a11y` and shots green (see below); 22 prerendered files each with one H1
 - P0-1..P0-6 done; typecheck, vitest (9 tests), vite build, playwright smoke (8 passed) green; G0 greps clean

@@ -7,6 +7,10 @@ import { useLevelNav } from '@/lib/useLevelNav';
 import { useLocation } from 'react-router-dom';
 import { ResetProgress, SettingsToggles } from './Settings';
 
+const boss = () => {
+  useGame.getState().grant('boss:contact');
+};
+
 const firstSentence = (s: string) => (s.split('. ')[0] ?? s).replace(/\.$/, '') + '.';
 
 export function Footer() {
@@ -56,10 +60,10 @@ export function Footer() {
           <div className="footer__col">
             <h2 className="footer__title">Elsewhere</h2>
             <ul className="footer__list">
-              <li><a href={`mailto:${SOCIAL_LINKS.email}`}>Email</a></li>
-              <li><a href={SOCIAL_LINKS.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href={SOCIAL_LINKS.github} rel="noopener noreferrer">GitHub</a></li>
-              {PROFILE.resumePdf && <li><a href={PROFILE.resumePdf}>Resume (PDF)</a></li>}
+              <li><a href={`mailto:${SOCIAL_LINKS.email}`} onClick={boss}>Email</a></li>
+              <li><a href={SOCIAL_LINKS.linkedin} rel="noopener noreferrer" onClick={boss}>LinkedIn</a></li>
+              <li><a href={SOCIAL_LINKS.github} rel="noopener noreferrer" onClick={boss}>GitHub</a></li>
+              {PROFILE.resumePdf && <li><a href={PROFILE.resumePdf} onClick={boss}>Resume (PDF)</a></li>}
             </ul>
           </div>
           <div className="footer__col">

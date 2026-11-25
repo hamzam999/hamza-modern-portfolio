@@ -10,11 +10,11 @@
 .poster {
   position: relative; display: block; overflow: hidden; aspect-ratio: 0.823 / 1; border-radius: var(--r-2);
   background:
-    radial-gradient(circle at 72% 28%, var(--poster-accent) 0 16%, transparent 17%),
+    radial-gradient(circle at 82% 22%, var(--poster-accent) 0 12%, transparent 13%),
     linear-gradient(160deg, var(--poster-bg) 55%, var(--poster-accent) 56%);
   color: var(--poster-ink);
 }
-.poster__title { position: absolute; left: 8%; top: 8%; max-width: 60%; font-size: clamp(1rem, 4.4vw, 1.4rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; overflow-wrap: anywhere; text-wrap: balance; }
+.poster__title { position: absolute; left: 8%; top: 8%; max-width: 58%; font-size: clamp(0.875rem, 3.7vw, 1.25rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; overflow-wrap: anywhere; text-wrap: balance; }
 .poster--hero { aspect-ratio: 16 / 10; }
 .poster--hero .poster__title { font-size: var(--fs-h2); max-width: 70%; left: 6%; top: 10%; }
 
@@ -58,3 +58,4 @@
 .earlier__desc { margin-top: var(--space-1); font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); }
 .earlier__stack { margin-top: var(--space-1); font-size: var(--fs-small); color: var(--muted-strong); }
 .earlier--open .archive__h { margin-bottom: var(--space-3); }
+.tape__badge { justify-self: start; margin-top: var(--space-1); }

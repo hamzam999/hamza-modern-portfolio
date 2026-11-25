@@ -11,8 +11,6 @@ async function scan(page: Page) {
 
 for (const route of ROUTES) {
   test(`@a11y ${route} has no axe violations`, async ({ page }) => {
-    // The interview page keeps its legacy dark skin until P2-7 restyles it.
-    test.fixme(route === '/interview-framework', 'Re-skinned in P2-7');
     await page.goto(route);
     await page.waitForLoadState('networkidle');
     await scan(page);
