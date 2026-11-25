@@ -3,7 +3,8 @@
 **Owner:** Mohammad Hamza, Senior Frontend Engineer
 **Repository:** `hamza-modern-portfolio` (Vite + React 19 + TypeScript)
 **Plan author:** Opus planning lead. **Executors:** Sonnet developer agents, with Opus review gates.
-**Status:** Draft for owner review. Nothing in this plan has been implemented yet.
+**Status:** Revision 2, updated with the owner's answers (see 12.1). Nothing in this plan has been implemented yet.
+**Sources of truth:** `docs/Mohammad_Hamza_Resume_v6.pdf` for profile, skills, experience, education, award and contact; the owner's projects CSV (17 projects after the owner removed one) for project content; the owner's written answers recorded in 12.1.
 **Date:** 2026-11-25
 
 This document is the single source of truth for the revamp. It is written so that a developer agent can pick up any task in Section 10, read only the sections that task references, and finish it without guessing. Where the plan makes an assumption about the owner (dates, roles, domain, naming permissions), it says so with the tag **[ASSUMPTION]** or lists it in Section 12 as an open question. Agents must not resolve those by inventing facts; they leave the clearly marked placeholder in place.
@@ -41,7 +42,7 @@ Conventions used throughout:
 ### 1.1 Goals
 
 1. **Replace the dark "cyber cyan" site with the "Archive Quest" world**: warm paper, cobalt ink, a film-archive and VHS metaphor, and a light gamified roadmap of six levels on one landing page.
-2. **Show the work properly.** The 18 real projects from the owner's CSV replace the old `PROJECTS` array. The best ten sit on a curved VHS shelf; all 18 are listed in a plain index and have their own crawlable page at `/projects/<slug>`.
+2. **Show the work properly.** The 17 real projects from the owner's CSV replace the old `PROJECTS` array. The best ten sit on a curved VHS shelf; all 17 are listed in a plain index and have their own crawlable page at `/projects/<slug>`. Five older projects without live links appear only in a plain "Earlier work" list (5.4a).
 3. **Make the site findable by search engines and language models.** Every piece of real text exists as semantic HTML in prerendered files. The site ships `llms.txt`, `llms-full.txt`, `sitemap.xml`, `robots.txt`, JSON-LD and Open Graph images.
 4. **Feel fast and correct on phones first.** The site must work without layout bugs at 360, 390, 768, 1024 and 1440 pixels wide, on iOS Safari and Android Chrome, with touch, mouse and keyboard.
 5. **Treat accessibility and reduced motion as first-class modes**, not as afterthoughts. The game layer is optional, skippable and can be switched off.
@@ -74,7 +75,7 @@ All numbers are checked in Phase 6 (Section 11) on a production build served by 
 | Accessibility | Zero axe violations (WCAG 2.0 A/AA, 2.1 AA, 2.2 AA tags) on every route, in default and reduced-motion modes; full keyboard path through all levels, shelf, detail sheet, passport and arcade | `@axe-core/playwright`; keyboard Playwright spec |
 | Touch targets | Every interactive element ≥ 44 × 44 CSS px hit area (WCAG 2.5.8 needs 24; we hold 44) | Playwright script measuring bounding boxes of `a, button, [role=button], [tabindex="0"]` |
 | Mobile layout | No horizontal scroll at 360, 390, 768, 1024, 1440 (`scrollWidth ≤ innerWidth`); fixed ruler never covers interactive content; safe areas respected in iPhone landscape | Playwright layout spec; manual device check |
-| Crawlability | With JavaScript disabled, `/` shows all six levels' text, all 18 project links, contact links; each `/projects/<slug>` shows its H1 and synopsis | Playwright context with `javaScriptEnabled: false`; `curl` of built HTML |
+| Crawlability | With JavaScript disabled, `/` shows all six levels' text, all 17 project links, the Earlier work list, contact links; each `/projects/<slug>` shows its H1 and synopsis | Playwright context with `javaScriptEnabled: false`; `curl` of built HTML |
 | Structured data | JSON-LD on `/` and every project page passes the Schema.org validator with no errors; Google Rich Results Test shows no errors for BreadcrumbList | manual check at gate G5 |
 | Reduced motion | Full site usable, no transform animation longer than 1 frame except caption swaps reduced to instant; no auto-moving element | Playwright project with `reducedMotion: 'reduce'` |
 
@@ -92,7 +93,7 @@ The repository was generated from a Google AI Studio template and then grown by 
 | `index.tsx` | Client entry, `createRoot` | Will become `src/main.tsx` with `hydrateRoot`. |
 | `App.tsx` | Router, `ScrollProvider`, `SmoothScroller` (Lenis), `Navbar`, `Footer`, two routes (`/`, `/interview-framework`) | Hard-coded `bg-[#0A0A0B]`, scanline overlays. |
 | `index.css` | Old design tokens (`--bg #000`, emerald and blue accents, Archivo/Space Grotesk), bento grid, glass console | Imports Google Fonts a second time. Several classes used in components (`section-full`, `section-content`, `scanlines`, `hud-border`) are not defined. |
-| `constants.tsx` | `SECTION_MAP`, `SOCIAL_LINKS`, `HERO_CONTENT`, `ABOUT_CONTENT`, `PROJECTS` (11 old entries), `EXPERIENCES` (4), `SKILLS` (3 categories) | `SOCIAL_LINKS.portfolio = "https://erhamza.dev"` is the only domain in the repo. `PROJECTS` is replaced by the CSV data. `EXPERIENCES`, `ABOUT_CONTENT`, `HERO_CONTENT`, `SOCIAL_LINKS`, `SKILLS` are **kept as content** and moved. |
+| `constants.tsx` | `SECTION_MAP`, `SOCIAL_LINKS`, `HERO_CONTENT`, `ABOUT_CONTENT`, `PROJECTS` (11 old entries), `EXPERIENCES` (4), `SKILLS` (3 categories) | `SOCIAL_LINKS.portfolio` still says `https://erhamza.dev`; the owner confirmed the production domain is **`https://erhamza.tech`** (the email address stays `erhamza.dev@gmail.com`). Update `SOCIAL_LINKS.portfolio` during content migration. `PROJECTS` is replaced by the CSV data. `SOCIAL_LINKS` (except the domain) is kept. `HERO_CONTENT`, `ABOUT_CONTENT`, `EXPERIENCES` and `SKILLS` are **superseded by the resume** (`docs/Mohammad_Hamza_Resume_v6.pdf`) wherever they conflict; conflicts are listed in 12.2. The old `PROJECTS` descriptions of Louis Cardin, Slurvo, WanHam Leathers and Bizthon Cursor are kept only as source text for the Earlier work list. |
 | `types.ts` | Old `Project`, `Experience`, `Skill`, `SkillCategory` | Replaced by `src/types/content.ts` (Appendix B). |
 | `interviewData.ts` (77 KB) | Interview Q&A content and `CATEGORIES` | Kept unchanged, moved to `src/content/interview.ts`, loaded only by its route. |
 | `pages/Portfolio.tsx` | Composes Hero, About, TechFoundation, Work, ExperienceTimeline, CTA | Replaced by `src/routes/Home.tsx`. |
@@ -110,7 +111,7 @@ The repository was generated from a Google AI Studio template and then grown by 
 | `tsconfig.json` | No `strict`; `@/*` maps to repo root | Becomes strict; `@/*` maps to `src/*`. |
 | `metadata.json` | AI Studio metadata ("5+ years") | Deleted. |
 | `README.md` | AI Studio boilerplate (Gemini key instructions) | Rewritten in Phase 0. |
-| `docs/Mohammad_Hamza_6April.pdf`, `docs/Mohammad_Hamza_Resume_v6.pdf` | Resumes | One is published at `/resume.pdf` once the owner picks it (Section 12). |
+| `docs/Mohammad_Hamza_6April.pdf`, `docs/Mohammad_Hamza_Resume_v6.pdf` | Resumes | v6 is the source of truth for profile content. **It contains a phone number**, so it must not be copied to `public/` as is. The owner exports a phone-free copy, which is published as `/resume.pdf` (Section 12, action A1). |
 | `design-system/hamza-portfolio-revamp/MASTER.md` | Earlier generated design system (Archivo, Space Grotesk, "NFT/Web3 Platform") | Superseded by this plan. Replace its content with a pointer to this file in Phase 0. |
 | `design-md/` (60 brand folders) | Reference design notes for other brands | Not imported and not shipped. Leave untouched; it is out of scope. |
 | `.claude/skills/`, `.agents/skills/` | Agent skills | Leave untouched. |
@@ -144,7 +145,7 @@ Pin exact minor versions in `package.json` at install time (`npm install -E`), a
 | `public/projects/gesim.png` | `media-src/projects/gesim/screenshot.png` | |
 | `public/projects/nft.png` | `media-src/projects/nft-marketplace/screenshot.png` | Project is shut down; keep only if the owner has rights to show it. |
 | `public/projects/safe.png` | `media-src/projects/dex-cex-multisig-wallet/screenshot.png` | Private work. Owner must confirm the image shows no client data. |
-| `public/projects/cursor.png`, `louis-cardin.png`, `slurvo.png`, `wanhamleathers.png`, `sedefanatolia.png` | Remove from `public/` | Projects not in the CSV. Move to `media-src/archive/` (not shipped) until the owner confirms deletion. |
+| `public/projects/cursor.png`, `louis-cardin.png`, `slurvo.png`, `wanhamleathers.png`, `sedefanatolia.png` | Remove from `public/`; move to `media-src/archive/` (not shipped) | These are the five Earlier work projects (5.4a). The list is text-only, so the images are not used on the site. |
 
 ---
 
@@ -369,7 +370,7 @@ All components live under `src/components/`. Each row names the file, the props 
 | Component | File | Props (essential) | Behavior |
 |---|---|---|---|
 | `LevelShell` | `ui/LevelShell.tsx` | `level: Level`, `children`, `kanjiPosition?: 'left' \| 'right'` | Renders `<section id={level.anchor} aria-labelledby={headingId} data-level={level.index}>`, the eyebrow `LEVEL 0n / 06 · NAME` plus JP label, the halftone kanji, a heading slot, an end sentinel `<div data-level-end aria-hidden>`, and registers with the level tracker. Heading gets `tabIndex={-1}` so ruler jumps can move focus. SSR-safe. |
-| `Ruler` | `hud/Ruler.tsx` | none (reads store) | Fixed bottom. `<nav aria-label="Levels">` with an ordered list of six links (`href="#level-spawn"` and so on), visual tick marks for 2019 to 2026 (`aria-hidden`), the gliding cobalt dot (`aria-hidden`), active link has `aria-current="location"`. Career mode in Level 5 (5.5). |
+| `Ruler` | `hud/Ruler.tsx` | none (reads store) | Fixed bottom. `<nav aria-label="Levels">` with an ordered list of six links (`href="#level-spawn"` and so on), visual tick marks for 2020 to 2026 (`aria-hidden`), the gliding cobalt dot (`aria-hidden`), active link has `aria-current="location"`. Career mode in Level 5 (5.5). |
 | `XPCounter` | `hud/XPCounter.tsx` | none | Shows XP as a film frame count: `FR 0340` (four digits, zero-padded, tabular). Digit roll on change (each digit is a mask; new digit slides up 100% in `--dur-ui`). `aria-label="Experience points: 340 of 1200"`. Hidden when Play mode is off. |
 | `LevelLabel` | `hud/LevelLabel.tsx` | none | `LEVEL 04 / 06` plus level name on desktop, `04/06` on mobile. Text swaps with a mask slide. Not a live region (the ruler already conveys location). |
 | `Passport` | `hud/Passport.tsx` | none | Button in the top bar (passport icon + "Passport", 44 px). Opens a native `<dialog>` (modal) listing seven stamp slots (six levels + arcade) with text status ("Level 3, Skill Tree: cleared on 25 Nov 2026" or "not yet"), total XP, "Reset progress" and "Play mode" toggle. |
@@ -382,7 +383,7 @@ All components live under `src/components/`. Each row names the file, the props 
 | `Shelf` | `shelf/Shelf.tsx` + `Tape.tsx`, `geometry.ts`, `spring.ts`, `useShelfInput.ts` | `projects: Project[]` (featured, ordered) | Section 6. Client-only (lazy chunk), mounted into a reserved box. |
 | `DetailSheet` | `shelf/DetailSheet.tsx` + `InkMask.tsx` | `project`, `originRect?: DOMRect` | Section 6.8. Native `<dialog>`, grows from the cover rect. Shares `ProjectDetail` content with the project page. |
 | `ProjectDetail` | `projects/ProjectDetail.tsx` | `project`, `headingLevel: 1 \| 2` | Content block used by both `DetailSheet` and `/projects/:slug`: eyebrow (category and genre), title, synopsis, role, stack chips, owner-stated results, link or private notice, poster. |
-| `ArchiveIndex` | `projects/ArchiveIndex.tsx` | `projects`, `variant: 'compact' \| 'full'` | Semantic list of all 18 projects grouped by category (Section 6.10). SSR-rendered. |
+| `ArchiveIndex` | `projects/ArchiveIndex.tsx` | `projects`, `variant: 'compact' \| 'full'` | Semantic list of all 17 projects grouped by category (Section 6.10). SSR-rendered. |
 | `PosterFallback` | `projects/PosterFallback.tsx` | `project` | Typographic poster used whenever a screenshot is missing (6.11). |
 | `TopBar` | `hud/TopBar.tsx` | none | 5.7. |
 | `Footer` | `hud/Footer.tsx` | none | 5.8. |
@@ -452,7 +453,7 @@ Skills: **vercel-react-best-practices** (bundle splitting, re-render control, ef
 │  │  └─ useLevelTracker.ts       # IntersectionObserver for active level and clears
 │  ├─ content/
 │  │  ├─ profile.ts               # HERO_CONTENT, ABOUT_CONTENT, SOCIAL_LINKS (moved)
-│  │  ├─ projects.ts              # 18 projects (Appendix D)
+│  │  ├─ projects.ts              # 17 projects (Appendix D) + EARLIER_WORK (5 entries)
 │  │  ├─ experience.ts            # EXPERIENCES (moved, with ISO dates)
 │  │  ├─ skills.ts                # skill tree
 │  │  ├─ levels.ts                # six levels
@@ -511,8 +512,8 @@ Viewport height handling: layout uses `min-height: 100svh` (small viewport, stab
 | Path | Component | Prerendered file | Indexable | Notes |
 |---|---|---|---|---|
 | `/` | `Home` | `dist/index.html` | yes | Six levels |
-| `/projects` | `ProjectsIndex` | `dist/projects/index.html` | yes | Full archive index with all 18 (breadcrumb parent) |
-| `/projects/:slug` | `ProjectPage` | `dist/projects/<slug>/index.html` (18 files) | yes | Standalone page; also the URL of the open detail sheet |
+| `/projects` | `ProjectsIndex` | `dist/projects/index.html` | yes | Full archive index with all 17 plus the Earlier work list (breadcrumb parent) |
+| `/projects/:slug` | `ProjectPage` | `dist/projects/<slug>/index.html` (17 files) | yes | Standalone page; also the URL of the open detail sheet |
 | `/arcade` | `Arcade` (lazy) | `dist/arcade/index.html` | yes | Game is client-only; page text is prerendered |
 | `/interview-framework` | `InterviewFramework` (lazy) | `dist/interview-framework/index.html` | yes | Existing page, re-skinned |
 | `*` | `NotFound` | `dist/404.html` | no (`noindex`) | Served by host with HTTP 404 |
@@ -573,17 +574,17 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Purpose.** Say who this is and what he builds within one screen, and invite the visitor to start the run or skip straight to projects or contact.
 
-**Content source.** `src/content/profile.ts` (moved from `HERO_CONTENT` and `SOCIAL_LINKS`), computed counts from `projects.ts`.
+**Content source.** `src/content/profile.ts` (resume v6 summary and contact line; `HERO_CONTENT.tagline` and `availability` kept), computed counts from `projects.ts`.
 
 **Copy outline.**
 
 - Eyebrow: `LEVEL 01 / 06 · SPAWN` + `はじめ` (aria-hidden).
 - H1: `Mohammad Hamza` with a second line inside the same H1: `Senior Frontend Engineer` (smaller, `--fs-h3`, cobalt). One H1 on the page.
-- Lead (Newsreader, `--fs-lead`), from `HERO_CONTENT.subtitle`: "Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, and interactive web experiences."
+- Lead (Newsreader, `--fs-lead`), the resume summary's first sentence: "Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences."
 - Tagline (Newsreader italic): "Engineering Business Impact." (from `HERO_CONTENT.tagline`).
 - Focus line (Inter Tight, `--fs-ui`, as a plain list): React · Next.js · Three.js / WebGL · Shopify · Web3.
-- Availability: "Available for Collaborations" (from `HERO_CONTENT.availability`) · "Remote" **[ASSUMPTION: confirm]**.
-- Credits strip (film credits style, `--fs-label`): `A MOHAMMAD HAMZA BUILD · 2019–2026 · 18 REELS IN THE ARCHIVE` (the count is computed from data).
+- Availability: "Available for Collaborations" (from `HERO_CONTENT.availability`) · "Kanpur, India · Remote" (location from the resume header; "Remote" from the freelance role).
+- Credits strip (film credits style, `--fs-label`): `A MOHAMMAD HAMZA BUILD · 2020–2026 · 17 REELS IN THE ARCHIVE` (the count is computed from data).
 - Actions: primary `Press start` (link to `#level-origin`), secondary `Skip to projects` (`#level-archive`), ghost `Hire me` (`#level-contact`).
 - One-line game note under the actions, `--fs-small`, muted-strong: "This page is a six-level run. Scroll to play, or turn Play mode off in the passport." **[COPY: approve]**
 
@@ -617,27 +618,29 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Purpose.** Give the human story and quick facts in a form that both recruiters and language models can quote.
 
-**Content source.** `ABOUT_CONTENT` (bio, stats, education, achievement) and `EXPERIENCES` from `src/content/profile.ts` and `experience.ts`.
+**Content source.** Resume v6: Summary, Education, Achievements & Awards, header (location, email, links). `ABOUT_CONTENT` in `constants.tsx` is superseded where it differs.
 
 **Copy outline.**
 
 - Eyebrow: `LEVEL 02 / 06 · ORIGIN` + `げんてん`.
-- H2: "From running a D2C store to building Web3 and 3D interfaces" **[COPY: approve]** (based on the Self-Employed 2020–2022 and ITH Technologies entries).
-- Bio: `ABOUT_CONTENT.bio`, split into three paragraphs at natural breaks: (1) the opening through "Shopify", (2) "with deep expertise in Shopify Store 2.0..." through "conversion-driven UI/UX", (3) the rest. Agents keep the wording; they only split and fix obvious punctuation ("data heavy" → "data-heavy").
+- H2: "From running a D2C store to building Web3, ERP and 3D interfaces" **[COPY: approve]** (based on the resume's Founder 2020–2022, ITH Technologies and Freelance Frontend & ERP entries).
+- Bio: the resume Summary, split into three paragraphs: (1) "Results-driven Frontend Engineer ... custom app development." (2) "Strong focus on performance optimization (SSR/SSG and code splitting, 30-50% gains), scalable architectures, reusable components, REST/GraphQL API integration, offline-first apps and conversion-driven UI/UX." (3) "Adapts quickly to new domains (Web3, Shopify, 3D web), with strong problem-solving and self-learning capabilities. Currently learning backend development (Node.js, Express, PostgreSQL)." Agents keep the wording; they only change "30-50%" to "30–50%".
 - Quick facts, as a `<dl>`:
-  - Role: Senior Frontend Engineer
-  - Experience: 6+ years, since 2020
-  - Focus: React, Next.js, Shopify (Online Store 2.0, Functions, Checkout Extensions), Web3 (Solana and EVM), Three.js and GLSL
-  - Education: Bachelor of Computer Science, CSJM University, Kanpur – 2020
-  - Recognition: "Promising Newcomer" award at ITH Technologies (from `ABOUT_CONTENT.achievement`)
-  - Based in: Kanpur, India **[ASSUMPTION: derived from experience locations; confirm]**
+  - Role: Senior Frontend Engineer (current title: Frontend & ERP Developer, freelance)
+  - Experience: 6+ years, since January 2020
+  - Focus: React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), Web3 (Solana, Ethers.js, Wagmi), ERPNext/Frappe, Three.js and GLSL
+  - Education: Bachelor of Computer Science, CSJM University, Kanpur, 2020
+  - Recognition: "Promising Newcomer" at ITH Technologies, for quickly ramping up on complex Web3 systems and delivering high-impact frontend solutions
+  - Based in: Kanpur, India
   - Works: Remote
+  - Email: erhamza.dev@gmail.com (no phone number is published anywhere on the site)
 - Stats as "credits" (number large, label small). Each stat must carry its context so it is not misleading:
-  - `6+` years of experience
-  - `25+` projects shipped (owner-stated; the archive lists 18)
-  - `35%` faster page loads after merging trading tools into one Next.js CRM (owner-stated)
-  - `30–50%` speed improvement on the same CRM (owner-stated)
-  The old unqualified "Performance Gain 50%" stat is replaced by the CRM-specific wording, which is how the CSV states it.
+  - `6+` years of experience (resume)
+  - `25+` projects shipped (previous site copy only; the resume does not state it; flagged in 12.2)
+  - `35%` faster load times after merging trading platforms into one Next.js CRM (resume)
+  - `30–50%` performance gains from SSR/SSG and code splitting (resume)
+  - `30%` more organic traffic from technical SEO at House of THL (resume) — optional fifth stat if the row has room on desktop; omit on mobile
+  The old unqualified "Performance Gain 50%" stat is replaced by the resume's wording.
 
 **Layout.** Desktop: H2 across columns 1 to 10; bio in columns 6 to 12; facts `<dl>` in columns 1 to 4 (aligned to the bio's first line); stats in a 4-up row below, separated by vertical hairlines like a film credit roll. Kanji 原点 on the left behind the facts. Mobile: H2, bio, facts (two-column `<dl>` grid: term 40 %, description 60 %; below 390 px terms stack above descriptions), stats as a 2 × 2 grid.
 
@@ -647,7 +650,7 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Accessibility.** `<dl>` semantics; stats are a `<ul>` where each item reads "35% faster page loads after merging trading tools into one Next.js CRM". Reading order in DOM matches the visual order on mobile.
 
-**SEO.** H2 contains "Web3" and "3D". Facts include "Senior Frontend Engineer", "React", "Next.js", "Shopify", "Kanpur, India", "Remote". This `<dl>` is also the source for the Person JSON-LD (9.5) so they never drift.
+**SEO.** H2 contains "Web3", "ERP" and "3D". Facts include "Senior Frontend Engineer", "React", "Next.js", "Shopify", "Kanpur, India", "Remote". This `<dl>` is also the source for the Person JSON-LD (9.5) so they never drift.
 
 **Acceptance criteria.** All bio text visible without interaction; no stat appears without its context sentence; `<dl>` passes axe; layout holds at 360 with long words like "Online Store 2.0" wrapping cleanly.
 
@@ -655,24 +658,28 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Purpose.** Show breadth and depth, and prove each skill with a project.
 
-**Content source.** `src/content/skills.ts` (new), built from `SKILLS` in `constants.tsx` plus the stacks in the CSV. Each node lists evidence as project slugs, so the type system rejects a skill that points to a project that does not exist.
+**Content source.** `src/content/skills.ts` (new). Branches and nodes follow the **Skills section of resume v6** exactly, in its order. Evidence links come from the CSV project stacks and resume project entries. Each node lists evidence as project slugs (or `experience:<id>`), so the type system rejects a skill that points to a project that does not exist. Nodes without project evidence show no "Seen in" link rather than an invented one.
 
-**Skill tree (branches, nodes, evidence).** Depth labels are **[ASSUMPTION]** and must be confirmed by the owner (Section 12).
+**Skill tree (branches from the resume, nodes, evidence).** Depth marks: nodes the resume sets in bold are `core`; everything else is `working`, except the "Currently learning" branch, which is labeled as learning. This rule is mechanical, so no depth is invented **[owner may override; Q15]**.
 
-| Branch (H3) | Nodes | Evidence |
+| Branch (H3) | Nodes (resume wording) | Evidence |
 |---|---|---|
-| Core frontend | React (core), Next.js (core), TypeScript (core), Angular (working), Tailwind CSS (working) | codeslytic-budget, unified-trading-crm, muftimaaz, skyai-3d-robot, existing `SKILLS` |
-| Motion and 3D | Three.js (core), GLSL shaders (working), React Three Fiber (working), GSAP and ScrollTrigger (core), CSS animation (core), Pointer Events (working), Framer (working) | navig, skyai-3d-robot, motiongrid, studio-solyn |
-| Commerce | Shopify Online Store 2.0 and Dawn (core), Liquid (core), Shopify Functions (core), Checkout Extensions (core), Shopify GraphQL (working), Custom apps with Remix, Polaris and Shopify CLI (working) | lammles, nighat-ahmad-official, hefashion, berbanto-atelier, Freelance experience entry |
-| Web3 | Solana Web3.js, SPL tokens and Raydium SDK (core), Ethers.js (core), Wagmi (core), Web3.js (working), AppKit (working), Paymaster gasless minting (working), Solidity (familiar), wallet SDKs in React Native (working) | dex-cex-multisig-wallet, nft-marketplace, gesim, existing `SKILLS` |
-| Product and backend | Node.js (working), PostgreSQL (working), IndexedDB offline sync (working), Docker (working), GitHub Actions (working), AWS EC2 (working), Cloudflare R2 (working), YouTube Data API (working), ERPNext and Frappe (working) | codeslytic-budget, muftimaaz, erpnext-manufacturing |
-| Quality | Playwright end-to-end testing (working) | codeslytic-budget |
-| Platforms and automation | WordPress and PHP 8 (working), WordPress REST API (working), n8n (working), NVIDIA NIM (familiar), Cloudflare Tunnel and Access (familiar) | bookease, promenade-medulin, ai-agent-team |
-| Tools | Git, GitHub, Figma, VS Code, Postman, Jira | existing `SKILLS` |
+| Frontend | JavaScript (ES6+), **TypeScript**, **React**, **Next.js** (App Router, SSR, SSG), React Router, Redux, Context API, HTML5, CSS3/SCSS, **Tailwind CSS**, Bootstrap, shadcn/ui, **TanStack Query**, Vite, **Responsive Design**, **Accessibility (WCAG 2.2)**, Angular, React Native | codeslytic-budget, unified-trading-crm, muftimaaz, gesim, motiongrid |
+| Architecture | Reusable components, REST/GraphQL API integration, offline-first sync (IndexedDB, PWA), multi-tenant access control, performance optimization | codeslytic-budget, unified-trading-crm |
+| 3D & Animation | Three.js, GSAP, WebGL, GLSL | navig, motiongrid, studio-solyn |
+| Shopify | Online Store 2.0, Dawn Theme Customization, Liquid, Shopify Functions, Checkout Extensions, Shopify Apps, Shopify CLI, Polaris, Remix, Webhooks, Storefront API, Admin API | lammles, nighat-ahmad-official, hefashion, berbanto-atelier, experience:freelance |
+| Web3 & Blockchain | Solana Web3.js, SPL Tokens, Ethers.js, Wagmi, Wallet Integrations, DEX & CEX APIs, NFTs | dex-cex-multisig-wallet, gesim, nft-marketplace, experience:ith |
+| E-commerce & SaaS | Shopify, WordPress, Headless Commerce, CRM, ATS, Job Boards | nighat-ahmad-official, promenade-medulin, bookease, unified-trading-crm |
+| ERP | ERPNext/Frappe (custom apps, doctypes, workflows), Python | erpnext-manufacturing, ai-agent-team |
+| DevOps & Tools | Git/GitHub, Bitbucket, Jira, Agile/Scrum, **GitHub Actions CI/CD**, Docker, AWS EC2, Claude Code, Cursor, Antigravity, VS Code Extensions | codeslytic-budget, erpnext-manufacturing |
+| AI & Automation | **Claude Code** (skills, subagents, MCP), **n8n** automations, multi-agent workflows (Paperclip, Hermes), Postiz, lead generation, content automation (reels, LinkedIn) | ai-agent-team |
+| Currently learning (backend) | Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth | codeslytic-budget (Node.js, PostgreSQL) |
 
-**Copy outline.** Eyebrow `LEVEL 03 / 06 · SKILL TREE` + `わざ`. H2: "Skill tree: React, Next.js, Three.js, Shopify and Web3". Intro (one sentence): "Every skill below links to a project where it was used." **[COPY: approve]**. Each branch: H3, node chips in a `<ul>`, then a single line "Seen in: NAVIG · SkyAI robot · MotionGrid" with links to the project pages. A legend explains depth marks (filled dot = core, half = working, ring = familiar), with text, not only shapes.
+Ten branches. Skills that appear only in CSV stacks (Playwright, Cloudflare R2, YouTube Data API, IndexedDB, PHP 8, WordPress REST API, NVIDIA NIM, Cloudflare Tunnel, Framer, Pointer Events API, Solidity, Paymaster) are **not** added as tree nodes; they appear as stack chips on their project pages. This keeps the tree identical to the resume.
 
-**Layout.** Desktop: branches are "passport pages", cards on `--sheet` with a 1 px `--line` border and a page number, arranged in a 4-column masonry-free grid (2 rows of 4; Tools spans the last slot). A decorative SVG "trunk" line connects the branch cards along the top edge (`aria-hidden`). Mobile: single column of cards, chips wrap; no horizontal scrolling. Tablet: 2 columns.
+**Copy outline.** Eyebrow `LEVEL 03 / 06 · SKILL TREE` + `わざ`. H2: "Skill tree: React, Next.js, Shopify, Web3, ERP and 3D". Intro (one sentence): "Skills as listed on my resume, linked to the projects where they were used." **[COPY: approve]**. Each branch: H3, node chips in a `<ul>`, then a single line "Seen in: NAVIG · MotionGrid · Studio Solyn" with links to the project pages. A legend explains depth marks (filled dot = core, half = working, ring = familiar), with text, not only shapes.
+
+**Layout.** Desktop: branches are "passport pages", cards on `--sheet` with a 1 px `--line` border and a page number, arranged in a 5-column grid from 1280 px (two rows of five) and a 3-column grid at 1024 to 1279 px (the tenth card, "Currently learning", spans the last row and is styled as a dashed "next page"). A decorative SVG "trunk" line connects the branch cards along the top edge (`aria-hidden`). Mobile: single column of cards, chips wrap; no horizontal scrolling. Tablet: 2 columns.
 
 **Animation.** When a card enters view, a small vermilion "visa" stamp lands in its corner (`Stamp` small variant, `--dur-stamp`, 80 ms stagger between cards). Chips do not animate. Reduced motion: stamps shown set.
 
@@ -690,43 +697,65 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Content source.** `src/content/projects.ts` (Appendix D), `media-manifest.json`.
 
-**Copy outline.** Eyebrow `LEVEL 04 / 06 · ARCHIVE` + `さくひん`. H2: "Selected projects". Intro: "Ten tapes on the shelf, eighteen in the archive. Drag, scroll sideways or use the arrow keys, then open a tape for the full story." **[COPY: approve]**. Below the shelf: H3 "Full archive" with the grouped index (6.10) and a link "Open the archive page" to `/projects`.
+**Copy outline.** Eyebrow `LEVEL 04 / 06 · ARCHIVE` + `さくひん`. H2: "Selected projects". Intro: "Ten tapes on the shelf, seventeen in the archive. Drag, scroll sideways or use the arrow keys, then open a tape for the full story." **[COPY: approve]**. Below the shelf: H3 "Full archive" with the grouped index (6.10) and a link "Open the archive page" to `/projects`.
 
 **Layout.** Desktop: the shelf stage spans the full content width (it may bleed to the viewport edges, clipped by the level). Stage height `min(100svh - var(--topbar-h) - var(--ruler-h), 760px)`. Caption under the active cover, round arrow buttons on either side of the caption, reel scrubber under the caption. Kanji 作品 at left, behind the shelf, as in the reference. Mobile: same structure, arrows sit at the caption's left and right edges (44 px), scrubber below. Full detail in Section 6.
 
 **Animation, gamification, accessibility.** Section 6 and 7.
 
-**SEO.** H2 "Selected projects"; each tape is a real `<a href="/projects/<slug>">`; the full index lists all 18 with descriptive link text (project title plus a short descriptor), all present in the prerendered HTML.
+**SEO.** H2 "Selected projects"; each tape is a real `<a href="/projects/<slug>">`; the full index lists all 17 with descriptive link text (project title plus a short descriptor), all present in the prerendered HTML.
 
 **Acceptance criteria.** Section 6.12.
+
+### 5.4a Earlier work ("Out of print" list)
+
+**Decision (owner's request):** five older projects that no longer have live links leave the shelf and the index but stay on the site as a plain list. They get no tape, no detail page and no outbound link.
+
+**Placement.** (1) At the end of Level 4, after the full archive index: a native `<details>` element, closed by default, with the summary "Earlier work · out of print (5)". (2) On `/projects`, the same list rendered open under an H2 "Earlier work". (3) Level 5 links to it from the House of THL checkpoint (`/#earlier-work`), since these are client stores from the early years. Using `<details>` keeps the text in the prerendered HTML (crawlable and readable with JS disabled) while keeping Level 4 short.
+
+**Why no own URLs.** Each entry is one or two sentences with no screenshots, role detail or link. Pages that thin would be weak search results and would dilute the archive. They are covered by the `/projects` page, `llms-full.txt` and the Person entity, which is enough.
+
+**Content** (`EARLIER_WORK` in `src/content/projects.ts`; type `EarlierWork` in Appendix B). Descriptions come from the owner's answer and the old repository text:
+
+| Name | Description | Stack (from old data) | Source |
+|---|---|---|---|
+| Louis Cardin | Shopify store for a UAE-based perfume brand launched in India: story-led fragrance commerce with campaign-friendly homepage composition and strong promotional UX. | Shopify, Liquid, theme JavaScript | Owner's answer; old `constants.tsx` ("Story-led Shopify fragrance commerce implementation with strong promotional UX"; "Balanced premium brand narrative with direct conversion for launch in INDIA") |
+| Sedef Anatolia | Shopify store for an inspired-perfume brand from India, balancing brand storytelling with promotion-friendly collections and checkout. | Shopify, Liquid, theme JavaScript | Owner's answer; old `src/data/projects.ts` ("D2C Fragrance E-commerce") |
+| Slurvo | Next.js B2B website focused on trust-building and export lead generation for pet treat manufacturing and export partnerships. | Next.js, React | Old `constants.tsx` and `src/data/projects.ts` |
+| WanHam Leathers | Conversion-ready export website for leather belts, pet accessories and equestrian product lines, with an inquiry-first structure for international buyers. | Next.js, React | Old `constants.tsx` and `src/data/projects.ts` |
+| Bizthon Cursor | VS Code extension in React enabling AI-powered coding assistance across 10+ LLMs, with in-editor UI, caching and quick model switching. | React, VS Code API, DeepSeek, OpenAI | Old `constants.tsx` (owner-written; "10+ LLMs" kept as stated) |
+
+Markup: `<section id="earlier-work" aria-labelledby>` containing `<details><summary>` and a `<ul>`; each item is name (`<strong>`), description, stack in `--fs-small` and an `OUT OF PRINT` label in `--vermilion-ink`. No images. Years are not shown (unknown) **[owner may add years]**.
+
 
 ### 5.5 Level 5, Career Path (experience) — `src/levels/L5CareerPath.tsx`
 
 **Purpose.** Show the progression as a path, oldest to newest, with the ruler acting as the timeline.
 
-**Content source.** `src/content/experience.ts` (moved from `EXPERIENCES`, with ISO month dates added: `2020-01`–`2022-01`, `2022-03`–`2023-01`, `2023-02`–`2025-12`, `2026-01`–present).
+**Content source.** `src/content/experience.ts`, written from the **Work Experience section of resume v6** (titles, dates, locations and bullets verbatim). The old `EXPERIENCES` in `constants.tsx` is not used; its differences are listed in 12.2. ISO month dates: `2020-01`–`2022-01`, `2022-03`–`2023-01`, `2023-02`–`2025-12`, `2026-01`–present.
 
 **Copy outline.**
 
 - Eyebrow `LEVEL 05 / 06 · CAREER PATH` + `けいけん`.
 - H2: "Career path: 6+ years of frontend engineering".
-- Summary line right under the H2 so the latest role is seen first: "Now: Frontend Developer (Freelance), Product and E-commerce Solutions, since Jan 2026, remote."
-- Four checkpoints in chronological order (oldest first, matching the ruler running left to right):
-  1. Shopify and WordPress Developer (Founder), Self-Employed, Jan 2020 – Jan 2022, Remote.
-  2. Shopify Developer, House of THL, Mar 2022 – Jan 2023, Kanpur, U.P.
-  3. Frontend and Web3 Engineer, ITH Technologies, Feb 2023 – Dec 2025, Kanpur, U.P.
-  4. Frontend Developer (Freelance), Product and E-commerce Solutions, Jan 2026 – Present, Remote.
-  Each with its `details` bullet list verbatim from `EXPERIENCES`. Each checkpoint links to related projects ("Projects from this period: Unified CRM, DEX/CEX dashboards") only where the link is certain (ITH entry mentions the CRM, the trading dashboards and the multi-sig wallet). Other links wait for owner-confirmed years.
+- Summary line right under the H2 so the latest role is seen first: "Now: Frontend & ERP Developer (Freelance), Product & E-commerce Solutions, since Jan 2026, remote."
+- Five checkpoints in chronological order (oldest first, matching the ruler running left to right):
+  0. Education (small checkpoint, no card body): Bachelor of Computer Science, CSJM University, Kanpur, 2020.
+  1. **Shopify & WordPress Developer (Founder)**, Self-Employed, Jan 2020 – Jan 2022. Bullet: "Built and scaled a D2C e-commerce business on Shopify/WooCommerce with custom Shopify themes, custom checkout logic and SEO."
+  2. **Shopify Developer / Frontend Developer**, House of THL, Mar 2022 – Jan 2023, Kanpur, U.P. Bullets: "Built responsive Shopify themes (Liquid, HTML5, CSS3/SCSS, JavaScript ES6+) from Figma/XD designs." / "Improved organic traffic by 30% through technical SEO, structured data and performance work." / "Integrated Shopify APIs, third-party apps and payment systems; built cart features that lifted AOV." After this card, the collapsed **Earlier work** block (5.4a) is referenced with a link "Earlier client stores from this period", because those projects predate the current archive.
+  3. **Frontend & Web3 Engineer**, ITH Technologies, Feb 2023 – Dec 2025, Kanpur, U.P. Bullets: "Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%." / "Improved performance by 30-50% using SSR/SSG and code splitting." / "Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs)." / "Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend." Award line: "Promising Newcomer" award. Related projects (inferred from the bullets): unified-trading-crm, dex-cex-multisig-wallet.
+  4. **Frontend & ERP Developer (Freelance)**, Product & E-commerce Solutions, Jan 2026 – Present, Remote. Bullets (resume, verbatim): CodesLytic Budget solo full-stack build; ERPNext/Frappe customisation for a manufacturing client; custom Shopify apps (Remix, Polaris, Shopify CLI) with Admin/Storefront APIs, webhooks, Checkout Extensions and Functions; Shopify OS 2.0 storefronts and React/Next.js apps including 3D animated websites with Three.js and GSAP; Claude skills, AI agents and n8n automations for lead generation and reels/LinkedIn content; leading projects with no predefined design direction. Related projects (named in the bullets): codeslytic-budget, erpnext-manufacturing, ai-agent-team.
+  Each checkpoint links to related projects only where the resume ties them to that role. Project year ranges in Appendix D are inferred from these links and marked "inferred".
 
 **Layout.** Desktop: a vertical path line in column 2 with checkpoint nodes; cards in columns 3 to 11; the year of each checkpoint set large (`--fs-h3`, cobalt) at the node. Mobile: the path line runs at the left gutter (16 px from the edge), nodes 12 px, cards full width to the right of the line.
 
-**Ruler career mode.** While Level 5 is active, the ruler changes role: the six level markers dim (`--muted-strong`, still clickable), the year ticks get full weight, and the cobalt dot moves to the date of the checkpoint currently crossing the viewport center, using `p = (year + (month - 1) / 12 - 2019) / 7`. A small label rides above the dot: "2023 · ITH Technologies". When Level 5 is no longer active, the dot glides back to the level marker. The 2019 tick has no checkpoint **[open question: does the owner want a 2019 entry, for example the final year of the degree?]**.
+**Ruler career mode.** While Level 5 is active, the ruler changes role: the six level markers dim (`--muted-strong`, still clickable), the year ticks get full weight, and the cobalt dot moves to the date of the checkpoint currently crossing the viewport center, using `p = (year + (month - 1) / 12 - 2020) / 6` (clamped to 1 for "Present"). A small label rides above the dot: "2023 · ITH Technologies". When Level 5 is no longer active, the dot glides back to the level marker. The 2020 tick carries two events: the founder role (Jan 2020) and the degree (Bachelor of Computer Science, CSJM University, 2020).
 
 **Animation.** Checkpoint nodes reveal with `clip-path: circle(0 → 50%)` over 420 ms when they reach the center line; role headings use `MaskLine`. The path line itself does not animate (it is structure). Reduced motion: static.
 
 **Accessibility.** Each checkpoint is an `<article>` with an H3 (role), company, and `<time datetime="2023-02">Feb 2023</time> – <time datetime="2025-12">Dec 2025</time>`. Ruler career mode is visual only; dates are in the DOM.
 
-**SEO.** H2 contains "frontend engineering"; H3s carry role titles ("Frontend and Web3 Engineer", "Shopify Developer"), which are role keywords.
+**SEO.** H2 contains "frontend engineering"; H3s carry role titles ("Frontend & Web3 Engineer", "Shopify Developer / Frontend Developer", "Frontend & ERP Developer"), which are role keywords.
 
 **Acceptance criteria.** Dates are machine-readable; career mode dot matches the checkpoint in view within one frame of the IntersectionObserver callback; switching back to level mode glides in `--dur-dot`.
 
@@ -734,7 +763,7 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Purpose.** Convert: make contacting the owner obvious and rewarding, behind a playful red door that never blocks anyone.
 
-**Content source.** `SOCIAL_LINKS` (email `erhamza.dev@gmail.com`, LinkedIn `https://www.linkedin.com/in/er-mohammad-hamza/`, GitHub `https://github.com/hamzam999`), resume file (Section 12).
+**Content source.** Resume v6 header (email `erhamza.dev@gmail.com`, location Kanpur, India; it shows LinkedIn, GitHub and Portfolio only as hyperlinks) with exact URLs from `SOCIAL_LINKS` in `constants.tsx`: LinkedIn `https://www.linkedin.com/in/er-mohammad-hamza/`, GitHub `https://github.com/hamzam999`. **The phone number in the resume is never published** (not on the site, in JSON-LD, in `llms.txt` or in any generated file); `profile.ts` has no phone field at all. Resume download: `/resume.pdf`, the owner's phone-free export of v6 (action A1 in 12.1); the link is hidden until that file exists.
 
 **Copy outline.**
 
@@ -773,7 +802,7 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 The **ruler** (`src/components/hud/Ruler.tsx`) is the main navigation on `/`:
 
 - Fixed bottom, `--ruler-h`, padding-bottom `env(safe-area-inset-bottom)`, background `--paper` with a top hairline so it reads as part of the page. Left and right padding include `env(safe-area-inset-left/right)` for iPhone landscape.
-- A cobalt 1 px baseline; eight year ticks (2019 to 2026, `--fs-micro`, `--muted-strong`), decorative; six level markers placed at 0 %, 20 %, 40 %, 60 %, 80 %, 100 % of the track. Each marker is a link with a 44 × 44 hit area and a 9 px visual dot; its accessible name is "Level 4: Archive, selected projects".
+- A cobalt 1 px baseline; seven year ticks (2020 to 2026, the first being the year he founded his store and finished his degree, `--fs-micro`, `--muted-strong`), decorative; six level markers placed at 0 %, 20 %, 40 %, 60 %, 80 %, 100 % of the track. Each marker is a link with a 44 × 44 hit area and a 9 px visual dot; its accessible name is "Level 4: Archive, selected projects".
 - The active dot is a separate element inside a full-width track; its position is `transform: translateX(calc(var(--p) * 100%))` on the track wrapper, transitioning over `--dur-dot` with `--ease`. Transform only.
 - Tap or click a marker to jump (4.3). Optional enhancement (P2 priority): drag the dot to scrub between levels; it snaps to the nearest level on release.
 - On routes other than `/`, the ruler is hidden; the footer carries navigation.
@@ -1014,7 +1043,7 @@ Rules:
 - **Error boundary:** if the shelf throws, the grid is restored and the error is logged to the console only.
 - Grid columns: 2 at 360 to 767 px, 3 at 768 to 1023 px, 5 at 1024 px and above.
 
-### 6.10 Archive index (all 18 projects)
+### 6.10 Archive index (all 17 projects)
 
 Rendered under the shelf (compact variant) and on `/projects` (full variant). Grouped by category in this order: 3D and Interactive, E-commerce and Shopify, Web3, Full-stack and Product, AI and Automation, WordPress and Client. Each group is a `<section>` with an H3 and a `<ul>`. Each row: title (link to `/projects/<slug>`), one-line summary, first three stack items, and a status badge: `LIVE`, `REPO`, `PRIVATE` or `OUT OF PRINT` (vermilion-ink text for out of print). The full variant adds the year column (shows "TBC" until confirmed).
 
@@ -1207,17 +1236,17 @@ Intent groups and where each is targeted. "Primary" terms appear in titles and H
 | Identity | Mohammad Hamza | Mohammad Hamza frontend engineer; Er. Hamza developer | Mohammad Hamza React developer India | `/` H1, title, Person JSON-LD |
 | Senior frontend role | senior frontend developer; senior frontend engineer | frontend engineer 6+ years; React and Next.js engineer | senior frontend developer for e-commerce and Web3 | `/` title and description, L1 H1 role line, L6 H2 |
 | React and Next.js | React developer; Next.js developer | freelance React developer; remote Next.js developer; Next.js performance optimization | Angular to Next.js migration; offline-first Next.js app with IndexedDB sync | L3 H2, `/projects/unified-trading-crm`, `/projects/codeslytic-budget`, `/projects/muftimaaz` |
-| 3D and WebGL | Three.js developer; WebGL developer | React Three Fiber developer; GSAP scroll animation developer; GLSL shader developer | Three.js scroll particle website; 3D robot scroll landing page React Three Fiber | L3 branch "Motion and 3D", `/projects/navig`, `/projects/skyai-3d-robot` |
-| Shopify | Shopify developer | Shopify Functions developer; Shopify checkout extensions developer; Shopify theme customization; Online Store 2.0 Dawn developer | Shopify checkout payment and delivery customization; Shopify Atelier theme custom sections | L3 branch "Commerce", `/projects/lammles`, `/projects/berbanto-atelier`, `/projects/nighat-ahmad-official`, `/projects/hefashion` |
-| Web3 | Web3 frontend developer | Solana frontend developer; crypto trading dashboard developer; dApp frontend developer | multi-signature wallet frontend React; NFT marketplace Base Solana Sui frontend; eSIM Web3 app | L3 branch "Web3", `/projects/dex-cex-multisig-wallet`, `/projects/nft-marketplace`, `/projects/gesim` |
+| 3D and WebGL | Three.js developer; WebGL developer | GSAP scroll animation developer; GLSL shader developer | Three.js scroll particle website; GPU particle animation in GLSL | L3 branch "3D & Animation", `/projects/navig`, `/projects/motiongrid` |
+| Shopify | Shopify developer | Shopify Functions developer; Shopify checkout extensions developer; Shopify theme customization; Online Store 2.0 Dawn developer | Shopify checkout payment and delivery customization; Shopify Atelier theme custom sections | L3 branch "Shopify", `/projects/lammles`, `/projects/berbanto-atelier`, `/projects/nighat-ahmad-official`, `/projects/hefashion` |
+| Web3 | Web3 frontend developer | Solana frontend developer; crypto trading dashboard developer; dApp frontend developer | multi-signature wallet frontend React; ERC-721 and ERC-1155 NFT marketplace frontend; eSIM Web3 MVP with embedded wallets | L3 branch "Web3 & Blockchain", `/projects/dex-cex-multisig-wallet`, `/projects/nft-marketplace`, `/projects/gesim` |
 | Freelance and remote | freelance frontend developer; remote frontend developer | hire React developer; contract frontend engineer | hire freelance Shopify developer India | L6 H2 and lead, `/` description |
-| Location | frontend developer India | frontend developer Kanpur **[ASSUMPTION: location]** | React developer India remote for global clients | L2 quick facts, Person JSON-LD `address` |
-| Services (supporting) | WordPress developer; ERPNext developer | WordPress booking plugin; ERPNext customization for manufacturing; n8n automation | WordPress multilingual holiday rental site | `/projects/bookease`, `/projects/promenade-medulin`, `/projects/erpnext-manufacturing`, `/projects/ai-agent-team` |
+| Location | frontend developer India | frontend developer Kanpur | React developer India remote for global clients | L2 quick facts, Person JSON-LD `address` |
+| ERP and services | ERPNext developer; WordPress developer | WordPress booking plugin; ERPNext customization for manufacturing; n8n automation | WordPress multilingual holiday rental site | `/projects/bookease`, `/projects/promenade-medulin`, `/projects/erpnext-manufacturing`, `/projects/ai-agent-team` |
 
 Rules for using keywords:
 
 - Write for people first; use each primary term naturally once or twice per page. No keyword lists in visible text and no hidden text.
-- Use the same name and role wording everywhere ("Mohammad Hamza", "Senior Frontend Engineer"); the alias "Er. Hamza" appears only in JSON-LD `alternateName` **[ASSUMPTION: the old logo used "Er. HAMZA"; confirm the owner wants it]**.
+- Use the same name and role wording everywhere ("Mohammad Hamza", "Senior Frontend Engineer"); the alias "Er. Hamza" appears only in JSON-LD `alternateName`, and only if confirmed **[ASSUMPTION: the old logo used "Er. HAMZA"; confirm the owner wants it]**.
 - Do not claim services the data does not support (for example, no "Shopify Plus" claim even though checkout extensions often require it).
 
 ### 9.2 URL, heading, title and alt rules
@@ -1232,12 +1261,12 @@ Rules for using keywords:
 
 ### 9.3 Per-route meta
 
-`SITE_URL` comes from `src/seo/site.ts`: `import.meta.env.VITE_SITE_URL ?? 'https://erhamza.dev'`. The default is the only domain found in the repository (`SOCIAL_LINKS.portfolio` in `constants.tsx`) and is **[ASSUMPTION: confirm this is the production domain]**.
+`SITE_URL` comes from `src/seo/site.ts`: `import.meta.env.VITE_SITE_URL ?? 'https://erhamza.tech'`. The default is the production domain confirmed by the owner. (The repository's `SOCIAL_LINKS.portfolio` still says `erhamza.dev`; it is corrected during content migration. The email address `erhamza.dev@gmail.com` is unrelated to the domain and stays.)
 
 | Route | Title | Meta description | Canonical | Robots | OG type and image |
 |---|---|---|---|---|---|
-| `/` | Mohammad Hamza · Senior Frontend Developer (React, Next.js) | Senior frontend engineer with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js experiences. Remote. | `/` | index, follow | `profile`; `/og/default.png` |
-| `/projects` | Project archive: React, Shopify, Web3 and 3D work \| Mohammad Hamza | Eighteen projects by Mohammad Hamza: Shopify checkouts and storefronts, Web3 dashboards and wallets, Three.js sites, Next.js products and WordPress builds. | `/projects` | index, follow | `website`; `/og/projects.png` |
+| `/` | Mohammad Hamza · Senior Frontend Developer (React, Next.js) | Senior frontend engineer in Kanpur, India with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js sites. Remote. | `/` | index, follow | `profile`; `/og/default.png` |
+| `/projects` | Project archive: React, Shopify, Web3 and 3D work \| Mohammad Hamza | Seventeen projects by Mohammad Hamza: Shopify checkouts and storefronts, Web3 dashboards and wallets, Three.js sites, Next.js and ERPNext products, WordPress builds. | `/projects` | index, follow | `website`; `/og/projects.png` |
 | `/projects/<slug>` | from `project.seo.title` (Appendix D) | from `project.seo.description` (Appendix D) | `/projects/<slug>` | index, follow | `article`; `/og/projects/<slug>.png` |
 | `/arcade` | Arcade: Reel Pong \| Mohammad Hamza | Play Reel Pong, a small paper-and-cobalt Pong game built for this portfolio. First to five wins; touch, mouse and keyboard supported. | `/arcade` | index, follow | `website`; `/og/arcade.png` |
 | `/interview-framework` | Frontend interview questions: JavaScript, React, Next.js \| Mohammad Hamza | A searchable set of frontend interview questions and short answers on JavaScript, TypeScript, React, Next.js, Angular and Shopify. | `/interview-framework` | index, follow | `website`; `/og/interview.png` |
@@ -1265,18 +1294,24 @@ Home (`/`):
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://erhamza.dev/#person",
+      "@id": "https://erhamza.tech/#person",
       "name": "Mohammad Hamza",
-      "alternateName": "Er. Hamza",
-      "url": "https://erhamza.dev/",
-      "image": "https://erhamza.dev/og/default.png",
+      "url": "https://erhamza.tech/",
+      "image": "https://erhamza.tech/og/default.png",
       "jobTitle": "Senior Frontend Engineer",
-      "description": "Frontend engineer with 6+ years of experience building e-commerce platforms, Web3 applications and interactive 3D web experiences.",
+      "description": "Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences.",
       "email": "mailto:erhamza.dev@gmail.com",
       "address": { "@type": "PostalAddress", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
-      "alumniOf": { "@type": "CollegeOrUniversity", "name": "CSJM University, Kanpur" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "CSJM University", "address": { "@type": "PostalAddress", "addressLocality": "Kanpur", "addressCountry": "IN" } },
+      "hasCredential": { "@type": "EducationalOccupationalCredential", "credentialCategory": "degree", "name": "Bachelor of Computer Science", "dateCreated": "2020" },
       "award": "Promising Newcomer, ITH Technologies",
-      "knowsAbout": ["React", "Next.js", "TypeScript", "Three.js", "WebGL", "GLSL", "GSAP", "Shopify", "Shopify Functions", "Shopify Checkout Extensions", "Liquid", "Web3", "Solana", "Ethers.js", "Wagmi", "Angular", "Node.js", "PostgreSQL", "Playwright", "WordPress"],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Frontend & ERP Developer (Freelance)",
+        "occupationLocation": { "@type": "Country", "name": "India" },
+        "skills": "React, Next.js, TypeScript, Shopify, ERPNext/Frappe, Web3, Three.js"
+      },
+      "knowsAbout": ["JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS", "TanStack Query", "Accessibility (WCAG 2.2)", "Angular", "React Native", "Offline-first sync (IndexedDB, PWA)", "Multi-tenant access control", "Three.js", "GSAP", "WebGL", "GLSL", "Shopify Online Store 2.0", "Liquid", "Shopify Functions", "Shopify Checkout Extensions", "Shopify Apps (Remix, Polaris)", "Solana Web3.js", "Ethers.js", "Wagmi", "Wallet integrations", "NFTs", "WordPress", "ERPNext/Frappe", "Python", "GitHub Actions CI/CD", "Docker", "AWS EC2", "Claude Code", "n8n"],
       "sameAs": [
         "https://www.linkedin.com/in/er-mohammad-hamza/",
         "https://github.com/hamzam999"
@@ -1284,26 +1319,26 @@ Home (`/`):
     },
     {
       "@type": "WebSite",
-      "@id": "https://erhamza.dev/#website",
-      "url": "https://erhamza.dev/",
+      "@id": "https://erhamza.tech/#website",
+      "url": "https://erhamza.tech/",
       "name": "Mohammad Hamza",
       "inLanguage": "en",
-      "publisher": { "@id": "https://erhamza.dev/#person" }
+      "publisher": { "@id": "https://erhamza.tech/#person" }
     },
     {
       "@type": "ProfilePage",
-      "@id": "https://erhamza.dev/#profile",
-      "url": "https://erhamza.dev/",
+      "@id": "https://erhamza.tech/#profile",
+      "url": "https://erhamza.tech/",
       "name": "Mohammad Hamza · Senior Frontend Developer",
-      "isPartOf": { "@id": "https://erhamza.dev/#website" },
-      "mainEntity": { "@id": "https://erhamza.dev/#person" },
+      "isPartOf": { "@id": "https://erhamza.tech/#website" },
+      "mainEntity": { "@id": "https://erhamza.tech/#person" },
       "dateModified": "<computed: max(updated) of content>"
     }
   ]
 }
 ```
 
-`address`, `alternateName` and `award` are emitted only if the owner confirms them (Section 12); the builder takes them from `profile.ts`, where unconfirmed values are `null` and are skipped.
+All Person fields come from resume v6 via `profile.ts`. There is **no `telephone` property**, by owner instruction, and `profile.ts` has no phone field, so it cannot leak. `worksFor` is deliberately omitted because the current role is freelance; past employers (ITH Technologies, House of THL) appear in the visible career level, not as `worksFor`. `alternateName` ("Er. Hamza") is added only if Q17 is confirmed.
 
 Project page (`/projects/navig`), CreativeWork with breadcrumbs:
 
@@ -1313,33 +1348,33 @@ Project page (`/projects/navig`), CreativeWork with breadcrumbs:
   "@graph": [
     {
       "@type": "CreativeWork",
-      "@id": "https://erhamza.dev/projects/navig#work",
+      "@id": "https://erhamza.tech/projects/navig#work",
       "name": "NAVIG",
-      "url": "https://erhamza.dev/projects/navig",
+      "url": "https://erhamza.tech/projects/navig",
       "description": "A visually rich website for a crypto and AI intelligence product, where a 3D scene of 25,000+ particles reshapes into ocean waves, waterfalls and data streams as you scroll.",
       "genre": "3D and interactive website",
       "keywords": "React, Three.js, GLSL, GSAP, WebGL",
-      "creator": { "@id": "https://erhamza.dev/#person" },
-      "image": "https://erhamza.dev/projects/navig/hero-1280.webp",
+      "creator": { "@id": "https://erhamza.tech/#person" },
+      "image": "https://erhamza.tech/projects/navig/hero-1280.webp",
       "sameAs": "https://navig-app.vercel.app/",
-      "isPartOf": { "@id": "https://erhamza.dev/#website" }
+      "isPartOf": { "@id": "https://erhamza.tech/#website" }
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://erhamza.dev/" },
-        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://erhamza.dev/projects" },
-        { "@type": "ListItem", "position": 3, "name": "NAVIG", "item": "https://erhamza.dev/projects/navig" }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://erhamza.tech/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://erhamza.tech/projects" },
+        { "@type": "ListItem", "position": 3, "name": "NAVIG", "item": "https://erhamza.tech/projects/navig" }
       ]
     },
-    { "@type": "Person", "@id": "https://erhamza.dev/#person", "name": "Mohammad Hamza", "url": "https://erhamza.dev/" }
+    { "@type": "Person", "@id": "https://erhamza.tech/#person", "name": "Mohammad Hamza", "url": "https://erhamza.tech/" }
   ]
 }
 ```
 
 Type per project: `SoftwareApplication` (with `applicationCategory` and `operatingSystem`) for `codeslytic-budget` (FinanceApplication, Web), `bookease` (BusinessApplication, WordPress plugin), `gesim` (UtilitiesApplication, iOS and Android, pending owner confirmation of the stack); `CreativeWork` for all others. No `offers` or `aggregateRating` are invented, which means Google will not show software rich results; the markup is for entity understanding only. Private and shut-down projects omit `sameAs` and `url` to external sites. `image` is emitted only when the hero image exists. `dateCreated` is emitted only for confirmed years.
 
-`/projects` gets `CollectionPage` with `hasPart` listing the 18 `CreativeWork` IDs, plus a two-item breadcrumb.
+`/projects` gets `CollectionPage` with `hasPart` listing the 17 `CreativeWork` IDs (Earlier work entries are plain text and get no structured data), plus a two-item breadcrumb.
 
 Validation: a Vitest test parses every prerendered JSON-LD block and checks required fields and `@id` references; at gate G5 the reviewer also runs the Schema.org validator on `/` and two project pages.
 
@@ -1367,7 +1402,7 @@ Files:
 
 - `scripts/prerender.mjs`:
   1. Read `dist/index.html` (template) and `dist/.vite/manifest.json`.
-  2. Import `dist-ssr/entry-server.js`; get the route list from `getAllRoutes()` (`/`, `/projects`, 18 project routes, `/arcade`, `/interview-framework`, `/404`).
+  2. Import `dist-ssr/entry-server.js`; get the route list from `getAllRoutes()` (`/`, `/projects`, 17 project routes, `/arcade`, `/interview-framework`, `/404`).
   3. For each route: `html = render(url)`; `meta = getRouteMeta(url)`; replace `<!--app-head-->` with title, description, canonical, robots, OG/Twitter tags, JSON-LD and font preloads; replace `<!--app-html-->` with `html`; write to `dist/<route>/index.html` (`dist/index.html` for `/`, `dist/404.html` for 404).
   4. Fail the build if any route renders an empty `<main>`, lacks exactly one `<h1>`, or produces a title longer than 70 characters.
 - `package.json` scripts:
@@ -1394,7 +1429,7 @@ Generated from the content files after prerendering, written to `dist/`.
 User-agent: *
 Allow: /
 
-Sitemap: https://erhamza.dev/sitemap.xml
+Sitemap: https://erhamza.tech/sitemap.xml
 ```
 
 AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed by default because GEO is a goal. If the owner wants to opt out of model training while keeping search, add explicit `Disallow: /` blocks for the training crawlers only (Section 12).
@@ -1406,29 +1441,31 @@ AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed by d
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://erhamza.dev/</loc>
+    <loc>https://erhamza.tech/</loc>
     <lastmod>2026-12-01</lastmod>
   </url>
   <url>
-    <loc>https://erhamza.dev/projects</loc>
+    <loc>https://erhamza.tech/projects</loc>
     <lastmod>2026-12-01</lastmod>
   </url>
   <url>
-    <loc>https://erhamza.dev/projects/navig</loc>
+    <loc>https://erhamza.tech/projects/navig</loc>
     <lastmod>2026-12-01</lastmod>
-    <image:image><image:loc>https://erhamza.dev/projects/navig/hero-1920.webp</image:loc></image:image>
+    <image:image><image:loc>https://erhamza.tech/projects/navig/hero-1920.webp</image:loc></image:image>
   </url>
   <!-- one <url> per project; <image:image> only when the hero exists -->
   <url>
-    <loc>https://erhamza.dev/arcade</loc>
+    <loc>https://erhamza.tech/arcade</loc>
     <lastmod>2026-12-01</lastmod>
   </url>
   <url>
-    <loc>https://erhamza.dev/interview-framework</loc>
+    <loc>https://erhamza.tech/interview-framework</loc>
     <lastmod>2026-12-01</lastmod>
   </url>
 </urlset>
 ```
+
+Earlier work entries (5.4a) have no URLs and are not in the sitemap; they are covered by `/projects`.
 
 `lastmod` strategy: each project has an `updated` ISO date in `projects.ts`, bumped by hand when its content or screenshot changes (the media script prints a reminder when a source hash changes). `/projects` and `/` use the latest `updated` across all content files (`profile.ts`, `experience.ts`, `skills.ts`, `projects.ts` each export `updated`). `/arcade` and `/interview-framework` have their own constants. Never set `lastmod` to the build time for every URL: search engines learn to ignore inaccurate dates.
 
@@ -1437,64 +1474,63 @@ AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed by d
 ```markdown
 # Mohammad Hamza
 
-> Mohammad Hamza is a Senior Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications and interactive 3D web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions), Solana and EVM wallets, and Three.js with GLSL. He works remotely.
+> Mohammad Hamza is a Senior Frontend Engineer based in Kanpur, India, with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), ERPNext/Frappe, Solana and EVM wallets, and Three.js with GLSL. He works remotely as a freelance Frontend & ERP Developer.
 
 This site is his portfolio. Every project below has its own page with a plain-language summary, his role, the tech stack and links. Results quoted on project pages are as stated by the owner. Private client work is described without naming the client or linking to it.
 
 ## About
 
-- [Profile and quick facts](https://erhamza.dev/#level-origin): role, experience since 2020, education (Bachelor of Computer Science, CSJM University, Kanpur, 2020), recognition ("Promising Newcomer" at ITH Technologies)
-- [Career path](https://erhamza.dev/#level-career): Freelance frontend developer (2026–present); Frontend and Web3 Engineer at ITH Technologies (2023–2025); Shopify Developer at House of THL (2022–2023); Shopify and WordPress developer and founder of a D2C store (2020–2022)
-- [Skills with evidence](https://erhamza.dev/#level-skills): each skill links to the projects where it was used
-- [Contact](https://erhamza.dev/#level-contact): email erhamza.dev@gmail.com, LinkedIn, GitHub, resume
+- [Profile and quick facts](https://erhamza.tech/#level-origin): role, experience since 2020, education (Bachelor of Computer Science, CSJM University, Kanpur, 2020), recognition ("Promising Newcomer" at ITH Technologies)
+- [Career path](https://erhamza.tech/#level-career): Frontend & ERP Developer, freelance (Jan 2026–present); Frontend & Web3 Engineer at ITH Technologies (Feb 2023–Dec 2025); Shopify Developer / Frontend Developer at House of THL (Mar 2022–Jan 2023); Shopify & WordPress Developer and founder of a D2C e-commerce business (Jan 2020–Jan 2022)
+- [Skills](https://erhamza.tech/#level-skills): Frontend, Architecture, 3D & Animation, Shopify, Web3 & Blockchain, E-commerce & SaaS, ERP, DevOps & Tools, AI & Automation; currently learning backend (Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth)
+- [Contact](https://erhamza.tech/#level-contact): email erhamza.dev@gmail.com, LinkedIn, GitHub, resume (PDF)
 
 ## Projects: 3D and interactive
 
-- [NAVIG](https://erhamza.dev/projects/navig): website for a crypto and AI intelligence product; a scroll-driven 3D scene of 25,000+ particles that reshapes into waves, waterfalls and data streams (React, Three.js, GLSL, GSAP)
-- [SkyAI 3D robot landing page](https://erhamza.dev/projects/skyai-3d-robot): four-section landing page where a 3D robot turns and moves as you scroll; desktop only (React, React Three Fiber, GSAP ScrollTrigger, Tailwind CSS 4, Zustand)
-- [MotionGrid showcase](https://erhamza.dev/projects/motiongrid): one-page showcase of 12 projects that a design agency attaches to client proposals (React, CSS animation)
-- [Studio Solyn](https://erhamza.dev/projects/studio-solyn): website for a product design studio working in furniture, lighting and objects (Framer, React, Pointer Events API)
+- [NAVIG](https://erhamza.tech/projects/navig): website for a crypto and AI intelligence product; a scroll-driven 3D scene of 25,000+ particles that reshapes into waves, waterfalls and data streams (React, Three.js, GLSL, GSAP)
+- [MotionGrid showcase](https://erhamza.tech/projects/motiongrid): one-page showcase of 12 projects that a design agency attaches to client proposals (React, CSS animation)
+- [Studio Solyn](https://erhamza.tech/projects/studio-solyn): designed all the mobile screens for a product design studio's website, which was originally built for desktop only (Framer, React, Pointer Events API)
 
 ## Projects: e-commerce and Shopify
 
-- [Lammle’s checkout customization](https://erhamza.dev/projects/lammles): checkout changes for a Shopify store that validate customer details before payment and adjust which delivery and payment options appear (Shopify Checkout Extensions, Shopify Functions)
-- [Nighat Ahmad Official](https://erhamza.dev/projects/nighat-ahmad-official): fast, mobile-first online store for a fashion brand selling in India and abroad (Shopify Online Store 2.0, Dawn, Liquid, Meta Pixel)
-- [HE Fashion](https://erhamza.dev/projects/hefashion): custom design and features for a multi-brand fashion store, including customer reviews and product popularity notices (Shopify, Liquid, GraphQL)
-- [Berbanto: Atelier theme customization](https://erhamza.dev/projects/berbanto-atelier): eleven new store features, such as category carousels, popups and a tilted scrolling banner, all editable in Shopify's visual editor (Shopify Atelier theme, Liquid)
+- [Lammle’s checkout customization](https://erhamza.tech/projects/lammles): checkout changes for a Shopify store that validate customer details before payment and adjust which delivery and payment options appear (Shopify Checkout Extensions, Shopify Functions)
+- [Nighat Ahmad Official](https://erhamza.tech/projects/nighat-ahmad-official): fast, mobile-first online store for a fashion brand selling in India and abroad (Shopify Online Store 2.0, Dawn, Liquid, Meta Pixel)
+- [HE Fashion](https://erhamza.tech/projects/hefashion): custom design and features for a multi-brand fashion store, including customer reviews and product popularity notices (Shopify, Liquid, GraphQL)
+- [Berbanto: Atelier theme customization](https://erhamza.tech/projects/berbanto-atelier): eleven new store features, such as category carousels, popups and a tilted scrolling banner, all editable in Shopify's visual editor (Shopify Atelier theme, Liquid)
 
 ## Projects: Web3
 
-- [GeSIM](https://erhamza.dev/projects/gesim): app offering global eSIM mobile data across 190+ countries with privacy tools such as a built-in VPN, virtual numbers and spending cards (React, React Native, wallet SDKs)
-- [DEX/CEX trading dashboards and multi-signature wallet](https://erhamza.dev/projects/dex-cex-multisig-wallet): live trading screens for crypto exchanges, and a multi-signature wallet that needs approvals from a minimum number of owners before any transaction (React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK); private
-- [NFT marketplace](https://erhamza.dev/projects/nft-marketplace): marketplace on Base, Sui and Solana with pre-mint listings, auctions, fixed-price sales, a creator dashboard and sponsored minting fees; the project has since shut down
+- [GeSIM](https://erhamza.tech/projects/gesim): built the first web MVP in React, mainly the blockchain integration (wallet connection, purchases, transactions and status), and worked on blockchain integration in the React Native mobile app; the product offers global eSIM data and privacy tools (React, React Native)
+- [DEX/CEX trading dashboards and multi-signature wallet](https://erhamza.tech/projects/dex-cex-multisig-wallet): live trading screens for crypto exchanges, and a multi-signature wallet that needs approvals from a minimum number of owners before any transaction (React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK); private
+- [NFT marketplace](https://erhamza.tech/projects/nft-marketplace): marketplace supporting ERC-721 and ERC-1155 with minting and trading flows, lazy minting, auctions and creator dashboards; the project has since shut down
 
 ## Projects: full-stack and product
 
-- [CodesLytic Budget](https://erhamza.dev/projects/codeslytic-budget): offline-first budgeting app with multi-currency tracking, recurring bills and shared expenses with UPI settle-up; 1,500+ automated checks and 160+ end-to-end tests (Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker)
-- [Unified CRM for trading platforms](https://erhamza.dev/projects/unified-trading-crm): several Angular trading tools merged into one Next.js customer management system with per-account access; pages load about 35% faster; private
-- [ERPNext for manufacturing](https://erhamza.dev/projects/erpnext-manufacturing): custom ERPNext app replacing a factory's manual production tracking, from bills of materials and work orders to weekly labour payment vouchers (ERPNext/Frappe, Next.js); private
-- [Muftimaaz.com](https://erhamza.dev/projects/muftimaaz): website for an Islamic scholar with YouTube channel integration, API caching and audio streaming (Next.js, YouTube Data API, Cloudflare R2)
+- [CodesLytic Budget](https://erhamza.tech/projects/codeslytic-budget): offline-first budgeting app with multi-currency tracking, recurring bills and shared expenses with UPI settle-up; built end to end as a solo developer; 1,500+ unit/integration and 160+ end-to-end test cases (Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker)
+- [Unified CRM for trading platforms](https://erhamza.tech/projects/unified-trading-crm): several Angular trading tools merged into one Next.js CRM with multi-tenant access control; load times cut by 35%; private
+- [ERPNext for manufacturing](https://erhamza.tech/projects/erpnext-manufacturing): custom ERPNext app replacing a factory's manual production tracking, from bills of materials and work orders to weekly labour payment vouchers (ERPNext/Frappe, custom frontend app, Docker); private
+- [Muftimaaz.com](https://erhamza.tech/projects/muftimaaz): website for an Islamic scholar with YouTube channel integration, API caching and audio streaming (Next.js, YouTube Data API, Cloudflare R2)
 
 ## Projects: AI and automation
 
-- [AI agent team](https://erhamza.dev/projects/ai-agent-team): a team of AI assistants for marketing chores (lead finding, social post drafts, job scouting) run from a control panel with human approval of every output; in testing; private
+- [AI agent team](https://erhamza.tech/projects/ai-agent-team): a team of AI assistants for marketing chores (lead finding, social post drafts, job scouting) run from a control panel with human approval of every output; in testing; private
 
 ## Projects: WordPress
 
-- [Promenade Medulin](https://erhamza.dev/projects/promenade-medulin): five-language website for a holiday property in Medulin, Croatia (WordPress, PHP, custom plugin, custom post types)
-- [BookEase](https://erhamza.dev/projects/bookease): WordPress booking plugin for hotels, restaurants and clinics with free-slot selection, confirmation emails, self-service cancel and reschedule, and CSV export (PHP 8, WordPress REST API)
+- [Promenade Medulin](https://erhamza.tech/projects/promenade-medulin): five-language website for a holiday property in Medulin, Croatia, on the Kadence theme with a custom child theme (WordPress, PHP, custom plugin, custom post types, JSON translations)
+- [BookEase](https://erhamza.tech/projects/bookease): WordPress booking plugin for hotels, restaurants and clinics with free-slot selection, confirmation emails, self-service cancel and reschedule, and CSV export (PHP 8, WordPress REST API)
 
 ## Optional
 
-- [Full project archive](https://erhamza.dev/projects)
-- [Full text for language models](https://erhamza.dev/llms-full.txt)
-- [Frontend interview questions](https://erhamza.dev/interview-framework)
-- [Arcade](https://erhamza.dev/arcade)
+- [Full project archive](https://erhamza.tech/projects), including an "Earlier work" list of older client sites (Louis Cardin, Sedef Anatolia, Slurvo, WanHam Leathers) and the Bizthon Cursor VS Code extension, which are no longer online
+- [Full text for language models](https://erhamza.tech/llms-full.txt)
+- [Frontend interview questions](https://erhamza.tech/interview-framework)
+- [Arcade](https://erhamza.tech/arcade)
 - [GitHub](https://github.com/hamzam999)
 - [LinkedIn](https://www.linkedin.com/in/er-mohammad-hamza/)
 ```
 
-The generator builds this file from `projects.ts` (category order, `seo.llmsSummary` per project) and `profile.ts`, so it never drifts from the site. Wording for projects with open questions (GeSIM stack, HE Fashion naming, Promenade stack, Studio Solyn role) updates automatically when the content file is corrected.
+The generator builds this file from `projects.ts` (category order, `seo.llmsSummary` per project) and `profile.ts`, so it never drifts from the site. Wording for projects with remaining open questions (HE Fashion naming, AI tool names) updates automatically when the content file is corrected. The generator also asserts that the output contains no phone number (regex for `+91` and 10-digit sequences) and fails the build if it finds one.
 
 **`llms-full.txt`** (outline; generated): plain Markdown, no navigation chrome.
 
@@ -1502,9 +1538,10 @@ The generator builds this file from `projects.ts` (category order, `seo.llmsSumm
 2. "Quick facts" as a list (from the L2 `<dl>` source).
 3. "Career" with every experience entry and all its detail bullets.
 4. "Skills" by branch with evidence project names.
-5. "Projects": for each of the 18, an H2 with the title, then: category, status (live, repository, private, shut down), year (or "not stated"), role, stack, synopsis (full), owner-stated results (each prefixed "Owner-reported:"), link.
-6. "Contact".
-7. A footer line: "Generated from the site's content files on <date>."
+5. "Projects": for each of the 17, an H2 with the title, then: category, status (live, repository, private, shut down), year (or "not stated"), role, stack, synopsis (full), owner-stated results (each prefixed "Owner-reported:"), link.
+6. "Earlier work (out of print)": the five entries from 5.4a, name, description and stack, with the note "no longer online".
+7. "Contact" (email, LinkedIn, GitHub, resume link; never a phone number).
+8. A footer line: "Generated from the site's content files on <date>."
 
 Also generated: a Markdown twin of each project page at `/projects/<slug>.md` (same content as its section in `llms-full.txt`), as the llms.txt proposal suggests; linked from the page with `<link rel="alternate" type="text/markdown">`.
 
@@ -1608,8 +1645,8 @@ Goal: a clean, strict, Tailwind-v4 Vite app under `src/` that still serves the c
 | P0-1 | Install and remove dependencies (2.2); add scripts (10.0); copy the reference file to `docs/reference/directions.html`; add `.gitignore` entries for `dist-ssr/`, `test-results/` and `playwright-report/` (keep `media-src/fonts/*.ttf` tracked, because the font scripts need it) | `package.json`, `package-lock.json`, `.gitignore`, `docs/reference/directions.html` | Seq |
 | P0-2 | Move sources under `src/` (`App.tsx`, `index.tsx` to `main.tsx`, `pages/`, `components/`, `interviewData.ts`, `constants.tsx`, `types.ts`); update the `@` alias in `vite.config.ts` and `tsconfig.json`; remove the Gemini `define`; clean `index.html` (remove CDN script, importmap, Google Fonts, decorative divs; add `viewport-fit=cover`, `theme-color #ECE8E0`, `<!--app-head-->` and `<!--app-html-->` markers) | listed files | Seq |
 | P0-3 | Install Tailwind v4 via `@tailwindcss/vite`; create `src/styles/app.css` with `@import "tailwindcss"` and the temporary legacy `@theme` mappings (3.6) so the interview page renders; delete `index.css` after porting the few rules the interview page uses | `vite.config.ts`, `src/styles/app.css`, `src/main.tsx` | A |
-| P0-4 | Delete dead code listed in 2.1; move old screenshots per 2.3; replace `design-system/hamza-portfolio-revamp/MASTER.md` content with a pointer to this plan; delete `metadata.json` | deletions, `media-src/` | A |
-| P0-5 | Create `src/types/content.ts` (Appendix B) and content files: `projects.ts` (all 18, Appendix D, with placeholders), `profile.ts`, `experience.ts` (ISO dates), `skills.ts`, `levels.ts`, `jp.ts`; remove `PROJECTS` and other moved constants from the old file and delete it once nothing imports it | `src/types/content.ts`, `src/content/*` | A |
+| P0-4 | Delete dead code listed in 2.1 (after copying the Earlier work source text into `EARLIER_WORK`); move old screenshots per 2.3; replace `design-system/hamza-portfolio-revamp/MASTER.md` content with a pointer to this plan; delete `metadata.json` | deletions, `media-src/` | A |
+| P0-5 | Create `src/types/content.ts` (Appendix B) and content files: `projects.ts` (all 17 plus `EARLIER_WORK`, Appendix D and 5.4a, with placeholders); `profile.ts` and `experience.ts` are written from resume v6, `profile.ts`, `experience.ts` (ISO dates), `skills.ts`, `levels.ts`, `jp.ts`; remove `PROJECTS` and other moved constants from the old file and delete it once nothing imports it | `src/types/content.ts`, `src/content/*` | A |
 | P0-6 | Enable `"strict": true`, `"noUncheckedIndexedAccess": true`; fix resulting type errors in moved interview files; add `vitest.config.ts`, `playwright.config.ts` (projects in 11.1) and one smoke test per runner; rewrite `README.md` (setup, scripts, media workflow, link to this plan) | `tsconfig.json`, configs, `tests/`, `README.md`, interview files | B |
 
 Skills: **typescript-advanced-types** (P0-5), **tailwind-design-system** (P0-3), **playwright-best-practices** (P0-6), **vercel-react-best-practices** (P0-1 dependency choices).
@@ -1618,7 +1655,7 @@ Definition of done: `npm run typecheck`, `npm run test`, `vite build` all pass; 
 
 Verification: `npm ci && npm run typecheck && npm run test && npx vite build && npx playwright test tests/e2e/smoke.spec.ts`.
 
-**Gate G0 (Opus):** directory structure matches 4.1; content files match the CSV exactly (spot-check five projects against the CSV); placeholders are present where Appendix D says TBC; dependency list matches 2.2.
+**Gate G0 (Opus):** directory structure matches 4.1; project content matches the CSV and the owner's answers (spot-check five projects); profile, skills and experience match resume v6 word for word; `git grep -nE "\+91|9919"` over `src/` and `public/` returns nothing; placeholders are present where Appendix D says TBC; dependency list matches 2.2.
 
 ### Phase 1: Tokens, fonts, shell, prerender skeleton
 
@@ -1637,7 +1674,7 @@ Goal: the empty Archive Quest world: tokens, fonts, grain, top bar, ruler, passp
 
 Skills: **better-colors** and **tailwind-design-system** (P1-1), **better-typography** (P1-1, P1-2), **better-ui** and **emil-design-eng** (P1-5, P1-7), **better-accessibility** (P1-6, P1-8), **vercel-react-best-practices** (P1-3, P1-4), **typescript-advanced-types** (P1-4).
 
-Definition of done: `npm run build` produces `dist/index.html`, `dist/projects/index.html`, 18 `dist/projects/<slug>/index.html`, `dist/arcade/index.html`, `dist/interview-framework/index.html`, `dist/404.html`, each with exactly one H1 in the static HTML; ruler jumps work and move focus; passport opens, traps focus and closes on Escape; XP survives reload and the app works when `localStorage` throws; no hydration warnings in the console; no horizontal scroll at any viewport.
+Definition of done: `npm run build` produces `dist/index.html`, `dist/projects/index.html`, 17 `dist/projects/<slug>/index.html`, `dist/arcade/index.html`, `dist/interview-framework/index.html`, `dist/404.html`, each with exactly one H1 in the static HTML; ruler jumps work and move focus; passport opens, traps focus and closes on Escape; XP survives reload and the app works when `localStorage` throws; no hydration warnings in the console; no horizontal scroll at any viewport.
 
 Verification: `npm run typecheck && npm run test && npm run build && npm run build:e2e && npm run test:e2e -- --grep "@shell|@a11y" && npm run shots`.
 
@@ -1795,8 +1832,8 @@ Skill: **playwright-best-practices** for all of this section; **better-accessibi
 | `shelf.spec.ts` | `@shelf` | Arrow keys, Home and End, wrap-around after 10 presses, Enter opens sheet at `/projects/<slug>`, mouse drag moves by expected tapes, horizontal wheel moves shelf, vertical wheel scrolls page; Chromium touch drag and vertical swipe through CDP `Input.dispatchTouchEvent` (WebKit touch drag is covered by manual device checks) |
 | `sheet.spec.ts` | `@sheet` | Dialog semantics, focus on Close, Escape closes and returns focus to the tape, background inert, reload of `/projects/<slug>` shows standalone page, modifier-click opens a new tab |
 | `arcade.spec.ts` | `@arcade` | Canvas present with label, start with Space, pause with P and on `visibilitychange`, portrait orientation at 390, forced win grants XP and stamp once |
-| `seo.spec.ts` | `@seo` | Title, description, canonical, OG and Twitter tags per route; JSON-LD parses; `robots.txt`, `sitemap.xml`, `llms.txt` served; 404 page has `noindex` |
-| `nojs.spec.ts` | `@nojs` | All level text visible; 18 project links on `/`; contact links visible; project page content present |
+| `seo.spec.ts` | `@seo` | No phone number in any built file (`dist/**` scanned for `+91` and the resume number pattern); title, description, canonical, OG and Twitter tags per route; JSON-LD parses; `robots.txt`, `sitemap.xml`, `llms.txt` served; 404 page has `noindex` |
+| `nojs.spec.ts` | `@nojs` | All level text visible; 17 project links and the Earlier work list on `/`; contact links visible; project page content present |
 | `a11y.spec.ts` | `@a11y` | `@axe-core/playwright` with tags `wcag2a, wcag2aa, wcag21aa, wcag22aa` on every route, plus states: menu open, passport open, sheet open, reduced motion; zero violations allowed |
 | `visual.spec.ts` | `@visual` | `toHaveScreenshot` per level and route per viewport with `animations: 'disabled'`, XP counter masked, `maxDiffPixelRatio: 0.01`; baselines committed only after a gate approves them |
 | `perf.spec.ts` | `@perf` | Chromium only: CLS sum < 0.05 while scrolling the whole page; with CDP CPU throttling at 4x, no long task over 50 ms during a scripted 3-second shelf drag; no rAF callbacks for 2 s when the shelf is settled (instrumented through `__aq`) |
@@ -1855,44 +1892,61 @@ For each: first load feels instant; no horizontal wobble; the address bar collap
 
 ### 12.1 Open questions for the owner
 
-| # | Question | Why it matters | Default until answered |
+Status as of revision 2. Numbers are kept from revision 1; answered items show the owner's answer, which agents treat as fact.
+
+| # | Question | Status and answer | Default or action now |
 |---|---|---|---|
-| Q1 | Is `https://erhamza.dev` the production domain? | Canonicals, sitemap, JSON-LD, llms.txt all use it | Used via `VITE_SITE_URL` default |
-| Q2 | Year for each project (Appendix D) | Detail sheet meta, `dateCreated`, archive year column, career links | "TBC" shown; `dateCreated` omitted |
-| Q3 | Your role on each project (sole developer, lead, team member) | "My role" field on every detail sheet | "Owner to confirm" where the repo is silent |
-| Q4 | May private and client projects be named as they are now? In particular "Valerie Group assessment (SkyAI)" names a company's hiring assessment, and the ERPNext, CRM and DEX/CEX entries are client or internal work | Legal and professional discretion | Company names kept out of public copy for private entries; the SkyAI page uses the title "SkyAI 3D robot landing page" and mentions "a job assessment" without the company name |
-| Q5 | GeSIM exact stack (CSV says "React, React Native, wallet SDKs (confirm exact stack)"; the old site said Next.js, React Native, Web3, SBTs, founding engineer) and which parts you built | Stack chips and JSON-LD | CSV stack shown with "confirm" flag in content file; no SBT or founding-engineer claim published |
-| Q6 | Promenade Medulin: the CSV text says Kadence theme, the stack column says Impreza and WPBakery. Which is right? | Accuracy | Stack column used (Impreza, WPBakery); text wording neutralized to "customised theme" |
-| Q7 | "downtownsfashion.com / hefashion.in": what is the store's public name, and which domain should be linked? | Title and link | Title "HE Fashion", link `https://hefashion.in` |
-| Q8 | Studio Solyn: the CSV describes the studio, not your work. What did you build? | Synopsis must describe your work | Synopsis states the client description and "Website built in Framer with custom React interactions using the Pointer Events API", derived from the stack only; flagged |
-| Q9 | AI agent team: are "Paperclip" and "Hermes" the correct names of the tools, and may they be listed publicly while the project is in testing? | Stack accuracy | Listed as in the CSV |
-| Q10 | NFT marketplace (shut down): may the old screenshot be shown, and should the page exist at all? | Rights and relevance | Page exists, marked "Out of print", no link; screenshot used only if you confirm |
-| Q11 | Old projects not in the CSV (Louis Cardin, Bizthon Cursor, Slurvo, WanHam Leathers, Sedef Anatolia): remove for good? | Content scope | Removed from the site; images kept in `media-src/archive/` |
-| Q12 | Which resume PDF to publish (`Mohammad_Hamza_Resume_v6.pdf` or `Mohammad_Hamza_6April.pdf`), and under what file name? | Contact level and JSON-LD | v6 published as `/resume.pdf` once approved; link hidden until then |
-| Q13 | Contact details for the site and `sameAs`: confirm email `erhamza.dev@gmail.com`, LinkedIn `https://www.linkedin.com/in/er-mohammad-hamza/`, GitHub `https://github.com/hamzam999`; any others (X, Dribbble, Upwork, Toptal)? | Contact level, JSON-LD | The three from `constants.tsx` |
-| Q14 | Location to publish: "Kanpur, India", "India", or none? And engagement types: freelance, contract, full-time? | L2 facts, L6 copy, JSON-LD `address`, location keywords | "Remote" only in visible copy; `address` omitted until confirmed |
-| Q15 | Skill depth labels (core, working, familiar) in 5.3, especially Solidity, NVIDIA NIM, React Native | Honest skill tree | Planner's defaults shown in content file, flagged |
-| Q16 | A 2019 entry for the ruler's first tick (for example studies)? | Career mode | Tick shown with no entry |
-| Q17 | Keep the alias "Er. Hamza" (old logo) in JSON-LD `alternateName`? | Entity consistency | Omitted until confirmed |
-| Q18 | Hosting: Vercel (assumed) or another host? | Headers, 404 status, clean URLs | Vercel config |
-| Q19 | AI crawlers: allow model-training crawlers, or allow search and answer engines only? | `robots.txt` | Allow all |
-| Q20 | Approve the playful genre tags and kanji choices (Appendix D, 3.8) and all **[COPY: approve]** strings | Tone | Used as drafted |
-| Q21 | Screenshots: please supply per Appendix C. Priority order: the ten featured projects | Covers, posters, OG images | Typographic fallback posters |
+| Q1 | Production domain? | **Answered:** `https://erhamza.tech`. The email `erhamza.dev@gmail.com` is the email only, not the domain. | `VITE_SITE_URL` default, canonicals, sitemap, JSON-LD and llms files all use `erhamza.tech` |
+| Q2 | Year for each project | **Partly answered:** year ranges inferred from resume roles where the resume ties a project to a role (Appendix D, marked "inferred") | Others show "TBC"; `dateCreated` only for confirmed years |
+| Q3 | Your role on each project | **Partly answered:** roles stated for CodesLytic (solo developer), NAVIG (owned frontend architecture and design direction), GeSIM, Studio Solyn, ERPNext (mapped workflow, built custom frontend app) from the resume and owner answers | "Owner to confirm" for the rest |
+| Q4 | May private projects be named; Valerie Group assessment | **Answered:** the Valerie Group assessment (SkyAI) project is **removed entirely** (not on the site, not in any generated file). Private entries stay unnamed as planned. | Closed |
+| Q5 | GeSIM stack and contribution | **Answered:** React and React Native. Built the first MVP (web app) in React, mainly the blockchain integration: transactions, status, purchase, wallet connection. Also worked on the React Native mobile app for blockchain integration. Resume: "Built web and mobile MVP with embedded wallets and blockchain identity flows." Product features (190+ countries, VPN and so on) are labeled as product scope. | Closed |
+| Q6 | Promenade Medulin theme | **Answered:** Kadence theme with a custom child theme built on top of it. | Stack: WordPress, Kadence + custom child theme, PHP, custom plugin, custom post types, JSON translations, 5 languages. Closed |
+| Q7 | Public name and domain for "downtownsfashion.com / hefashion.in" | Open | Title "HE Fashion", link `https://hefashion.in` |
+| Q8 | Studio Solyn contribution | **Answered:** designed all the mobile screens of the whole website, because it was initially built for desktop only. | Closed (see new Q22) |
+| Q9 | AI agent team tool names (Paperclip, Hermes) and public listing | **Partly answered:** the resume lists "multi-agent workflows (Paperclip, Hermes)", so the names are confirmed as spelled | Listed; still marked "in testing" |
+| Q10 | NFT marketplace: show old screenshot; keep page? | Open | Page exists, "Out of print", no link; screenshot only if confirmed |
+| Q11 | Old projects not in the CSV | **Answered:** drop from shelf and index; keep as a plain "Earlier work / Out of print" list with no tapes, pages or links. Louis Cardin = UAE-based perfume brand launched in India; Sedef Anatolia = inspired-perfume brand from India; Slurvo and WanHam Leathers from old repo text. | Implemented in 5.4a (Bizthon Cursor included, as it is in the old data) |
+| Q12 | Which resume to publish | **Answered:** v6, as `/resume.pdf`. | **Action A1 (owner):** v6 contains the phone number; export a phone-free copy of v6 and save it as `public/resume.pdf`. Agents must not copy the original PDF into `public/` and must not edit the PDF themselves. The resume link stays hidden until the phone-free file exists. |
+| Q13 | Contact details and `sameAs` | **Answered from resume v6:** email `erhamza.dev@gmail.com`; LinkedIn, GitHub and Portfolio links (the PDF shows them as hyperlinks only, so exact URLs come from `constants.tsx`: `https://www.linkedin.com/in/er-mohammad-hamza/`, `https://github.com/hamzam999`). **Never publish the phone number** anywhere. | **Action A2 (owner):** in the phone-free PDF, point the "Portfolio" hyperlink to `https://erhamza.tech`. **Action A3 (owner):** set the website field on LinkedIn and GitHub to `https://erhamza.tech` (helps entity matching). |
+| Q14 | Location and engagement types | **Location answered:** Kanpur, India (resume header). Engagement types remain open. | Visible copy "Kanpur, India · Remote"; JSON-LD `address` included; L6 says "available for collaborations" without listing engagement types |
+| Q15 | Skill depth labels | **Partly answered:** the skill tree now mirrors the resume Skills section; depth follows the resume's bold emphasis mechanically | Owner may override |
+| Q16 | First ruler tick | **Answered from resume:** 2020 (founder role and degree). The ruler now runs **2020 to 2026**. | Closed |
+| Q17 | Alias "Er. Hamza" in `alternateName` | Open | Omitted |
+| Q18 | Hosting | Open | Vercel config |
+| Q19 | AI crawlers policy | Open | Allow all |
+| Q20 | Approve genre tags, kanji and **[COPY: approve]** strings | Open | Used as drafted |
+| Q21 | Screenshots per Appendix C | Open | Typographic fallback posters; priority is the ten featured projects |
+| Q22 | **New.** Studio Solyn: did you also implement the mobile screens in Framer, or design them only? | Open | Role reads "Designed all mobile screens"; stack chips stay as in the CSV (Framer, React, Pointer Events API) |
+| Q23 | **New.** Keep the "25+ projects shipped" stat? It comes from the old site; the resume does not state it. | Open | Kept, labeled owner-stated; drop if not confirmed before launch |
+| Q24 | **New.** Public title for the agent project: CSV "AI Company agent team" versus resume "CodesLytic AI Company: Agent Workflows"? | Open | "AI Agent Team" with the subtitle "CodesLytic AI Company" |
+| Q25 | **New.** NFT marketplace chains and standards (see 12.2 item 3) | Open | Both stated: ERC-721 and ERC-1155, on Base, Sui and Solana |
 
-### 12.2 Data inconsistencies found in the CSV and repo
+### 12.2 Data inconsistencies found (CSV, resume v6, old repository data)
 
-1. **Count:** the CSV has **18** project rows, not 17. All 18 are planned.
-2. **Missing link:** NFT Marketplace has an empty link column (shut down). Treated as `offline`.
-3. **"(confirm exact stack)"** on GeSIM (Q5).
-4. **Private entries** that must not link out: ERPNext customisation ("Private (client work)"), Unified CRM ("Private (client and internal use only)"), DEX/CEX dashboards and multi-sig wallet ("Private (client and internal use only)"), AI Company agent team ("Private repo").
-5. **Repository links rather than live sites:** Valerie Group assessment (SkyAI) and BookEase link to GitHub repositories. Shown as `REPO` with "View source" links. SkyAI is marked "desktop only" in the CSV, so the link carries that note.
-6. **Owner-stated performance claims** kept verbatim and attributed, never extrapolated: NAVIG "25,000+ glowing particles" and "runs at 144 frames per second" (published as "runs at 144 frames per second, as measured by the owner" **[COPY: approve]**; no claim about all devices); Unified CRM "Pages load about 35% faster, and overall speed improved by 30 to 50%"; CodesLytic Budget "1,500+ automated checks and 160+ end-to-end tests"; the old site's generic "50% performance gain" stat is replaced by the CRM-specific wording.
-7. **Product scope versus personal claims:** GeSIM's "190+ countries" and its VPN, virtual numbers and cards describe the product, not the owner's contribution (Q5).
-8. **Promenade Medulin** stack conflict (Q6). **downtownsfashion.com versus hefashion.in** naming (Q7). **Studio Solyn** describes the client only (Q8).
-9. **Old data conflicts:** `src/data/projects.ts` describes Lammle's work as GTM, Klaviyo and mega-menu; the CSV says checkout extensions and Shopify Functions. The CSV wins. The old constants listed a separate "Multi-Owner Safe" project; the CSV merges it into "DEX/CEX dashboards and multi-sig wallet".
-10. The CSV phrase "multi-sig wallet like gnosis vault" refers to the product now called Safe (formerly Gnosis Safe). Public copy says "a multi-signature wallet in the style of Safe (formerly Gnosis Safe)" **[COPY: approve]**.
-11. "Atelier theme customisation (berbanto)" lists "Claude Code" in its stack and downtownsfashion lists "Shopify MCP"; kept as stated (owner's choice to disclose AI-assisted tooling), shown as "Tools" rather than "Stack" chips **[COPY: approve]**.
-12. `ABOUT_CONTENT.stats` says "25+ projects shipped" while the archive lists 18; the stat stays, labeled owner-stated.
+Defaults below are what agents implement until the owner says otherwise.
+
+1. **Count:** the CSV has 18 rows; with the Valerie Group assessment removed, the site has **17 projects**, plus 5 Earlier work entries.
+2. **Experience (resume versus old `EXPERIENCES`):** titles differ ("Frontend & ERP Developer (Freelance)" versus "Frontend Developer (Freelance)"; "Shopify Developer / Frontend Developer" versus "Shopify Developer"), and bullets differ (the old freelance entry has Dawn customization and "Led projects with no predefined design direction" split into two bullets; the old ITH entry separates the Solana integration bullet; the old THL entry names structured data and cart progress indicators). **Default: resume wording everywhere.**
+3. **NFT marketplace:** CSV says Base, Sui and Solana, paymaster-sponsored minting, stack React, Solidity, Paymaster, Solana Web3; resume says ERC-721 and ERC-1155, lazy minting, auctions, creator dashboards; the old site said "ERC-721/1155 on Base, Sui, and Solana". **Default: synopsis states both** (ERC-721 and ERC-1155 on Base, Sui and Solana), "lazy minting" used for the CSV's "list before minting"; Q25.
+4. **GeSIM:** CSV "React, React Native, wallet SDKs (confirm exact stack)"; resume "Web3, Embedded Wallets"; old site "Next.js, React Native, Web3, SBTs", "Founding Engineer", stablecoin purchases. **Default: owner's answer** (React, React Native) plus the resume line on embedded wallets and blockchain identity flows. SBTs, stablecoins and "Founding Engineer" are **not** published.
+5. **CodesLytic Budget test claim:** CSV "1,500+ automated checks and 160+ end-to-end tests"; resume "1,500+ unit/integration and 160+ E2E test cases with Claude Code". **Default: resume wording.** The resume adds solo-developer role and many feature details (used in highlights).
+6. **ERPNext stack:** CSV "ERPNext/Frappe, Next.js"; resume "ERPNext/Frappe, Docker", "custom frontend app", GitHub Actions CI/CD. **Default: union** (ERPNext/Frappe, Next.js, Docker, GitHub Actions); Next.js is flagged as CSV-only.
+7. **AI agent team:** title differs (Q24); CSV stack adds NVIDIA NIM, Cloudflare Tunnel/Access, Ubuntu 24.04, ERPNext CRM; resume adds Claude Code. **Default: union of both stacks**; status "in testing" (CSV) and "setting up" (resume) are consistent.
+8. **Skills present only in CSV stacks** (Solidity, Paymaster, Playwright by name, Framer, PHP 8, Cloudflare R2, YouTube Data API, NVIDIA NIM): not in the resume Skills section. **Default:** shown as project stack chips only, not as skill-tree nodes.
+9. **"25+ projects shipped"** appears only on the old site (Q23).
+10. **Resume "Projects" section** is a subset of the CSV (CodesLytic Budget, CodesLytic AI Company, ERPNext, Lammle's, NAVIG, GeSIM, Unified CRM, NFT Marketplace). The DEX/CEX dashboards and multi-sig wallet appear in the resume only as ITH experience bullets. No conflict; the other nine CSV projects are simply not on the resume.
+11. **NAVIG:** resume calls it "3D Web3 Platform"; CSV calls it a "crypto and AI intelligence product". **Default: CSV wording**, with the resume's "GPU-driven particles" and "from an abstract product brief" in highlights. Claims kept verbatim: 25,000+ particles, 144 FPS.
+12. **Private entries** that must not link out: ERPNext customisation, Unified CRM, DEX/CEX dashboards and multi-sig wallet, AI agent team (private repo).
+13. **Repository link instead of a live site:** BookEase (GitHub). Shown as `REPO`.
+14. **Owner-stated performance claims** kept verbatim and attributed, never extrapolated: NAVIG 25,000+ particles and 144 FPS; Unified CRM 35% faster load times and 30–50% performance gains; House of THL 30% organic traffic; CodesLytic test counts.
+15. **Product scope versus personal claims:** GeSIM's 190+ countries, VPN, virtual numbers, cards and tokenized markets are labeled "Product scope" on the page, separate from "My role".
+16. **Promenade Medulin:** the CSV stack column (Impreza, WPBakery) is superseded by the owner's answer (Kadence with a custom child theme).
+17. **HE Fashion naming** (Q7).
+18. **Old data conflicts:** `src/data/projects.ts` describes Lammle's work as GTM, Klaviyo and mega-menu; the CSV and resume say checkout extension with form validation and Shopify Functions. The CSV and resume win. The old "Multi-Owner Safe" project is merged into "DEX/CEX dashboards and multi-sig wallet".
+19. **Safe naming:** CSV "multi-sig wallet like gnosis vault" is published as "in the style of Safe (formerly Gnosis Safe)" **[COPY: approve]**.
+20. **AI tooling disclosure:** Berbanto lists Claude Code and HE Fashion lists Shopify MCP; the resume itself lists Claude Code, Cursor and Antigravity. Kept as "Tools" chips.
+21. **Resume PDF hygiene:** v6 contains a phone number (action A1) and a "Portfolio" hyperlink that should point to `erhamza.tech` (action A2).
 
 ### 12.3 Risks
 
@@ -2253,8 +2307,9 @@ Use the slug from the table in Appendix D, for example `media-src/projects/navig
 | Where the subject should be | Keep the key element in the center and upper third. The cover art crops a portrait area (about 0.82 wide to 1 tall) around the focal point; tell the developer if the focus is elsewhere (it becomes `media.focal`) | Center |
 | Text | Avoid tiny text as the focus; the cover is small | same |
 | Privacy | No real customer names, emails, wallet addresses, balances, order numbers or API keys. For private projects, use staging data or blur sensitive areas before saving | same |
-| Animation-heavy projects (NAVIG, SkyAI, MotionGrid) | Capture a frame where the effect is clearly visible | same |
+| Animation-heavy projects (NAVIG, MotionGrid) | Capture a frame where the effect is clearly visible | same |
 | Checkout projects (Lammle’s) | Capture the customized checkout step that shows your work | same |
+| Studio Solyn | Desktop capture as usual, but the **phone screenshot matters most**, because the mobile screens are your work | required in practice |
 
 What the pipeline generates from each screenshot (you do not need to make these):
 
