@@ -2,11 +2,11 @@
 
 Updated: 2026-11-25T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 2 (Level builds)
-Current gate: G2 pending (Opus review)
+Current phase: 3 (Shelf)
+Current gate: G3 pending (Opus plus owner /review-animations)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G2 review, then Phase 3
+Next task(s): G2 and G3 reviews, then Phase 4
 Blockers: none
 
 ## Tasks
@@ -36,6 +36,15 @@ Blockers: none
 | P2-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | Interview page restyled (src/styles/interview.css, plain CSS); legacy Tailwind mappings and rules removed; axe fixme removed |
 | P2-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | ProjectDetail, ProjectPage, ProjectsIndex, NotFound, projects.css |
 | P2-9 | done | sonnet | claude/bold-tesla-le6sg7 | - | Home composes L1..L6; project-open XP on /projects/:slug; boss XP on contact actions (level + footer); levels.spec.ts; app.css imports |
+| P3-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | scripts/build-project-media.mjs (sharp, duotone raw loop, manifest, missing report, hash skip), npm run media wired into build and build:e2e; ran on the 5 interim screenshots (full-page captures: hero cropped 16:10 from the top, widths 640 and 1280 only because sources are 1879 px wide) |
+| P3-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | src/components/shelf/geometry.ts + test (H table, X table vs integral, k relationship, visibility, windowed slots) |
+| P3-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | spring.ts createShelfEngine + 10 fake-clock tests |
+| P3-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | Shelf, Tape, media.tsx (CoverArt, ProjectHero), shelf.css, ShelfBox (lazy mount into reserved box), L4Archive mount point; chunk 6.2 KB gzip |
+| P3-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | useShelfInput: pointer drag + axis lock + flick, wheel rules, keys, tilt, click vs drag; buttons and Reel scrubber in Caption.tsx |
+| P3-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | Caption (650 ms mask swap), roving tabindex, aria-hidden copies, debounced live region only without a focus move |
+| P3-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | DetailSheet (modal route), InkMask, sheet.css, App.tsx modal route; ProjectDetail got `poster` and `reveal` props |
+| P3-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | ShelfBox: reduced-motion grid default, Show as shelf / Show as grid, error boundary |
+| P3-9 | done | sonnet | claude/bold-tesla-le6sg7 | - | tests/e2e/shelf.spec.ts and perf.spec.ts (idle rAF, will-change, CLS, 4x throttle drag, N=14 windowed pool); scripts/check-budgets.mjs created |
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -68,10 +77,13 @@ Blockers: none
 - Project open XP fires on /projects/:slug visit (sheet arrives Phase 3). ProjectDetail renders "Owner to confirm" for null roles, per plan.
 - Level 1 padding-bottom includes the ruler height so the credits strip is not covered.
 
+- Phase 3 deviations: ShelfBox.tsx added (mount logic, boundary, toggle) instead of putting it all in L4Archive; ProjectDetail and TapeGrid got small edits (hero and cover images through shelf/media.tsx, `poster`/`reveal` props); TapeGrid items renamed `li.tape-grid__item` to free the `.tape` class. Tape rotation is written on the two faces, not on the tape root (a root at rotateY(-90) is edge-on and Chromium cannot hit-test through it). Reserved box uses `html.js:not(.reduced)` plus a motion media query, so no-JS and reduced motion show the full-height grid. H is computed from the stage width (container query units) and `100svh`, so the formula uses the stage, not the window, width. Caption always sits under the shelf (no side placement in phone landscape). A reload on `/projects/:slug` strips the saved modal state in App.tsx so the standalone page shows. App.tsx route effects skip scroll-to-top and focus when the sheet opens or closes. check-budgets.mjs created in P3 (Phase 6 extends it); the JP glyph check covers kana only because kanji are drawn from kanji-paths.ts. `?shelfN=14` (e2e build only) drives the windowed-pool test.
+
 [COPY: approve] strings for the owner: L1 game note ("This page is a six-level run..."); L2 H2 (levels.ts) ; L3 intro ("Skills as listed on my resume...") and legend labels ("core skill / working skill / currently learning"); L4 intro ("Ten tapes on the shelf, seventeen in the archive. Open a tape for the full story." shelf sentence omitted until Phase 3), "Full archive", "Open the archive page", "Earlier work · out of print (5)" and the /projects earlier-work intro; L5 "Now:" summary line and "Earlier client stores from this period"; L6 lead (engagement types unconfirmed), "Open the red door", "Boss defeated", "Thanks for playing."; project page: private notes ("Built for a client...", etc.), "Visit live site", "View repository", "Out of print. This project has shut down.", result source labels, "Owner to confirm"; /projects intro; interview H1/lead ("Frontend interview questions: ..."); 404 text.
 Open data flags kept: 25+ projects stat (previous site only), skill depth (assumed), years TBC, resume link hidden until resumePdf exists.
 
 ## Log
+- P3-1..P3-9 done; typecheck, vitest, build:e2e, `@shelf|@sheet|@perf|@a11y`, budgets, shots and build green (details in the Phase 3 notes)
 - P2-1..P2-9 done; typecheck, vitest (27), build:e2e, `@levels|@a11y|@nojs` (76 passed), shots and build green
 - P1-1..P1-8 done; typecheck, vitest (27), build, build:e2e, `@shell|@a11y` and shots green (see below); 22 prerendered files each with one H1
 - P0-1..P0-6 done; typecheck, vitest (9 tests), vite build, playwright smoke (8 passed) green; G0 greps clean

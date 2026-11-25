@@ -106,9 +106,13 @@ test.describe('@shelf', () => {
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     const y0 = await page.evaluate(() => window.scrollY);
     await page.mouse.wheel(0, 240);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1200); // wheel scrolling can ease for a moment; measure the shelf only once it is still
     expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(y0);
     expect(await activeIndex(page)).toBe('0');
+    await page.evaluate(() => window.scrollBy({ top: document.querySelector('[data-shelf]')!.getBoundingClientRect().top - 120, behavior: 'instant' }));
+    await page.waitForTimeout(300);
+    const box2 = (await page.locator('[data-shelf]').boundingBox())!;
+    await page.mouse.move(box2.x + box2.width / 2, box2.y + box2.height / 2);
     await page.mouse.wheel(260, 0);
     await settle(page);
     expect(Number(await activeIndex(page))).toBeGreaterThanOrEqual(1);
