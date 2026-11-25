@@ -1,0 +1,92 @@
+{
+  "dex-cex-multisig-wallet": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "mobile": null,
+    "dominant": "#181818",
+    "sourceHash": "27c00f928b12f2e9a822c3bdf438b6d04a21a03c"
+  },
+  "gesim": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "mobile": null,
+    "dominant": "#f8f8f8",
+    "sourceHash": "5b2a1361e38e4c1125607bda3d1082bc68ec6afe"
+  },
+  "lammles": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "mobile": null,
+    "dominant": "#f8f8f8",
+    "sourceHash": "762aace36281fd500ad9ea38418e3f1e006cebc0"
+  },
+  "nft-marketplace": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "mobile": null,
+    "dominant": "#181818",
+    "sourceHash": "e932ad375d5231ae6cd0eb242796e601c5714368"
+  },
+  "nighat-ahmad-official": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "mobile": null,
+    "dominant": "#f8f8f8",
+    "sourceHash": "384378d1bf6ebf6bffef824f898ea36e577a8fad"
+  }
+}

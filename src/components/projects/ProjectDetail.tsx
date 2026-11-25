@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORY_LABEL, type OwnerClaim, type Project } from '@/types/content';
 import { PROFILE } from '@/content/profile';
-import { PosterFallback } from './PosterFallback';
+import { MaskLine } from '@/components/ui/MaskLine';
+import { ProjectHero } from '@/components/shelf/media';
 import { yearLabel } from './ArchiveIndex';
 
 const SOURCE: Record<OwnerClaim['source'], string> = {
@@ -21,28 +23,50 @@ interface Props {
   headingLevel: 1 | 2;
   /** Shows the "Open as a page" link (used by the detail sheet, Phase 3). */
   showPageLink?: boolean;
+  /** Replaces the default poster (the sheet passes the ink-mask poster). */
+  poster?: ReactNode;
+  /** Sheet only: eyebrow, title, synopsis and year rise through masks after the clip opens (plan 6.8). */
+  reveal?: boolean;
 }
 
 /** Content block shared by the detail sheet and `/projects/:slug` (plan 3.11, 6.8). */
-export function ProjectDetail({ project: p, headingLevel, showPageLink }: Props) {
+export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, reveal }: Props) {
   const H = headingLevel === 1 ? 'h1' : 'h2';
   const Sub = headingLevel === 1 ? 'h2' : 'h3';
   const link = p.link;
+  const eyebrow = `${CATEGORY_LABEL[p.category]} · ${p.genre}`;
+  const REVEAL_AT = 450;
   return (
     <article className="pd">
-      <p className="pd__eyebrow">
-        {CATEGORY_LABEL[p.category]} · {p.genre}
-      </p>
-      <H className="pd__title" id={`pd-${p.slug}`} tabIndex={headingLevel === 1 ? -1 : undefined}>
-        {p.title}
-      </H>
+      {reveal ? (
+        <MaskLine as="p" className="pd__eyebrow" trigger="mount" delay={REVEAL_AT}>
+          {eyebrow}
+        </MaskLine>
+      ) : (
+        <p className="pd__eyebrow">{eyebrow}</p>
+      )}
+      {reveal ? (
+        <MaskLine as="h2" className="pd__title" id={`pd-${p.slug}`} trigger="mount" delay={REVEAL_AT + 60}>
+          {p.title}
+        </MaskLine>
+      ) : (
+        <H className="pd__title" id={`pd-${p.slug}`} tabIndex={headingLevel === 1 ? -1 : undefined}>
+          {p.title}
+        </H>
+      )}
       {p.subtitle && <p className="pd__subtitle">{p.subtitle}</p>}
       <div className="pd__poster">
-        <PosterFallback project={p} size="hero" />
+        {poster ?? <ProjectHero project={p} size="hero" eager={headingLevel === 1} />}
       </div>
       <div className="pd__grid">
         <div className="pd__col">
-          <p className="pd__synopsis">{p.synopsis}</p>
+          {reveal ? (
+            <MaskLine as="p" className="pd__synopsis" trigger="mount" delay={REVEAL_AT + 120}>
+              {p.synopsis}
+            </MaskLine>
+          ) : (
+            <p className="pd__synopsis">{p.synopsis}</p>
+          )}
 
           <Sub className="pd__h">My role</Sub>
           <p className={p.role ? 'pd__text' : 'pd__text pd__text--tbc'}>{p.role ?? 'Owner to confirm'}</p>
@@ -101,7 +125,13 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink }: Props)
             </>
           )}
           <Sub className="pd__h">Year</Sub>
-          <p className="pd__text tabular">{yearLabel(p)}</p>
+          {reveal ? (
+            <MaskLine as="p" className="pd__text tabular" trigger="mount" delay={REVEAL_AT + 180}>
+              {yearLabel(p)}
+            </MaskLine>
+          ) : (
+            <p className="pd__text tabular">{yearLabel(p)}</p>
+          )}
           <Sub className="pd__h">Link</Sub>
           {link.kind === 'live' && (
             <>

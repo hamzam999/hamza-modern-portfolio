@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:client && npm run build:server && node scripts/prerender.mjs",
+    "build": "npm run media && npm run build:client && npm run build:server && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
@@ -14,9 +14,10 @@
     "budgets": "node scripts/check-budgets.mjs",
     "fonts:jp": "node scripts/subset-jp-fonts.mjs && node scripts/kanji-paths.mjs",
     "grain": "node scripts/build-grain.mjs",
+    "media": "node scripts/build-project-media.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist-ssr",
-    "build:e2e": "vite build --mode e2e && vite build --mode e2e --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build:e2e": "npm run media && vite build --mode e2e && vite build --mode e2e --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "shots": "playwright test tests/e2e/shots.spec.ts"
   },
   "dependencies": {
