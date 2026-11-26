@@ -14,12 +14,13 @@ interface Props {
   onNavigate: (action: () => void) => void;
   goLevel: (anchor: string) => void;
   navigate: (to: string) => void;
+  onOpenPassport: () => void;
 }
 
 const isPlain = (e: React.MouseEvent) => e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
 
 /** Menu dialog (plan 5.7): slides down from the top bar with a clip-path. Closes on Escape, link and backdrop. */
-export function MenuDialog({ open, onClose, onAfterClose, onNavigate, goLevel, navigate }: Props) {
+export function MenuDialog({ open, onClose, onAfterClose, onNavigate, goLevel, navigate, onOpenPassport }: Props) {
   const { pathname } = useLocation();
   const unlocked = useGame(selectUnlockedArcade);
   const arcadeSeen = useGame((s) => s.arcadeSeen);
@@ -72,6 +73,19 @@ export function MenuDialog({ open, onClose, onAfterClose, onNavigate, goLevel, n
                   'Arcade · clear Level 3 to unlock'
                 )}
               </Link>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="menu__link menu__link--small menu__linkbtn"
+                aria-haspopup="dialog"
+                onClick={() => {
+                  onNavigate(onOpenPassport);
+                  onClose();
+                }}
+              >
+                Passport
+              </button>
             </li>
             <li>
               <Link className="menu__link menu__link--small" to="/interview-framework" onClick={toPage('/interview-framework')}>Interview framework</Link>

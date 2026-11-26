@@ -58,7 +58,7 @@ export function ResetProgress() {
       <p className="reset__text">This clears your XP and stamps on this device.</p>
       <button
         type="button"
-        className="btn btn--door on-cobalt"
+        className="btn btn--door on-accent"
         onClick={() => {
           reset();
           setAsking(false);

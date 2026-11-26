@@ -44,10 +44,10 @@ const PIPELINE = 'v4-full-pages';
 
 /** Duotone ramps by spine swatch (plan 6.11 table). */
 const DUOTONE = {
-  cobalt: ['#1F3FB0', '#ECE8E0'],
+  accent: ['#17603F', '#ECE8E0'],
   ink: ['#141414', '#ECE8E0'],
   graphite: ['#2A2A2A', '#F3F0EA'],
-  paper: ['#1F3FB0', '#F3F0EA'],
+  paper: ['#17603F', '#F3F0EA'],
 };
 const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
 const toHex = ([r, g, b]) => `#${[r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('')}`;
@@ -190,7 +190,7 @@ async function profilePortrait(warnings) {
   const sizes = [];
   for (const w of PROFILE_W) {
     const { data, info } = await sharp(oriented).resize({ width: w, height: Math.round(w / PROFILE_ASPECT), fit: 'cover', position: 'attention' }).grayscale().normalise().raw().toBuffer({ resolveWithObject: true });
-    const [sr, sg, sb] = rgb('#141C3A');
+    const [sr, sg, sb] = rgb('#10261C');
     const [hr, hg, hb] = rgb('#F3F0EA');
     const out = Buffer.alloc(info.width * info.height * 3);
     for (let i = 0, j = 0; i < data.length; i += info.channels, j += 3) {

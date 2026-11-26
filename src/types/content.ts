@@ -15,7 +15,7 @@ export const CATEGORY_LABEL: Record<ProjectCategory, string> = {
   wordpress: 'WordPress and Client',
 };
 
-export type SpineSwatch = 'cobalt' | 'ink' | 'graphite' | 'paper';
+export type SpineSwatch = 'accent' | 'ink' | 'graphite' | 'paper';
 
 export type ProjectLink =
   | { kind: 'live'; url: `https://${string}`; note?: string }
@@ -56,13 +56,15 @@ export interface Project {
   category: ProjectCategory;
   secondaryCategories?: readonly ProjectCategory[];
   genre: string;                     // playful VHS genre tag, paired with category in UI
-  year: string | null;               // e.g. '2024' or '2023–2025'; null until confirmed
+  year: string | null;               // e.g. '2024' or '2025–2026'; null only if genuinely unknown
   yearStatus: 'confirmed' | 'inferred' | 'tbc'; // 'inferred' = derived from resume role dates; UI shows e.g. "2023–2025 (approx.)"
   yearSource?: string;               // e.g. 'resume: ITH Technologies, Feb 2023 – Dec 2025'
   featured: boolean;
   shelfOrder?: number;               // 1..N for featured items
   synopsis: string;                  // plain-language, faithful to the CSV
-  role: string | null;               // null renders "Owner to confirm"
+  /** Who the work was for and how (owner's answer), for example 'Employer: ITH Technologies'. */
+  engagement: string;
+  role: string | null;               // null hides the role block (only for genuinely unknown roles)
   stack: readonly string[];
   tools?: readonly string[];                  // AI or helper tools disclosed by the owner
   highlights?: readonly string[];             // owner-written bullets from the previous site
@@ -123,6 +125,9 @@ export interface Experience<Slug extends string = string> {
 /** Earlier work (5.4a): plain list entries, no page, no link, no media. */
 export interface EarlierWork {
   name: string;
+  year: string;
+  /** How the work came about, from the owner's answers, for example 'Freelance'. */
+  context: string;
   description: string;
   stack: readonly string[];
   source: 'owner-answer' | 'previous-site' | 'owner-answer+previous-site';

@@ -31,12 +31,12 @@ p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; }
 img, svg { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; }
-a { color: var(--cobalt); text-underline-offset: 0.2em; text-decoration-thickness: from-font; }
-a:not(.btn):hover { color: var(--cobalt-deep); }
+a { color: var(--accent); text-underline-offset: 0.2em; text-decoration-thickness: from-font; }
+a:not(.btn):hover { color: var(--accent-deep); }
 
 ::selection { background: var(--selection); color: var(--ink); }
-:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
-.on-cobalt:focus-visible { outline-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.on-accent:focus-visible { outline-color: var(--ink); }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;

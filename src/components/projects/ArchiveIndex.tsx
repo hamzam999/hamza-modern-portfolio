@@ -13,8 +13,9 @@ export function statusOf(p: Pick<Project, 'link'>): { label: string; kind: 'live
   }
 }
 
+/** Year text, empty when genuinely unknown (nothing is rendered for an empty label). */
 export function yearLabel(p: Pick<Project, 'year' | 'yearStatus'>): string {
-  if (!p.year) return 'TBC';
+  if (!p.year) return '';
   return p.yearStatus === 'inferred' ? `${p.year} (approx.)` : p.year;
 }
 
@@ -51,7 +52,7 @@ export function ArchiveIndex({ variant }: Props) {
                     </div>
                     <div className="archive__side">
                       <span className={`badge badge--${st.kind}`}>{st.label}</span>
-                      {variant === 'full' && <span className="archive__year">{yearLabel(p)}</span>}
+                      {variant === 'full' && yearLabel(p) && <span className="archive__year">{yearLabel(p)}</span>}
                     </div>
                   </li>
                 );

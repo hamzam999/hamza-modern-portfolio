@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PROFILE } from '@/content/profile';
 import { useGame } from '@/game/store';
-import { IconMenu, IconPassport } from '@/components/icons/Icons';
+import { IconGamepad, IconMenu } from '@/components/icons/Icons';
 import { useLevelNav } from '@/lib/useLevelNav';
 import { HamzaMark } from '@/components/brand/HamzaMark';
 import { LevelLabel } from './LevelLabel';
@@ -11,16 +11,14 @@ import { MenuDialog } from './MenuDialog';
 import { PassportDialog } from './Passport';
 import { XPCounter } from './XPCounter';
 
-/** Fixed top bar (plan 5.7): logo, six level links, level label, XP, passport, Hire me, Menu. Never hides on scroll. */
+/** Fixed top bar (plan 5.7): logo, six level links, level label, XP counter (opens the Passport), Arcade, Hire me, Menu. Never hides on scroll. */
 export function TopBar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const goLevel = useLevelNav();
   const [menu, setMenu] = useState(false);
-  const [passport, setPassport] = useState(false);
-  const dot = useGame((s) => s.passportDot);
-  const play = useGame((s) => s.settings.play);
-  const clearDot = useGame((s) => s.clearPassportDot);
+  const passport = useGame((s) => s.passportOpen);
+  const setPassport = useGame((s) => s.setPassportOpen);
   const pending = useRef<(() => void) | null>(null);
 
   return (
@@ -36,23 +34,12 @@ export function TopBar() {
         </div>
         <div className="topbar__right">
           <XPCounter />
-          <button
-            type="button"
-            className="topbar__btn"
-            aria-haspopup="dialog"
-            onClick={() => {
-              clearDot();
-              setPassport(true);
-            }}
-          >
-            <IconPassport />
-            <span className="topbar__btntext" aria-hidden="true">Passport</span>
-            <span className="sr-only">Passport</span>
-            {dot && play && <span className="topbar__dot" aria-hidden="true" />}
-            {dot && play && <span className="sr-only"> (new stamp)</span>}
-          </button>
+          <Link to="/arcade" className="topbar__btn topbar__arcade" aria-current={pathname === '/arcade' ? 'page' : undefined}>
+            <IconGamepad />
+            <span className="topbar__btntext topbar__arcadetext">Arcade</span>
+          </Link>
           <a
-            className="btn btn--primary on-cobalt topbar__hire"
+            className="btn btn--primary on-accent topbar__hire"
             href={pathname === '/' ? '#level-contact' : '/#level-contact'}
             onClick={(e) => {
               if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -72,6 +59,7 @@ export function TopBar() {
         open={menu}
         onClose={() => setMenu(false)}
         onNavigate={(a) => (pending.current = a)}
+        onOpenPassport={() => setPassport(true)}
         onAfterClose={() => {
           const a = pending.current;
           pending.current = null;

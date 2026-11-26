@@ -65,7 +65,7 @@ export function Caption({ project, controls, onPrev, onNext }: CaptionProps) {
                 </span>
               </p>
               <span className="cap__bar" />
-              <p className="cap__year">{l.project.year ? yearLabel(l.project) : 'Year TBC'}</p>
+              <p className="cap__year">{yearLabel(l.project)}</p>
             </div>
           ))}
         </div>

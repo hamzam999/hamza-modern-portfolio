@@ -21,6 +21,14 @@ export const IconPassport = (p: SVGProps<SVGSVGElement>) => (
     <path d="M8.5 16.5h7" />
   </svg>
 );
+export const IconGamepad = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...base} {...p}>
+    <rect x="3" y="7" width="18" height="11" rx="5" />
+    <path d="M8 10.5v4M6 12.5h4" />
+    <circle cx="15.5" cy="11.5" r="0.6" fill="currentColor" />
+    <circle cx="17.5" cy="13.5" r="0.6" fill="currentColor" />
+  </svg>
+);
 export const IconMenu = (p: SVGProps<SVGSVGElement>) => (
   <svg {...base} {...p}>
     <path d="M4 8h16M4 16h16" />

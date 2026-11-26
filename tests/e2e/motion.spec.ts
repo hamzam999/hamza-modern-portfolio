@@ -16,8 +16,8 @@ test('@forced forced-colors keeps controls visible', async ({ page }, info) => {
   test.skip(info.project.name !== 'desktop-1440', 'one project');
   await page.emulateMedia({ forcedColors: 'active' });
   await page.goto('/');
-  await expect(page.getByRole('button', { name: /^Passport/ })).toBeVisible();
-  await page.getByRole('button', { name: /^Passport/ }).focus();
+  await expect(page.getByRole('button', { name: /^Open passport/ })).toBeVisible();
+  await page.getByRole('button', { name: /^Open passport/ }).focus();
   const outline = await page.evaluate(() => {
     const cs = getComputedStyle(document.activeElement as Element);
     return { style: cs.outlineStyle, width: cs.outlineWidth };

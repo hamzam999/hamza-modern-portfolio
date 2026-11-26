@@ -8,10 +8,10 @@ interface Props {
 
 /** Swatch colours for the typographic poster (plan 6.11). Accent is decorative, so low contrast is allowed. */
 const SWATCH = {
-  cobalt: { bg: 'var(--cobalt)', accent: 'var(--vermilion)', ink: 'var(--sheet)' },
+  accent: { bg: 'var(--accent)', accent: 'var(--vermilion)', ink: 'var(--sheet)' },
   ink: { bg: 'var(--ink)', accent: 'var(--paper)', ink: 'var(--paper)' },
   graphite: { bg: 'var(--graphite)', accent: 'var(--sheet)', ink: 'var(--sheet)' },
-  paper: { bg: 'var(--sheet)', accent: 'var(--cobalt)', ink: 'var(--ink)' },
+  paper: { bg: 'var(--sheet)', accent: 'var(--accent)', ink: 'var(--ink)' },
 } as const;
 
 /** Typographic poster used whenever a screenshot is missing. Decorative: the surrounding link carries the name. */

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 380" fill="none">
-<!-- Open door with light spilling out. Palette: ink, vermilion (reward), cobalt mat, warm light. Decorative. -->
+<!-- Open door with light spilling out. Palette: ink, vermilion (reward), accent mat, warm light. Decorative. -->
 <path d="M118 350h98l84 28H30l88-28Z" fill="#FFE2A0" fill-opacity=".7"/>
 <rect x="84" y="34" width="132" height="318" rx="2" fill="#141414"/>
 <rect x="96" y="46" width="108" height="306" fill="#FFF4D6"/>
@@ -9,6 +9,6 @@
 <circle cx="143" cy="198" r="5" fill="#ECE8E0" stroke="#141414" stroke-width="2"/>
 <rect x="104" y="12" width="92" height="18" rx="2" fill="#141414"/>
 <text x="150" y="25" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="10.5" letter-spacing="3" fill="#ECE8E0">COME IN</text>
-<rect x="104" y="356" width="108" height="8" rx="2" fill="#1F3FB0"/>
+<rect x="104" y="356" width="108" height="8" rx="2" fill="#17603F"/>
 <g stroke="#141414" stroke-width="2" stroke-linecap="round"><path d="M72 372h-30M258 372h20"/></g>
 </svg>

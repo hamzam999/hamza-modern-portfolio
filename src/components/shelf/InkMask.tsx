@@ -24,10 +24,10 @@ const seedOf = (slug: string) => [...slug].reduce((a, c) => (a * 31 + c.charCode
 const easeOut = (t: number) => 1 - (1 - t) ** 3;
 
 const ACCENT: Record<Project['spine'], { bg: string; accent: string; ink: string }> = {
-  cobalt: { bg: 'var(--cobalt)', accent: 'var(--vermilion)', ink: 'var(--sheet)' },
+  accent: { bg: 'var(--accent)', accent: 'var(--vermilion)', ink: 'var(--sheet)' },
   ink: { bg: 'var(--ink)', accent: 'var(--paper)', ink: 'var(--paper)' },
   graphite: { bg: 'var(--graphite)', accent: 'var(--sheet)', ink: 'var(--sheet)' },
-  paper: { bg: 'var(--sheet)', accent: 'var(--cobalt)', ink: 'var(--ink)' },
+  paper: { bg: 'var(--sheet)', accent: 'var(--accent)', ink: 'var(--ink)' },
 };
 
 interface Props {

@@ -1,3 +1,5 @@
+> **Round 4 note:** the accent colour is now a deep forest green (`--accent: #17603F`, hover `--accent-deep: #0F4A31`). Every "cobalt" below is historical; the token and the hex were renamed and recoloured. Vermilion is unchanged.
+
 > Round 2 note (see docs/DEV_STATUS.md): Japanese removed (halftone words are Urdu now), Level 6 is renamed Open Door, the header carries the six level links, the logo is the Urdu letter hamza, and budgets are CSS 34 KB, images 1500 KB. Wording below that says kanji or Final Boss is historical.
 
 # Archive Quest: Portfolio UI Revamp Plan

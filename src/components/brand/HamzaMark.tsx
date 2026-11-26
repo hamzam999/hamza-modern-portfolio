@@ -6,7 +6,7 @@ const S = H / HAMZA.h;
 const TX = 32 - (HAMZA.w * S) / 2 + 1;
 const TY = 32 - H / 2 + 0.5;
 
-/** The logo: the Urdu letter hamza (a build-time outline, no font) knocked out of a cobalt ticket. Decorative by default. */
+/** The logo: the Urdu letter hamza (a build-time outline, no font) knocked out of a green ticket. Decorative by default. */
 export function HamzaMark({ className, title }: { className?: string; title?: string }) {
   return (
     <svg viewBox="0 0 64 64" className={className} aria-hidden={title ? undefined : true} role={title ? 'img' : undefined} aria-label={title} focusable="false">

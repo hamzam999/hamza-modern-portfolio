@@ -30,7 +30,7 @@ test('@smoke a full interaction pass logs no console errors or warnings', async 
   });
   await page.goto('/');
   await page.waitForFunction(() => '__aq' in window);
-  await page.getByRole('button', { name: /^Passport/ }).click();
+  await page.getByRole('button', { name: /^Open passport/ }).click();
   await page.keyboard.press('Escape');
   const h = await page.evaluate(() => document.documentElement.scrollHeight);
   for (let y = 0; y < h; y += 450) {

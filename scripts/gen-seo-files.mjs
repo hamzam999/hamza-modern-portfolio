@@ -1,6 +1,8 @@
-// Generates robots.txt, sitemap.xml, llms.txt, llms-full.txt and projects/<slug>.md into dist/ (plan 9.7).
+// Generates robots.txt, sitemap.xml, llms.txt, llms-full.txt and projects/<slug>.md (plan 9.7).
 // Reads the content through the SSR bundle so the files can never drift from the site.
-import { mkdirSync, writeFileSync } from 'node:fs';
+// Round 4: every file is written to dist/ AND to public/ (committed), so a plain `vite build` (or `vite dev`)
+// still ships and serves them. scripts/check-budgets.mjs fails when the public/ copy differs from dist/.
+import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -9,11 +11,16 @@ const dist = join(root, 'dist');
 const S = await import(pathToFileURL(join(root, 'dist-ssr', 'entry-server.js')).href);
 const { SITE_URL, PROJECTS, EARLIER_WORK, PROFILE, EXPERIENCES, SKILL_BRANCHES, CATEGORY_LABEL, heroImage, fullPageImages, getRouteMeta } = S;
 
+const pub = join(root, 'public');
 const write = (rel, text) => {
-  const file = join(dist, rel);
-  mkdirSync(join(file, '..'), { recursive: true });
-  writeFileSync(file, text.endsWith('\n') ? text : text + '\n');
+  for (const base of [dist, pub]) {
+    const file = join(base, rel);
+    mkdirSync(join(file, '..'), { recursive: true });
+    writeFileSync(file, text.endsWith('\n') ? text : text + '\n');
+  }
 };
+const COUNT_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
+const countWord = (n) => COUNT_WORDS[n] ?? String(n);
 
 // ---------- helpers ----------
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -28,7 +35,7 @@ const STATUS = {
   offline: 'shut down (no longer online)',
 };
 const statusOf = (p) => STATUS[p.link.kind];
-const yearOf = (p) => (p.year ? (p.yearStatus === 'confirmed' ? p.year : `${p.year} (approximate, inferred from role dates)`) : 'year to be confirmed');
+const yearOf = (p) => (p.year ? (p.yearStatus === 'confirmed' ? p.year : `${p.year} (approximate, inferred from role dates)`) : 'year unknown');
 const externalLink = (p) => (p.link.kind === 'live' || p.link.kind === 'repo' ? p.link.url : null);
 const CATEGORY_ORDER = ['interactive', 'ecommerce', 'web3', 'product', 'ai', 'wordpress'];
 
@@ -40,7 +47,8 @@ function projectBody(p, level) {
   lines.push(`- Category: ${[CATEGORY_LABEL[p.category], ...(p.secondaryCategories ?? []).map((c) => CATEGORY_LABEL[c])].join('; ')}`);
   lines.push(`- Status: ${statusOf(p)}`);
   lines.push(`- Year: ${yearOf(p)}`);
-  lines.push(`- Role: ${p.role ?? 'not stated'}`);
+  lines.push(`- Engagement: ${p.engagement}`);
+  if (p.role) lines.push(`- Role: ${p.role}`);
   lines.push(`- Stack: ${p.stack.join(', ')}`);
   if (p.tools?.length) lines.push(`- Tools used: ${p.tools.join(', ')}`);
   const link = externalLink(p);
@@ -139,7 +147,7 @@ const skills = SKILL_BRANCHES.map((b) => {
   return `- ${b.title}: ${names}${seen.length ? `. Seen in: ${seen.join(', ')}.` : ''}`;
 }).join('\n');
 const projectSections = PROJECTS.map((p) => `## ${p.title}\n\n${projectBody(p, 3)}`).join('\n\n');
-const earlier = EARLIER_WORK.map((e) => `### ${e.name}\n\n${e.description}\n\nStack: ${e.stack.join(', ')}. No longer online.`).join('\n\n');
+const earlier = EARLIER_WORK.map((e) => `### ${e.name}\n\n${e.year} · ${e.context}. ${e.description}\n\nStack: ${e.stack.join(', ')}. No longer online.`).join('\n\n');
 const date = S.CONTENT_UPDATED;
 const full = `# ${PROFILE.name}
 
@@ -169,7 +177,7 @@ ${skills}
 
 # Projects
 
-Seventeen projects. Results marked "owner-reported" are as stated by the owner. Private client work is described without naming the client.
+${countWord(PROJECTS.length)} projects. Results marked "owner-reported" are as stated by the owner. Private client work is described without naming the client.
 
 ${projectSections}
 
@@ -188,6 +196,10 @@ Generated from the site's content files on ${date}.
 write('llms-full.txt', full);
 
 // ---------- /projects/<slug>.md ----------
+// Drop project .md files of projects that no longer exist (public/ is committed).
+for (const f of readdirSync(join(pub, 'projects'))) {
+  if (f.endsWith('.md') && !PROJECTS.some((p) => `${p.slug}.md` === f)) rmSync(join(pub, 'projects', f));
+}
 for (const p of PROJECTS) {
   write(`projects/${p.slug}.md`, `# ${p.title}\n\n${projectBody(p, 2)}\n\nBy ${PROFILE.name}: ${SITE_URL}/\n`);
 }

@@ -9,9 +9,9 @@ import { LEVELS } from './levels';
 const slugs = new Set<string>(PROJECTS.map((p) => p.slug));
 
 describe('project content', () => {
-  it('has 17 unique projects and 5 earlier-work entries', () => {
-    expect(PROJECTS).toHaveLength(17);
-    expect(slugs.size).toBe(17);
+  it('has unique projects (18 as of Round 4) and 5 earlier-work entries', () => {
+    expect(PROJECTS).toHaveLength(18);
+    expect(slugs.size).toBe(PROJECTS.length);
     expect(EARLIER_WORK).toHaveLength(5);
   });
 

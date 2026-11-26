@@ -105,7 +105,7 @@ test.describe('@arcade', () => {
   test('@arcade pauses when a dialog opens', async ({ page }) => {
     await page.getByRole('button', { name: 'Start game' }).click();
     await expect.poll(() => phase(page)).toMatch(/serve|play/);
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     await expect.poll(() => phase(page)).toBe('paused');
   });
 

@@ -19,7 +19,7 @@ for (const route of ROUTES) {
 
 test('@a11y passport dialog open has no axe violations', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: /^Passport/ }).click();
+  await page.getByRole('button', { name: /^Open passport/ }).click();
   await expect(page.getByRole('dialog', { name: 'Passport' })).toBeVisible();
   await page.waitForTimeout(500);
   await scan(page);

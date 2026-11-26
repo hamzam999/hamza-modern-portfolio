@@ -20,7 +20,7 @@ export default function Home() {
       <L3SkillTree />
       <Divider kind="tear" />
       <L4Archive />
-      <Divider kind="sprocket" tone="cobalt" />
+      <Divider kind="sprocket" tone="accent" />
       <L5CareerPath />
       <Divider kind="ticket" />
       <L6OpenDoor />

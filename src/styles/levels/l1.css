@@ -5,9 +5,9 @@
 .l1 .level__heading {
   max-width: 11ch; font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--tr-display);
 }
-.l1__role { display: block; margin-top: var(--space-2); font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3); color: var(--cobalt); }
+.l1__role { display: block; margin-top: var(--space-2); font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--tr-h3); color: var(--accent); }
 .l1__lead { margin-top: var(--space-4); max-width: 36ch; font-family: var(--font-read); font-size: var(--fs-lead); line-height: var(--lh-lead); letter-spacing: -0.005em; }
-.l1__tagline { margin-top: var(--space-3); font-family: var(--font-read); font-style: italic; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--cobalt-deep); }
+.l1__tagline { margin-top: var(--space-3); font-family: var(--font-read); font-style: italic; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--accent-deep); }
 .l1__meta { margin-top: var(--space-3); display: grid; gap: var(--space-1); }
 .l1__focus { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--space-2); font-size: 0.875rem; font-weight: 500; }
 .l1__focus li { white-space: nowrap; }

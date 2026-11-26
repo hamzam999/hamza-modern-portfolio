@@ -20,11 +20,11 @@ const INITIAL_VIEW: View = { phase: 'idle', you: 0, cpu: 0, winner: null };
 const DIFFICULTIES: readonly Difficulty[] = ['easy', 'normal', 'hard'];
 const LABEL = 'Reel Pong game field. First to 5 points wins. Move your paddle by dragging, or with the arrow keys or W and S. Press Space to start and P to pause.';
 
-interface Theme { paper: string; cobalt: string; ink: string; font: string }
+interface Theme { paper: string; accent: string; ink: string; font: string }
 const readTheme = (): Theme => {
   const cs = getComputedStyle(document.documentElement);
   const v = (n: string, d: string) => cs.getPropertyValue(n).trim() || d;
-  return { paper: v('--paper', '#ECE8E0'), cobalt: v('--cobalt', '#1F3FB0'), ink: v('--ink', '#141414'), font: v('--font-ui', 'sans-serif') };
+  return { paper: v('--paper', '#ECE8E0'), accent: v('--accent', '#17603F'), ink: v('--ink', '#141414'), font: v('--font-ui', 'sans-serif') };
 };
 
 const phaseLabel = (v: View): string => {
@@ -83,7 +83,7 @@ export default function ReelPong() {
     if (shake.current > 0) ctx.translate((Math.random() - 0.5) * shake.current * 6, (Math.random() - 0.5) * shake.current * 6);
 
     // Centre dashes
-    ctx.fillStyle = th.cobalt;
+    ctx.fillStyle = th.accent;
     for (let i = 8; i < 300; i += 22) {
       const p = project(o, i, FIELD_ACROSS / 2);
       if (o === 'landscape') ctx.fillRect(p.x - 1, p.y, 2, 10); else ctx.fillRect(p.x, p.y - 1, 10, 2);
@@ -99,7 +99,7 @@ export default function ReelPong() {
 
     // Paddles
     const len = paddleLength(eng.cfg);
-    ctx.fillStyle = eng.cfg.accessible ? th.ink : th.cobalt;
+    ctx.fillStyle = eng.cfg.accessible ? th.ink : th.accent;
     for (const [along, face] of [[s.playerAlong, PADDLE_INSET], [s.cpuAlong, CPU_FACE]] as const) {
       const p = project(o, along - len / 2, face);
       if (o === 'landscape') ctx.fillRect(p.x, p.y, PADDLE_T, len); else ctx.fillRect(p.x, p.y - PADDLE_T, len, PADDLE_T);
@@ -120,7 +120,7 @@ export default function ReelPong() {
     const banner = v.phase === 'idle' ? ['Reel Pong', 'press start'] : v.phase === 'paused' ? ['Paused', 'press resume or P']
       : v.phase === 'over' ? [v.winner === 'player' ? 'You win' : 'CPU wins', 'play again?'] : null;
     if (banner) {
-      // Ink-bordered paper card: on-palette, keeps the cobalt paddles at full strength, text in ink.
+      // Ink-bordered paper card: on-palette, keeps the accent paddles at full strength, text in ink.
       const cw = Math.min(f.w - 32, 260);
       const ch = 80;
       ctx.fillStyle = th.paper;

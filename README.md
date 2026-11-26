@@ -33,7 +33,7 @@ Playwright uses the browsers in its cache. If the cached Chromium revision diffe
 
 ## Content
 
-All site content is typed data in `src/content/` (types in `src/types/content.ts`). Facts come from the owner's resume and project list; unknown values stay as visible placeholders (for example `Year: TBC`) until confirmed. The phone number is never published.
+All site content is typed data in `src/content/` (types in `src/types/content.ts`). Facts come from the owner's resume and project list; the owner's answers in `docs/OWNER_ANSWERS.md` win over the resume and the CSV. Counts (for example the number of projects) are derived from the data, never typed in. The phone number is never published.
 
 ## Media workflow
 

@@ -20,7 +20,7 @@ export type ButtonProps = AsButton | AsAnchor;
 /** Renders `<a>` for navigation and `<button>` for actions, never a div (plan 3.11). */
 export function Button(props: ButtonProps) {
   const { variant = 'primary', size = 'md', className, children } = props;
-  const cls = ['btn', `btn--${variant}`, size === 'lg' ? 'btn--lg' : '', variant === 'primary' || variant === 'door' ? 'on-cobalt' : '', className ?? '']
+  const cls = ['btn', `btn--${variant}`, size === 'lg' ? 'btn--lg' : '', variant === 'primary' || variant === 'door' ? 'on-accent' : '', className ?? '']
     .filter(Boolean)
     .join(' ');
   if (props.as === 'a') {

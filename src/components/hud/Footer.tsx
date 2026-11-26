@@ -19,6 +19,7 @@ export function Footer() {
   const goLevel = useLevelNav();
   const unlocked = useGame(selectUnlockedArcade);
   const arcadeSeen = useGame((s) => s.arcadeSeen);
+  const setPassportOpen = useGame((s) => s.setPassportOpen);
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -76,8 +77,13 @@ export function Footer() {
               <li>
                 <Link to="/arcade">{unlocked ? (arcadeSeen ? 'Arcade' : 'Arcade · NEW') : 'Arcade · clear Level 3 to unlock'}</Link>
               </li>
+              <li>
+                <button type="button" className="footer__linkbtn" aria-haspopup="dialog" onClick={() => setPassportOpen(true)}>
+                  Passport
+                </button>
+              </li>
               <li><Link to="/interview-framework">Interview framework</Link></li>
-              <li><a href="/llms.txt">llms.txt</a></li>
+              <li><a href="/llms.txt" type="text/plain">llms.txt</a></li>
             </ul>
           </div>
         </div>

@@ -14,7 +14,7 @@ type Project = (typeof PROJECTS)[number];
 const media = manifest as MediaManifest;
 const ID = { person: `${SITE_URL}/#person`, website: `${SITE_URL}/#website`, logo: `${SITE_URL}/#logo` };
 
-/** The logo: the Urdu letter hamza on a cobalt ticket (public/icon-512.png, built by `npm run urdu`). */
+/** The logo: the Urdu letter hamza on a green ticket (public/icon-512.png, built by `npm run urdu`). */
 const logoNode = (): Json => ({
   '@type': 'ImageObject',
   '@id': ID.logo,
@@ -22,7 +22,7 @@ const logoNode = (): Json => ({
   contentUrl: `${SITE_URL}/icon-512.png`,
   width: 512,
   height: 512,
-  caption: 'Mohammad Hamza logo: the Urdu letter hamza on a cobalt ticket',
+  caption: 'Mohammad Hamza logo: the Urdu letter hamza on a green ticket',
 });
 
 /** Largest hero width that was actually built, or null when the project has no screenshot yet. */
@@ -134,7 +134,7 @@ function projectNode(p: Project): Json {
   const layouts = fullPageImages(p.slug);
   if (hero) node.image = layouts.length ? [hero.url, ...layouts.map((l) => l.url)] : hero.url;
   if (layouts.length && p.seo.schemaType === 'SoftwareApplication') node.screenshot = layouts.map((l) => l.url);
-  // Only a confirmed year becomes dateCreated; inferred and TBC years stay out of structured data.
+  // Only a confirmed year becomes dateCreated; inferred and unknown years stay out of structured data.
   const status: string = p.yearStatus;
   const year: string | null = p.year;
   if (status === 'confirmed' && year) node.dateCreated = year;

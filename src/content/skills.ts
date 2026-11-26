@@ -112,7 +112,7 @@ export const SKILL_BRANCHES: readonly SkillBranch<ProjectSlug>[] = [
     id: 'erp',
     title: 'ERP',
     nodes: [node('ERPNext/Frappe (custom apps, doctypes, workflows)'), node('Python')],
-    evidence: ['erpnext-manufacturing', 'ai-agent-team'],
+    evidence: ['erpnext-manufacturing', 'agent-workflows'],
   },
   {
     id: 'devops-tools',
@@ -143,7 +143,7 @@ export const SKILL_BRANCHES: readonly SkillBranch<ProjectSlug>[] = [
       node('lead generation'),
       node('content automation (reels, LinkedIn)'),
     ],
-    evidence: ['ai-agent-team'],
+    evidence: ['agent-workflows'],
   },
   {
     id: 'learning-backend',

@@ -39,7 +39,7 @@ const STATIC: Record<string, Omit<RouteMeta, 'canonical' | 'og'> & { path: strin
     og: { type: 'website', file: 'arcade', alt: OG_ALT.arcade },
     title: 'Arcade: Reel Pong | Mohammad Hamza',
     description:
-      'Play Reel Pong, a small paper-and-cobalt Pong game built for this portfolio. First to five wins; touch, mouse and keyboard supported.',
+      'Play Reel Pong, a small paper-and-green Pong game built for this portfolio. First to five wins; touch, mouse and keyboard supported.',
     robots: 'index, follow',
   },
   '/interview-framework': {
@@ -53,7 +53,7 @@ const STATIC: Record<string, Omit<RouteMeta, 'canonical' | 'og'> & { path: strin
   '/404': { path: null, og: null, title: 'Lost reel | Mohammad Hamza', description: '', robots: 'noindex' },
 };
 
-/** Every prerendered route: `/`, `/projects`, 17 project pages, `/arcade`, `/interview-framework`, `/404`. */
+/** Every prerendered route: `/`, `/projects`, one page per project, `/arcade`, `/interview-framework`, `/404`. */
 export function getAllRoutes(): string[] {
   return ['/', '/projects', ...PROJECTS.map((p) => `/projects/${p.slug}`), '/arcade', '/interview-framework', '/404'];
 }

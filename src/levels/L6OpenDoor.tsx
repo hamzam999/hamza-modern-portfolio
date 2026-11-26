@@ -103,7 +103,7 @@ export function L6OpenDoor() {
           </ul>
           {stamp && play && (
             <span className="l6__stamp" aria-hidden="true">
-              Door opened
+              Let’s connect
             </span>
           )}
         </div>

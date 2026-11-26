@@ -20,7 +20,7 @@ test.describe('@game', () => {
       h.grant('project:navig:open');
       h.grant('project:navig:open');
     });
-    await expect(page.getByRole('img', { name: 'Experience points: 120 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 120 frames' })).toBeVisible();
   });
 
   test('@game project XP caps at ten projects', async ({ page }) => {
@@ -31,7 +31,7 @@ test.describe('@game', () => {
       h.reset();
       for (let i = 0; i < 14; i += 1) h.grant(`project:p${i}:open`);
     });
-    await expect(page.getByRole('img', { name: 'Experience points: 200 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 200 frames' })).toBeVisible();
   });
 
   test('@game pong XP: first win 120, then 30 each, capped at 300', async ({ page }) => {
@@ -42,12 +42,12 @@ test.describe('@game', () => {
       h.reset();
       h.winPong();
     });
-    await expect(page.getByRole('img', { name: 'Experience points: 120 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 120 frames' })).toBeVisible();
     await page.evaluate(() => {
       const h = (window as unknown as { __aq: Hooks }).__aq;
       for (let i = 0; i < 10; i += 1) h.winPong();
     });
-    await expect(page.getByRole('img', { name: 'Experience points: 300 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 300 frames' })).toBeVisible();
   });
 
   test('@game dwell timer grants level XP under a controlled clock', async ({ page }) => {
@@ -70,9 +70,9 @@ test.describe('@game', () => {
     });
     const other = await context.newPage();
     await other.goto('/');
-    await expect(other.getByRole('img', { name: /Experience points: 100 of 1200/ })).toBeVisible();
+    await expect(other.getByRole('button', { name: /Open passport, 100 frames/ })).toBeVisible();
     await page.evaluate(() => (window as unknown as { __aq: Hooks }).__aq.grant('project:navig:open'));
-    await expect(other.getByRole('img', { name: /Experience points: 120 of 1200/ })).toBeVisible({ timeout: 5000 });
+    await expect(other.getByRole('button', { name: /Open passport, 120 frames/ })).toBeVisible({ timeout: 5000 });
     await other.close();
   });
 
@@ -80,10 +80,10 @@ test.describe('@game', () => {
     await page.goto('/');
     await aq(page);
     await page.evaluate(() => (window as unknown as { __aq: Hooks }).__aq.reset());
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     await page.getByRole('dialog', { name: 'Passport' }).getByText('Play mode').click();
     await page.keyboard.press('Escape');
     await page.evaluate(() => (window as unknown as { __aq: Hooks }).__aq.grant('door:contact'));
-    await expect(page.getByRole('img', { name: /Experience points/ })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /^Open passport/ })).toHaveCount(0);
   });
 });

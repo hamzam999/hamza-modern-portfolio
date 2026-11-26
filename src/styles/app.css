@@ -9,8 +9,8 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-muted-strong: var(--muted-strong);
-  --color-cobalt: var(--cobalt);
-  --color-cobalt-deep: var(--cobalt-deep);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
   --color-vermilion: var(--vermilion);
   --color-vermilion-ink: var(--vermilion-ink);
   --color-graphite: var(--graphite);

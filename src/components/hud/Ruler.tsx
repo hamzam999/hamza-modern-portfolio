@@ -15,7 +15,7 @@ const DESCRIPTOR: Record<string, string> = {
 
 /**
  * Bottom ruler (plan 5.8), level mode: the main navigation on `/`. Six markers with 44 px hit areas, decorative
- * year ticks and a gliding cobalt dot moved with transform only. Career mode arrives with Level 5 (P2-5).
+ * year ticks and a gliding accent dot moved with transform only. Career mode arrives with Level 5 (P2-5).
  */
 export function Ruler() {
   const active = useGame((s) => s.activeLevel);

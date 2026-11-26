@@ -14,7 +14,7 @@ test.describe('@shell', () => {
 
   test('@shell passport dialog traps focus, closes on Escape and returns focus', async ({ page }) => {
     await page.goto('/');
-    const trigger = page.getByRole('button', { name: /^Passport/ });
+    const trigger = page.getByRole('button', { name: /^Open passport/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'Passport' });
     await expect(dialog).toBeVisible();
@@ -52,12 +52,12 @@ test.describe('@shell', () => {
 
   test('@shell settings persist across reload', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     const dialog = page.getByRole('dialog', { name: 'Passport' });
     await dialog.getByText('Classic cursor').click();
     await expect(dialog.getByRole('switch', { name: 'Classic cursor' })).toBeChecked();
     await page.reload();
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     await expect(page.getByRole('dialog', { name: 'Passport' }).getByRole('switch', { name: 'Classic cursor' })).toBeChecked();
   });
 
@@ -65,9 +65,9 @@ test.describe('@shell', () => {
     await page.goto('/');
     await page.waitForFunction(() => '__aq' in window);
     await page.evaluate(() => (window as unknown as { __aq: { grant: (id: string) => number } }).__aq.grant('door:contact'));
-    await expect(page.getByRole('img', { name: 'Experience points: 100 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 100 frames' })).toBeVisible();
     await page.reload();
-    await expect(page.getByRole('img', { name: 'Experience points: 100 of 1200' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open passport, 100 frames' })).toBeVisible();
   });
 
   test('@shell app works when localStorage throws', async ({ page }) => {
@@ -83,18 +83,18 @@ test.describe('@shell', () => {
     });
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     await expect(page.getByRole('dialog', { name: 'Passport' })).toBeVisible();
     expect(errors).toEqual([]);
   });
 
   test('@shell Play mode off hides the XP counter', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('img', { name: /Experience points/ })).toBeVisible();
-    await page.getByRole('button', { name: /^Passport/ }).click();
+    await expect(page.getByRole('button', { name: /^Open passport/ })).toBeVisible();
+    await page.getByRole('button', { name: /^Open passport/ }).click();
     await page.getByRole('dialog', { name: 'Passport' }).getByText('Play mode').click();
     await page.keyboard.press('Escape');
-    await expect(page.getByRole('img', { name: /Experience points/ })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /^Open passport/ })).toHaveCount(0);
   });
 
   test('@shell skip link moves focus to main', async ({ page }) => {

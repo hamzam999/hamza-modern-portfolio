@@ -57,7 +57,7 @@ export const EXPERIENCES: readonly Experience<ProjectSlug>[] = [
       'Testing Claude skills and AI agents to raise productivity and expand into new domains: built n8n automations for lead generation and reels/LinkedIn content.',
       'Led projects with no predefined design direction, independently defining UI/UX, animation systems and frontend architecture, and delivered production-ready solutions for undefined problems under evolving requirements.',
     ],
-    relatedProjects: ['codeslytic-budget', 'erpnext-manufacturing', 'ai-agent-team'],
+    relatedProjects: ['codeslytic-budget', 'erpnext-manufacturing', 'agent-workflows'],
   },
 ];
 

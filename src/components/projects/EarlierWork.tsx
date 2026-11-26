@@ -53,6 +53,7 @@ function List({ prints }: { prints: boolean }) {
           <p className="earlier__name">
             <strong>{w.name}</strong> <span className="badge badge--oop">Out of print</span>
           </p>
+          <p className="earlier__meta tabular">{w.year} · {w.context}</p>
           <p className="earlier__desc">{w.description}</p>
           <p className="earlier__stack">{w.stack.join(' · ')}</p>
           </div>

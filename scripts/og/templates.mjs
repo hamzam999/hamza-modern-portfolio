@@ -1,6 +1,6 @@
 // Open Graph card templates (plan 9.9) as plain satori element trees (no JSX runtime needed in a .mjs script).
-export const COLORS = { paper: '#ECE8E0', ink: '#141414', cobalt: '#1F3FB0', graphite: '#2A2A2A', muted: '#5E5B55' };
-const SWATCH = { cobalt: COLORS.cobalt, ink: COLORS.ink, graphite: COLORS.graphite, paper: '#D9D3C6' };
+export const COLORS = { paper: '#ECE8E0', ink: '#141414', accent: '#17603F', graphite: '#2A2A2A', muted: '#5E5B55' };
+const SWATCH = { accent: COLORS.accent, ink: COLORS.ink, graphite: COLORS.graphite, paper: '#D9D3C6' };
 const h = (type, style, ...children) => ({ type, props: { style: { display: 'flex', ...style }, children: children.flat().filter((c) => c !== null) } });
 const text = (style, s) => ({ type: 'div', props: { style: { display: 'flex', ...style }, children: s } });
 
@@ -10,7 +10,7 @@ export function halftoneUrdu(word, size) {
   const width = Math.round((size * w) / h);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${width}" height="${size}">
 <defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="${w}" height="${h}"><path fill="#fff" d="${d}"/></mask>
-<pattern id="p" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r="8" fill="${COLORS.cobalt}"/></pattern></defs>
+<pattern id="p" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r="8" fill="${COLORS.accent}"/></pattern></defs>
 <rect width="${w}" height="${h}" fill="url(#p)" mask="url(#m)"/></svg>`;
   return { uri: `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`, width, height: size };
 }
@@ -30,7 +30,7 @@ export function siteCard({ title, line, focus, urdu, logo }) {
     h(
       'div',
       { flexDirection: 'column', position: 'absolute', left: 64, top: 130, width: 520 },
-      text({ fontSize: title.length > 20 ? 64 : 96, fontWeight: 600, color: COLORS.cobalt, lineHeight: 1.05, letterSpacing: -2 }, title),
+      text({ fontSize: title.length > 20 ? 64 : 96, fontWeight: 600, color: COLORS.accent, lineHeight: 1.05, letterSpacing: -2 }, title),
       text({ fontSize: 40, marginTop: 22, fontWeight: 600 }, line),
       focus ? text({ fontFamily: 'Newsreader', fontSize: 30, marginTop: 26, color: COLORS.muted }, focus) : null,
     ),
@@ -53,12 +53,12 @@ export function projectCard({ eyebrow, title, summary, imageUri, swatch, spine, 
       h(
         'div',
         { flexDirection: 'column' },
-        text({ fontSize: 22, fontWeight: 600, color: COLORS.cobalt, letterSpacing: 3, textTransform: 'uppercase' }, eyebrow),
+        text({ fontSize: 22, fontWeight: 600, color: COLORS.accent, letterSpacing: 3, textTransform: 'uppercase' }, eyebrow),
         text({ fontSize: title.length > 18 ? 56 : 68, fontWeight: 600, lineHeight: 1.05, marginTop: 20, letterSpacing: -1.5 }, title),
         text({ fontFamily: 'Newsreader', fontSize: 28, lineHeight: 1.35, marginTop: 24, color: COLORS.muted }, summary),
       ),
       h('div', { alignItems: 'center' }, { type: 'img', props: { src: logo, width: 44, height: 44 } }, text({ fontSize: 26, fontWeight: 600, marginLeft: 14 }, 'Mohammad Hamza')),
     ),
-    h('div', { position: 'absolute', left: 600, top: 0, width: 4, height: 630, background: COLORS.cobalt }),
+    h('div', { position: 'absolute', left: 600, top: 0, width: 4, height: 630, background: COLORS.accent }),
   );
 }

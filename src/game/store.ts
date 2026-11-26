@@ -28,10 +28,15 @@ export interface PongRecord {
   accessible: boolean;
 }
 
+/** Call-to-action toast text for the contact event (Round 4: replaces the old "Door opened" wording). */
+export const DOOR_TOAST = 'Let’s connect: pick email or LinkedIn';
+
 export interface Toast {
   /** Increments per toast so repeated gains re-trigger the animation. */
   id: number;
   amount: number;
+  /** Optional message shown under the amount (the contact call to action). */
+  label?: string;
 }
 
 interface Persisted {
@@ -51,6 +56,8 @@ interface Session {
   announcement: string;
   /** Vermilion dot on the passport button until it is opened. */
   passportDot: boolean;
+  /** Passport dialog open state: the XP counter, menu and footer all open the same dialog. */
+  passportOpen: boolean;
   /** Derived from events; kept in state so subscribers re-render on change only. */
   xp: number;
 }
@@ -64,6 +71,7 @@ interface Actions {
   setJumping: (v: boolean) => void;
   clearToast: () => void;
   clearPassportDot: () => void;
+  setPassportOpen: (open: boolean) => void;
   markArcadeSeen: () => void;
   recordPong: (patch: Partial<PongRecord>) => void;
   /** Full reset to defaults (tests, version migration). */
@@ -124,6 +132,7 @@ export const useGame = create<GameState>()(
       toast: null,
       announcement: '',
       passportDot: false,
+      passportOpen: false,
 
       grant: (id) => {
         const s = get();
@@ -134,7 +143,7 @@ export const useGame = create<GameState>()(
         const parsed = parseEvent(id);
         const clear = parsed?.kind === 'clear' ? parsed.level : null;
         const patch: Partial<GameState> = { events, xp };
-        if (gained > 0) patch.toast = { id: (s.toast?.id ?? 0) + 1, amount: gained };
+        if (gained > 0) patch.toast = { id: (s.toast?.id ?? 0) + 1, amount: gained, ...(id === 'door:contact' ? { label: DOOR_TOAST } : {}) };
         if (clear !== null) {
           patch.passportDot = true;
           patch.announcement = `Level ${clear} cleared. Stamp added to your passport.`;
@@ -149,6 +158,7 @@ export const useGame = create<GameState>()(
       setJumping: (v) => set({ jumping: v }),
       clearToast: () => set({ toast: null }),
       clearPassportDot: () => set({ passportDot: false }),
+      setPassportOpen: (open) => set(open ? { passportOpen: true, passportDot: false } : { passportOpen: false }),
       markArcadeSeen: () => set({ arcadeSeen: true }),
       recordPong: (patch) => set((s) => ({ pong: { ...s.pong, ...patch } })),
       resetProgress: () =>

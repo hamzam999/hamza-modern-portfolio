@@ -28,6 +28,7 @@ export function PassportDialog({ open, onClose }: Props) {
             <IconClose />
           </button>
         </div>
+        <p className="passport__intro">Your run so far: XP and a stamp for each level. Nothing is locked.</p>
         <p className="passport__xp">
           <span className="tabular">{String(computeXP(events)).padStart(4, '0')}</span> of {MAX_XP} frames
           {!play && <span> (Play mode is off, so progress is paused)</span>}

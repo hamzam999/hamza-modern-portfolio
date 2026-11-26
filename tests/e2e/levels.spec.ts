@@ -1,3 +1,4 @@
+import { PROJECTS } from '../../src/content/projects';
 import { expect, test } from '@playwright/test';
 
 test.describe('@levels', () => {
@@ -80,9 +81,9 @@ test.describe('@levels', () => {
     expect(xp).toBe(20);
   });
 
-  test('@levels archive page lists all 17 projects and earlier work', async ({ page }) => {
+  test('@levels archive page lists every project and earlier work', async ({ page }) => {
     await page.goto('/projects');
-    await expect(page.locator('.archive__row')).toHaveCount(17);
+    await expect(page.locator('.archive__row')).toHaveCount(PROJECTS.length);
     await expect(page.locator('#earlier-work li')).toHaveCount(5);
   });
 

@@ -69,8 +69,14 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
             <p className="pd__synopsis">{p.synopsis}</p>
           )}
 
-          <Sub className="pd__h">My role</Sub>
-          <p className={p.role ? 'pd__text' : 'pd__text pd__text--tbc'}>{p.role ?? 'Owner to confirm'}</p>
+          {p.role && (
+            <>
+              <Sub className="pd__h">My role</Sub>
+              <p className="pd__text">{p.role}</p>
+            </>
+          )}
+          <Sub className="pd__h">Engagement</Sub>
+          <p className="pd__text">{p.engagement}</p>
 
           {p.highlights && p.highlights.length > 0 && (
             <>
@@ -125,25 +131,29 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
               </ul>
             </>
           )}
-          <Sub className="pd__h">Year</Sub>
-          {reveal ? (
-            <MaskLine as="p" className="pd__text tabular" trigger="mount" delay={REVEAL_AT + 180}>
-              {yearLabel(p)}
-            </MaskLine>
-          ) : (
-            <p className="pd__text tabular">{yearLabel(p)}</p>
+          {p.year && (
+            <>
+              <Sub className="pd__h">Year</Sub>
+              {reveal ? (
+                <MaskLine as="p" className="pd__text tabular" trigger="mount" delay={REVEAL_AT + 180}>
+                  {yearLabel(p)}
+                </MaskLine>
+              ) : (
+                <p className="pd__text tabular">{yearLabel(p)}</p>
+              )}
+            </>
           )}
           <Sub className="pd__h">Link</Sub>
           {link.kind === 'live' && (
             <>
-              <a className="btn btn--primary on-cobalt" href={link.url} rel="noopener noreferrer" target="_blank">
+              <a className="btn btn--primary on-accent" href={link.url} rel="noopener noreferrer" target="_blank">
                 Visit live site<span className="sr-only"> (opens in a new tab)</span>
               </a>
               {link.note && <p className="pd__note">{link.note}</p>}
             </>
           )}
           {link.kind === 'repo' && (
-            <a className="btn btn--primary on-cobalt" href={link.url} rel="noopener noreferrer" target="_blank">
+            <a className="btn btn--primary on-accent" href={link.url} rel="noopener noreferrer" target="_blank">
               View repository<span className="sr-only"> (opens in a new tab)</span>
             </a>
           )}

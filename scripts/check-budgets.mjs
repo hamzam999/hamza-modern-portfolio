@@ -113,10 +113,24 @@ for (const f of files.filter((x) => TEXT.test(x))) {
   if (/\+91|9919/.test(text)) fail.push(`phone-number pattern (+91 or 9919) in dist/${rel}`);
   if (/Valerie|SkyAI/i.test(text)) fail.push(`removed project name in dist/${rel}`);
   if (/[\u3000-\u30ff\u4e00-\u9fff\uff00-\uffef]/.test(text)) fail.push(`Japanese or CJK character in dist/${rel}`);
-  if (/Final Boss|boss defeated/i.test(text)) fail.push(`old level name in dist/${rel}`);
+  if (/Final Boss|boss defeated|door opened/i.test(text)) fail.push(`old wording in dist/${rel}`);
+  if (/cobalt/i.test(text) && !/\.(js|css)$/.test(rel)) fail.push(`old accent name in dist/${rel}`);
 }
 for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'og/default.png', 'og/projects.png', 'og/arcade.png', 'og/interview.png', '404.html', 'favicon.svg', 'apple-touch-icon.png', 'icon-512.png']) {
   if (!existsSync(path.join(DIST, f))) fail.push(`dist/${f} missing`);
+}
+// Round 4: the committed public/ copies of the generated text files must equal the freshly generated dist/ ones
+// (a stale copy means content changed without `npm run seo`/`npm run build`), and a plain `vite build` must still deploy them.
+{
+  const PUB = path.join(ROOT, 'public');
+  const generated = ['robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', ...(existsSync(path.join(DIST, 'projects')) ? readdirSync(path.join(DIST, 'projects')).filter((f) => f.endsWith('.md')).map((f) => `projects/${f}`) : [])];
+  for (const f of generated) {
+    if (!existsSync(path.join(PUB, f))) fail.push(`public/${f} missing (run npm run seo and commit it)`);
+    else if (!readFileSync(path.join(PUB, f)).equals(readFileSync(path.join(DIST, f)))) fail.push(`public/${f} is out of date versus the content (run npm run seo and commit it)`);
+  }
+  for (const f of existsSync(path.join(PUB, 'projects')) ? readdirSync(path.join(PUB, 'projects')).filter((x) => x.endsWith('.md')) : []) {
+    if (!existsSync(path.join(DIST, 'projects', f))) fail.push(`public/projects/${f} has no matching project`);
+  }
 }
 for (const f of files.filter((x) => x.includes(`${path.sep}og${path.sep}`) && x.endsWith('.png'))) {
   if (readFileSync(f).length > 300 * KB) fail.push(`OG image over 300 KB: ${path.relative(DIST, f)}`);
