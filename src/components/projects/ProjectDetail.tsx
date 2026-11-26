@@ -4,7 +4,7 @@ import { CATEGORY_LABEL, type OwnerClaim, type Project } from '@/types/content';
 import { PROFILE } from '@/content/profile';
 import { MaskLine } from '@/components/ui/MaskLine';
 import { ProjectHero } from '@/components/shelf/media';
-import { FullPageLayout } from './FullPageLayout';
+import { FullPageLayout, hasFullPage } from './FullPageLayout';
 import { yearLabel } from './ArchiveIndex';
 
 const SOURCE: Record<OwnerClaim['source'], string> = {
@@ -37,8 +37,9 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
   const link = p.link;
   const eyebrow = `${CATEGORY_LABEL[p.category]} · ${p.genre}`;
   const REVEAL_AT = 450;
+  const viewer = hasFullPage(p);
   return (
-    <article className="pd">
+    <article className={`pd${viewer ? ' pd--viewer' : ''}`}>
       {reveal ? (
         <MaskLine as="p" className="pd__eyebrow" trigger="mount" delay={REVEAL_AT}>
           {eyebrow}
@@ -56,8 +57,12 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
         </H>
       )}
       {p.subtitle && <p className="pd__subtitle">{p.subtitle}</p>}
-      <div className="pd__poster">
-        {poster ?? <ProjectHero project={p} size="hero" eager={headingLevel === 1} />}
+      <div className={`pd__poster${viewer ? ' pd__poster--viewer' : ''}`}>
+        {viewer ? (
+          <FullPageLayout project={p} headingLevel={headingLevel} />
+        ) : (
+          poster ?? <ProjectHero project={p} size="hero" eager={headingLevel === 1} />
+        )}
       </div>
       <div className="pd__grid">
         <div className="pd__col">
@@ -166,7 +171,6 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
           )}
         </aside>
       </div>
-      <FullPageLayout project={p} headingLevel={headingLevel} />
       <p className="pd__credit">Built by {PROFILE.name}.</p>
     </article>
   );

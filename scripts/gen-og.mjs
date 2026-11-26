@@ -22,6 +22,7 @@ const fonts = [
 ];
 
 const MAX = 300 * 1024;
+const HOME_HERO = join(root, 'media-src/og/home-hero.png');
 mkdirSync(join(dist, 'og', 'projects'), { recursive: true });
 
 async function emit(rel, tree) {
@@ -44,15 +45,34 @@ const site = [
   ['arcade.png', { title: 'Arcade: Reel Pong', line: 'A small Pong game on this portfolio', focus: 'First to five wins', urdu: urdu('کھیل'), logo }],
   ['interview.png', { title: 'Frontend interview questions', line: 'JavaScript, React and Next.js', focus: 'Short answers, searchable', urdu: urdu('ہنر'), logo }],
 ];
-for (const [file, props] of site) sizes.push([file, await emit(file, siteCard(props))]);
+for (const [file, props] of site) {
+  // `/` uses a real capture of the hero (media-src/og/home-hero.png, made by `npm run og:hero`) so the build needs no browser.
+  if (file === 'default.png' && existsSync(HOME_HERO)) {
+    let png = await sharp(HOME_HERO).resize(1200, 630, { fit: 'cover', position: 'top' }).png({ compressionLevel: 9, palette: true, quality: 90, effort: 9 }).toBuffer();
+    if (png.length > MAX) throw new Error(`home hero og image is ${(png.length / 1024).toFixed(0)} KB (max 300)`);
+    writeFileSync(join(dist, 'og', file), png);
+    sizes.push([file, png.length]);
+    continue;
+  }
+  sizes.push([file, await emit(file, siteCard(props))]);
+}
 
 for (const p of PROJECTS) {
   const hero = heroImage(p.slug);
-  let imageUri = null;
+  const imageUri = null;
   const src = hero ? join(dist, hero.path) : null;
   if (src && existsSync(src)) {
-    const buf = await sharp(src).resize(600, 630, { fit: 'cover', position: 'north' }).png({ palette: true }).toBuffer();
-    imageUri = `data:image/png;base64,${buf.toString('base64')}`;
+    // Real hero capture as the card: 1200x630 crop of the top of the page (jpeg, under 300 KB).
+    let q = 84;
+    let jpg = await sharp(src).resize(1200, 630, { fit: 'cover', position: 'north' }).jpeg({ quality: q, mozjpeg: true }).toBuffer();
+    while (jpg.length > MAX && q > 40) {
+      q -= 8;
+      jpg = await sharp(src).resize(1200, 630, { fit: 'cover', position: 'north' }).jpeg({ quality: q, mozjpeg: true }).toBuffer();
+    }
+    if (jpg.length > MAX) throw new Error(`projects/${p.slug}.jpg is ${(jpg.length / 1024).toFixed(0)} KB (max 300)`);
+    writeFileSync(join(dist, 'og', 'projects', `${p.slug}.jpg`), jpg);
+    sizes.push([`projects/${p.slug}.jpg`, jpg.length]);
+    continue;
   }
   const summary = p.seo.llmsSummary.length > 120 ? `${p.seo.llmsSummary.slice(0, 117).replace(/\s+\S*$/, '')}…` : p.seo.llmsSummary;
   const tree = projectCard({ eyebrow: CATEGORY_LABEL[p.category], title: p.title, summary, imageUri, swatch: p.spine, spine: p.spineTitle, logo });

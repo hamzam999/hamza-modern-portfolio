@@ -28,13 +28,16 @@
 .pd__credit { margin-top: var(--space-8); font-family: var(--font-read); font-style: italic; color: var(--muted-strong); }
 @media (min-width: 1024px) { .pd__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: var(--space-8); align-items: start; } .pd__side { position: sticky; top: calc(var(--topbar-h) + 24px); } }
 
-/* ---------- Full-page layout (browser and phone frames, round 3) ---------- */
-.fpl { container-type: inline-size; margin-top: var(--space-8); }
-.fpl__intro { margin-top: var(--space-2); max-width: 62ch; font-size: var(--fs-small); color: var(--muted-strong); }
-.fpl__tabs { display: none; margin-top: var(--space-4); gap: var(--space-2); }
+/* ---------- Full-page layout viewer (Round 4: replaces the hero image in the right column) ---------- */
+.pd--viewer { --fpl-h: min(60svh, 560px); }
+.pd__poster--viewer { max-width: none; }
+.fpl { container-type: inline-size; }
+.fpl__tabs { display: none; justify-content: center; margin-bottom: var(--space-3); gap: var(--space-2); }
 .fpl__tabs [role="tab"] { min-height: 44px; min-width: 44px; padding: 0 var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--r-round); background: transparent; color: var(--ink); font: inherit; font-size: var(--fs-ui); font-weight: 600; }
 .fpl__tabs [role="tab"][aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--sheet); }
-.fpl__frames { margin-top: var(--space-4); display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
+.fpl--js .fpl__tabs { display: flex; }
+.fpl--js .fpl__panel[data-active="false"] { display: none; }
+.fpl__frames { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); }
 .fpl__panel { min-width: 0; }
 .fpl__frame { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--sheet); }
 .fpl__bar { display: flex; align-items: center; gap: var(--space-3); min-height: 48px; padding: 2px 4px 2px var(--space-3); background: var(--paper); border-bottom: 1px solid var(--line); }
@@ -43,8 +46,8 @@
 .fpl__host { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-small); color: var(--muted-strong); }
 .fpl__open { flex: none; min-height: 44px; padding: 0 var(--space-3); border: 0; background: transparent; color: var(--accent); font: inherit; font-size: var(--fs-small); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .fpl__scroll { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; scroll-snap-type: none; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; background: #fff; }
-.fpl__frame--desktop .fpl__scroll { height: 520px; }
-.fpl__frame--mobile .fpl__scroll { height: 560px; }
+.fpl__frame--desktop .fpl__scroll { height: calc(var(--fpl-h, min(60svh, 560px)) - 48px); min-height: 280px; }
+.fpl__frame--mobile .fpl__scroll { height: calc(var(--fpl-h, min(60svh, 560px)) - 70px); min-height: 280px; }
 .fpl__scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .fpl__scroll img { display: block; width: 100%; height: auto; }
 .fpl__scroll::-webkit-scrollbar { width: 10px; }
@@ -59,17 +62,18 @@
 .fpl__frame--mobile .fpl__more { border-radius: 0 0 22px 22px; }
 .fpl__open:focus-visible, .fpl__tabs [role="tab"]:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .fpl__frame--mobile .fpl__open:focus-visible { outline-color: var(--paper); outline-offset: -3px; }
-@container (max-width: 719px) {
-  .fpl--js .fpl__tabs { display: flex; }
-  .fpl--js .fpl__panel[data-active="false"] { display: none; }
-}
-@container (min-width: 720px) {
-  .fpl__frames { grid-template-columns: minmax(0, 1fr) 304px; align-items: start; }
-}
-@container (min-width: 720px) and (max-width: 900px) {
-  .fpl__frames { grid-template-columns: minmax(0, 1fr) 270px; }
-}
 @media (max-width: 380px) { .fpl__dots { display: none; } }
+/* Standalone page: two columns from 1024px, text left, viewer right (sticky, up to 78vh / 760px). */
+@media (min-width: 1024px) {
+  .project-page .pd--viewer { --fpl-h: min(78vh, 760px); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-8); align-content: start; }
+  .project-page .pd--viewer > * { grid-column: 1; }
+  .project-page .pd--viewer > .pd__poster { grid-column: 2; grid-row: 1 / span 8; position: sticky; top: calc(var(--topbar-h) + 24px); align-self: start; margin-top: 0; }
+  .project-page .pd--viewer .pd__grid { grid-template-columns: minmax(0, 1fr); }
+  .project-page .pd--viewer .pd__side { position: static; }
+}
+/* Detail sheet: the viewer takes the right column from 768px. */
+@media (min-width: 768px) { .sheet .pd--viewer { --fpl-h: min(78vh, 760px); } }
+.sheet .pd__poster--viewer { aspect-ratio: auto; overflow: visible; border-radius: 0; background: transparent; }
 
 /* Lightbox (native dialog via ModalDialog) */
 .fpl-lb { position: fixed; inset: 0; margin: auto; width: min(1280px, calc(100vw - 24px)); height: calc(100dvh - 24px); border-radius: var(--r-2); box-shadow: var(--shadow-sheet); opacity: 0; transition: opacity var(--dur-ui) var(--ease); }
@@ -86,5 +90,3 @@
 .fpl-lb .fpl__more { margin: 0 auto; max-width: 585px; }
 @media (prefers-reduced-motion: reduce) { .fpl-lb { transition: none; } }
 
-/* In the detail sheet the layout sits in the narrow column: the container query picks tabs there. */
-.sheet .fpl { margin-top: var(--space-6); }

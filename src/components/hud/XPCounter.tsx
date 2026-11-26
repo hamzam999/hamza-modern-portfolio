@@ -10,8 +10,7 @@ function Digit({ from, to }: { from: string; to: string }) {
         {rolling && <span>{from}</span>}
         <span>{to}</span>
       </span>
-      {dot && <span className="xp__dot" aria-hidden="true" />}
-    </button>
+    </span>
   );
 }
 

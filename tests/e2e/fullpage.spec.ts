@@ -8,14 +8,17 @@ const withFull = PROJECTS.filter((p) => entries[p.slug]?.full?.desktop && entrie
 const withoutFull = PROJECTS.filter((p) => !entries[p.slug]?.full);
 const target = withFull[0]!;
 
-test.describe('full-page layout section', () => {
+test.describe('full-page layout viewer (right column, replaces the hero)', () => {
   test('@sheet @fullpage captured projects show both frames with alt text, sizes and lazy loading', async ({ page }) => {
     expect(withFull.length).toBeGreaterThan(0);
     await page.goto(`/projects/${target.slug}`);
-    await expect(page.getByRole('heading', { name: 'Full-page layout' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Full-page layout' })).toHaveCount(1);
+    // The viewer replaces the hero image: no separate hero picture on a captured project page.
+    await expect(page.locator('.pd__poster .pd__img, .pd__poster picture')).toHaveCount(0);
     for (const device of ['desktop', 'mobile']) {
       const img = page.locator(`img[alt="Full-page ${device} layout of ${target.title} homepage"]`);
-      await expect(img).toHaveAttribute('loading', 'lazy');
+      // The visible (default Desktop) tab loads eagerly, the other one lazily on first toggle.
+      await expect(img).toHaveAttribute('loading', device === 'desktop' ? 'eager' : 'lazy');
       await expect(img).toHaveAttribute('width', /^\d+$/);
       await expect(img).toHaveAttribute('height', /^\d+$/);
     }
@@ -29,8 +32,7 @@ test.describe('full-page layout section', () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
   });
 
-  test('@sheet @fullpage tabs switch device on narrow containers and use arrow keys', async ({ page }, info) => {
-    test.skip(info.project.name !== 'mobile-360' && info.project.name !== 'mobile-390', 'narrow containers only');
+  test('@sheet @fullpage Desktop | Mobile tabs switch the frame, use arrow keys and remember the choice', async ({ page }) => {
     await page.goto(`/projects/${target.slug}`);
     const tabs = page.getByRole('tab');
     await expect(tabs).toHaveCount(2);
@@ -44,12 +46,25 @@ test.describe('full-page layout section', () => {
     await expect(page.locator('.fpl__panel--desktop')).toBeHidden();
   });
 
-  test('@sheet @fullpage wide containers show both frames side by side without tabs', async ({ page }, info) => {
+  test('@sheet @fullpage on desktop the viewer sits in the right column and uses the column height', async ({ page }, info) => {
     test.skip(info.project.name !== 'desktop-1440', 'wide only');
     await page.goto(`/projects/${target.slug}`);
-    await expect(page.locator('.fpl__tabs')).toBeHidden();
-    const [a, b] = await Promise.all([page.locator('.fpl__frame--desktop').boundingBox(), page.locator('.fpl__frame--mobile').boundingBox()]);
-    expect(a && b && Math.abs(a.y - b.y) < 4 && b.x > a.x + a.width - 1).toBe(true);
+    const viewer = await page.locator('.pd__poster--viewer').boundingBox();
+    const synopsis = await page.locator('.pd__synopsis').boundingBox();
+    expect(viewer && synopsis && viewer.x > synopsis.x + synopsis.width - 1).toBe(true);
+    const frame = await page.locator('.fpl__frame--desktop').boundingBox();
+    expect(frame!.height).toBeGreaterThan(560);
+    expect(frame!.height).toBeLessThanOrEqual(762);
+  });
+
+  test('@sheet @fullpage stacked layouts put the viewer at the top with a capped height', async ({ page }, info) => {
+    test.skip(info.project.name !== 'mobile-360' && info.project.name !== 'mobile-390', 'narrow only');
+    await page.goto(`/projects/${target.slug}`);
+    const viewer = await page.locator('.pd__poster--viewer').boundingBox();
+    const synopsis = await page.locator('.pd__synopsis').boundingBox();
+    expect(viewer!.y).toBeLessThan(synopsis!.y);
+    const vh = page.viewportSize()!.height;
+    expect((await page.locator('.fpl__frame--desktop').boundingBox())!.height).toBeLessThanOrEqual(vh * 0.6 + 2);
   });
 
   test('@sheet @fullpage open full size: dialog with the live link, Escape closes and focus returns', async ({ page }) => {
@@ -66,11 +81,12 @@ test.describe('full-page layout section', () => {
     await expect(open).toBeFocused();
   });
 
-  test('@sheet @fullpage projects without captures show no section', async ({ page }) => {
+  test('@sheet @fullpage projects without captures keep the hero and show no viewer', async ({ page }) => {
     expect(withoutFull.length).toBeGreaterThan(0);
     await page.goto(`/projects/${withoutFull[0]!.slug}`);
     await expect(page.getByRole('heading', { name: 'Full-page layout' })).toHaveCount(0);
     await expect(page.locator('.fpl')).toHaveCount(0);
+    await expect(page.locator('.pd__poster')).toHaveCount(1);
   });
 
   test('@sheet @fullpage the home page never requests the tall images', async ({ page }) => {

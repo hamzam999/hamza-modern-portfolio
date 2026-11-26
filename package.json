@@ -20,7 +20,8 @@
     "build:e2e": "npm run media && vite build --mode e2e && vite build --mode e2e --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs && node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs",
     "shots": "playwright test tests/e2e/shots.spec.ts",
     "shots:projects": "node scripts/capture-project-shots.mjs",
-    "seo": "node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs"
+    "seo": "node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs",
+    "og:hero": "node scripts/capture-og-hero.mjs"
   },
   "dependencies": {
     "@fontsource/inter-tight": "5.3.0",

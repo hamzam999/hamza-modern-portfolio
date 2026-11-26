@@ -35,6 +35,7 @@ function headFor(meta, route) {
     const name = (k, v) => tags.push(`<meta name="${k}" content="${esc(v)}">`);
     prop('og:type', meta.og.type);
     prop('og:site_name', 'Mohammad Hamza');
+    prop('og:locale', 'en_US');
     prop('og:title', meta.title);
     prop('og:description', meta.description);
     prop('og:url', meta.canonical);
@@ -48,6 +49,7 @@ function headFor(meta, route) {
     name('twitter:image', meta.og.image);
     name('twitter:image:alt', meta.og.imageAlt);
   }
+  tags.push('<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">');
   if (route.startsWith('/projects/')) tags.push(`<link rel="alternate" type="text/markdown" href="${route}.md">`);
   const ld = getJsonLd(route);
   // `<` is escaped so a stray "</script>" in content can never close the block.

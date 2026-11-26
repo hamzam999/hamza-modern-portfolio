@@ -1,4 +1,6 @@
+import manifest from '@/content/media-manifest.json';
 import { PROJECTS } from '@/content/projects';
+import type { MediaManifest } from '@/types/content';
 import { SITE_NAME, SITE_URL } from './site';
 
 export interface RouteMeta {
@@ -10,8 +12,12 @@ export interface RouteMeta {
   og: { type: 'profile' | 'website' | 'article'; image: string; imageAlt: string } | null;
 }
 
+const media = manifest as MediaManifest;
+/** Projects with a captured hero use a 1200x630 crop of it as og:image (`.jpg`); the others get a generated card (`.png`). */
+const ogFile = (slug: string) => ((media[slug]?.hero?.widths.length ?? 0) > 0 ? `${slug}.jpg` : `${slug}.png`);
+
 const OG_ALT = {
-  default: 'Mohammad Hamza, Senior Frontend Engineer: React, Next.js, Three.js, Shopify, Web3',
+  default: 'The hero of the portfolio of Mohammad Hamza, Senior Frontend Engineer: his name and title beside a collage of project prints',
   projects: 'Project archive of Mohammad Hamza: Shopify, Web3, 3D and full-stack work',
   arcade: 'Reel Pong, a small Pong game on the portfolio of Mohammad Hamza',
   interview: 'Frontend interview questions on JavaScript, React and Next.js',
@@ -20,6 +26,7 @@ const OG_ALT = {
 const STATIC: Record<string, Omit<RouteMeta, 'canonical' | 'og'> & { path: string | null; og: { type: 'profile' | 'website'; file: string; alt: string } | null }> = {
   '/': {
     path: '/',
+    // og/default.png is a 1200x630 capture of the real hero (npm run og:hero), not a generated card.
     og: { type: 'profile', file: 'default', alt: OG_ALT.default },
     title: 'Mohammad Hamza · Senior Frontend Developer (React, Next.js)',
     description:
@@ -31,7 +38,7 @@ const STATIC: Record<string, Omit<RouteMeta, 'canonical' | 'og'> & { path: strin
     og: { type: 'website', file: 'projects', alt: OG_ALT.projects },
     title: 'Project archive: React, Shopify, Web3 and 3D work | Mohammad Hamza',
     description:
-      'Seventeen projects by Mohammad Hamza: Shopify checkouts and storefronts, Web3 dashboards and wallets, Three.js sites, Next.js and ERPNext products, WordPress builds.',
+      `${PROJECTS.length} projects by Mohammad Hamza: Shopify checkouts and storefronts, Web3 dashboards and wallets, Three.js sites, Next.js and ERPNext products, WordPress builds.`,
     robots: 'index, follow',
   },
   '/arcade': {
@@ -75,7 +82,7 @@ export function getRouteMeta(pathname: string): RouteMeta {
   if (project) {
     return {
       title: project.seo.title, description: project.seo.description, robots: 'index, follow', canonical: `${SITE_URL}/projects/${project.slug}`,
-      og: { type: 'article', image: `${SITE_URL}/og/projects/${project.slug}.png`, imageAlt: project.media.alt },
+      og: { type: 'article', image: `${SITE_URL}/og/projects/${ogFile(project.slug)}`, imageAlt: project.media.alt },
     };
   }
   return { title: 'Lost reel | Mohammad Hamza', description: '', robots: 'noindex', canonical: null, og: null };

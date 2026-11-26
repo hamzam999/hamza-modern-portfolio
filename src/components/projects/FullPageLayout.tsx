@@ -16,22 +16,35 @@ const host = (url: string) => {
   }
 };
 
+/** Remembers the last chosen device for the rest of the visit (in memory only). */
+let lastTab: Device = 'desktop';
+
+/** True when the project is live and has at least one full-page capture (so the viewer replaces the hero image). */
+export function hasFullPage(p: Project): boolean {
+  const full = mediaOf(p.slug)?.full;
+  return p.link.kind === 'live' && !!full && DEVICES.some((d) => full[d]);
+}
+
 interface Props {
   project: Project;
-  /** Heading level used by the surrounding page (the section title is one below the project title). */
+  /** Heading level used by the surrounding page (the visually hidden title is one below the project title). */
   headingLevel: 1 | 2;
 }
 
 /**
- * "Full-page layout": the whole homepage of a live site, desktop in a browser frame and mobile in a phone frame.
- * Each frame has a fixed viewport height and scrolls the tall image inside it (CSS only, so it works without JS).
- * Wide containers show both frames; narrow ones become Desktop | Mobile tabs once hydrated (before that they stack).
- * The images are lazy, so the home page never fetches them. Renders nothing for projects without captures.
+ * "Full-page layout" viewer (Round 4): sits where the hero image was. The whole homepage of a live site, desktop in a
+ * browser frame or mobile in a phone frame, switched by Desktop | Mobile tabs once hydrated (before that, and without
+ * JS, both frames stack). Each frame scrolls the tall image inside it (CSS only). Only the visible tab's image loads
+ * eagerly; the other loads on first toggle. The home page never mounts it. Renders nothing without captures.
  */
 export function FullPageLayout({ project: p, headingLevel }: Props) {
   const full = mediaOf(p.slug)?.full;
   const uid = useId();
-  const [tab, setTab] = useState<Device>('desktop');
+  const [tab, setTabState] = useState<Device>(lastTab);
+  const setTab = (d: Device) => {
+    lastTab = d;
+    setTabState(d);
+  };
   const [js, setJs] = useState(false);
   const [lb, setLb] = useState<Device | null>(null);
   const [lbShown, setLbShown] = useState<Device | null>(null);
@@ -68,10 +81,8 @@ export function FullPageLayout({ project: p, headingLevel }: Props) {
 
   return (
     <section className={`fpl${js ? ' fpl--js' : ''}`} aria-labelledby={`${uid}-h`}>
-      <Heading id={`${uid}-h`} className="pd__h">Full-page layout</Heading>
-      <p className="fpl__intro">
-        The whole homepage at desktop and phone width. Scroll inside a frame to read down the page.
-      </p>
+      <Heading id={`${uid}-h`} className="sr-only">Full-page layout</Heading>
+      <p className="sr-only">The whole homepage at desktop and phone width. Scroll inside the frame to read down the page.</p>
       {devices.length > 1 && (
         <div className="fpl__tabs" role="tablist" aria-label="Layout device">
           {devices.map((d) => (
@@ -115,7 +126,7 @@ export function FullPageLayout({ project: p, headingLevel }: Props) {
                   </button>
                 </div>
                 <div className="fpl__scroll" tabIndex={0} role="region" aria-label={`${LABEL[d]} layout, scrollable`}>
-                  <img src={src(img)} width={img.width} height={img.height} alt={alt(d)} loading="lazy" decoding="async" />
+                  <img src={src(img)} width={img.width} height={img.height} alt={alt(d)} loading={activeTab === d ? 'eager' : 'lazy'} decoding="async" />
                   {img.cropped && <p className="fpl__more">Continues on the live site</p>}
                 </div>
               </div>
