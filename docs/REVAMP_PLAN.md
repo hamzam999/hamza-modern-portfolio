@@ -1,3 +1,5 @@
+> Round 2 note (see docs/DEV_STATUS.md): Japanese removed (halftone words are Urdu now), Level 6 is renamed Open Door, the header carries the six level links, the logo is the Urdu letter hamza, and budgets are CSS 34 KB, images 1500 KB. Wording below that says kanji or Final Boss is historical.
+
 # Archive Quest: Portfolio UI Revamp Plan
 
 **Owner:** Mohammad Hamza, Senior Frontend Engineer

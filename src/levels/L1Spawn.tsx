@@ -1,6 +1,7 @@
 import { LEVELS } from '@/content/levels';
 import { HERO_CONTENT, PROFILE } from '@/content/profile';
 import { PROJECTS } from '@/content/projects';
+import { HeroCollage } from '@/components/art/HeroCollage';
 import { Button } from '@/components/ui/Button';
 import { LevelShell } from '@/components/ui/LevelShell';
 import { MaskLine } from '@/components/ui/MaskLine';
@@ -12,7 +13,7 @@ export function L1Spawn() {
   return (
     <LevelShell
       level={level}
-      kanjiPosition="right"
+      urduPosition="right"
       className="l1"
       heading={
         <>
@@ -47,6 +48,7 @@ export function L1Spawn() {
           Hire me
         </Button>
       </div>
+      <HeroCollage />
       <p className="l1__note">This page is a six-level run. Scroll to play, or turn Play mode off in the passport.</p>
       <p className="l1__credits">
         A {PROFILE.name.toUpperCase()} build · 2020–2026 · {PROJECTS.length} reels in the archive

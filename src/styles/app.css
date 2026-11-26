@@ -16,7 +16,7 @@
   --color-graphite: var(--graphite);
   --font-ui: var(--font-ui);
   --font-read: var(--font-read);
-  --font-jp: var(--font-jp);
+  --font-ur: var(--font-ur);
   --font-mono: var(--font-mono);
   --ease-archive: var(--ease);
   --ease-sheet: var(--ease-sheet);
@@ -35,6 +35,7 @@
 @import "./levels/l4.css";
 @import "./levels/l5.css";
 @import "./levels/l6.css";
+@import "./art.css";
 @import "./projects.css";
 @import "./shelf.css";
 @import "./sheet.css";

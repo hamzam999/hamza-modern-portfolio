@@ -5,10 +5,11 @@ import { PROFILE, SOCIAL_LINKS } from '@/content/profile';
 import { selectUnlockedArcade, useGame } from '@/game/store';
 import { useLevelNav } from '@/lib/useLevelNav';
 import { useLocation } from 'react-router-dom';
+import { HamzaMark } from '@/components/brand/HamzaMark';
 import { ResetProgress, SettingsToggles } from './Settings';
 
-const boss = () => {
-  useGame.getState().grant('boss:contact');
+const door = () => {
+  useGame.getState().grant('door:contact');
 };
 
 const firstSentence = (s: string) => (s.split('. ')[0] ?? s).replace(/\.$/, '') + '.';
@@ -23,7 +24,10 @@ export function Footer() {
       <div className="footer__inner">
         <div className="footer__cols">
           <div className="footer__col footer__col--intro">
-            <p className="footer__name">{PROFILE.name}</p>
+            <p className="footer__name">
+              <HamzaMark className="footer__logo" />
+              {PROFILE.name}
+            </p>
             <p className="footer__role">{PROFILE.title}</p>
             <p className="footer__bio">{firstSentence(PROFILE.summary[0] ?? '')}</p>
           </div>
@@ -60,10 +64,10 @@ export function Footer() {
           <div className="footer__col">
             <h2 className="footer__title">Elsewhere</h2>
             <ul className="footer__list">
-              <li><a href={`mailto:${SOCIAL_LINKS.email}`} onClick={boss}>Email</a></li>
-              <li><a href={SOCIAL_LINKS.linkedin} rel="noopener noreferrer" onClick={boss}>LinkedIn</a></li>
-              <li><a href={SOCIAL_LINKS.github} rel="noopener noreferrer" onClick={boss}>GitHub</a></li>
-              {PROFILE.resumePdf && <li><a href={PROFILE.resumePdf} onClick={boss}>Resume (PDF)</a></li>}
+              <li><a href={`mailto:${SOCIAL_LINKS.email}`} onClick={door}>Email</a></li>
+              <li><a href={SOCIAL_LINKS.linkedin} rel="noopener noreferrer" onClick={door}>LinkedIn</a></li>
+              <li><a href={SOCIAL_LINKS.github} rel="noopener noreferrer" onClick={door}>GitHub</a></li>
+              {PROFILE.resumePdf && <li><a href={PROFILE.resumePdf} onClick={door}>Resume (PDF)</a></li>}
             </ul>
           </div>
           <div className="footer__col">

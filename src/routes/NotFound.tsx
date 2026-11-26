@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { FEATURED } from '@/content/projects';
-import { JP, KANJI } from '@/content/jp';
+import { URDU } from '@/content/urdu';
 import { PageShell } from '@/components/ui/LevelShell';
 
 export default function NotFound() {
   return (
-    <PageShell eyebrow="404" heading="Lost reel" jp={JP.notFound} kanji={KANJI.notFound}>
+    <PageShell eyebrow="404" heading="Lost reel" urdu={URDU.notFound}>
       <p className="level__body">This tape is not in the archive. It may have been renamed or never existed.</p>
       <ul className="notfound__links">
         <li><Link to="/">Home</Link></li>

@@ -37,13 +37,14 @@ html.js:not(.reduced) .mask-line[data-state='pending'] > .mask-line__in { transf
   html.js .mask-line[data-state='pending'] > .mask-line__in { transform: none; }
 }
 
-/* ---------- Halftone kanji ---------- */
+/* ---------- Halftone Urdu word ---------- */
 .halftone {
-  display: block; position: absolute; pointer-events: none; z-index: var(--z-kanji);
-  width: var(--fs-kanji); height: calc(var(--fs-kanji) * var(--n, 1));
+  display: block; position: absolute; pointer-events: none; z-index: var(--z-urdu); white-space: nowrap;
+  font-family: var(--font-ur); font-weight: 700; font-size: var(--fs-urdu); line-height: 2; padding-block: 0.1em; padding-inline: 0.12em;
+  color: transparent; -webkit-text-fill-color: transparent;
   background: radial-gradient(circle, var(--halftone) 0 36%, transparent 40%) 0 0 / 3px 3px;
-  -webkit-mask: var(--mask) center / 100% 100% no-repeat;
-  mask: var(--mask) center / 100% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text;
+  font-synthesis: none;
 }
 
 /* ---------- Grain ---------- */
@@ -100,18 +101,18 @@ html.js:not(.reduced) .mask-line[data-state='pending'] > .mask-line__in { transf
   display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-3); margin: 0 0 var(--space-5);
   font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--cobalt);
 }
-.level__jp { font-family: var(--font-jp); font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--muted-strong); }
 .level__heading { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); color: var(--ink); max-width: 18ch; }
 .level__heading:focus { outline: none; }
 .level__heading:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 6px; }
 .level__body { margin-top: var(--space-6); max-width: 62ch; font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink); }
-.level .halftone { top: calc(var(--level-pad-y) * 0.55); }
-.level--kanji-right .halftone { right: calc(var(--gutter) * -0.4); }
-.level--kanji-left .halftone { left: calc(var(--gutter) * -0.4); }
+.level .halftone { top: 8px; }
+@media (min-width: 768px) { .level .halftone { top: calc(var(--level-pad-y) * 0.5); } }
+.level--urdu-right .halftone { right: calc(var(--gutter) * 0.4); }
+.level--urdu-left .halftone { left: calc(var(--gutter) * 0.4); }
 /* L1 and page shells keep the glyph fully inside the viewport, aligned to the container edge. */
-.l1.level--kanji-right .halftone, .level--page.level--kanji-right .halftone { right: max(var(--gutter), calc((100% - var(--content-max)) / 2)); }
-/* Page shells (archive, arcade, 404): the glyph stack is capped to the heading band so it never sits behind the lists below. */
-.level--page .halftone { width: calc(var(--fs-kanji) * 0.85 / var(--n, 1)); height: calc(var(--fs-kanji) * 0.85); }
+.l1.level--urdu-right .halftone, .level--page.level--urdu-right .halftone { right: max(var(--gutter), calc((100% - var(--content-max)) / 2)); }
+/* Page shells (archive, arcade, 404): the word is smaller and sits in the heading band so it never sits behind the lists below. */
+.level--page .halftone { font-size: calc(var(--fs-urdu) * 0.8); }
 .level__end { height: 1px; }
 
 /* ---------- Cursor (P1-7) ---------- */

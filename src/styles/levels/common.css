@@ -2,10 +2,10 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     html.js:not(.reduced) .level:not(.l1) .halftone {
-      animation: kanji-reveal linear both;
+      animation: urdu-reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 70%;
     }
   }
 }
-@keyframes kanji-reveal { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@keyframes urdu-reveal { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }

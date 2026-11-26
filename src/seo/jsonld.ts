@@ -12,7 +12,18 @@ type Json = Record<string, unknown>;
 type Project = (typeof PROJECTS)[number];
 
 const media = manifest as MediaManifest;
-const ID = { person: `${SITE_URL}/#person`, website: `${SITE_URL}/#website` };
+const ID = { person: `${SITE_URL}/#person`, website: `${SITE_URL}/#website`, logo: `${SITE_URL}/#logo` };
+
+/** The logo: the Urdu letter hamza on a cobalt ticket (public/icon-512.png, built by `npm run urdu`). */
+const logoNode = (): Json => ({
+  '@type': 'ImageObject',
+  '@id': ID.logo,
+  url: `${SITE_URL}/icon-512.png`,
+  contentUrl: `${SITE_URL}/icon-512.png`,
+  width: 512,
+  height: 512,
+  caption: 'Mohammad Hamza logo: the Urdu letter hamza on a cobalt ticket',
+});
 
 /** Largest hero width that was actually built, or null when the project has no screenshot yet. */
 export function heroImage(slug: string): { url: string; path: string } | null {
@@ -31,6 +42,7 @@ const websiteNode = (): Json => ({
   name: SITE_NAME,
   inLanguage: 'en',
   publisher: { '@id': ID.person },
+  image: { '@id': ID.logo },
 });
 const crumbs = (items: Array<[string, string]>): Json => ({
   '@type': 'BreadcrumbList',
@@ -77,6 +89,7 @@ function home(): Json {
   return graph([
     person,
     websiteNode(),
+    logoNode(),
     {
       '@type': 'ProfilePage',
       '@id': `${SITE_URL}/#profile`,
@@ -122,6 +135,7 @@ function project(slug: string): Json | null {
     projectNode(p),
     crumbs([['Home', '/'], ['Projects', '/projects'], [p.title, `/projects/${p.slug}`]]),
     websiteNode(),
+    logoNode(),
     personStub,
   ]);
 }
@@ -142,6 +156,7 @@ function projectsIndex(): Json {
     ...PROJECTS.map(projectNode),
     crumbs([['Home', '/'], ['Projects', '/projects']]),
     websiteNode(),
+    logoNode(),
     personStub,
   ]);
 }
@@ -160,6 +175,7 @@ function plainPage(path: string, updated: string): Json {
     },
     crumbs([['Home', '/'], [m.title.split(' | ')[0] ?? m.title, path]]),
     websiteNode(),
+    logoNode(),
     personStub,
   ]);
 }

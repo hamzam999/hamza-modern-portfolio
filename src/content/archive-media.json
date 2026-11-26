@@ -1,0 +1,42 @@
+{
+  "cursor": {
+    "widths": [
+      360,
+      720
+    ],
+    "ratio": 0.8,
+    "sourceHash": "0306e113982ad999f62d1d7ef3fe11de976c1636"
+  },
+  "louis-cardin": {
+    "widths": [
+      360,
+      720
+    ],
+    "ratio": 0.8,
+    "sourceHash": "913a4f35459cccab9f293a16261d0dc471907d01"
+  },
+  "sedefanatolia": {
+    "widths": [
+      360,
+      720
+    ],
+    "ratio": 0.8,
+    "sourceHash": "e7965fa059ff6862ebda613b7f6dc6ac7e61c012"
+  },
+  "slurvo": {
+    "widths": [
+      360,
+      720
+    ],
+    "ratio": 0.8,
+    "sourceHash": "63ae987c0bad061acb2f0baf21cb14caaceb75f5"
+  },
+  "wanhamleathers": {
+    "widths": [
+      360,
+      720
+    ],
+    "ratio": 0.8,
+    "sourceHash": "e97e2d427dbd3d119ee67fd930233855ba515a56"
+  }
+}

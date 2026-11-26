@@ -4,12 +4,14 @@ import { PROFILE } from '@/content/profile';
 import { useGame } from '@/game/store';
 import { IconMenu, IconPassport } from '@/components/icons/Icons';
 import { useLevelNav } from '@/lib/useLevelNav';
+import { HamzaMark } from '@/components/brand/HamzaMark';
 import { LevelLabel } from './LevelLabel';
+import { LevelNav } from './LevelNav';
 import { MenuDialog } from './MenuDialog';
 import { PassportDialog } from './Passport';
 import { XPCounter } from './XPCounter';
 
-/** Fixed top bar (plan 5.7): monogram, level label, XP, passport, Hire me, Menu. Never hides on scroll. */
+/** Fixed top bar (plan 5.7): logo, six level links, level label, XP, passport, Hire me, Menu. Never hides on scroll. */
 export function TopBar() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -25,11 +27,12 @@ export function TopBar() {
     <header className="topbar">
       <div className="topbar__inner">
         <Link to="/" className="topbar__home" aria-label={`${PROFILE.name}, home`}>
-          <span className="topbar__mono" aria-hidden="true">MH</span>
+          <HamzaMark className="topbar__logo" />
           <span className="topbar__name" aria-hidden="true">{PROFILE.name}</span>
         </Link>
         <div className="topbar__center">
           <LevelLabel />
+          <LevelNav />
         </div>
         <div className="topbar__right">
           <XPCounter />

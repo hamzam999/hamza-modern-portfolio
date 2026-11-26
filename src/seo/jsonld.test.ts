@@ -23,6 +23,14 @@ describe('JSON-LD', () => {
     }
   });
 
+  it('home graph carries the logo ImageObject and the WebSite points at it', () => {
+    const logo = nodes('/').find((n) => n['@type'] === 'ImageObject')!;
+    expect(logo['@id']).toMatch(/#logo$/);
+    expect(String(logo.url)).toMatch(/\/icon-512\.png$/);
+    const site = nodes('/').find((n) => n['@type'] === 'WebSite')!;
+    expect(site.image).toEqual({ '@id': logo['@id'] });
+  });
+
   it('home Person has no telephone and no worksFor, and serialises without a phone number', () => {
     const person = nodes('/').find((n) => n['@type'] === 'Person')!;
     expect(person).not.toHaveProperty('telephone');

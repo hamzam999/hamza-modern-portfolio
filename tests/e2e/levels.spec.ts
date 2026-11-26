@@ -100,7 +100,7 @@ test.describe('@levels', () => {
 });
 
 test.describe('@levels game', () => {
-  test('@levels clearing level 3 unlocks the arcade label; contact click grants boss XP', async ({ page }) => {
+  test('@levels clearing level 3 unlocks the arcade label; contact click grants door XP', async ({ page }) => {
     await page.goto('/');
     await page.waitForFunction(() => '__aq' in window);
     await page.evaluate(() => {
@@ -108,7 +108,7 @@ test.describe('@levels game', () => {
       w.__aq.grant('level:3:clear');
     });
     await expect(page.locator('footer').getByRole('link', { name: /^Arcade/ })).toContainText('NEW');
-    const gained = await page.evaluate(() => (window as unknown as { __aq: { grant: (id: string) => number } }).__aq.grant('boss:contact'));
+    const gained = await page.evaluate(() => (window as unknown as { __aq: { grant: (id: string) => number } }).__aq.grant('door:contact'));
     expect(gained).toBe(100);
   });
 });
@@ -125,5 +125,48 @@ test.describe('@nojs', () => {
     await expect(page.locator('.tape-grid a').first()).toBeVisible();
     await expect(page.locator('#earlier-work')).toHaveCount(1);
     await expect(page.locator('.l5__card').first()).toBeVisible();
+  });
+});
+
+test.describe('@levels round 2', () => {
+  test('@levels top bar shows the six levels as links from 1024 px and jumps with focus', async ({ page }, info) => {
+    test.skip((info.project.use.viewport?.width ?? 0) < 1024, 'inline level links are desktop only');
+    await page.goto('/');
+    const nav = page.getByRole('navigation', { name: 'Jump to a level' });
+    await expect(nav.getByRole('link')).toHaveCount(6);
+    await nav.getByRole('link', { name: /06/ }).click();
+    await expect(page.locator('#level-contact-heading')).toBeFocused();
+    await expect(nav.getByRole('link', { name: /06/ })).toHaveAttribute('aria-current', 'location');
+  });
+
+  test('@levels last level is Open Door with the new copy and no boss wording', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#level-contact .level__eyebrow')).toContainText('OPEN DOOR');
+    await expect(page.locator('.l6__lead')).toHaveText('Whether it’s a storefront, a dashboard, a 3D landing page, an ERP or anything else, let’s connect and talk it through.');
+    await expect(page.locator('.l6__chip')).toContainText('Available for collaborations, remote');
+    expect(await page.content()).not.toMatch(/Final Boss|Boss defeated/i);
+  });
+
+  test('@levels Urdu words are decorative, lang=ur, rtl and no Japanese remains', async ({ page }) => {
+    await page.goto('/');
+    const words = page.locator('.halftone');
+    await expect(words).toHaveCount(6);
+    for (const w of await words.all()) {
+      await expect(w).toHaveAttribute('lang', 'ur');
+      await expect(w).toHaveAttribute('dir', 'rtl');
+      await expect(w).toHaveAttribute('aria-hidden', 'true');
+    }
+    expect(await page.content()).not.toMatch(new RegExp('[\\u3040-\\u30ff\\u4e00-\\u9fff]'));
+  });
+
+  test('@levels logo, collage and portrait slot render without broken images', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByRole('link', { name: 'Mohammad Hamza, home' })).toBeVisible();
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(400);
+    const broken = await page.evaluate(() => [...document.images].filter((i) => i.complete && i.naturalWidth === 0 && i.loading !== 'lazy').map((i) => i.src));
+    expect(broken).toEqual([]);
+    await expect(page.locator('.portrait')).toHaveCount(1);
+    await expect(page.locator('.collage img.print, .collage .print img')).toHaveCount(3);
   });
 });

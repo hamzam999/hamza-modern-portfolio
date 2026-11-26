@@ -13,7 +13,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 /** Level 4, Archive (plan 5.4). The static tape grid is the SSR and no-JS view; ShelfBox mounts the shelf into the same box. */
 export function L4Archive() {
   return (
-    <LevelShell level={level} kanjiPosition="left" className="l4">
+    <LevelShell level={level} urduPosition="right" className="l4">
       <p className="l4__intro">
         {cap(WORDS[FEATURED.length] ?? String(FEATURED.length))} tapes on the shelf, {WORDS[PROJECTS.length] ?? PROJECTS.length} in the archive. Open a tape for the
         full story.

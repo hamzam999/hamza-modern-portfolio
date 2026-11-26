@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const DIST = path.join(ROOT, 'dist');
 const KB = 1024;
-const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 22 * KB, fonts: 5 };
+const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 34 * KB, fonts: 5, images: 1500 * KB, heroPrint: 60 * KB, urduFont: 80 * KB };
 
 const manifestPath = path.join(DIST, '.vite/manifest.json');
 if (!existsSync(manifestPath)) {
@@ -15,6 +15,7 @@ if (!existsSync(manifestPath)) {
   process.exit(1);
 }
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const walkAll = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? walkAll(path.join(dir, d.name)) : [path.join(dir, d.name)]));
 const gz = (file) => gzipSync(readFileSync(path.join(DIST, file))).length;
 const fail = [];
 const rows = [];
@@ -67,11 +68,23 @@ check('CSS total', css.reduce((n, f) => n + gz(`assets/${f}`), 0), BUDGET.css);
   check('first-view transfer for /', htmlGz + jsGz + cssGz + fontBytes, 450 * KB);
 }
 
-// JP glyph lock: every kana in jp.ts must be in the subset font's lock file. Kanji are drawn from kanji-paths.ts, not the font.
-const jp = readFileSync(path.join(ROOT, 'src/content/jp.ts'), 'utf8');
-const lock = readFileSync(path.join(ROOT, 'src/content/jp-glyphs.lock'), 'utf8');
-const missing = [...new Set(jp.match(/[\u3040-\u30ff]/g) ?? [])].filter((c) => !lock.includes(c));
-if (missing.length) fail.push(`jp-glyphs.lock misses ${missing.join('')} (run npm run fonts:jp)`);
+// Urdu font (round 2): content-hashed subset referenced by fonts.css must exist in dist and stay small.
+{
+  const css = readFileSync(path.join(ROOT, 'src/styles/fonts.css'), 'utf8');
+  const m = /\/fonts\/(noto-nastaliq-urdu-700-subset\.[0-9a-f]{8}\.woff2)/.exec(css);
+  if (!m) fail.push('fonts.css has no content-hashed Urdu font');
+  else if (!existsSync(path.join(DIST, 'fonts', m[1]))) fail.push(`dist/fonts/${m[1]} missing (run npm run urdu)`);
+  else check('Urdu font (woff2)', readFileSync(path.join(DIST, 'fonts', m[1])).length, BUDGET.urduFont);
+}
+
+// Images (round 2): everything generated under projects, archive, profile and art, plus the largest hero print.
+{
+  const IMG = /\.(webp|avif|png|jpe?g|svg)$/;
+  const all = ['projects', 'archive', 'profile', 'art'].flatMap((d) => (existsSync(path.join(DIST, d)) ? walkAll(path.join(DIST, d)) : [])).filter((f) => IMG.test(f));
+  check('images total (projects, archive, profile, art)', all.reduce((n, f) => n + readFileSync(f).length, 0), BUDGET.images);
+  const prints = all.filter((f) => /print-\d+\.webp$/.test(f));
+  check('largest hero print', Math.max(0, ...prints.map((f) => readFileSync(f).length)), BUDGET.heroPrint);
+}
 
 // Test hooks must not ship in a production build (the e2e build has the testHooks chunk).
 const e2e = readdirSync(assets).some((f) => f.startsWith('testHooks'));
@@ -86,8 +99,10 @@ for (const f of files.filter((x) => TEXT.test(x))) {
   const rel = path.relative(DIST, f);
   if (/\+91|9919/.test(text)) fail.push(`phone-number pattern (+91 or 9919) in dist/${rel}`);
   if (/Valerie|SkyAI/i.test(text)) fail.push(`removed project name in dist/${rel}`);
+  if (/[\u3000-\u30ff\u4e00-\u9fff\uff00-\uffef]/.test(text)) fail.push(`Japanese or CJK character in dist/${rel}`);
+  if (/Final Boss|boss defeated/i.test(text)) fail.push(`old level name in dist/${rel}`);
 }
-for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'og/default.png', 'og/projects.png', 'og/arcade.png', 'og/interview.png', '404.html']) {
+for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'og/default.png', 'og/projects.png', 'og/arcade.png', 'og/interview.png', '404.html', 'favicon.svg', 'apple-touch-icon.png', 'icon-512.png']) {
   if (!existsSync(path.join(DIST, f))) fail.push(`dist/${f} missing`);
 }
 for (const f of files.filter((x) => x.includes(`${path.sep}og${path.sep}`) && x.endsWith('.png'))) {

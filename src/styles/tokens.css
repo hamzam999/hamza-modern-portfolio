@@ -21,7 +21,7 @@
   /* Type families */
   --font-ui: "Inter Tight", "Inter Tight Fallback", system-ui, sans-serif;
   --font-read: "Newsreader", "Newsreader Fallback", Georgia, serif;
-  --font-jp: "Noto Sans JP Subset", "Hiragino Sans", "Noto Sans CJK JP", sans-serif;
+  --font-ur: "Noto Nastaliq Urdu Subset", "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Naskh Arabic", serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Type scale */
@@ -34,7 +34,7 @@
   --fs-small: 0.875rem;
   --fs-label: 0.75rem;
   --fs-micro: 0.6875rem;
-  --fs-kanji: clamp(7rem, 22vw, 17rem);
+  --fs-urdu: clamp(3.5rem, 13vw, 11rem);
 
   --lh-display: 0.9;
   --lh-h2: 0.95;
@@ -89,7 +89,7 @@
 
   /* Z-index */
   --z-base: 0;
-  --z-kanji: 1;
+  --z-urdu: 1;
   --z-content: 10;
   --z-shelf: 20;
   --z-topbar: 40;

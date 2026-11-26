@@ -19,4 +19,3 @@ export { PROFILE } from './content/profile';
 export { EXPERIENCES } from './content/experience';
 export { SKILL_BRANCHES } from './content/skills';
 export { CATEGORY_LABEL } from './types/content';
-export { KANJI_GLYPHS, KANJI_UPEM } from './content/kanji-paths';

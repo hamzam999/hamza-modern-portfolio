@@ -9,7 +9,7 @@ describe('computeXP', () => {
     expect(computeXP(log('level:1:enter'))).toBe(40);
     expect(computeXP(log('level:1:clear'))).toBe(60);
     expect(computeXP(log('project:navig:open'))).toBe(20);
-    expect(computeXP(log('boss:contact'))).toBe(100);
+    expect(computeXP(log('door:contact'))).toBe(100);
     expect(computeXP(log('arcade:pong:win:1'))).toBe(120);
   });
   it('pays 120 for the first pong win and 30 for later wins, capped at 300', () => {
@@ -29,14 +29,14 @@ describe('computeXP', () => {
       ...[1, 2, 3, 4, 5, 6].flatMap((n) => [`level:${n}:enter`, `level:${n}:clear`]),
       ...Array.from({ length: 30 }, (_, i) => `project:p${i}:open`),
       ...Array.from({ length: 30 }, (_, i) => pongWinId(i + 1)),
-      'boss:contact',
+      'door:contact',
     ];
     expect(MAX_XP).toBe(1200);
     expect(computeXP(log(...all))).toBe(1200);
   });
   it('is independent of insertion order', () => {
-    const a = log('level:2:enter', 'boss:contact');
-    const b = log('boss:contact', 'level:2:enter');
+    const a = log('level:2:enter', 'door:contact');
+    const b = log('door:contact', 'level:2:enter');
     expect(computeXP(a)).toBe(computeXP(b));
   });
 });

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { JP, KANJI } from '@/content/jp';
+import { URDU } from '@/content/urdu';
 import { PageShell } from '@/components/ui/LevelShell';
 import ReelPong from '@/components/arcade/ReelPong';
 import { GAMES } from '@/components/arcade/games';
@@ -14,7 +14,7 @@ export default function Arcade() {
     markSeen();
   }, [markSeen]);
   return (
-    <PageShell eyebrow="ARCADE" heading="Arcade" jp={JP.arcade} kanji={KANJI.arcade}>
+    <PageShell eyebrow="ARCADE" heading="Arcade" urdu={URDU.arcade}>
       <p className="level__body">Small games built for this site. Win Reel Pong to earn the arcade stamp.</p>
       {!unlocked && (
         <p className="arcade__banner" data-testid="arcade-early">

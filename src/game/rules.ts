@@ -6,7 +6,7 @@ export const LEVEL_NUMS = [1, 2, 3, 4, 5, 6] as const satisfies readonly LevelNu
 export type LevelEventId = `level:${LevelNum}:${'enter' | 'clear'}`;
 export type ProjectEventId = `project:${string}:open`;
 export type PongWinEventId = `arcade:pong:win:${number}`;
-export type EventId = LevelEventId | ProjectEventId | PongWinEventId | 'boss:contact';
+export type EventId = LevelEventId | ProjectEventId | PongWinEventId | 'door:contact';
 
 /** ISO timestamp per granted event id. */
 export type EventLog = Readonly<Record<string, string>>;
@@ -19,11 +19,11 @@ export const XP = {
   pongFirst: 120,
   pongNext: 30,
   pongCap: 300,
-  boss: 100,
+  door: 100,
 } as const;
 
 /** 6 x 40 + 6 x 60 + 10 x 20 + 300 + 100 */
-export const MAX_XP = 6 * (XP.enter + XP.clear) + XP.project * XP.projectMax + XP.pongCap + XP.boss;
+export const MAX_XP = 6 * (XP.enter + XP.clear) + XP.project * XP.projectMax + XP.pongCap + XP.door;
 
 export const levelEnterId = (n: LevelNum): LevelEventId => `level:${n}:enter`;
 export const levelClearId = (n: LevelNum): LevelEventId => `level:${n}:clear`;
@@ -35,7 +35,7 @@ export type ParsedEvent =
   | { kind: 'clear'; level: LevelNum }
   | { kind: 'project'; slug: string }
   | { kind: 'pong'; n: number }
-  | { kind: 'boss' };
+  | { kind: 'door' };
 
 const LEVEL_RE = /^level:([1-6]):(enter|clear)$/;
 const PROJECT_RE = /^project:([a-z0-9-]+):open$/;
@@ -49,7 +49,7 @@ export function parseEvent(id: string): ParsedEvent | null {
   if (p?.[1]) return { kind: 'project', slug: p[1] };
   const w = PONG_RE.exec(id);
   if (w) return { kind: 'pong', n: Number(w[1]) };
-  if (id === 'boss:contact') return { kind: 'boss' };
+  if (id === 'door:contact') return { kind: 'door' };
   return null;
 }
 
@@ -66,7 +66,7 @@ export function computeXP(events: EventLog): number {
       case 'clear': xp += XP.clear; break;
       case 'project': projects.push({ at, slug: e.slug }); break;
       case 'pong': pongWins += 1; break;
-      case 'boss': xp += XP.boss; break;
+      case 'door': xp += XP.door; break;
     }
   }
   xp += Math.min(projects.length, XP.projectMax) * XP.project;

@@ -22,7 +22,24 @@ export function careerP(ym: YearMonth): number {
   return Math.min(1, Math.max(0, (y + (m - 1) / 12 - 2020) / 6));
 }
 
-function Checkpoint({ children, p, label, year, kind }: { children: React.ReactNode; p: number; label: string; year: string; kind: string }) {
+const ICON: Record<string, string> = { edu: 'c-edu', founder: 'c-store', thl: 'c-tag', ith: 'c-hex', freelance: 'c-laptop' };
+
+/** Passport visa stamp at the foot of a checkpoint card. Decorative: the year and company are already in the text. */
+function Visa({ icon, year, word }: { icon: string; year: string; word: string }) {
+  return (
+    <span className="l5__visa" aria-hidden="true">
+      <svg width="30" height="30" focusable="false">
+        <use href={`/art/sprite.svg#${icon}`} />
+      </svg>
+      <span className="l5__visa-t">
+        <b>{word}</b>
+        <span className="tabular">{year}</span>
+      </span>
+    </span>
+  );
+}
+
+function Checkpoint({ children, p, label, year, kind, icon, word }: { children: React.ReactNode; p: number; label: string; year: string; kind: string; icon: string; word: string }) {
   const ref = useRef<HTMLLIElement | null>(null);
   const seen = useInView(ref, { rootMargin: '0px 0px -45% 0px' });
   return (
@@ -31,6 +48,7 @@ function Checkpoint({ children, p, label, year, kind }: { children: React.ReactN
       <span className="l5__node" aria-hidden="true" />
       <article className="l5__card" data-checkpoint="" data-p={p} data-label={label}>
         {children}
+        <Visa icon={icon} year={year} word={word} />
       </article>
     </li>
   );
@@ -80,21 +98,21 @@ function ExpCard({ e }: { e: Experience<string> }) {
 export function L5CareerPath() {
   const now = EXPERIENCES[EXPERIENCES.length - 1];
   return (
-    <LevelShell level={level} kanjiPosition="right" className="l5">
+    <LevelShell level={level} urduPosition="right" className="l5">
       {now && (
         <p className="l5__now">
           Now: {now.role}, {now.company}, since {fmt(now.start)}, {now.location.toLowerCase()}.
         </p>
       )}
       <ol className="l5__path">
-        <Checkpoint kind="edu" p={0} label={`2020 · ${PROFILE.education.school}`} year="2020">
+        <Checkpoint kind="edu" icon="c-edu" word="Degree" p={0} label={`2020 · ${PROFILE.education.school}`} year="2020">
           <h3 className="l5__role l5__role--small">Education</h3>
           <p className="l5__co">
             {PROFILE.education.degree}, {PROFILE.education.school}, {PROFILE.education.city}, {PROFILE.education.year}.
           </p>
         </Checkpoint>
         {EXPERIENCES.map((e) => (
-          <Checkpoint key={e.id} kind="exp" p={careerP(e.start)} label={`${e.start.slice(0, 4)} · ${e.company}`} year={e.start.slice(0, 4)}>
+          <Checkpoint key={e.id} kind="exp" icon={ICON[e.id] ?? 'c-laptop'} word="Entry" p={careerP(e.start)} label={`${e.start.slice(0, 4)} · ${e.company}`} year={e.start.slice(0, 4)}>
             <ExpCard e={e} />
           </Checkpoint>
         ))}

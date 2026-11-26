@@ -1,7 +1,5 @@
 import { useId } from 'react';
-import { KANJI_GLYPHS, KANJI_UPEM } from '@/content/kanji-paths';
-import { KANJI } from '@/content/jp';
-import { LEVELS } from '@/content/levels';
+import { HAMZA } from '@/components/brand/hamza-path';
 import type { LevelNum } from '@/game/rules';
 
 export type StampLevel = LevelNum | 'arcade';
@@ -12,10 +10,6 @@ interface Props {
   /** ISO timestamp the stamp was earned. */
   date?: string;
   className?: string;
-}
-
-export function stampKanji(level: StampLevel): string {
-  return level === 'arcade' ? KANJI.arcade : (LEVELS[level - 1]?.kanji ?? '');
 }
 
 export function formatStampDate(iso: string): string {
@@ -31,7 +25,6 @@ export function formatStampDate(iso: string): string {
 export function Stamp({ level, state, date, className }: Props) {
   const uid = useId();
   const pathId = `stamp-rim-${uid.replace(/:/g, '')}`;
-  const chars = [...stampKanji(level)];
   const rim = level === 'arcade' ? 'REEL PONG CHAMPION' : `LEVEL ${String(level).padStart(2, '0')} CLEARED`;
   const label =
     state === 'empty'
@@ -40,8 +33,8 @@ export function Stamp({ level, state, date, className }: Props) {
         : `Level ${level} stamp, not yet earned`
       : `${level === 'arcade' ? 'Reel Pong champion' : `Level ${level} cleared`}${date ? `, ${formatStampDate(date)}` : ''}`;
 
-  const em = chars.length > 1 ? 34 : 46;
-  const totalW = em * chars.length;
+  const gh = 40;
+  const gw = (gh * HAMZA.w) / HAMZA.h;
 
   return (
     <div className={`stamp stamp--${state}${className ? ` ${className}` : ''}`}>
@@ -60,12 +53,13 @@ export function Stamp({ level, state, date, className }: Props) {
                 {rim}
               </textPath>
             </text>
-            <g fill="var(--vermilion)" transform={`translate(${60 - totalW / 2} ${54 - em * 0.5})`}>
-              {chars.map((c, i) => {
-                const g = KANJI_GLYPHS[c];
-                return g ? <path key={c} d={g.d} transform={`translate(${i * em} 0) scale(${em / KANJI_UPEM})`} /> : null;
-              })}
-            </g>
+            {level === 'arcade' ? (
+              <path fill="var(--vermilion)" transform={`translate(${60 - gw / 2} ${54 - gh / 2}) scale(${gh / HAMZA.h})`} d={HAMZA.d} />
+            ) : (
+              <text x="60" y="66" textAnchor="middle" fill="var(--vermilion)" fontFamily="var(--font-ui)" fontWeight="600" fontSize="38" letterSpacing="-1">
+                {String(level).padStart(2, '0')}
+              </text>
+            )}
             {date && (
               <text x="60" y="94" textAnchor="middle" fill="var(--vermilion)" fontFamily="var(--font-ui)" fontWeight="600" fontSize="7" letterSpacing="0.6">
                 {formatStampDate(date).toUpperCase()}

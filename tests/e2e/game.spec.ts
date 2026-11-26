@@ -15,8 +15,8 @@ test.describe('@game', () => {
     await page.evaluate(() => {
       const h = (window as unknown as { __aq: Hooks }).__aq;
       h.reset();
-      h.grant('boss:contact');
-      h.grant('boss:contact');
+      h.grant('door:contact');
+      h.grant('door:contact');
       h.grant('project:navig:open');
       h.grant('project:navig:open');
     });
@@ -66,7 +66,7 @@ test.describe('@game', () => {
     await page.evaluate(() => {
       const h = (window as unknown as { __aq: Hooks }).__aq;
       h.reset();
-      h.grant('boss:contact');
+      h.grant('door:contact');
     });
     const other = await context.newPage();
     await other.goto('/');
@@ -83,7 +83,7 @@ test.describe('@game', () => {
     await page.getByRole('button', { name: /^Passport/ }).click();
     await page.getByRole('dialog', { name: 'Passport' }).getByText('Play mode').click();
     await page.keyboard.press('Escape');
-    await page.evaluate(() => (window as unknown as { __aq: Hooks }).__aq.grant('boss:contact'));
+    await page.evaluate(() => (window as unknown as { __aq: Hooks }).__aq.grant('door:contact'));
     await expect(page.getByRole('img', { name: /Experience points/ })).toHaveCount(0);
   });
 });

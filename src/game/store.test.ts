@@ -28,7 +28,7 @@ describe('grant', () => {
   });
   it('stops granting when Play mode is off', () => {
     useGame.getState().setSettings({ play: false });
-    expect(useGame.getState().grant('boss:contact')).toBe(0);
+    expect(useGame.getState().grant('door:contact')).toBe(0);
     expect(useGame.getState().xp).toBe(0);
   });
   it('numbers pong wins', () => {
@@ -39,7 +39,7 @@ describe('grant', () => {
 
 describe('persistence', () => {
   it('survives a reload (rehydrate)', async () => {
-    useGame.getState().grant('boss:contact');
+    useGame.getState().grant('door:contact');
     useGame.getState().setSettings({ cursor: 'classic' });
     const saved = String(safeStorage.getItem(STORAGE_KEY) ?? '');
     useGame.setState({ events: {}, xp: 0, settings: { play: true, motion: 'system', cursor: 'custom', shelfView: 'auto' } });
@@ -59,14 +59,14 @@ describe('persistence', () => {
     expect(useGame.getState().xp).toBe(40);
   });
   it('resets to defaults on an unknown version', async () => {
-    safeStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 99, state: { events: { 'boss:contact': 'x' } } }));
+    safeStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 99, state: { events: { 'door:contact': 'x' } } }));
     await useGame.persist.rehydrate();
     expect(useGame.getState().xp).toBe(0);
   });
   it('ignores tampered values', async () => {
     safeStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ version: 1, state: { events: { 'boss:contact': 'x', evil: 'y' }, settings: { play: 'yes' } } }),
+      JSON.stringify({ version: 1, state: { events: { 'door:contact': 'x', evil: 'y' }, settings: { play: 'yes' } } }),
     );
     await useGame.persist.rehydrate();
     expect(useGame.getState().xp).toBe(100);

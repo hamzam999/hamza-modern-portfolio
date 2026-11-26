@@ -64,7 +64,7 @@ test.describe('@shell', () => {
   test('@shell XP survives a reload', async ({ page }) => {
     await page.goto('/');
     await page.waitForFunction(() => '__aq' in window);
-    await page.evaluate(() => (window as unknown as { __aq: { grant: (id: string) => number } }).__aq.grant('boss:contact'));
+    await page.evaluate(() => (window as unknown as { __aq: { grant: (id: string) => number } }).__aq.grant('door:contact'));
     await expect(page.getByRole('img', { name: 'Experience points: 100 of 1200' })).toBeVisible();
     await page.reload();
     await expect(page.getByRole('img', { name: 'Experience points: 100 of 1200' })).toBeVisible();

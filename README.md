@@ -23,7 +23,7 @@ npm run dev        # http://localhost:3000
 | `npm run shots` | Review screenshots of every route at 360, 390, 768, 1024 and 1440 into `test-results/shots/` |
 | `npm run lhci` | Lighthouse CI: mobile (`lighthouserc.json`) then desktop (`lighthouserc.desktop.json`); set `CHROME_PATH` if Chrome is not found |
 | `npm run budgets` | Byte budgets from `dist/` (initial JS 110 KB, shelf 18 KB, arcade 14 KB, CSS 22 KB, first-view fonts and transfer) plus content guards (no phone number, no removed projects) |
-| `npm run media`, `fonts:jp`, `grain`, `seo` | Individual asset and SEO generators |
+| `npm run media`, `urdu`, `grain`, `seo` | Individual asset and SEO generators |
 
 Playwright uses the browsers in its cache. If the cached Chromium revision differs from the one the installed Playwright expects, the config falls back to any cached Chromium. WebKit and Firefox projects (`mobile-390`, `tablet-768`, `reduced-390`, `firefox-1440`) only run when those browsers are installed (always in CI), so their visual baselines must be generated there.
 

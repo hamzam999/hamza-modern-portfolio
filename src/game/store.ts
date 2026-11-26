@@ -92,7 +92,8 @@ function sanitize(raw: unknown): Persisted {
   const d = defaults();
   if (!isRecord(raw)) return d;
   if (isRecord(raw.events)) {
-    for (const [k, v] of Object.entries(raw.events)) {
+    for (const [k0, v] of Object.entries(raw.events)) {
+      const k = k0 === 'boss:contact' ? 'door:contact' : k0; // id renamed in round 2
       if (parseEvent(k) && typeof v === 'string') (d.events as Record<string, string>)[k] = v;
     }
   }

@@ -26,7 +26,6 @@ test('@a11y passport dialog open has no axe violations', async ({ page }) => {
 });
 
 test('@a11y menu dialog open has no axe violations', async ({ page }, info) => {
-  test.skip((info.project.use.viewport?.width ?? 0) >= 1024, 'Menu button is below 1024 px only');
   await page.goto('/');
   await page.getByRole('button', { name: 'Menu' }).click();
   await expect(page.getByRole('dialog', { name: 'Menu' })).toBeVisible();

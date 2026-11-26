@@ -1,6 +1,8 @@
-// Project media pipeline (plan 6.11). Run: `npm run media [-- --strict]`.
-// media-src/projects/<slug>/screenshot.(png|jpg|webp) [+ mobile.*]  ->  public/projects/<slug>/*.avif|webp
-// and src/content/media-manifest.json. Missing sources are reported and skipped (exit 0 unless --strict).
+// Media pipeline (plan 6.11, round 2). Run: `npm run media [-- --strict]`.
+// media-src/projects/<slug>/screenshot.(png|jpg|webp) [+ mobile.*]  ->  public/projects/<slug>/*.avif|webp (+ print-360/720.webp for the hero collage)
+//   and src/content/media-manifest.json. Missing sources are reported and skipped (exit 0 unless --strict).
+// media-src/archive/<name>.png (the owner's earlier work)           ->  public/archive/<name>-360|720.webp, src/content/archive-media.json
+// media-src/profile/hamza.(jpg|png|webp) (optional portrait)        ->  public/profile/portrait-480|800.webp (duotone), src/content/profile-media.json
 import sharp from 'sharp';
 import ts from 'typescript';
 import { createHash } from 'node:crypto';
@@ -17,6 +19,18 @@ const HERO_W = [640, 1280, 1920];
 const COVER_W = [300, 600];
 const MOBILE_W = [390, 780];
 const COVER_ASPECT = 0.823;
+const PRINT_W = [360, 720];
+const PRINT_ASPECT = 4 / 3;
+const ARCHIVE_SRC = path.join(ROOT, 'media-src/archive');
+const ARCHIVE_OUT = path.join(ROOT, 'public/archive');
+const ARCHIVE_MANIFEST = path.join(ROOT, 'src/content/archive-media.json');
+const ARCHIVE_W = [360, 720];
+const ARCHIVE_ASPECT = 0.8;
+const PROFILE_SRC = path.join(ROOT, 'media-src/profile');
+const PROFILE_OUT = path.join(ROOT, 'public/profile');
+const PROFILE_MANIFEST = path.join(ROOT, 'src/content/profile-media.json');
+const PROFILE_W = [480, 800];
+const PROFILE_ASPECT = 0.8;
 const HERO_ASPECT = 1.6;
 
 /** Duotone ramps by spine swatch (plan 6.11 table). */
@@ -90,6 +104,62 @@ async function duotone(img, [shadow, highlight], width) {
   return sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } });
 }
 
+/** Earlier-work screenshots become small framed prints: 4:5 from the top-left of the capture, color kept, webp only. */
+async function archivePrints(warnings) {
+  const manifest = {};
+  if (existsSync(ARCHIVE_SRC)) {
+    mkdirSync(ARCHIVE_OUT, { recursive: true });
+    for (const f of readdirSync(ARCHIVE_SRC).filter((x) => /\.(png|jpe?g|webp)$/i.test(x)).sort()) {
+      const name = f.replace(/\.[^.]+$/, '');
+      const file = path.join(ARCHIVE_SRC, f);
+      const hash = sha1(file);
+      const base = sharp(file);
+      const meta = await base.metadata();
+      for (const w of ARCHIVE_W) {
+        await sharp(file).resize({ width: w, height: Math.round(w / ARCHIVE_ASPECT), fit: 'cover', position: 'left top' }).webp({ quality: 72 }).toFile(path.join(ARCHIVE_OUT, `${name}-${w}.webp`));
+      }
+      if ((meta.width ?? 0) < 720) warnings.push(`archive/${name}: source is narrower than 720 px`);
+      manifest[name] = { widths: ARCHIVE_W, ratio: ARCHIVE_ASPECT, sourceHash: hash };
+    }
+  }
+  writeFileSync(ARCHIVE_MANIFEST, `${JSON.stringify(manifest, null, 2)}\n`);
+  console.log(`media: archive prints ${Object.keys(manifest).length}`);
+}
+
+/** Optional owner portrait: duotone (ink to paper) so it sits with the print look. Absent source writes { portrait: null } and the page shows the stamp placeholder. */
+async function profilePortrait(warnings) {
+  let src = null;
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    const p = path.join(PROFILE_SRC, `hamza.${ext}`);
+    if (existsSync(p)) src = p;
+  }
+  if (!src) {
+    rmSync(PROFILE_OUT, { recursive: true, force: true });
+    writeFileSync(PROFILE_MANIFEST, `${JSON.stringify({ portrait: null }, null, 2)}\n`);
+    console.log('media: no media-src/profile/hamza.(jpg|png|webp), the stamp placeholder is shown');
+    return;
+  }
+  mkdirSync(PROFILE_OUT, { recursive: true });
+  const meta = await sharp(src).metadata();
+  if ((meta.width ?? 0) < 800) warnings.push(`profile: portrait is ${meta.width}px wide (800 recommended)`);
+  const oriented = await sharp(src).rotate().toBuffer();
+  const sizes = [];
+  for (const w of PROFILE_W) {
+    const { data, info } = await sharp(oriented).resize({ width: w, height: Math.round(w / PROFILE_ASPECT), fit: 'cover', position: 'attention' }).grayscale().normalise().raw().toBuffer({ resolveWithObject: true });
+    const [sr, sg, sb] = rgb('#141C3A');
+    const [hr, hg, hb] = rgb('#F3F0EA');
+    const out = Buffer.alloc(info.width * info.height * 3);
+    for (let i = 0, j = 0; i < data.length; i += info.channels, j += 3) {
+      const l = data[i] / 255;
+      out[j] = sr + (hr - sr) * l; out[j + 1] = sg + (hg - sg) * l; out[j + 2] = sb + (hb - sb) * l;
+    }
+    await sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } }).webp({ quality: 78 }).toFile(path.join(PROFILE_OUT, `portrait-${w}.webp`));
+    sizes.push(w);
+  }
+  writeFileSync(PROFILE_MANIFEST, `${JSON.stringify({ portrait: { widths: sizes, ratio: PROFILE_ASPECT, sourceHash: sha1(src) } }, null, 2)}\n`);
+  console.log(`media: portrait ${sizes.join(', ')}`);
+}
+
 async function main() {
   const projects = await loadProjects();
   const old = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, 'utf8')) : {};
@@ -107,7 +177,7 @@ async function main() {
     const hash = sha1(shot, mobileSrc);
     const dir = path.join(OUT, p.slug);
     const prev = old[p.slug];
-    if (prev?.sourceHash === hash && existsSync(path.join(dir, 'cover-300.webp'))) {
+    if (prev?.sourceHash === hash && existsSync(path.join(dir, 'cover-300.webp')) && existsSync(path.join(dir, 'print-360.webp'))) {
       manifest[p.slug] = prev;
       continue;
     }
@@ -122,6 +192,11 @@ async function main() {
     if (heroW.length === 0) heroW.push(Math.min(...HERO_W));
     for (const w of heroW) {
       await writePair(sharp(heroBase).resize({ width: w, withoutEnlargement: true }), path.join(dir, `hero-${w}`));
+    }
+
+    // Collage print (hero): 4:3 from the top of the capture, webp only.
+    for (const w of PRINT_W.filter((x) => x <= (meta.width ?? 0))) {
+      await sharp(heroBase).resize({ width: Math.round(w), height: Math.round(w / PRINT_ASPECT), fit: 'cover', position: 'top' }).webp({ quality: 74 }).toFile(path.join(dir, `print-${w}.webp`));
     }
 
     // Cover art: portrait crop of mobile.* when present, otherwise of the 16:10 hero crop, around media.focal.
@@ -140,6 +215,7 @@ async function main() {
     const stats = await sharp(heroBase).resize(64).stats();
     manifest[p.slug] = {
       hero: { widths: heroW, ratio: HERO_ASPECT },
+      print: { widths: PRINT_W },
       cover: { widths: COVER_W },
       mobile,
       dominant: toHex([stats.dominant.r, stats.dominant.g, stats.dominant.b]),
@@ -154,6 +230,9 @@ async function main() {
       if (d.isDirectory() && !manifest[d.name]) rmSync(path.join(OUT, d.name), { recursive: true, force: true });
     }
   }
+
+  await archivePrints(warnings);
+  await profilePortrait(warnings);
 
   const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
   writeFileSync(MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);

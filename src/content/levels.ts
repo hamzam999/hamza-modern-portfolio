@@ -1,5 +1,5 @@
 import type { Level } from '../types/content';
-import { JP, KANJI } from './jp';
+import { URDU } from './urdu';
 
 export const LEVELS = [
   {
@@ -9,8 +9,7 @@ export const LEVELS = [
     name: 'Spawn',
     eyebrow: 'LEVEL 01 / 06 · SPAWN',
     heading: 'Mohammad Hamza, Senior Frontend Engineer',
-    kanji: KANJI.spawn,
-    jpLabel: JP.levels.spawn,
+    urdu: URDU.spawn,
     xp: { enter: 40, clear: 60 },
   },
   {
@@ -20,8 +19,7 @@ export const LEVELS = [
     name: 'Origin',
     eyebrow: 'LEVEL 02 / 06 · ORIGIN',
     heading: 'From running a D2C store to building Web3, ERP and 3D interfaces',
-    kanji: KANJI.origin,
-    jpLabel: JP.levels.origin,
+    urdu: URDU.origin,
     xp: { enter: 40, clear: 60 },
   },
   {
@@ -31,8 +29,7 @@ export const LEVELS = [
     name: 'Skill Tree',
     eyebrow: 'LEVEL 03 / 06 · SKILL TREE',
     heading: 'Skill tree: React, Next.js, Shopify, Web3, ERP and 3D',
-    kanji: KANJI.skills,
-    jpLabel: JP.levels.skills,
+    urdu: URDU.skills,
     xp: { enter: 40, clear: 60 },
   },
   {
@@ -42,8 +39,7 @@ export const LEVELS = [
     name: 'Archive',
     eyebrow: 'LEVEL 04 / 06 · ARCHIVE',
     heading: 'Selected projects',
-    kanji: KANJI.archive,
-    jpLabel: JP.levels.archive,
+    urdu: URDU.archive,
     xp: { enter: 40, clear: 60 },
   },
   {
@@ -53,19 +49,17 @@ export const LEVELS = [
     name: 'Career Path',
     eyebrow: 'LEVEL 05 / 06 · CAREER PATH',
     heading: 'Career path: 6+ years of frontend engineering',
-    kanji: KANJI.career,
-    jpLabel: JP.levels.career,
+    urdu: URDU.career,
     xp: { enter: 40, clear: 60 },
   },
   {
     id: 'contact',
     index: 6,
     anchor: 'level-contact',
-    name: 'Final Boss',
-    eyebrow: 'LEVEL 06 / 06 · FINAL BOSS',
+    name: 'Open Door',
+    eyebrow: 'LEVEL 06 / 06 · OPEN DOOR',
     heading: 'Hire a senior frontend developer',
-    kanji: KANJI.contact,
-    jpLabel: JP.levels.contact,
+    urdu: URDU.contact,
     xp: { enter: 40, clear: 60 },
   },
 ] as const satisfies readonly Level[];

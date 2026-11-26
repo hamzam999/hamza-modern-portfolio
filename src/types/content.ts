@@ -85,8 +85,7 @@ export interface Level {
   name: string;          // "Archive"
   eyebrow: string;       // "LEVEL 04 / 06 · ARCHIVE"
   heading: string;       // descriptive H2 (H1 for level 1)
-  kanji: string;         // "作品"
-  jpLabel: string;       // "さくひん"
+  urdu: string;          // decorative halftone word (Nastaliq), e.g. "کام"
   xp: { enter: 40; clear: 60 };
 }
 

@@ -57,11 +57,11 @@ html.reduced *, html.reduced *::before, html.reduced *::after {
 }
 
 @media (forced-colors: active) {
-  .grain, .halftone, .kanji { display: none !important; }
+  .grain, .halftone, .urdu { display: none !important; }
   :focus-visible { outline-color: Highlight; }
 }
 
 @media print {
-  .grain, .halftone, .kanji, .topbar, .ruler, .cursor, .skip-link { display: none !important; }
+  .grain, .halftone, .urdu, .topbar, .ruler, .cursor, .skip-link { display: none !important; }
   body { padding: 0; background: #fff; }
 }

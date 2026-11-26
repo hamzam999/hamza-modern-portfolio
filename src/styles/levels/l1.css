@@ -18,13 +18,13 @@
 .l1__note { margin-top: var(--space-4); max-width: 44ch; font-size: var(--fs-small); color: var(--muted-strong); }
 .l1__credits { margin-top: var(--space-6); padding-top: var(--space-3); border-top: 1px solid var(--line-strong); max-width: 640px; font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--ink); }
 
-.l1 .halftone { top: var(--space-2); width: calc(var(--fs-kanji) * 0.5); height: calc(var(--fs-kanji) * 0.5 * var(--n, 1)); }
+.l1 .halftone { top: var(--space-2); font-size: calc(var(--fs-urdu) * 0.7); }
 
 @media (min-width: 768px) {
   .l1 { padding-top: var(--space-8); }
   .l1__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
   .l1__actions .btn { width: auto; }
-  .l1 .halftone { width: var(--fs-kanji); height: calc(var(--fs-kanji) * var(--n, 1)); top: var(--space-7); }
+  .l1 .halftone { font-size: var(--fs-urdu); top: var(--space-6); }
   .l1__focus { font-size: var(--fs-ui); gap: 0 var(--space-3); }
   .l1__avail { font-size: var(--fs-small); }
   .l1 .level__heading { max-width: 12ch; }
@@ -35,9 +35,9 @@
   .l1 .halftone { right: var(--gutter); }
 }
 
-/* Entrance: kanji clip, ruler baseline and ticks (only with JS and motion allowed). */
-html.js:not(.reduced) .l1 .halftone { animation: l1-kanji 900ms var(--ease) 200ms both; }
-@keyframes l1-kanji { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+/* Entrance: Urdu word clip, ruler baseline and ticks (only with JS and motion allowed). */
+html.js:not(.reduced) .l1 .halftone { animation: l1-urdu 900ms var(--ease) 200ms both; }
+@keyframes l1-urdu { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
 html.js:not(.reduced) .ruler__line { transform-origin: 0 50%; animation: l1-ruler 700ms var(--ease) 300ms both; }
 html.js:not(.reduced) .ruler__years i { transform-origin: 50% 0; animation: l1-tick 320ms var(--ease) both; }
 html.js:not(.reduced) .ruler__years li:nth-child(1) i { animation-delay: 700ms; }

@@ -1,5 +1,6 @@
 import { LEVELS } from '@/content/levels';
 import { ABOUT_STATS, PROFILE } from '@/content/profile';
+import { Portrait } from '@/components/art/Portrait';
 import { LevelShell } from '@/components/ui/LevelShell';
 import { MaskLine } from '@/components/ui/MaskLine';
 
@@ -25,13 +26,14 @@ const FACTS: ReadonlyArray<readonly [string, React.ReactNode]> = [
 /** Level 2, Origin (plan 5.2): bio, quick facts as a definition list, stats as credits. */
 export function L2Origin() {
   return (
-    <LevelShell level={level} kanjiPosition="left" className="l2">
+    <LevelShell level={level} urduPosition="right" className="l2">
       <div className="l2__grid">
         <div className="l2__bio">
           {PROFILE.summary.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
         </div>
+        <Portrait />
         <dl className="l2__facts">
           {FACTS.map(([k, v]) => (
             <div key={k} className="l2__fact">

@@ -5,12 +5,15 @@ import { pathToFileURL } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
 import satori from 'satori';
 import sharp from 'sharp';
-import { projectCard, siteCard, halftoneKanji } from './og/templates.mjs';
+import { projectCard, siteCard, halftoneUrdu } from './og/templates.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const dist = join(root, 'dist');
 const S = await import(pathToFileURL(join(root, 'dist-ssr', 'entry-server.js')).href);
-const { PROJECTS, CATEGORY_LABEL, KANJI_GLYPHS, KANJI_UPEM, heroImage } = S;
+const { PROJECTS, CATEGORY_LABEL, heroImage } = S;
+const URDU = JSON.parse(readFileSync(join(root, 'scripts/og/urdu-paths.json'), 'utf8'));
+const favicon = readFileSync(join(root, 'public/favicon.svg'));
+const logo = `data:image/svg+xml;base64,${favicon.toString('base64')}`;
 
 const font = (pkg, file) => readFileSync(join(root, 'node_modules/@fontsource', pkg, 'files', file));
 const fonts = [
@@ -30,13 +33,16 @@ async function emit(rel, tree) {
   return png.length;
 }
 
-const kanji = (chars) => halftoneKanji(KANJI_GLYPHS, KANJI_UPEM, chars, 280);
+const urdu = (word) => {
+  if (!URDU[word]) throw new Error(`no shaped outline for ${word}; run npm run urdu`);
+  return halftoneUrdu(URDU[word], 230);
+};
 const sizes = [];
 const site = [
-  ['default.png', { title: 'Mohammad Hamza', line: 'Senior Frontend Engineer', focus: 'React · Next.js · Three.js · Shopify · Web3', kanji: kanji('作品') }],
-  ['projects.png', { title: 'Project archive', line: 'Selected work by Mohammad Hamza', focus: 'Shopify · Web3 · 3D · Full-stack', kanji: kanji('作品') }],
-  ['arcade.png', { title: 'Arcade: Reel Pong', line: 'A small Pong game on this portfolio', focus: 'First to five wins', kanji: kanji('遊') }],
-  ['interview.png', { title: 'Frontend interview questions', line: 'JavaScript, React and Next.js', focus: 'Short answers, searchable', kanji: kanji('技') }],
+  ['default.png', { title: 'Mohammad Hamza', line: 'Senior Frontend Engineer', focus: 'React · Next.js · Three.js · Shopify · Web3', urdu: urdu('آغاز'), logo }],
+  ['projects.png', { title: 'Project archive', line: 'Selected work by Mohammad Hamza', focus: 'Shopify · Web3 · 3D · Full-stack', urdu: urdu('کام'), logo }],
+  ['arcade.png', { title: 'Arcade: Reel Pong', line: 'A small Pong game on this portfolio', focus: 'First to five wins', urdu: urdu('کھیل'), logo }],
+  ['interview.png', { title: 'Frontend interview questions', line: 'JavaScript, React and Next.js', focus: 'Short answers, searchable', urdu: urdu('ہنر'), logo }],
 ];
 for (const [file, props] of site) sizes.push([file, await emit(file, siteCard(props))]);
 
@@ -49,7 +55,7 @@ for (const p of PROJECTS) {
     imageUri = `data:image/png;base64,${buf.toString('base64')}`;
   }
   const summary = p.seo.llmsSummary.length > 120 ? `${p.seo.llmsSummary.slice(0, 117).replace(/\s+\S*$/, '')}…` : p.seo.llmsSummary;
-  const tree = projectCard({ eyebrow: CATEGORY_LABEL[p.category], title: p.title, summary, imageUri, swatch: p.spine, spine: p.spineTitle });
+  const tree = projectCard({ eyebrow: CATEGORY_LABEL[p.category], title: p.title, summary, imageUri, swatch: p.spine, spine: p.spineTitle, logo });
   sizes.push([`projects/${p.slug}.png`, await emit(`projects/${p.slug}.png`, tree)]);
 }
 const total = sizes.reduce((n, [, s]) => n + s, 0);
