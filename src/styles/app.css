@@ -28,6 +28,7 @@
 @import "./ui.css";
 @import "./hud.css";
 @import "./levels/common.css";
+@import "./arcade.css";
 @import "./levels/l1.css";
 @import "./levels/l2.css";
 @import "./levels/l3.css";
