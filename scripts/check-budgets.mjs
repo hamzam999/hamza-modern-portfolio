@@ -50,6 +50,19 @@ const assets = path.join(DIST, 'assets');
 const css = readdirSync(assets).filter((f) => f.endsWith('.css'));
 check('CSS total', css.reduce((n, f) => n + gz(`assets/${f}`), 0), BUDGET.css);
 
+// Fonts on first view (9.10): preloaded fonts of the home page, at most 5 files and 150 KB; first-view transfer at most 450 KB (gzip HTML, JS, CSS and those fonts).
+{
+  const html = readFileSync(path.join(DIST, 'index.html'), 'utf8');
+  const preloaded = [...html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g)].map((m) => /href="([^"]+)"/.exec(m[0])?.[1]).filter(Boolean);
+  const fontBytes = preloaded.reduce((n, href) => n + readFileSync(path.join(DIST, href.replace(/^\//, ''))).length, 0);
+  check('first-view font files (count)', preloaded.length * KB, BUDGET.fonts * KB);
+  check('first-view font bytes', fontBytes, 150 * KB);
+  const htmlGz = gzipSync(readFileSync(path.join(DIST, 'index.html'))).length;
+  const jsGz = [...seen].reduce((n, k) => n + gz(manifest[k].file), 0);
+  const cssGz = css.reduce((n, f) => n + gz(`assets/${f}`), 0);
+  check('first-view transfer for /', htmlGz + jsGz + cssGz + fontBytes, 450 * KB);
+}
+
 // JP glyph lock: every kana in jp.ts must be in the subset font's lock file. Kanji are drawn from kanji-paths.ts, not the font.
 const jp = readFileSync(path.join(ROOT, 'src/content/jp.ts'), 'utf8');
 const lock = readFileSync(path.join(ROOT, 'src/content/jp-glyphs.lock'), 'utf8');

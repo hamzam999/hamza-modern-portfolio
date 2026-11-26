@@ -74,7 +74,7 @@ export default defineConfig({
     },
   ] as const).filter((p) => has(p.use.defaultBrowserType === 'webkit' ? 'webkit' : p.use.defaultBrowserType === 'firefox' ? 'firefox' : 'chromium')).map((p) => ({ ...p, use: { ...p.use } })),
   webServer: {
-    command: `npm run build:e2e && npx vite preview --port ${PORT} --strictPort`,
+    command: `${process.env.E2E_REUSE_BUILD ? 'true' : 'npm run build:e2e'} && npx vite preview --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

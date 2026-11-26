@@ -7,7 +7,8 @@ test.describe('@levels', () => {
     await expect(page.locator('section[data-level]')).toHaveCount(6);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Mohammad Hamza');
     await expect(page.getByRole('heading', { level: 2, name: 'Selected projects' })).toBeVisible();
-    await expect(page.locator('.tape-grid li')).toHaveCount(10);
+    // The ten featured tapes are a static grid first and the lazy shelf on wide, motion-allowed screens.
+    await expect(page.locator('.tape-grid li, a.tape[data-copy="0"]')).toHaveCount(10);
     await expect(page.locator('#level-skills .l3__card')).toHaveCount(10);
     await expect(page.locator('#level-career [data-checkpoint]')).toHaveCount(5);
   });

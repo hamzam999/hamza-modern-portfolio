@@ -46,7 +46,7 @@ main:focus { outline: none; }
 .topbar__dot { position: absolute; top: 8px; right: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--vermilion); border: 2px solid var(--sheet); box-sizing: content-box; }
 .topbar__hire { display: none; min-height: 44px; }
 @media (min-width: 400px) { .topbar__name { display: inline; } }
-@media (min-width: 768px) { .topbar__btntext { display: inline; } .topbar__btn { padding: 0 12px; } .topbar__right { gap: var(--space-3); } }
+@media (min-width: 768px) { .topbar__dot { top: 6px; right: auto; left: 28px; } .topbar__btntext { display: inline; } .topbar__btn { padding: 0 12px; } .topbar__right { gap: var(--space-3); } }
 @media (min-width: 1024px) {
   .topbar__hire { display: inline-flex; }
   .topbar__menu { display: none; }
@@ -156,7 +156,7 @@ main:focus { outline: none; }
 .footer__bio { margin-top: var(--space-3); max-width: 38ch; font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--ink); }
 .footer__title { margin: 0 0 var(--space-2); font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--muted-strong); }
 .footer__list { list-style: none; margin: 0; padding: 0; }
-.footer__list a, .footer__list button { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-ui); font-weight: 500; }
+.footer__list a, .footer__list button { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; font-size: var(--fs-ui); font-weight: 500; }
 .footer__list .footer__note { display: block; font-size: var(--fs-small); color: var(--muted-strong); }
 .footer__settings { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--line); display: grid; gap: var(--space-4); }
 .footer__settings .settings { max-width: 420px; }

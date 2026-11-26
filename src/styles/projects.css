@@ -5,7 +5,7 @@
 @media (hover: hover) { .notfound__links a:hover { background: rgb(31 63 176 / 0.08); } }
 
 .project-page .crumbs { margin-bottom: var(--space-5); font-size: var(--fs-small); font-weight: 500; color: var(--muted-strong); }
-.project-page .crumbs a { display: inline-block; padding-block: 10px; }
+.project-page .crumbs a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 .pd__eyebrow { font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--cobalt); }
 .pd__title { margin-top: var(--space-3); font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); max-width: 20ch; }
 .pd__title:focus { outline: none; }
