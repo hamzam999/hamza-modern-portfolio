@@ -140,7 +140,7 @@ export interface Profile {
   currentRole: string;           // "Frontend & ERP Developer (Freelance)"
   location: string;              // "India"
   email: 'erhamza.dev@gmail.com';
-  links: { linkedin: string; github: string; site: 'https://www.erhamza.tech' };
+  links: { linkedin: string; github: string; site: 'https://erhamza.tech' };
   summary: readonly string[];             // resume Summary, split into paragraphs
   education: { degree: string; school: string; city: string; year: 2020 };
   award: string;

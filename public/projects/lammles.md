@@ -7,7 +7,7 @@
 - Role: Sole developer for the checkout work
 - Stack: Shopify Checkout Extensions, Shopify Functions
 - Link: https://www.lammles.com/
-- Page: https://www.erhamza.tech/projects/lammles
+- Page: https://erhamza.tech/projects/lammles
 
 Changes to the checkout of Lammle’s Shopify store. It checks the customer’s details before they pay and adjusts which delivery and payment options show up.
 
@@ -16,4 +16,4 @@ Changes to the checkout of Lammle’s Shopify store. It checks the customer’s 
 - A Shopify Checkout Extension with checkout form validation
 - Delivery and payment options customised via Shopify Functions
 
-By Mohammad Hamza: https://www.erhamza.tech/
+By Mohammad Hamza: https://erhamza.tech/
