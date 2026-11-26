@@ -10,7 +10,7 @@ export const PROFILE = {
   links: {
     linkedin: 'https://www.linkedin.com/in/er-mohammad-hamza/',
     github: 'https://github.com/hamzam999',
-    site: 'https://erhamza.tech',
+    site: 'https://www.erhamza.tech',
   },
   summary: [
     'Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. Proficient in React, Next.js, TypeScript and Shopify, with deep expertise in Shopify Store 2.0, Shopify Functions, Shopify Extensions and custom app development.',

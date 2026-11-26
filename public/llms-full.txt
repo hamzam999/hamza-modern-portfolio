@@ -10,7 +10,7 @@
 - Education: Bachelor of Computer Science, CSJM University, Kanpur, 2020
 - Recognition: Awarded “Promising Newcomer” at ITH Technologies for quickly ramping up on complex Web3 systems and delivering high-impact frontend solutions.
 - Focus: React, Next.js, Three.js / WebGL, Shopify, Web3
-- Website: https://erhamza.tech/
+- Website: https://www.erhamza.tech/
 
 ## Profile
 
@@ -80,7 +80,7 @@ Eighteen projects. Results marked "owner-reported" are as stated by the owner. P
 - Role: Sole frontend developer. Owned the frontend architecture and design direction from an abstract product brief.
 - Stack: React, Three.js, GLSL, GSAP
 - Link: https://navig-app.vercel.app/
-- Page: https://erhamza.tech/projects/navig
+- Page: https://www.erhamza.tech/projects/navig
 
 A visually rich website for a crypto and AI intelligence product. As you scroll, a 3D scene of 25,000+ glowing particles reshapes itself into ocean waves, waterfalls and data streams, and it runs at 144 frames per second.
 
@@ -103,7 +103,7 @@ A visually rich website for a crypto and AI intelligence product. As you scroll,
 - Stack: Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker, GitHub Actions, AWS EC2
 - Tools used: Claude Code
 - Link: https://app.codeslytic.com
-- Page: https://erhamza.tech/projects/codeslytic-budget
+- Page: https://www.erhamza.tech/projects/codeslytic-budget
 
 A budgeting app that keeps working without internet and syncs when you are back online. It tracks money in many currencies, repeats monthly bills on its own, and splits shared expenses between friends, including paying each other back through UPI.
 
@@ -128,7 +128,7 @@ A budgeting app that keeps working without internet and syncs when you are back 
 - Role: Sole developer for the checkout work
 - Stack: Shopify Checkout Extensions, Shopify Functions
 - Link: https://www.lammles.com/
-- Page: https://erhamza.tech/projects/lammles
+- Page: https://www.erhamza.tech/projects/lammles
 
 Changes to the checkout of Lammle’s Shopify store. It checks the customer’s details before they pay and adjusts which delivery and payment options show up.
 
@@ -146,7 +146,7 @@ Changes to the checkout of Lammle’s Shopify store. It checks the customer’s 
 - Role: Built the first MVP (the web app) in React, mainly the blockchain integration: transactions, their status, purchases and wallet connection. Also worked on the blockchain integration of the React Native mobile app.
 - Stack: React, React Native
 - Link: https://gesim.xyz
-- Page: https://erhamza.tech/projects/gesim
+- Page: https://www.erhamza.tech/projects/gesim
 
 The first MVP of GeSIM, a Web3 app for global eSIM mobile data. I built the web app in React, mainly the blockchain integration: wallet connection, purchases, transactions and their status. I also worked on blockchain integration in the React Native mobile app. The web app is live; the mobile app is not published.
 
@@ -168,7 +168,7 @@ The first MVP of GeSIM, a Web3 app for global eSIM mobile data. I built the web 
 - Role: Designed and built, in Framer, all the mobile screens of the whole website
 - Stack: Framer, React, Pointer Events API
 - Link: https://studiosolyn.com/
-- Page: https://erhamza.tech/projects/studio-solyn
+- Page: https://www.erhamza.tech/projects/studio-solyn
 
 The website of Studio Solyn, a contemporary product design studio for furniture, lighting and functional objects, was first built for desktop only. I designed and built all the mobile screens for the whole website in Framer.
 
@@ -185,7 +185,7 @@ The website of Studio Solyn, a contemporary product design studio for furniture,
 - Role: Frontend developer in a team. Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs). Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend.
 - Stack: React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK
 - Link: none
-- Page: https://erhamza.tech/projects/dex-cex-multisig-wallet
+- Page: https://www.erhamza.tech/projects/dex-cex-multisig-wallet
 
 Live trading screens for crypto exchanges that show prices as they change, and a multi-signature smart-contract wallet in the style of Safe (formerly Gnosis Safe) that requires approvals from a set minimum number of owners (such as 2 of 3) before any transaction runs. It removes single points of failure for individuals, teams and DAOs managing digital assets on Ethereum and compatible chains.
 
@@ -204,7 +204,7 @@ Live trading screens for crypto exchanges that show prices as they change, and a
 - Role: Customised the Shopify theme and added features
 - Stack: Shopify Online Store 2.0, Dawn, Liquid, Meta Pixel
 - Link: https://nighatahmadofficial.com
-- Page: https://erhamza.tech/projects/nighat-ahmad-official
+- Page: https://www.erhamza.tech/projects/nighat-ahmad-official
 
 An online store for an external fashion brand that sells to customers in India and abroad. I customised the Shopify theme and added features, keeping it fast and right on a phone.
 
@@ -217,7 +217,7 @@ An online store for an external fashion brand that sells to customers in India a
 - Role: Developer in a team. Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%.
 - Stack: Angular, Next.js
 - Link: none
-- Page: https://erhamza.tech/projects/unified-trading-crm
+- Page: https://www.erhamza.tech/projects/unified-trading-crm
 
 Several separate trading tools built on Angular were merged into one Next.js CRM, with multi-tenant access control so each client account sees only what it should. Load times dropped by 35%, and performance improved by 30–50% with SSR/SSG and code splitting.
 
@@ -235,7 +235,7 @@ Several separate trading tools built on Angular were merged into one Next.js CRM
 - Role: Main frontend developer, leading the blockchain integration of the smart contracts. The contracts were written by others.
 - Stack: React, Paymaster, Solana Web3, ERC-721, ERC-1155
 - Link: none
-- Page: https://erhamza.tech/projects/nft-marketplace
+- Page: https://www.erhamza.tech/projects/nft-marketplace
 
 A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles. It used ERC-721 and ERC-1155 contracts on Base, with Sui and Solana supported alongside. It had minting and trading flows, lazy minting (listing an item before it is minted), auctions and fixed-price sales, and creator dashboards, and the platform covered the network fee when creators minted. I was the main frontend developer and led the blockchain integration of the smart contracts, which were written by others. The project has since shut down.
 
@@ -253,7 +253,7 @@ A marketplace, similar to OpenSea, where creators make, buy and sell digital col
 - Role: Built eleven features for the store, all editable in Shopify’s theme editor
 - Stack: Shopify Atelier theme, Liquid
 - Link: https://berbanto.com
-- Page: https://erhamza.tech/projects/berbanto-atelier
+- Page: https://www.erhamza.tech/projects/berbanto-atelier
 
 Eleven new features for a client’s online store, such as category carousels, popups and a tilted scrolling banner. The store owner can edit all of them from Shopify’s visual editor.
 
@@ -271,7 +271,7 @@ Eleven new features for a client’s online store, such as category carousels, p
 - Stack: Shopify, Liquid, GraphQL
 - Tools used: Shopify MCP
 - Link: https://hefashion.in
-- Page: https://erhamza.tech/projects/hefashion
+- Page: https://www.erhamza.tech/projects/hefashion
 
 A full Shopify store build for a multi-brand fashion store, including customer reviews and popularity notices on products.
 
@@ -284,7 +284,7 @@ A full Shopify store build for a multi-brand fashion store, including customer r
 - Role: Full store build on Shopify
 - Stack: Shopify
 - Link: https://downtownsfashion.com
-- Page: https://erhamza.tech/projects/downtowns-fashion
+- Page: https://www.erhamza.tech/projects/downtowns-fashion
 
 A full Shopify store build for Downtowns Fashion, a multi-brand-style fashion store. It is a separate client from HE Fashion.
 
@@ -297,7 +297,7 @@ A full Shopify store build for Downtowns Fashion, a multi-brand-style fashion st
 - Role: Sole developer. Mapped the client’s manual production workflow, then built a custom frontend app to replace it using native backend APIs and functions.
 - Stack: ERPNext, Frappe, Next.js, Docker, GitHub Actions
 - Link: none
-- Page: https://erhamza.tech/projects/erpnext-manufacturing
+- Page: https://www.erhamza.tech/projects/erpnext-manufacturing
 
 A custom app built on ERPNext that replaced a factory’s manual production tracking by reproducing the existing workflow. It records what goes into each product, the work orders and how much each worker made, then creates the weekly payment vouchers for labourers. It is in daily use at the factory.
 
@@ -317,7 +317,7 @@ A custom app built on ERPNext that replaced a factory’s manual production trac
 - Stack: Paperclip, Hermes, n8n, Postiz, ERPNext CRM, Cloudflare Tunnel and Access, NVIDIA NIM, Ubuntu 24.04
 - Tools used: Claude Code
 - Link: none
-- Page: https://erhamza.tech/projects/agent-workflows
+- Page: https://www.erhamza.tech/projects/agent-workflows
 
 A team of AI assistants for marketing chores: finding leads, drafting social posts and scouting jobs. A control panel runs them, customer details live in a self-hosted ERPNext CRM, and every output is approved by a person before it goes out. Still in testing, for internal use.
 
@@ -330,7 +330,7 @@ A team of AI assistants for marketing chores: finding leads, drafting social pos
 - Role: Built the whole site: Kadence theme with a custom child theme, a custom plugin, custom post types and JSON translations in five languages
 - Stack: WordPress, Kadence theme with a custom child theme, PHP, custom plugin, custom post types, JSON translations
 - Link: https://promenade-medulin.com
-- Page: https://erhamza.tech/projects/promenade-medulin
+- Page: https://www.erhamza.tech/projects/promenade-medulin
 
 A website for a holiday property in Medulin, Croatia, available in five languages, built on WordPress with the Kadence theme and a custom child theme on top of it.
 
@@ -343,7 +343,7 @@ A website for a holiday property in Medulin, Croatia, available in five language
 - Role: Built for a client
 - Stack: PHP 8, WordPress, object-oriented PHP, WordPress REST API
 - Link: https://github.com/hamzam999/bookEase
-- Page: https://erhamza.tech/projects/bookease
+- Page: https://www.erhamza.tech/projects/bookease
 
 A booking plugin for WordPress sites. Hotels, restaurants and clinics let customers pick a free time slot, get confirmation emails, and cancel or reschedule from a link. Staff can export bookings to CSV. It is installable from GitHub: download it and install it.
 
@@ -356,7 +356,7 @@ A booking plugin for WordPress sites. Hotels, restaurants and clinics let custom
 - Role: Built the page
 - Stack: React, CSS animations (marquee)
 - Link: https://motiongrid.vercel.app/
-- Page: https://erhamza.tech/projects/motiongrid
+- Page: https://www.erhamza.tech/projects/motiongrid
 
 A one-page showcase of 12 projects that a design agency attaches to its client proposals.
 
@@ -369,7 +369,7 @@ A one-page showcase of 12 projects that a design agency attaches to its client p
 - Role: Built the website
 - Stack: Next.js, YouTube Data API, Cloudflare R2
 - Link: https://muftimaaz.com
-- Page: https://erhamza.tech/projects/muftimaaz
+- Page: https://www.erhamza.tech/projects/muftimaaz
 
 A website for an Islamic scholar with YouTube channel integration and YouTube API caching to reduce API calls, plus audio streaming through Cloudflare R2.
 

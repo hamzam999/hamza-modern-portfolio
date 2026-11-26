@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { PROJECTS } from '../../src/content/projects';
 
-const SITE = 'https://erhamza.tech';
+const SITE = 'https://www.erhamza.tech';
 const INDEXABLE = ['/', '/projects', ...PROJECTS.map((p) => `/projects/${p.slug}`), '/arcade', '/interview-framework'];
 const attr = (html: string, re: RegExp) => html.match(re)?.[1];
 

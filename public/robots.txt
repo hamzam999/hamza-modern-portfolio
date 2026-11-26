@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://erhamza.tech/sitemap.xml
+Sitemap: https://www.erhamza.tech/sitemap.xml

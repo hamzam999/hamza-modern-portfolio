@@ -8,7 +8,7 @@
 - Stack: Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker, GitHub Actions, AWS EC2
 - Tools used: Claude Code
 - Link: https://app.codeslytic.com
-- Page: https://erhamza.tech/projects/codeslytic-budget
+- Page: https://www.erhamza.tech/projects/codeslytic-budget
 
 A budgeting app that keeps working without internet and syncs when you are back online. It tracks money in many currencies, repeats monthly bills on its own, and splits shared expenses between friends, including paying each other back through UPI.
 
@@ -24,4 +24,4 @@ A budgeting app that keeps working without internet and syncs when you are back 
 
 - 1,500+ unit/integration and 160+ E2E test cases (owner-reported)
 
-By Mohammad Hamza: https://erhamza.tech/
+By Mohammad Hamza: https://www.erhamza.tech/
