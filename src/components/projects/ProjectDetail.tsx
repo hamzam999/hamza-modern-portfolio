@@ -4,6 +4,7 @@ import { CATEGORY_LABEL, type OwnerClaim, type Project } from '@/types/content';
 import { PROFILE } from '@/content/profile';
 import { MaskLine } from '@/components/ui/MaskLine';
 import { ProjectHero } from '@/components/shelf/media';
+import { FullPageLayout } from './FullPageLayout';
 import { yearLabel } from './ArchiveIndex';
 
 const SOURCE: Record<OwnerClaim['source'], string> = {
@@ -155,6 +156,7 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
           )}
         </aside>
       </div>
+      <FullPageLayout project={p} headingLevel={headingLevel} />
       <p className="pd__credit">Built by {PROFILE.name}.</p>
     </article>
   );

@@ -142,10 +142,18 @@ export interface Profile {
   resumePdf: string | null;      // '/resume.pdf' once the phone-free export exists
 }
 
+export interface FullPageImage {
+  file: string;
+  width: number;
+  height: number;
+  /** True when the page was taller than the cap and the frame shows "Continues on the live site". */
+  cropped: boolean;
+  bytes: number;
+}
 export interface MediaManifestEntry {
   hero: { widths: readonly number[]; ratio: number } | null;
   cover: { widths: readonly number[] } | null;
-  mobile: { widths: readonly number[] } | null;
+  full: { desktop?: FullPageImage; mobile?: FullPageImage } | null;
   dominant: string;
   sourceHash: string;
 }

@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const DIST = path.join(ROOT, 'dist');
 const KB = 1024;
-const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 34 * KB, fonts: 5, images: 1500 * KB, heroPrint: 60 * KB, urduFont: 80 * KB };
+const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 34 * KB, fonts: 5, images: 2200 * KB, fullDesktop: 350 * KB, fullMobile: 300 * KB, fullTotal: 7000 * KB, heroPrint: 60 * KB, urduFont: 80 * KB };
 
 const manifestPath = path.join(DIST, '.vite/manifest.json');
 if (!existsSync(manifestPath)) {
@@ -77,13 +77,25 @@ check('CSS total', css.reduce((n, f) => n + gz(`assets/${f}`), 0), BUDGET.css);
   else check('Urdu font (woff2)', readFileSync(path.join(DIST, 'fonts', m[1])).length, BUDGET.urduFont);
 }
 
-// Images (round 2): everything generated under projects, archive, profile and art, plus the largest hero print.
+// Images. Round 2: everything the home page and the shelf can reach (heroes, covers, prints, archive, profile, art) stays under one cap.
+// Round 3: the full-page layouts (full-desktop.webp / full-mobile.webp) are tall images that only project pages and the detail sheet load
+// (lazy, inside a scrolling frame), so they get their own caps: 350 KB per desktop image, 300 KB per mobile image and a total for all of them.
+// They never count toward the home-view budgets; the first-view transfer check above stays at 450 KB.
 {
   const IMG = /\.(webp|avif|png|jpe?g|svg)$/;
   const all = ['projects', 'archive', 'profile', 'art'].flatMap((d) => (existsSync(path.join(DIST, d)) ? walkAll(path.join(DIST, d)) : [])).filter((f) => IMG.test(f));
-  check('images total (projects, archive, profile, art)', all.reduce((n, f) => n + readFileSync(f).length, 0), BUDGET.images);
+  const isFull = (f) => /full-(desktop|mobile)\.webp$/.test(f);
+  const shared = all.filter((f) => !isFull(f));
+  const fulls = all.filter(isFull);
+  check('images total (home-reachable)', shared.reduce((n, f) => n + readFileSync(f).length, 0), BUDGET.images);
   const prints = all.filter((f) => /print-\d+\.webp$/.test(f));
   check('largest hero print', Math.max(0, ...prints.map((f) => readFileSync(f).length)), BUDGET.heroPrint);
+  check('largest full-page desktop image', Math.max(0, ...fulls.filter((f) => f.endsWith('full-desktop.webp')).map((f) => readFileSync(f).length)), BUDGET.fullDesktop);
+  check('largest full-page mobile image', Math.max(0, ...fulls.filter((f) => f.endsWith('full-mobile.webp')).map((f) => readFileSync(f).length)), BUDGET.fullMobile);
+  check('full-page layouts total (project pages)', fulls.reduce((n, f) => n + readFileSync(f).length, 0), BUDGET.fullTotal);
+  // The home page HTML must not reference a full-page image.
+  const homeHtml = readFileSync(path.join(DIST, 'index.html'), 'utf8');
+  if (/full-(desktop|mobile)\.webp/.test(homeHtml)) fail.push('home page references a full-page layout image');
 }
 
 // Test hooks must not ship in a production build (the e2e build has the testHooks chunk).

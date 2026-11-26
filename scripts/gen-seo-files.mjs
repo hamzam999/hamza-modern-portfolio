@@ -7,7 +7,7 @@ import { pathToFileURL } from 'node:url';
 const root = resolve(import.meta.dirname, '..');
 const dist = join(root, 'dist');
 const S = await import(pathToFileURL(join(root, 'dist-ssr', 'entry-server.js')).href);
-const { SITE_URL, PROJECTS, EARLIER_WORK, PROFILE, EXPERIENCES, SKILL_BRANCHES, CATEGORY_LABEL, heroImage, getRouteMeta } = S;
+const { SITE_URL, PROJECTS, EARLIER_WORK, PROFILE, EXPERIENCES, SKILL_BRANCHES, CATEGORY_LABEL, heroImage, fullPageImages, getRouteMeta } = S;
 
 const write = (rel, text) => {
   const file = join(dist, rel);
@@ -68,12 +68,12 @@ const lastmod = (r) => {
 };
 const urls = indexable.map((r) => {
   const slug = r.startsWith('/projects/') ? r.slice('/projects/'.length) : null;
-  const img = slug ? heroImage(slug) : null;
+  const imgs = slug ? [heroImage(slug), ...fullPageImages(slug)].filter(Boolean) : [];
   return [
     '  <url>',
     `    <loc>${xml(SITE_URL + (r === '/' ? '/' : r))}</loc>`,
     `    <lastmod>${lastmod(r)}</lastmod>`,
-    img ? `    <image:image><image:loc>${xml(img.url)}</image:loc></image:image>` : null,
+    ...imgs.map((img) => `    <image:image><image:loc>${xml(img.url)}</image:loc></image:image>`),
     '  </url>',
   ].filter(Boolean).join('\n');
 });

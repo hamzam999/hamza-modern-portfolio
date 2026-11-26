@@ -33,6 +33,18 @@ export function heroImage(slug: string): { url: string; path: string } | null {
   return { url: SITE_URL + path, path };
 }
 
+/** Full-page layout images that exist for a project (desktop first), as absolute URLs. */
+export function fullPageImages(slug: string): { url: string; path: string; device: 'desktop' | 'mobile' }[] {
+  const full = media[slug]?.full;
+  if (!full) return [];
+  return (['desktop', 'mobile'] as const).flatMap((device) => {
+    const img = full[device];
+    if (!img) return [];
+    const path = `/projects/${slug}/${img.file}`;
+    return [{ url: SITE_URL + path, path, device }];
+  });
+}
+
 const graph = (nodes: Json[]): Json => ({ '@context': 'https://schema.org', '@graph': nodes });
 const personStub: Json = { '@type': 'Person', '@id': ID.person, name: SITE_NAME, url: `${SITE_URL}/` };
 const websiteNode = (): Json => ({
@@ -119,7 +131,9 @@ function projectNode(p: Project): Json {
   };
   if ('applicationCategory' in p.seo) node.applicationCategory = p.seo.applicationCategory;
   if ('operatingSystem' in p.seo) node.operatingSystem = p.seo.operatingSystem;
-  if (hero) node.image = hero.url;
+  const layouts = fullPageImages(p.slug);
+  if (hero) node.image = layouts.length ? [hero.url, ...layouts.map((l) => l.url)] : hero.url;
+  if (layouts.length && p.seo.schemaType === 'SoftwareApplication') node.screenshot = layouts.map((l) => l.url);
   // Only a confirmed year becomes dateCreated; inferred and TBC years stay out of structured data.
   const status: string = p.yearStatus;
   const year: string | null = p.year;

@@ -1,5 +1,7 @@
 // Media pipeline (plan 6.11, round 2). Run: `npm run media [-- --strict]`.
-// media-src/projects/<slug>/screenshot.(png|jpg|webp) [+ mobile.*]  ->  public/projects/<slug>/*.avif|webp (+ print-360/720.webp for the hero collage)
+// media-src/projects/<slug>/desktop-full.(png|webp|jpg) [+ mobile-full.*]  (written by `npm run shots:projects`; legacy screenshot.* still read)
+//   ->  public/projects/<slug>/hero-*.avif|webp (16:10 top crop of the desktop capture), cover-*.avif|webp (duotone, top crop of the mobile capture),
+//       print-360/720.webp (hero collage), full-desktop.webp / full-mobile.webp (capped full-page layouts for the project page, see FULL below)
 //   and src/content/media-manifest.json. Missing sources are reported and skipped (exit 0 unless --strict).
 // media-src/archive/<name>.png (the owner's earlier work)           ->  public/archive/<name>-360|720.webp, src/content/archive-media.json
 // media-src/profile/hamza.(jpg|png|webp) (optional portrait)        ->  public/profile/portrait-480|800.webp (duotone), src/content/profile-media.json
@@ -32,6 +34,13 @@ const PROFILE_MANIFEST = path.join(ROOT, 'src/content/profile-media.json');
 const PROFILE_W = [480, 800];
 const PROFILE_ASPECT = 0.8;
 const HERO_ASPECT = 1.6;
+// Full-page layouts shown inside the browser and phone frames on project pages. Source heights are capped (the frame says "Continues on the live site"),
+// then resized to the delivered width and encoded at the highest WebP quality that fits the byte budget (WebP max side is 16383 px).
+const FULL = {
+  desktop: { cssWidth: 1440, capCssHeight: 7000, outWidth: 1200, budget: 350 * 1024, file: 'full-desktop.webp' },
+  mobile: { cssWidth: 390, capCssHeight: 9000, outWidth: 585, budget: 300 * 1024, file: 'full-mobile.webp' },
+};
+const PIPELINE = 'v3-full-pages';
 
 /** Duotone ramps by spine swatch (plan 6.11 table). */
 const DUOTONE = {
@@ -61,6 +70,7 @@ function findSource(slug, base) {
 
 const sha1 = (...files) => {
   const h = createHash('sha1');
+  h.update(PIPELINE);
   for (const f of files) if (f) h.update(readFileSync(f));
   return h.digest('hex');
 };
@@ -82,6 +92,27 @@ async function cropAspect(input, aspect, focal) {
   const left = Math.max(0, Math.min(w - cw, Math.round(focal.x * w - cw / 2)));
   const top = Math.max(0, Math.min(h - ch, Math.round(focal.y * h - ch / 2)));
   return sharp(input).extract({ left, top, width: cw, height: ch });
+}
+
+/** Capped, resized full-page layout. Returns { file, width, height, cropped, bytes, quality }. */
+async function fullPage(src, cfg, dir, warnings, slug) {
+  const meta = await sharp(src, { limitInputPixels: false }).metadata();
+  const scaleSrc = meta.width / cfg.cssWidth;
+  const capSrc = Math.round(cfg.capCssHeight * scaleSrc);
+  const cropped = meta.height > capSrc;
+  const srcH = Math.min(meta.height, capSrc);
+  const w = Math.min(cfg.outWidth, meta.width);
+  const h = Math.round((srcH * w) / meta.width);
+  const base = await sharp(src, { limitInputPixels: false }).extract({ left: 0, top: 0, width: meta.width, height: srcH }).resize({ width: w, height: h, kernel: 'lanczos3' }).toBuffer();
+  let q = 80;
+  let buf = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
+  while (buf.length > cfg.budget && q > 36) {
+    q -= 6;
+    buf = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
+  }
+  if (buf.length > cfg.budget) warnings.push(`${slug}/${cfg.file}: ${Math.round(buf.length / 1024)} KB at quality ${q} is over the ${Math.round(cfg.budget / 1024)} KB budget`);
+  writeFileSync(path.join(dir, cfg.file), buf);
+  return { file: cfg.file, width: w, height: h, cropped, bytes: buf.length, quality: q };
 }
 
 async function duotone(img, [shadow, highlight], width) {
@@ -168,16 +199,16 @@ async function main() {
   const warnings = [];
 
   for (const p of projects) {
-    const shot = findSource(p.slug, 'screenshot');
+    const shot = findSource(p.slug, 'desktop-full') ?? findSource(p.slug, 'screenshot');
     if (!shot) {
       missing.push(p.slug);
       continue;
     }
-    const mobileSrc = findSource(p.slug, 'mobile');
+    const mobileSrc = findSource(p.slug, 'mobile-full') ?? findSource(p.slug, 'mobile');
     const hash = sha1(shot, mobileSrc);
     const dir = path.join(OUT, p.slug);
     const prev = old[p.slug];
-    if (prev?.sourceHash === hash && existsSync(path.join(dir, 'cover-300.webp')) && existsSync(path.join(dir, 'print-360.webp'))) {
+    if (prev?.sourceHash === hash && existsSync(path.join(dir, 'cover-300.webp')) && existsSync(path.join(dir, 'print-360.webp')) && (!prev.full || Object.values(prev.full).every((f) => existsSync(path.join(dir, f.file))))) {
       manifest[p.slug] = prev;
       continue;
     }
@@ -201,23 +232,23 @@ async function main() {
 
     // Cover art: portrait crop of mobile.* when present, otherwise of the 16:10 hero crop, around media.focal.
     const coverBase = mobileSrc ? mobileSrc : heroBase;
-    const cropped = await cropAspect(coverBase, COVER_ASPECT, p.focal);
+    const cropped = await cropAspect(coverBase, COVER_ASPECT, mobileSrc ? { x: 0.5, y: 0 } : p.focal); // full-page mobile captures: top of the page
     const croppedBuf = await cropped.png().toBuffer();
     const ramp = DUOTONE[p.spine] ?? DUOTONE.ink;
     for (const w of COVER_W) await writePair(await duotone(sharp(croppedBuf), ramp, w), path.join(dir, `cover-${w}`));
 
-    let mobile = null;
-    if (mobileSrc) {
-      for (const w of MOBILE_W) await writePair(sharp(mobileSrc).resize({ width: w, withoutEnlargement: true }), path.join(dir, `mobile-${w}`));
-      mobile = { widths: MOBILE_W };
-    }
+    const full = {};
+    if (path.basename(shot).startsWith('desktop-full')) full.desktop = await fullPage(shot, FULL.desktop, dir, warnings, p.slug);
+    if (mobileSrc && path.basename(mobileSrc).startsWith('mobile-full')) full.mobile = await fullPage(mobileSrc, FULL.mobile, dir, warnings, p.slug);
+    // Old generated names from earlier pipeline versions.
+    for (const old of ['mobile-390', 'mobile-780']) for (const e of ['avif', 'webp']) rmSync(path.join(dir, `${old}.${e}`), { force: true });
 
     const stats = await sharp(heroBase).resize(64).stats();
     manifest[p.slug] = {
       hero: { widths: heroW, ratio: HERO_ASPECT },
       print: { widths: PRINT_W },
       cover: { widths: COVER_W },
-      mobile,
+      full: Object.keys(full).length ? full : null,
       dominant: toHex([stats.dominant.r, stats.dominant.g, stats.dominant.b]),
       sourceHash: hash,
     };

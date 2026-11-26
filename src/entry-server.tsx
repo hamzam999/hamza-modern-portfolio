@@ -11,7 +11,7 @@ export function render(url: string): string {
 }
 
 export { getAllRoutes, getRouteMeta } from './seo/meta';
-export { getJsonLd, heroImage } from './seo/jsonld';
+export { getJsonLd, heroImage, fullPageImages } from './seo/jsonld';
 export { SITE_URL, SITE_NAME } from './seo/site';
 export { ARCADE_UPDATED, CONTENT_UPDATED, INTERVIEW_UPDATED, PROJECTS_UPDATED } from './seo/dates';
 export { PROJECTS, EARLIER_WORK } from './content/projects';
