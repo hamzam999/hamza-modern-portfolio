@@ -20,7 +20,7 @@ export const EXPERIENCES: readonly Experience<ProjectSlug>[] = [
     company: 'House of THL',
     start: '2022-03',
     end: '2023-01',
-    location: 'Kanpur, U.P',
+    location: 'U.P',
     details: [
       'Built responsive Shopify themes (Liquid, HTML5, CSS3/SCSS, JavaScript ES6+) from Figma/XD designs.',
       'Improved organic traffic by 30% through technical SEO, structured data and performance work.',
@@ -33,7 +33,7 @@ export const EXPERIENCES: readonly Experience<ProjectSlug>[] = [
     company: 'ITH Technologies',
     start: '2023-02',
     end: '2025-12',
-    location: 'Kanpur, U.P',
+    location: 'U.P',
     details: [
       'Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%.',
       'Improved performance by 30-50% using SSR/SSG and code splitting.',

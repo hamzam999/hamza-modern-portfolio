@@ -134,7 +134,7 @@ export interface Profile {
   name: string;
   title: string;                 // "Senior Frontend Engineer"
   currentRole: string;           // "Frontend & ERP Developer (Freelance)"
-  location: string;              // "Kanpur, India"
+  location: string;              // "India"
   email: 'erhamza.dev@gmail.com';
   links: { linkedin: string; github: string; site: 'https://erhamza.tech' };
   summary: readonly string[];             // resume Summary, split into paragraphs

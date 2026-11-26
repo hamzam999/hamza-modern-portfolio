@@ -23,7 +23,7 @@ const STATIC: Record<string, Omit<RouteMeta, 'canonical' | 'og'> & { path: strin
     og: { type: 'profile', file: 'default', alt: OG_ALT.default },
     title: 'Mohammad Hamza · Senior Frontend Developer (React, Next.js)',
     description:
-      'Senior frontend engineer in Kanpur, India with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js sites. Remote.',
+      'Senior frontend engineer in India with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js sites. Remote.',
     robots: 'index, follow',
   },
   '/projects': {

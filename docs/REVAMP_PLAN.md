@@ -584,7 +584,7 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 - Lead (Newsreader, `--fs-lead`), the resume summary's first sentence: "Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences."
 - Tagline (Newsreader italic): "Engineering Business Impact." (from `HERO_CONTENT.tagline`).
 - Focus line (Inter Tight, `--fs-ui`, as a plain list): React · Next.js · Three.js / WebGL · Shopify · Web3.
-- Availability: "Available for Collaborations" (from `HERO_CONTENT.availability`) · "Kanpur, India · Remote" (location from the resume header; "Remote" from the freelance role).
+- Availability: "Available for Collaborations" (from `HERO_CONTENT.availability`) · "India · Remote" (location from the resume header; "Remote" from the freelance role).
 - Credits strip (film credits style, `--fs-label`): `A MOHAMMAD HAMZA BUILD · 2020–2026 · 17 REELS IN THE ARCHIVE` (the count is computed from data).
 - Actions: primary `Press start` (link to `#level-origin`), secondary `Skip to projects` (`#level-archive`), ghost `Hire me` (`#level-contact`).
 - One-line game note under the actions, `--fs-small`, muted-strong: "This page is a six-level run. Scroll to play, or turn Play mode off in the passport." **[COPY: approve]**
@@ -630,9 +630,9 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
   - Role: Senior Frontend Engineer (current title: Frontend & ERP Developer, freelance)
   - Experience: 6+ years, since January 2020
   - Focus: React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), Web3 (Solana, Ethers.js, Wagmi), ERPNext/Frappe, Three.js and GLSL
-  - Education: Bachelor of Computer Science, CSJM University, Kanpur, 2020
+  - Education: Bachelor of Computer Science, CSJM University, 2020
   - Recognition: "Promising Newcomer" at ITH Technologies, for quickly ramping up on complex Web3 systems and delivering high-impact frontend solutions
-  - Based in: Kanpur, India
+  - Based in: India
   - Works: Remote
   - Email: erhamza.dev@gmail.com (no phone number is published anywhere on the site)
 - Stats as "credits" (number large, label small). Each stat must carry its context so it is not misleading:
@@ -651,7 +651,7 @@ Skills for all of Section 5: **taste-skill** (art direction and screenshot look-
 
 **Accessibility.** `<dl>` semantics; stats are a `<ul>` where each item reads "35% faster page loads after merging trading tools into one Next.js CRM". Reading order in DOM matches the visual order on mobile.
 
-**SEO.** H2 contains "Web3", "ERP" and "3D". Facts include "Senior Frontend Engineer", "React", "Next.js", "Shopify", "Kanpur, India", "Remote". This `<dl>` is also the source for the Person JSON-LD (9.5) so they never drift.
+**SEO.** H2 contains "Web3", "ERP" and "3D". Facts include "Senior Frontend Engineer", "React", "Next.js", "Shopify", "India", "Remote". This `<dl>` is also the source for the Person JSON-LD (9.5) so they never drift.
 
 **Acceptance criteria.** All bio text visible without interaction; no stat appears without its context sentence; `<dl>` passes axe; layout holds at 360 with long words like "Online Store 2.0" wrapping cleanly.
 
@@ -741,10 +741,10 @@ Markup: `<section id="earlier-work" aria-labelledby>` containing `<details><summ
 - H2: "Career path: 6+ years of frontend engineering".
 - Summary line right under the H2 so the latest role is seen first: "Now: Frontend & ERP Developer (Freelance), Product & E-commerce Solutions, since Jan 2026, remote."
 - Five checkpoints in chronological order (oldest first, matching the ruler running left to right):
-  0. Education (small checkpoint, no card body): Bachelor of Computer Science, CSJM University, Kanpur, 2020.
+  0. Education (small checkpoint, no card body): Bachelor of Computer Science, CSJM University, 2020.
   1. **Shopify & WordPress Developer (Founder)**, Self-Employed, Jan 2020 – Jan 2022. Bullet: "Built and scaled a D2C e-commerce business on Shopify/WooCommerce with custom Shopify themes, custom checkout logic and SEO."
-  2. **Shopify Developer / Frontend Developer**, House of THL, Mar 2022 – Jan 2023, Kanpur, U.P. Bullets: "Built responsive Shopify themes (Liquid, HTML5, CSS3/SCSS, JavaScript ES6+) from Figma/XD designs." / "Improved organic traffic by 30% through technical SEO, structured data and performance work." / "Integrated Shopify APIs, third-party apps and payment systems; built cart features that lifted AOV." After this card, the collapsed **Earlier work** block (5.4a) is referenced with a link "Earlier client stores from this period", because those projects predate the current archive.
-  3. **Frontend & Web3 Engineer**, ITH Technologies, Feb 2023 – Dec 2025, Kanpur, U.P. Bullets: "Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%." / "Improved performance by 30-50% using SSR/SSG and code splitting." / "Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs)." / "Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend." Award line: "Promising Newcomer" award. Related projects (inferred from the bullets): unified-trading-crm, dex-cex-multisig-wallet.
+  2. **Shopify Developer / Frontend Developer**, House of THL, Mar 2022 – Jan 2023, U.P. Bullets: "Built responsive Shopify themes (Liquid, HTML5, CSS3/SCSS, JavaScript ES6+) from Figma/XD designs." / "Improved organic traffic by 30% through technical SEO, structured data and performance work." / "Integrated Shopify APIs, third-party apps and payment systems; built cart features that lifted AOV." After this card, the collapsed **Earlier work** block (5.4a) is referenced with a link "Earlier client stores from this period", because those projects predate the current archive.
+  3. **Frontend & Web3 Engineer**, ITH Technologies, Feb 2023 – Dec 2025, U.P. Bullets: "Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%." / "Improved performance by 30-50% using SSR/SSG and code splitting." / "Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs)." / "Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend." Award line: "Promising Newcomer" award. Related projects (inferred from the bullets): unified-trading-crm, dex-cex-multisig-wallet.
   4. **Frontend & ERP Developer (Freelance)**, Product & E-commerce Solutions, Jan 2026 – Present, Remote. Bullets (resume, verbatim): CodesLytic Budget solo full-stack build; ERPNext/Frappe customisation for a manufacturing client; custom Shopify apps (Remix, Polaris, Shopify CLI) with Admin/Storefront APIs, webhooks, Checkout Extensions and Functions; Shopify OS 2.0 storefronts and React/Next.js apps including 3D animated websites with Three.js and GSAP; Claude skills, AI agents and n8n automations for lead generation and reels/LinkedIn content; leading projects with no predefined design direction. Related projects (named in the bullets): codeslytic-budget, erpnext-manufacturing, ai-agent-team.
   Each checkpoint links to related projects only where the resume ties them to that role. Project year ranges in Appendix D are inferred from these links and marked "inferred".
 
@@ -764,7 +764,7 @@ Markup: `<section id="earlier-work" aria-labelledby>` containing `<details><summ
 
 **Purpose.** Convert: make contacting the owner obvious and rewarding, behind a playful red door that never blocks anyone.
 
-**Content source.** Resume v6 header (email `erhamza.dev@gmail.com`, location Kanpur, India; it shows LinkedIn, GitHub and Portfolio only as hyperlinks) with exact URLs from `SOCIAL_LINKS` in `constants.tsx`: LinkedIn `https://www.linkedin.com/in/er-mohammad-hamza/`, GitHub `https://github.com/hamzam999`. **The phone number in the resume is never published** (not on the site, in JSON-LD, in `llms.txt` or in any generated file); `profile.ts` has no phone field at all. Resume download: `/resume.pdf`, the owner's phone-free export of v6 (action A1 in 12.1); the link is hidden until that file exists.
+**Content source.** Resume v6 header (email `erhamza.dev@gmail.com`, location India; it shows LinkedIn, GitHub and Portfolio only as hyperlinks) with exact URLs from `SOCIAL_LINKS` in `constants.tsx`: LinkedIn `https://www.linkedin.com/in/er-mohammad-hamza/`, GitHub `https://github.com/hamzam999`. **The phone number in the resume is never published** (not on the site, in JSON-LD, in `llms.txt` or in any generated file); `profile.ts` has no phone field at all. Resume download: `/resume.pdf`, the owner's phone-free export of v6 (action A1 in 12.1); the link is hidden until that file exists.
 
 **Copy outline.**
 
@@ -1266,7 +1266,7 @@ Rules for using keywords:
 
 | Route | Title | Meta description | Canonical | Robots | OG type and image |
 |---|---|---|---|---|---|
-| `/` | Mohammad Hamza · Senior Frontend Developer (React, Next.js) | Senior frontend engineer in Kanpur, India with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js sites. Remote. | `/` | index, follow | `profile`; `/og/default.png` |
+| `/` | Mohammad Hamza · Senior Frontend Developer (React, Next.js) | Senior frontend engineer in India with 6+ years building React and Next.js apps, Shopify storefronts, Web3 dashboards and Three.js sites. Remote. | `/` | index, follow | `profile`; `/og/default.png` |
 | `/projects` | Project archive: React, Shopify, Web3 and 3D work \| Mohammad Hamza | Seventeen projects by Mohammad Hamza: Shopify checkouts and storefronts, Web3 dashboards and wallets, Three.js sites, Next.js and ERPNext products, WordPress builds. | `/projects` | index, follow | `website`; `/og/projects.png` |
 | `/projects/<slug>` | from `project.seo.title` (Appendix D) | from `project.seo.description` (Appendix D) | `/projects/<slug>` | index, follow | `article`; `/og/projects/<slug>.png` |
 | `/arcade` | Arcade: Reel Pong \| Mohammad Hamza | Play Reel Pong, a small paper-and-cobalt Pong game built for this portfolio. First to five wins; touch, mouse and keyboard supported. | `/arcade` | index, follow | `website`; `/og/arcade.png` |
@@ -1475,13 +1475,13 @@ Earlier work entries (5.4a) have no URLs and are not in the sitemap; they are co
 ```markdown
 # Mohammad Hamza
 
-> Mohammad Hamza is a Senior Frontend Engineer based in Kanpur, India, with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), ERPNext/Frappe, Solana and EVM wallets, and Three.js with GLSL. He works remotely as a freelance Frontend & ERP Developer.
+> Mohammad Hamza is a Senior Frontend Engineer based in India, with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), ERPNext/Frappe, Solana and EVM wallets, and Three.js with GLSL. He works remotely as a freelance Frontend & ERP Developer.
 
 This site is his portfolio. Every project below has its own page with a plain-language summary, his role, the tech stack and links. Results quoted on project pages are as stated by the owner. Private client work is described without naming the client or linking to it.
 
 ## About
 
-- [Profile and quick facts](https://erhamza.tech/#level-origin): role, experience since 2020, education (Bachelor of Computer Science, CSJM University, Kanpur, 2020), recognition ("Promising Newcomer" at ITH Technologies)
+- [Profile and quick facts](https://erhamza.tech/#level-origin): role, experience since 2020, education (Bachelor of Computer Science, CSJM University, 2020), recognition ("Promising Newcomer" at ITH Technologies)
 - [Career path](https://erhamza.tech/#level-career): Frontend & ERP Developer, freelance (Jan 2026–present); Frontend & Web3 Engineer at ITH Technologies (Feb 2023–Dec 2025); Shopify Developer / Frontend Developer at House of THL (Mar 2022–Jan 2023); Shopify & WordPress Developer and founder of a D2C e-commerce business (Jan 2020–Jan 2022)
 - [Skills](https://erhamza.tech/#level-skills): Frontend, Architecture, 3D & Animation, Shopify, Web3 & Blockchain, E-commerce & SaaS, ERP, DevOps & Tools, AI & Automation; currently learning backend (Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth)
 - [Contact](https://erhamza.tech/#level-contact): email erhamza.dev@gmail.com, LinkedIn, GitHub, resume (PDF)
@@ -1910,7 +1910,7 @@ Status as of revision 2. Numbers are kept from revision 1; answered items show t
 | Q11 | Old projects not in the CSV | **Answered:** drop from shelf and index; keep as a plain "Earlier work / Out of print" list with no tapes, pages or links. Louis Cardin = UAE-based perfume brand launched in India; Sedef Anatolia = inspired-perfume brand from India; Slurvo and WanHam Leathers from old repo text. | Implemented in 5.4a (Bizthon Cursor included, as it is in the old data) |
 | Q12 | Which resume to publish | **Answered:** v6, as `/resume.pdf`. | **Action A1 (owner):** v6 contains the phone number; export a phone-free copy of v6 and save it as `public/resume.pdf`. Agents must not copy the original PDF into `public/` and must not edit the PDF themselves. The resume link stays hidden until the phone-free file exists. |
 | Q13 | Contact details and `sameAs` | **Answered from resume v6:** email `erhamza.dev@gmail.com`; LinkedIn, GitHub and Portfolio links (the PDF shows them as hyperlinks only, so exact URLs come from `constants.tsx`: `https://www.linkedin.com/in/er-mohammad-hamza/`, `https://github.com/hamzam999`). **Never publish the phone number** anywhere. | **Action A2 (owner):** in the phone-free PDF, point the "Portfolio" hyperlink to `https://erhamza.tech`. **Action A3 (owner):** set the website field on LinkedIn and GitHub to `https://erhamza.tech` (helps entity matching). |
-| Q14 | Location and engagement types | **Location answered:** Kanpur, India (resume header). Engagement types: default in use; owner to confirm after build. | Visible copy "Kanpur, India · Remote"; JSON-LD `address` included; L6 says "available for collaborations" without listing engagement types |
+| Q14 | Location and engagement types | **Location answered:** India (resume header). Engagement types: default in use; owner to confirm after build. | Visible copy "India · Remote"; JSON-LD `address` included; L6 says "available for collaborations" without listing engagement types |
 | Q15 | Skill depth labels | **Partly answered:** the skill tree now mirrors the resume Skills section; depth follows the resume's bold emphasis mechanically. Rest: default in use; owner to confirm after build | Owner may override |
 | Q16 | First ruler tick | **Answered from resume:** 2020 (founder role and degree). The ruler now runs **2020 to 2026**. | Closed |
 | Q17 | Alias "Er. Hamza" in `alternateName` | **Default in use; owner to confirm after build** | Omitted |
@@ -2281,7 +2281,7 @@ export interface Profile {
   name: string;
   title: string;                 // "Senior Frontend Engineer"
   currentRole: string;           // "Frontend & ERP Developer (Freelance)"
-  location: string;              // "Kanpur, India"
+  location: string;              // "India"
   email: 'erhamza.dev@gmail.com';
   links: { linkedin: string; github: string; site: 'https://erhamza.tech' };
   summary: string[];             // resume Summary, split into paragraphs

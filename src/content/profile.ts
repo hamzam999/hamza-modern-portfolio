@@ -5,7 +5,7 @@ export const PROFILE = {
   name: 'Mohammad Hamza',
   title: 'Senior Frontend Engineer',
   currentRole: 'Frontend & ERP Developer (Freelance)',
-  location: 'Kanpur, India',
+  location: 'India',
   email: 'erhamza.dev@gmail.com',
   links: {
     linkedin: 'https://www.linkedin.com/in/er-mohammad-hamza/',
