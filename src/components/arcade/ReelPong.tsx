@@ -170,6 +170,15 @@ export default function ReelPong() {
     }
   }, []);
 
+  /** Fresh visibility check (IntersectionObserver entries can lag behind a programmatic scroll). */
+  const measureAway = (): boolean => {
+    const c = canvasRef.current;
+    if (!c) return false;
+    const r = c.getBoundingClientRect();
+    const ratio = r.height > 0 ? Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0)) / r.height : 1;
+    return ratio < 0.5;
+  };
+
   const canRun = () => !blocked.current.hidden && !blocked.current.away;
 
   const tick = useCallback((t: number) => {
@@ -210,8 +219,18 @@ export default function ReelPong() {
       setResult('');
       setLive('');
     }
+    // Bring the field into view first: a start below the 50 % visibility line would pause at once (plan 8.4).
+    const c = canvasRef.current;
+    if (c) {
+      const r = c.getBoundingClientRect();
+      const top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--topbar-h')) || 56;
+      if (r.top < top || r.bottom > window.innerHeight) {
+        c.scrollIntoView({ block: 'center', behavior: 'instant' as ScrollBehavior });
+      }
+      blocked.current.away = measureAway();
+      c.focus({ preventScroll: true });
+    }
     eng.start();
-    canvasRef.current?.focus({ preventScroll: true });
     kick();
   }, [kick]);
 
@@ -227,6 +246,8 @@ export default function ReelPong() {
   useEffect(() => {
     engine.current = createPong({ difficulty: pong.difficulty, accessible: pong.accessible });
     themeRef.current = readTheme();
+    // e2e build only (plan 11.2): lets specs set up a won game without playing 5 rallies.
+    if (import.meta.env.VITE_TEST_HOOKS === 'true') (window as unknown as { __pong?: Pong }).__pong = engine.current;
     kick();
     return () => {
       cancelAnimationFrame(raf.current);
@@ -290,8 +311,8 @@ export default function ReelPong() {
     };
     const onBlur = () => pauseIfRunning();
     const io = new IntersectionObserver(
-      ([e]) => {
-        blocked.current.away = !!e && e.intersectionRatio < 0.5;
+      () => {
+        blocked.current.away = measureAway();
         if (blocked.current.away) pauseIfRunning();
       },
       { threshold: [0, 0.5, 1] },

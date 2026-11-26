@@ -23,12 +23,14 @@ export default function Arcade() {
       )}
       <div className="arcade__grid">
         <ReelPong />
+        <div className="arcade__side">
         {GAMES.filter((g) => g.status === 'soon').map((g) => (
           <section key={g.id} className="arcade__slot" aria-labelledby={`${g.id}-t`}>
             <h2 id={`${g.id}-t`} className="arcade__slot-title">{g.title}</h2>
             <p className="arcade__slot-note">Coming later</p>
           </section>
         ))}
+        </div>
       </div>
       <p className="arcade__links">
         <Link to="/projects">Back to the archive</Link>

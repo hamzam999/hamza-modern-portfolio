@@ -2,11 +2,11 @@
 
 Updated: 2026-11-25T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 3 (Shelf)
+Current phase: 4 (Arcade, G4 pending)
 Current gate: G3 pending (Opus plus owner /review-animations)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G2 and G3 reviews, then Phase 4
+Next task(s): G2, G3, G4 reviews, then Phase 5
 Blockers: none
 
 ## Tasks
@@ -45,6 +45,11 @@ Blockers: none
 | P3-7 | done | sonnet | claude/bold-tesla-le6sg7 | - | DetailSheet (modal route), InkMask, sheet.css, App.tsx modal route; ProjectDetail got `poster` and `reveal` props |
 | P3-8 | done | sonnet | claude/bold-tesla-le6sg7 | - | ShelfBox: reduced-motion grid default, Show as shelf / Show as grid, error boundary |
 | P3-9 | done | sonnet | claude/bold-tesla-le6sg7 | - | tests/e2e/shelf.spec.ts and perf.spec.ts (idle rAF, will-change, CLS, 4x throttle drag, N=14 windowed pool); scripts/check-budgets.mjs created |
+| P4-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | src/components/arcade/pong-engine.ts + 18 tests (scoring, caps, CPU levels, accessible, orientation) |
+| P4-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | ReelPong.tsx: DPR-capped canvas, ResizeObserver, landscape/portrait, banners, draw-only-while-running rAF |
+| P4-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | useGameInput.ts (pointer, touch single-finger capture, keys); pause on hidden, blur, <50% visible, dialog open |
+| P4-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | Arcade.tsx, games.ts, arcade.css; early-visit banner; win grants XP via grantPongWin, first win lands stamp |
+| P4-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | sr-only role=status scoreboard, accessible mode, labels; tests/e2e/arcade.spec.ts (12 tests x 5 projects) |
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -82,7 +87,10 @@ Blockers: none
 [COPY: approve] strings for the owner: L1 game note ("This page is a six-level run..."); L2 H2 (levels.ts) ; L3 intro ("Skills as listed on my resume...") and legend labels ("core skill / working skill / currently learning"); L4 intro ("Ten tapes on the shelf, seventeen in the archive. Open a tape for the full story." shelf sentence omitted until Phase 3), "Full archive", "Open the archive page", "Earlier work · out of print (5)" and the /projects earlier-work intro; L5 "Now:" summary line and "Earlier client stores from this period"; L6 lead (engagement types unconfirmed), "Open the red door", "Boss defeated", "Thanks for playing."; project page: private notes ("Built for a client...", etc.), "Visit live site", "View repository", "Out of print. This project has shut down.", result source labels, "Owner to confirm"; /projects intro; interview H1/lead ("Frontend interview questions: ..."); 404 text.
 Open data flags kept: 25+ projects stat (previous site only), skill depth (assumed), years TBC, resume link hidden until resumePdf exists.
 
+- Phase 4 deviations: ReelPong renders the whole card (scoreboard, canvas, controls, rules) and Arcade imports it statically so the text is prerendered; games.ts lists Pong without `load` (placeholders only). Difficulty and accessible mode persist in the store `pong` record; changing either resets to idle. Orientation: landscape when container width / (innerHeight - topbar - 160) >= 1.05. Starting scrolls the field into view first (otherwise the <50% visibility rule pauses at once). e2e build sets `window.__pong` (engine) so specs can force a won game. Screen shake on a point only when motion is allowed. Arcade chunk 6.0 KB gzip; initial JS 109.6 KB.
+
 ## Log
+- P4-1..P4-5 done; typecheck, vitest (74), build:e2e, `@arcade|@a11y` (83 passed), budgets, build green; shots in test-results/arcade/
 - P3-1..P3-9 done; typecheck, vitest, build:e2e, `@shelf|@sheet|@perf|@a11y`, budgets, shots and build green (details in the Phase 3 notes)
 - P2-1..P2-9 done; typecheck, vitest (27), build:e2e, `@levels|@a11y|@nojs` (76 passed), shots and build green
 - P1-1..P1-8 done; typecheck, vitest (27), build, build:e2e, `@shell|@a11y` and shots green (see below); 22 prerendered files each with one H1
