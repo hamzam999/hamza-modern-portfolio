@@ -1,0 +1,15 @@
+/* Self-hosted fonts (plan 3.7). Latin subsets only; font-display swap; fontaine adds metric fallbacks. */
+@import "@fontsource/inter-tight/latin-500.css";
+@import "@fontsource/inter-tight/latin-600.css";
+@import "@fontsource/newsreader/latin-400.css";
+@import "@fontsource/newsreader/latin-400-italic.css";
+
+/* Decorative Urdu (Nastaliq) for the halftone words: subset of Noto Nastaliq Urdu 700 built by scripts/build-urdu.mjs (npm run urdu).
+   font-display: block, because the glyphs are painted through a dot-grid clip and a fallback face would flash wrong shapes. */
+@font-face {
+  font-family: "Noto Nastaliq Urdu Subset";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("/fonts/noto-nastaliq-urdu-700-subset.5c0ef437.woff2") format("woff2");
+}

@@ -1,0 +1,120 @@
+/* Archive Quest tokens. Single source of truth; Tailwind @theme maps to these. */
+:root {
+  color-scheme: light;
+
+  /* Color */
+  --paper: #ECE8E0;
+  --sheet: #F3F0EA;
+  --ink: #141414;
+  --muted: #6D6A63;          /* large or decorative text on paper; small text on sheet only */
+  --muted-strong: #5E5B55;   /* small secondary text on paper (5.54:1) */
+  /* Accent: deep forest green (Round 4, was cobalt). 6.18:1 on paper, 6.64:1 on sheet, 7.55:1 white on it (AA text both ways).
+     --accent-deep is the hover/pressed fill (white on it 10.3:1). Vermilion stays for rewards only. */
+  --accent: #17603F;
+  --accent-deep: #0F4A31;
+  --vermilion: #D9432B;      /* rewards and alerts: graphics and >= 24px text only */
+  --vermilion-ink: #B8321D;  /* vermilion as small text or as a fill behind text */
+  --graphite: #2A2A2A;       /* spine swatch only */
+  --line: rgb(20 20 20 / 0.18);
+  --line-strong: rgb(20 20 20 / 0.55);
+  --halftone: rgb(58 104 84 / 0.55);
+  --selection: rgb(23 96 63 / 0.16);
+
+  /* Type families */
+  --font-ui: "Inter Tight", "Inter Tight Fallback", system-ui, sans-serif;
+  --font-read: "Newsreader", "Newsreader Fallback", Georgia, serif;
+  --font-ur: "Noto Nastaliq Urdu Subset", "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Naskh Arabic", serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale */
+  --fs-display: clamp(3rem, 1.75rem + 5.6vw, 8.5rem);
+  --fs-h2: clamp(2.25rem, 1.6rem + 2.9vw, 4.5rem);
+  --fs-h3: clamp(1.5rem, 1.25rem + 1.1vw, 2.25rem);
+  --fs-lead: clamp(1.25rem, 1.12rem + 0.55vw, 1.625rem);
+  --fs-body: 1.125rem;
+  --fs-ui: 1rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+  --fs-micro: 0.6875rem;
+  --fs-urdu: clamp(3.5rem, 13vw, 11rem);
+
+  --lh-display: 0.9;
+  --lh-h2: 0.95;
+  --lh-h3: 1.05;
+  --lh-lead: 1.4;
+  --lh-body: 1.55;
+  --lh-ui: 1.45;
+
+  --tr-display: -0.035em;
+  --tr-h2: -0.03em;
+  --tr-h3: -0.015em;
+  --tr-label: 0.14em;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --gutter: min(56px, max(16px, 4vw));
+  --content-max: 1280px;
+  --level-pad-y: clamp(96px, 12vw, 176px);
+  --topbar-h: 56px;
+  --ruler-h: 56px;
+
+  /* Radius and shadow */
+  --r-0: 0;
+  --r-1: 2px;
+  --r-2: 3px;
+  --r-round: 999px;
+  --shadow-tape: 0 34px 60px -30px rgb(20 16 10 / 0.6);
+  --shadow-sheet: 0 1px 0 var(--line), 0 30px 80px -40px rgb(20 16 10 / 0.45);
+
+  /* Motion */
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease-sheet: cubic-bezier(.76, 0, .18, 1);
+  --ease-stamp: cubic-bezier(.3, 1.35, .45, 1);
+  --dur-press: 120ms;
+  --dur-ui: 220ms;
+  --dur-dot: 600ms;
+  --dur-caption: 650ms;
+  --dur-reveal: 700ms;
+  --dur-stamp: 520ms;
+  --dur-door: 900ms;
+  --dur-sheet: 1050ms;
+  --stagger: 60ms;
+
+  /* Z-index */
+  --z-base: 0;
+  --z-urdu: 1;
+  --z-content: 10;
+  --z-shelf: 20;
+  --z-topbar: 40;
+  --z-ruler: 50;
+  --z-toast: 60;
+  --z-dialog: 70;
+  --z-grain: 80;
+  --z-cursor: 90;
+  --z-skip: 100;
+}
+
+@media (min-width: 768px) {
+  :root { --topbar-h: 64px; --ruler-h: 64px; }
+}
+
+/* Reduced motion: system preference or in-site setting (html.reduced). */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-press: 0ms; --dur-ui: 0ms; --dur-dot: 0ms; --dur-caption: 1ms;
+    --dur-reveal: 0ms; --dur-stamp: 0ms; --dur-door: 0ms; --dur-sheet: 0ms; --stagger: 0ms;
+  }
+}
+html.reduced {
+  --dur-press: 0ms; --dur-ui: 0ms; --dur-dot: 0ms; --dur-caption: 1ms;
+  --dur-reveal: 0ms; --dur-stamp: 0ms; --dur-door: 0ms; --dur-sheet: 0ms; --stagger: 0ms;
+}

@@ -1,0 +1,494 @@
+{
+  "berbanto-atelier": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5250,
+        "cropped": false,
+        "bytes": 334338,
+        "quality": 74
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 8471,
+        "cropped": false,
+        "bytes": 263828,
+        "quality": 80
+      }
+    },
+    "dominant": "#080808",
+    "sourceHash": "24ecdbe561cd73bb6f17eb9fca57e4e474b260da"
+  },
+  "codeslytic-budget": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 146488,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 299734,
+        "quality": 74
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "07c65de7ef8ce36cf52ed109b45fa40b6c07d099"
+  },
+  "downtowns-fashion": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 342900,
+        "quality": 68
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 495,
+        "height": 11423,
+        "cropped": true,
+        "bytes": 294064,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "f2c527ac48031ca371e915549b8116961c1e56e1"
+  },
+  "gesim": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 197420,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 282412,
+        "quality": 74
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "e1171cd81a13aeec744c05d08c736cba6a84df94"
+  },
+  "hefashion": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5312,
+        "cropped": false,
+        "bytes": 354886,
+        "quality": 62
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 9930,
+        "cropped": false,
+        "bytes": 306658,
+        "quality": 56
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "95442ab383972310ba290ad98d193445b889c0f8"
+  },
+  "lammles": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 357430,
+        "quality": 62
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 455,
+        "height": 10500,
+        "cropped": true,
+        "bytes": 293098,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "0dad3d01364436aa128b46cb70a79b4c2029f920"
+  },
+  "motiongrid": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 3660,
+        "cropped": false,
+        "bytes": 209132,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13118,
+        "cropped": false,
+        "bytes": 303680,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "33d0cc4b52810b5f30a0aebb36ca31bb0800c2c7"
+  },
+  "muftimaaz": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 321068,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 301516,
+        "quality": 50
+      }
+    },
+    "dominant": "#184838",
+    "sourceHash": "867792101530bab104f25690236d54a838fb9dc1"
+  },
+  "navig": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 860,
+        "height": 4181,
+        "cropped": true,
+        "bytes": 341408,
+        "quality": 50
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 495,
+        "height": 11423,
+        "cropped": true,
+        "bytes": 304692,
+        "quality": 50
+      }
+    },
+    "dominant": "#080808",
+    "sourceHash": "d0638b2c03adf683748e7130fe077e027884ac5e"
+  },
+  "nighat-ahmad-official": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 231218,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 538,
+        "height": 12415,
+        "cropped": true,
+        "bytes": 296320,
+        "quality": 56
+      }
+    },
+    "dominant": "#181818",
+    "sourceHash": "de79fade0a4945afdee4a7b7febaccf64351351d"
+  },
+  "promenade-medulin": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 3695,
+        "cropped": false,
+        "bytes": 302802,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 11406,
+        "cropped": false,
+        "bytes": 304282,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "86bb4d502c4fb8995e3a61bc8dcc049093bc4e1a"
+  },
+  "studio-solyn": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 167458,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 7469,
+        "cropped": false,
+        "bytes": 220530,
+        "quality": 80
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "90df94c564d13690c933fa60b5de85d5f6e7609c"
+  }
+}

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+
+/* Tailwind utility names backed by the tokens (plan 3.6 and Appendix A). */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-vermilion: var(--vermilion);
+  --color-vermilion-ink: var(--vermilion-ink);
+  --color-graphite: var(--graphite);
+  --font-ui: var(--font-ui);
+  --font-read: var(--font-read);
+  --font-ur: var(--font-ur);
+  --font-mono: var(--font-mono);
+  --ease-archive: var(--ease);
+  --ease-sheet: var(--ease-sheet);
+  --radius-tape: var(--r-1);
+  --radius-sheet: var(--r-2);
+}
+
+@import "./base.css";
+@import "./ui.css";
+@import "./hud.css";
+@import "./levels/common.css";
+@import "./arcade.css";
+@import "./levels/l1.css";
+@import "./levels/l2.css";
+@import "./levels/l3.css";
+@import "./levels/l4.css";
+@import "./levels/l5.css";
+@import "./levels/l6.css";
+@import "./art.css";
+@import "./tech.css";
+@import "./projects.css";
+@import "./shelf.css";
+@import "./sheet.css";
+@import "./interview.css";

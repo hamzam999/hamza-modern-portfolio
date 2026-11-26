@@ -41,3 +41,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# build and test output
+/dist-ssr
+/test-results
+/playwright-report
+.lighthouseci*/

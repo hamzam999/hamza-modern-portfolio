@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+<!-- Film reel, ink and accent duotone. Decorative. -->
+<path d="M150 214c24 6 52 8 78 2v-22c-24 4-50 3-72-3l-6 23Z" fill="#141414"/>
+<g fill="#ECE8E0"><rect x="164" y="200" width="7" height="7" rx="1.4" transform="rotate(14 164 200)"/><rect x="182" y="203" width="7" height="7" rx="1.4" transform="rotate(8 182 203)"/><rect x="201" y="204" width="7" height="7" rx="1.4"/><rect x="219" y="203" width="7" height="7" rx="1.4" transform="rotate(-6 219 203)"/></g>
+<circle cx="108" cy="112" r="100" fill="#141414"/>
+<circle cx="108" cy="112" r="86" stroke="#17603F" stroke-width="7"/>
+<circle cx="108" cy="112" r="14" fill="#ECE8E0"/><circle cx="108" cy="112" r="6" fill="#141414"/>
+<g fill="#ECE8E0"><circle cx="108" cy="62" r="19"/><circle cx="151.3" cy="87" r="19"/><circle cx="151.3" cy="137" r="19"/><circle cx="108" cy="162" r="19"/><circle cx="64.7" cy="137" r="19"/><circle cx="64.7" cy="87" r="19"/></g>
+<g stroke="#17603F" stroke-width="3" stroke-linecap="round"><path d="M108 94v-8M123.6 103l7-4M123.6 121l7 4M108 130v8M92.4 121l-7 4M92.4 103l-7-4"/></g>
+<path d="M170 78c18 22 22 52 18 82 0 18 4 32 12 40" stroke="#141414" stroke-width="22" stroke-linecap="round"/>
+<path d="M170 78c18 22 22 52 18 82 0 18 4 32 12 40" stroke="#ECE8E0" stroke-width="2.4" stroke-dasharray="5 9" stroke-linecap="round" opacity=".9"/>
+<g stroke="#ECE8E0" stroke-width="1.6" stroke-linecap="round"><path d="M16 60c10-34 38-54 70-58" opacity=".55"/><path d="M12 150c4 14 12 26 22 34" opacity=".55"/></g>
+</svg>

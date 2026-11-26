@@ -1,0 +1,414 @@
+# Mohammad Hamza
+
+> Mohammad Hamza is a Senior Frontend Engineer based in India, with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), ERPNext/Frappe, Solana and EVM wallets, and Three.js with GLSL. He works remotely as a freelance Frontend & ERP Developer.
+
+## Quick facts
+
+- Role: Senior Frontend Engineer; currently Frontend & ERP Developer (Freelance)
+- Location: India
+- Experience: 6+ years (since 2020)
+- Education: Bachelor of Computer Science, CSJM University, Kanpur, 2020
+- Recognition: Awarded “Promising Newcomer” at ITH Technologies for quickly ramping up on complex Web3 systems and delivering high-impact frontend solutions.
+- Focus: React, Next.js, Three.js / WebGL, Shopify, Web3
+- Website: https://erhamza.tech/
+
+## Profile
+
+Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. Proficient in React, Next.js, TypeScript and Shopify, with deep expertise in Shopify Store 2.0, Shopify Functions, Shopify Extensions and custom app development.
+
+Strong focus on performance optimization (SSR/SSG and code splitting, 30–50% gains), scalable architectures, reusable components, REST/GraphQL API integration, offline-first apps and conversion-driven UI/UX.
+
+Adapts quickly to new domains (Web3, Shopify, 3D web), with strong problem-solving and self-learning capabilities. Currently learning backend development (Node.js, Express, PostgreSQL).
+
+## Career
+
+### Frontend & ERP Developer (Freelance), Product & E-commerce Solutions (Jan 2026–present)
+
+Location: Remote
+
+- Built the CodesLytic Budget full-stack app (Next.js, Node.js, PostgreSQL) end to end as a solo developer.
+- Customised ERPNext/Frappe for a manufacturing client’s workflow, replacing manual processes.
+- Built custom Shopify apps (Remix, Polaris, Shopify CLI) integrating Admin/Storefront APIs and webhooks, plus Shopify Checkout Extensions and Shopify Functions.
+- Delivered Shopify OS 2.0 storefronts and modern React/Next.js applications, including 3D animated websites with Three.js and GSAP.
+- Testing Claude skills and AI agents to raise productivity and expand into new domains: built n8n automations for lead generation and reels/LinkedIn content.
+- Led projects with no predefined design direction, independently defining UI/UX, animation systems and frontend architecture, and delivered production-ready solutions for undefined problems under evolving requirements.
+
+### Frontend & Web3 Engineer, ITH Technologies (Feb 2023–Dec 2025)
+
+Location: U.P
+
+- Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%.
+- Improved performance by 30-50% using SSR/SSG and code splitting.
+- Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs).
+- Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend.
+
+### Shopify Developer / Frontend Developer, House of THL (Mar 2022–Jan 2023)
+
+Location: U.P
+
+- Built responsive Shopify themes (Liquid, HTML5, CSS3/SCSS, JavaScript ES6+) from Figma/XD designs.
+- Improved organic traffic by 30% through technical SEO, structured data and performance work.
+- Integrated Shopify APIs, third-party apps and payment systems; built cart features that lifted AOV.
+
+### Shopify & WordPress Developer (Founder), Self-Employed (Jan 2020–Jan 2022)
+
+- Built and scaled a D2C e-commerce business on Shopify/WooCommerce with custom Shopify themes, custom checkout logic and SEO.
+
+## Skills
+
+- Frontend: JavaScript (ES6+), TypeScript, React, Next.js (App Router, SSR, SSG), React Router, Redux, Context API, HTML5, CSS3/SCSS, Tailwind CSS, Bootstrap, shadcn/ui, TanStack Query, Vite, Responsive Design, Accessibility (WCAG 2.2), Angular, React Native. Seen in: CodesLytic Budget, Unified Trading CRM, Muftimaaz.com, GeSIM, MotionGrid.
+- Architecture: Reusable components, REST/GraphQL API integration, Offline-first sync (IndexedDB, PWA), Multi-tenant access control, Performance optimization. Seen in: CodesLytic Budget, Unified Trading CRM.
+- 3D & Animation: Three.js, GSAP, WebGL, GLSL. Seen in: NAVIG, MotionGrid, Studio Solyn.
+- Shopify: Online Store 2.0, Dawn Theme Customization, Liquid, Shopify Functions, Checkout Extensions, Shopify Apps, Shopify CLI, Polaris, Remix, Webhooks, Storefront API, Admin API. Seen in: Lammle’s Checkout, Nighat Ahmad Official, HE Fashion, Berbanto Atelier, Product & E-commerce Solutions.
+- Web3 & Blockchain: Solana Web3.js, SPL Tokens, Ethers.js, Wagmi, Wallet Integrations, DEX & CEX APIs, NFTs. Seen in: Trading Desk and Multi-sig, GeSIM, NFT Marketplace, ITH Technologies.
+- E-commerce & SaaS: Shopify, WordPress, Headless Commerce, CRM, ATS, Job Boards. Seen in: Nighat Ahmad Official, Promenade Medulin, BookEase, Unified Trading CRM.
+- ERP: ERPNext/Frappe (custom apps, doctypes, workflows), Python. Seen in: ERPNext for Manufacturing, Agent Workflows.
+- DevOps & Tools: Git/GitHub, Bitbucket, Jira, Agile/Scrum, GitHub Actions CI/CD, Docker, AWS EC2, Claude Code, Cursor, Antigravity, VS Code Extensions. Seen in: CodesLytic Budget, ERPNext for Manufacturing.
+- AI & Automation: Claude Code (skills, subagents, MCP), n8n automations, multi-agent workflows (Paperclip, Hermes), Postiz, lead generation, content automation (reels, LinkedIn). Seen in: Agent Workflows.
+- Currently learning (backend): Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth. Seen in: CodesLytic Budget.
+
+# Projects
+
+Eighteen projects. Results marked "owner-reported" are as stated by the owner. Private client work is described without naming the client.
+
+## NAVIG
+
+- Category: Interactive web
+- Status: live
+- Year: 2026
+- Engagement: Freelance client project
+- Role: Sole frontend developer. Owned the frontend architecture and design direction from an abstract product brief.
+- Stack: React, Three.js, GLSL, GSAP
+- Link: https://navig-app.vercel.app/
+- Page: https://erhamza.tech/projects/navig
+
+A visually rich website for a crypto and AI intelligence product. As you scroll, a 3D scene of 25,000+ glowing particles reshapes itself into ocean waves, waterfalls and data streams, and it runs at 144 frames per second.
+
+### Highlights
+
+- Cinematic 3D scroll-driven web experience, built around a GPU-driven particle scene
+- Procedural shader-based visual states and WebGL blending work
+
+### Results
+
+- 25,000+ GPU-driven particles at 144 FPS (owner-reported)
+
+## CodesLytic Budget
+
+- Category: Full-stack and Product
+- Status: live
+- Year: 2026
+- Engagement: Built for a client
+- Role: Built end to end by me as the sole developer, for a client
+- Stack: Next.js, Node.js, PostgreSQL, IndexedDB, Playwright, Docker, GitHub Actions, AWS EC2
+- Tools used: Claude Code
+- Link: https://app.codeslytic.com
+- Page: https://erhamza.tech/projects/codeslytic-budget
+
+A budgeting app that keeps working without internet and syncs when you are back online. It tracks money in many currencies, repeats monthly bills on its own, and splits shared expenses between friends, including paying each other back through UPI.
+
+### Highlights
+
+- Accounts, nested categories, multi-currency tracking, monthly budgets with alerts and projections, recurring transactions on a background worker (time zones, DST, month-end safe)
+- Splitwise-style group expenses (equal, exact, percentage, share) with exact-sum rounding, debt simplification, settlements and UPI settle-up
+- Offline-first sync engine (IndexedDB, idempotent outbox, field-level merge, conflict inbox) and an installable PWA with WCAG 2.2 work
+- Money stored as integer minor units with a shared TypeScript domain core; rotating refresh tokens, Argon2, CSRF checks and multi-tenant access control (per-user data isolation)
+- GitHub Actions CI/CD with Docker deploy to AWS EC2 and automatic rollback
+
+### Results
+
+- 1,500+ unit/integration and 160+ E2E test cases (owner-reported)
+
+## Lammle’s Checkout
+
+- Category: E-commerce and Shopify
+- Status: live
+- Year: 2026
+- Engagement: Client: Lammle’s
+- Role: Sole developer for the checkout work
+- Stack: Shopify Checkout Extensions, Shopify Functions
+- Link: https://www.lammles.com/
+- Page: https://erhamza.tech/projects/lammles
+
+Changes to the checkout of Lammle’s Shopify store. It checks the customer’s details before they pay and adjusts which delivery and payment options show up.
+
+### Highlights
+
+- A Shopify Checkout Extension with checkout form validation
+- Delivery and payment options customised via Shopify Functions
+
+## GeSIM
+
+- Category: Web3
+- Status: live
+- Year: 2025–2026
+- Engagement: Freelance for the GeSIM team
+- Role: Built the first MVP (the web app) in React, mainly the blockchain integration: transactions, their status, purchases and wallet connection. Also worked on the blockchain integration of the React Native mobile app.
+- Stack: React, React Native
+- Link: https://gesim.xyz
+- Page: https://erhamza.tech/projects/gesim
+
+The first MVP of GeSIM, a Web3 app for global eSIM mobile data. I built the web app in React, mainly the blockchain integration: wallet connection, purchases, transactions and their status. I also worked on blockchain integration in the React Native mobile app. The web app is live; the mobile app is not published.
+
+### Highlights
+
+- Web MVP live at gesim.xyz; the React Native mobile app is not published
+
+### Product scope (facts about the product, not the owner's work)
+
+- Global eSIM mobile data across 190+ countries without traditional carrier ID requirements
+- Built-in VPN, virtual numbers, global spending cards, and access to global and tokenized markets
+
+## Studio Solyn
+
+- Category: Interactive web
+- Status: live
+- Year: 2026
+- Engagement: Client
+- Role: Designed and built, in Framer, all the mobile screens of the whole website
+- Stack: Framer, React, Pointer Events API
+- Link: https://studiosolyn.com/
+- Page: https://erhamza.tech/projects/studio-solyn
+
+The website of Studio Solyn, a contemporary product design studio for furniture, lighting and functional objects, was first built for desktop only. I designed and built all the mobile screens for the whole website in Framer.
+
+### Product scope (facts about the product, not the owner's work)
+
+- The studio’s work blends material experimentation, geometric forms and craftsmanship
+
+## Trading Desk and Multi-sig
+
+- Category: Web3
+- Status: private (not linked)
+- Year: 2024
+- Engagement: Employer: ITH Technologies
+- Role: Frontend developer in a team. Built DEX & CEX trading dashboards with real-time data and wallet integrations; integrated Solana exchanges (Raydium SDK, SPL tokens, RPCs). Developed a multi-signature wallet with secure transaction workflows; worked with Node.js backend services and APIs alongside the frontend.
+- Stack: React, Next.js, Ethers.js, Wagmi, Web3.js, Solana RPC, Raydium SDK
+- Link: none
+- Page: https://erhamza.tech/projects/dex-cex-multisig-wallet
+
+Live trading screens for crypto exchanges that show prices as they change, and a multi-signature smart-contract wallet in the style of Safe (formerly Gnosis Safe) that requires approvals from a set minimum number of owners (such as 2 of 3) before any transaction runs. It removes single points of failure for individuals, teams and DAOs managing digital assets on Ethereum and compatible chains.
+
+### Highlights
+
+- Proposal, confirm and execute flows
+- Wallet tagging and recovery
+- Governance dashboards
+
+## Nighat Ahmad Official
+
+- Category: E-commerce and Shopify
+- Status: live
+- Year: 2026
+- Engagement: Client: an external fashion brand
+- Role: Customised the Shopify theme and added features
+- Stack: Shopify Online Store 2.0, Dawn, Liquid, Meta Pixel
+- Link: https://nighatahmadofficial.com
+- Page: https://erhamza.tech/projects/nighat-ahmad-official
+
+An online store for an external fashion brand that sells to customers in India and abroad. I customised the Shopify theme and added features, keeping it fast and right on a phone.
+
+## Unified Trading CRM
+
+- Category: Full-stack and Product; Web3
+- Status: private (not linked)
+- Year: 2025
+- Engagement: Employer: ITH Technologies
+- Role: Developer in a team. Merged multiple trading platforms into one Next.js CRM with multi-tenant access control, reducing load times by 35%.
+- Stack: Angular, Next.js
+- Link: none
+- Page: https://erhamza.tech/projects/unified-trading-crm
+
+Several separate trading tools built on Angular were merged into one Next.js CRM, with multi-tenant access control so each client account sees only what it should. Load times dropped by 35%, and performance improved by 30–50% with SSR/SSG and code splitting.
+
+### Results
+
+- Reducing load times by 35% (owner-reported)
+- Improved performance by 30-50% using SSR/SSG and code splitting (owner-reported)
+
+## NFT Marketplace
+
+- Category: Web3
+- Status: shut down (no longer online)
+- Year: 2024
+- Engagement: Employer: ITH Technologies
+- Role: Main frontend developer, leading the blockchain integration of the smart contracts. The contracts were written by others.
+- Stack: React, Paymaster, Solana Web3, ERC-721, ERC-1155
+- Link: none
+- Page: https://erhamza.tech/projects/nft-marketplace
+
+A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles. It used ERC-721 and ERC-1155 contracts on Base, with Sui and Solana supported alongside. It had minting and trading flows, lazy minting (listing an item before it is minted), auctions and fixed-price sales, and creator dashboards, and the platform covered the network fee when creators minted. I was the main frontend developer and led the blockchain integration of the smart contracts, which were written by others. The project has since shut down.
+
+### Highlights
+
+- Marketplace supporting ERC-721 and ERC-1155 with minting and trading flows
+- Lazy minting, auctions and creator dashboards
+
+## Berbanto Atelier
+
+- Category: E-commerce and Shopify
+- Status: live
+- Year: 2026
+- Engagement: Client
+- Role: Built eleven features for the store, all editable in Shopify’s theme editor
+- Stack: Shopify Atelier theme, Liquid
+- Link: https://berbanto.com
+- Page: https://erhamza.tech/projects/berbanto-atelier
+
+Eleven new features for a client’s online store, such as category carousels, popups and a tilted scrolling banner. The store owner can edit all of them from Shopify’s visual editor.
+
+### Results
+
+- Eleven new features (owner-reported)
+
+## HE Fashion
+
+- Category: E-commerce and Shopify
+- Status: live
+- Year: 2026
+- Engagement: Client
+- Role: Full store build on Shopify
+- Stack: Shopify, Liquid, GraphQL
+- Tools used: Shopify MCP
+- Link: https://hefashion.in
+- Page: https://erhamza.tech/projects/hefashion
+
+A full Shopify store build for a multi-brand fashion store, including customer reviews and popularity notices on products.
+
+## Downtowns Fashion
+
+- Category: E-commerce and Shopify
+- Status: live
+- Year: 2026
+- Engagement: Client (a different owner from HE Fashion)
+- Role: Full store build on Shopify
+- Stack: Shopify
+- Link: https://downtownsfashion.com
+- Page: https://erhamza.tech/projects/downtowns-fashion
+
+A full Shopify store build for Downtowns Fashion, a multi-brand-style fashion store. It is a separate client from HE Fashion.
+
+## ERPNext for Manufacturing
+
+- Category: Full-stack and Product
+- Status: private (not linked)
+- Year: 2026
+- Engagement: Client; in daily use at the factory
+- Role: Sole developer. Mapped the client’s manual production workflow, then built a custom frontend app to replace it using native backend APIs and functions.
+- Stack: ERPNext, Frappe, Next.js, Docker, GitHub Actions
+- Link: none
+- Page: https://erhamza.tech/projects/erpnext-manufacturing
+
+A custom app built on ERPNext that replaced a factory’s manual production tracking by reproducing the existing workflow. It records what goes into each product, the work orders and how much each worker made, then creates the weekly payment vouchers for labourers. It is in daily use at the factory.
+
+### Highlights
+
+- Custom doctypes and workflows for BOM, work orders and production tracking
+- Payment voucher generation for weekly completed quantities for labourers
+- Docker-based ERPNext environment with GitHub Actions CI/CD
+
+## Agent Workflows
+
+- Category: AI and Automation
+- Status: private (not linked)
+- Year: 2026
+- Engagement: Own work
+- Role: Owner: designed, built and operate it
+- Stack: Paperclip, Hermes, n8n, Postiz, ERPNext CRM, Cloudflare Tunnel and Access, NVIDIA NIM, Ubuntu 24.04
+- Tools used: Claude Code
+- Link: none
+- Page: https://erhamza.tech/projects/agent-workflows
+
+A team of AI assistants for marketing chores: finding leads, drafting social posts and scouting jobs. A control panel runs them, customer details live in a self-hosted ERPNext CRM, and every output is approved by a person before it goes out. Still in testing, for internal use.
+
+## Promenade Medulin
+
+- Category: WordPress and Client
+- Status: live
+- Year: 2026
+- Engagement: Direct client (the property owner)
+- Role: Built the whole site: Kadence theme with a custom child theme, a custom plugin, custom post types and JSON translations in five languages
+- Stack: WordPress, Kadence theme with a custom child theme, PHP, custom plugin, custom post types, JSON translations
+- Link: https://promenade-medulin.com
+- Page: https://erhamza.tech/projects/promenade-medulin
+
+A website for a holiday property in Medulin, Croatia, available in five languages, built on WordPress with the Kadence theme and a custom child theme on top of it.
+
+## BookEase
+
+- Category: WordPress and Client
+- Status: public repository
+- Year: 2026
+- Engagement: Client
+- Role: Built for a client
+- Stack: PHP 8, WordPress, object-oriented PHP, WordPress REST API
+- Link: https://github.com/hamzam999/bookEase
+- Page: https://erhamza.tech/projects/bookease
+
+A booking plugin for WordPress sites. Hotels, restaurants and clinics let customers pick a free time slot, get confirmation emails, and cancel or reschedule from a link. Staff can export bookings to CSV. It is installable from GitHub: download it and install it.
+
+## MotionGrid
+
+- Category: Interactive web
+- Status: live
+- Year: 2026
+- Engagement: Paid job for a design agency
+- Role: Built the page
+- Stack: React, CSS animations (marquee)
+- Link: https://motiongrid.vercel.app/
+- Page: https://erhamza.tech/projects/motiongrid
+
+A one-page showcase of 12 projects that a design agency attaches to its client proposals.
+
+## Muftimaaz.com
+
+- Category: Full-stack and Product
+- Status: live
+- Year: 2026
+- Engagement: Volunteer and community work (unpaid)
+- Role: Built the website
+- Stack: Next.js, YouTube Data API, Cloudflare R2
+- Link: https://muftimaaz.com
+- Page: https://erhamza.tech/projects/muftimaaz
+
+A website for an Islamic scholar with YouTube channel integration and YouTube API caching to reduce API calls, plus audio streaming through Cloudflare R2.
+
+## Earlier work (out of print)
+
+### Louis Cardin
+
+2026 · Shopify work. Shopify store for a UAE-based perfume brand launched in India: story-led fragrance commerce with campaign-friendly homepage composition and strong promotional UX.
+
+Stack: Shopify, Liquid, theme JavaScript. No longer online.
+
+### Sedef Anatolia
+
+2026 · Shopify work. Shopify store for an inspired-perfume brand from India, balancing brand storytelling with promotion-friendly collections and checkout.
+
+Stack: Shopify, Liquid, theme JavaScript. No longer online.
+
+### Slurvo
+
+2025 · Freelance client. Next.js B2B website focused on trust-building and export lead generation for pet treat manufacturing and export partnerships.
+
+Stack: Next.js, React. No longer online.
+
+### WanHam Leathers
+
+2025 · Freelance. Conversion-ready export website for leather belts, pet accessories and equestrian product lines, with an inquiry-first structure for international buyers.
+
+Stack: Next.js, React. No longer online.
+
+### Bizthon Cursor
+
+2025 · Built at ITH Technologies. VS Code extension in React enabling AI-powered coding assistance across 10+ LLMs, with in-editor UI, caching and quick model switching.
+
+Stack: React, VS Code API, DeepSeek, OpenAI. No longer online.
+
+## Contact
+
+- Email: erhamza.dev@gmail.com
+- LinkedIn: https://www.linkedin.com/in/er-mohammad-hamza/
+- GitHub: https://github.com/hamzam999
+
+Generated from the site's content files on 2026-11-25.

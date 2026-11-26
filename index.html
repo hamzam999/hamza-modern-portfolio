@@ -2,65 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mohammad Hamza | Senior Frontend & Web3 Engineer</title>
-    <meta name="description" content="Results-driven Frontend Engineer with 6+ years of experience building e-commerce platforms, Web3 applications, and immersive 3D web experiences.">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#ECE8E0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              background: 'var(--bg)',
-              card: 'var(--bg-card)',
-              primary: 'var(--text)',
-              muted: 'var(--text-muted)',
-              emerald: 'var(--accent-emerald)',
-              blue: 'var(--accent-blue)',
-            },
-            fontFamily: {
-              heading: 'var(--font-heading)',
-              mono: 'var(--font-body)',
-            },
-            animation: {
-              'marquee': 'marquee 10s linear infinite',
-              'marquee-reverse': 'marquee-reverse 30s linear infinite',
-            },
-            keyframes: {
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-100%)' },
-              },
-              'marquee-reverse': {
-                '0%': { transform: 'translateX(-100%)' },
-                '100%': { transform: 'translateX(0%)' },
-              }
-            }
-          }
-        }
-      }
+      /* Runs before first paint: html.js enables reveal states; html.reduced mirrors the saved Motion setting or the system reduced-motion preference. */
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var s = JSON.parse(localStorage.getItem('aq:v1') || 'null');
+          if (s && s.state && s.state.settings && s.state.settings.motion === 'off') d.classList.add('reduced');
+        } catch (e) {}
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
+      })();
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/index.css">
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@^19.2.3",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-        "react/": "https://esm.sh/react@^19.2.3/",
-        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-        "framer-motion": "https://esm.sh/framer-motion@^12.23.26"
-      }
-    }
-    </script>
+    <!--app-head-->
   </head>
   <body>
-    <!-- <div class="bg-noise"></div> -->
-    <div class="ambient-glow"></div>
-    <div class="fixed inset-0 bg-grid pointer-events-none"></div>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
