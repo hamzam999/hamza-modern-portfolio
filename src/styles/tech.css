@@ -21,6 +21,15 @@ html.reduced .tech { rotate: 0deg; transition: none; }
 .l1__focus li { display: inline-flex; align-items: center; gap: var(--space-2); padding: 3px 12px 3px 3px; background: var(--sheet); border: 1px solid var(--line-strong); border-radius: var(--r-1); }
 .l1__focus li + li::before { content: none; }
 .l1__focus { gap: var(--space-2); }
+@media (min-width: 1024px) { .l1__meta { max-width: 33rem; } }
+/* Phones: flat compact chips (no ticket frame) so the first screen still holds the actions above the ruler */
+@media (max-width: 639px) {
+  .l1__meta { margin-top: var(--space-2); }
+  .l1__focus { gap: 2px 10px; }
+  .l1__focus li { padding: 0; border: 0; background: transparent; font-size: 0.8125rem; gap: 5px; }
+  .l1__focus .tech { --size: 16px !important; width: 20px; height: 20px; border: 0; background: transparent; }
+}
+}
 .l1__focus .tech { border-color: transparent; background: var(--paper); }
 
 /* Ticker (on ink): paper-tinted tile, no brand colour */

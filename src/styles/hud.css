@@ -49,7 +49,7 @@ main h1:focus { outline: none; }
 .topbar__arcade[aria-current='page'] { box-shadow: inset 0 -2px 0 var(--accent); }
 @media (hover: hover) { .topbar__arcade:hover { background: var(--selection); } }
 @media (min-width: 640px) { .topbar__arcade .topbar__btntext { display: inline; } .topbar__arcade { padding: 0 12px; } }
-@media (max-width: 639px) { .topbar__arcadetext { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+@media (max-width: 639px) { .topbar__arcadetext { display: inline; position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
 @media (min-width: 768px) { .topbar__right { gap: var(--space-3); } }
 @media (min-width: 1024px) {
   .topbar__hire { display: inline-flex; }

@@ -1,6 +1,6 @@
 # MotionGrid
 
-- Category: 3D and Interactive
+- Category: Interactive web
 - Status: live
 - Year: 2026
 - Engagement: Paid job for a design agency

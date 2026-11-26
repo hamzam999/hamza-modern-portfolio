@@ -40,7 +40,7 @@ const FULL = {
   desktop: { cssWidth: 1440, capCssHeight: 7000, outWidth: 1200, budget: 350 * 1024, file: 'full-desktop.webp' },
   mobile: { cssWidth: 390, capCssHeight: 9000, outWidth: 585, budget: 300 * 1024, file: 'full-mobile.webp' },
 };
-const PIPELINE = 'v4-full-pages';
+const PIPELINE = 'v5-green-accent';
 
 /** Duotone ramps by spine swatch (plan 6.11 table). */
 const DUOTONE = {

@@ -32,7 +32,7 @@ test.describe('@shelf', () => {
     await expect(page.locator('a.tape')).toHaveCount(30);
     await expect(page.locator('a.tape[data-copy="0"]')).toHaveCount(10);
     await expect(page.locator('a.tape[aria-hidden="true"][inert]')).toHaveCount(20);
-    await expect(tape(page, 0)).toHaveAttribute('aria-label', 'NAVIG, 3D and Interactive, tape 1 of 10');
+    await expect(tape(page, 0)).toHaveAttribute('aria-label', 'NAVIG, Interactive web, tape 1 of 10');
     await expect(page.locator('a.tape[tabindex="0"]')).toHaveCount(1);
     await expect(page.locator('[data-shelf-wrap]')).toHaveAttribute('aria-roledescription', 'carousel');
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

@@ -38,7 +38,7 @@
       }
     },
     "dominant": "#080808",
-    "sourceHash": "56b35864bf9e682a51f0ab4ee72b8078cd2fdd69"
+    "sourceHash": "24ecdbe561cd73bb6f17eb9fca57e4e474b260da"
   },
   "codeslytic-budget": {
     "hero": {
@@ -79,7 +79,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "0cc8070704b1e112ff985aaf88a3b8115ef547e3"
+    "sourceHash": "07c65de7ef8ce36cf52ed109b45fa40b6c07d099"
   },
   "downtowns-fashion": {
     "hero": {
@@ -120,7 +120,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "40cf0d1052f0ef3f42d5ee297fbb1b18dc0e7f8e"
+    "sourceHash": "f2c527ac48031ca371e915549b8116961c1e56e1"
   },
   "gesim": {
     "hero": {
@@ -161,7 +161,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "44d7e55c9a868795b9bbfb6da99e082e5aacb0b4"
+    "sourceHash": "e1171cd81a13aeec744c05d08c736cba6a84df94"
   },
   "hefashion": {
     "hero": {
@@ -202,7 +202,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "6622e77f8a5ad278231a0355b5b10a6434e1128f"
+    "sourceHash": "95442ab383972310ba290ad98d193445b889c0f8"
   },
   "lammles": {
     "hero": {
@@ -243,7 +243,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "f42122868fec0585e55426c2c8a620e1da75e3c0"
+    "sourceHash": "0dad3d01364436aa128b46cb70a79b4c2029f920"
   },
   "motiongrid": {
     "hero": {
@@ -284,7 +284,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "f7f9eed2421b38d402da6932984ae97837a9e89b"
+    "sourceHash": "33d0cc4b52810b5f30a0aebb36ca31bb0800c2c7"
   },
   "muftimaaz": {
     "hero": {
@@ -325,7 +325,7 @@
       }
     },
     "dominant": "#184838",
-    "sourceHash": "c86d08c15ec84da2ce90fac2e6712fd27cd0f2c6"
+    "sourceHash": "867792101530bab104f25690236d54a838fb9dc1"
   },
   "navig": {
     "hero": {
@@ -366,7 +366,7 @@
       }
     },
     "dominant": "#080808",
-    "sourceHash": "d70a83bc8f41570096f5705ed794653b4b6f64fe"
+    "sourceHash": "d0638b2c03adf683748e7130fe077e027884ac5e"
   },
   "nighat-ahmad-official": {
     "hero": {
@@ -407,7 +407,7 @@
       }
     },
     "dominant": "#181818",
-    "sourceHash": "7c6b95352ae199320500b8f00a87532091ea92ce"
+    "sourceHash": "de79fade0a4945afdee4a7b7febaccf64351351d"
   },
   "promenade-medulin": {
     "hero": {
@@ -448,7 +448,7 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "5d11cbcb66fa73ab9055ca92f5feae2df0f8c141"
+    "sourceHash": "86bb4d502c4fb8995e3a61bc8dcc049093bc4e1a"
   },
   "studio-solyn": {
     "hero": {
@@ -489,6 +489,6 @@
       }
     },
     "dominant": "#f8f8f8",
-    "sourceHash": "e863163c4eec00ce1f48c948f06da288a5dea0b3"
+    "sourceHash": "90df94c564d13690c933fa60b5de85d5f6e7609c"
   }
 }

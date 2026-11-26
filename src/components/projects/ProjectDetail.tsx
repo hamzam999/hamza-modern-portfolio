@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORY_LABEL, type OwnerClaim, type Project } from '@/types/content';
 import { PROFILE } from '@/content/profile';
@@ -38,41 +38,62 @@ export function ProjectDetail({ project: p, headingLevel, showPageLink, poster, 
   const eyebrow = `${CATEGORY_LABEL[p.category]} · ${p.genre}`;
   const REVEAL_AT = 450;
   const viewer = hasFullPage(p);
+  const [more, setMore] = useState(false);
+  const eyebrowEl = reveal ? (
+    <MaskLine as="p" className="pd__eyebrow" trigger="mount" delay={REVEAL_AT}>
+      {eyebrow}
+    </MaskLine>
+  ) : (
+    <p className="pd__eyebrow">{eyebrow}</p>
+  );
+  const titleEl = reveal ? (
+    <MaskLine as="h2" className="pd__title" id={`pd-${p.slug}`} trigger="mount" delay={REVEAL_AT + 60}>
+      {p.title}
+    </MaskLine>
+  ) : (
+    <H className="pd__title" id={`pd-${p.slug}`} tabIndex={headingLevel === 1 ? -1 : undefined}>
+      {p.title}
+    </H>
+  );
+  const synopsisEl = reveal ? (
+    <MaskLine as="p" className="pd__synopsis" trigger="mount" delay={REVEAL_AT + 120}>
+      {p.synopsis}
+    </MaskLine>
+  ) : (
+    <p className={`pd__synopsis${viewer && !more ? ' pd__synopsis--clamp' : ''}`}>{p.synopsis}</p>
+  );
+  const subtitleEl = p.subtitle && <p className="pd__subtitle">{p.subtitle}</p>;
   return (
     <article className={`pd${viewer ? ' pd--viewer' : ''}`}>
-      {reveal ? (
-        <MaskLine as="p" className="pd__eyebrow" trigger="mount" delay={REVEAL_AT}>
-          {eyebrow}
-        </MaskLine>
+      {viewer ? (
+        // Narrow screens: heading, description and the viewer share the first screen; wide screens: text left, viewer right.
+        <div className="pd__first">
+          <div className="pd__lead">
+            {eyebrowEl}
+            {titleEl}
+            {subtitleEl}
+            {synopsisEl}
+            {!reveal && p.synopsis.length > 120 && (
+              <button type="button" className="pd__more" aria-expanded={more} onClick={() => setMore((m) => !m)}>
+                {more ? 'Show less' : 'Read more'}
+              </button>
+            )}
+          </div>
+          <div className="pd__poster pd__poster--viewer">
+            <FullPageLayout project={p} headingLevel={headingLevel} stackBelow={showPageLink ? 768 : 1024} />
+          </div>
+        </div>
       ) : (
-        <p className="pd__eyebrow">{eyebrow}</p>
+        <>
+          {eyebrowEl}
+          {titleEl}
+          {subtitleEl}
+          <div className="pd__poster">{poster ?? <ProjectHero project={p} size="hero" eager={headingLevel === 1} />}</div>
+        </>
       )}
-      {reveal ? (
-        <MaskLine as="h2" className="pd__title" id={`pd-${p.slug}`} trigger="mount" delay={REVEAL_AT + 60}>
-          {p.title}
-        </MaskLine>
-      ) : (
-        <H className="pd__title" id={`pd-${p.slug}`} tabIndex={headingLevel === 1 ? -1 : undefined}>
-          {p.title}
-        </H>
-      )}
-      {p.subtitle && <p className="pd__subtitle">{p.subtitle}</p>}
-      <div className={`pd__poster${viewer ? ' pd__poster--viewer' : ''}`}>
-        {viewer ? (
-          <FullPageLayout project={p} headingLevel={headingLevel} />
-        ) : (
-          poster ?? <ProjectHero project={p} size="hero" eager={headingLevel === 1} />
-        )}
-      </div>
       <div className="pd__grid">
         <div className="pd__col">
-          {reveal ? (
-            <MaskLine as="p" className="pd__synopsis" trigger="mount" delay={REVEAL_AT + 120}>
-              {p.synopsis}
-            </MaskLine>
-          ) : (
-            <p className="pd__synopsis">{p.synopsis}</p>
-          )}
+          {!viewer && synopsisEl}
 
           {p.role && (
             <>

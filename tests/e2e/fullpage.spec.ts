@@ -17,13 +17,15 @@ test.describe('full-page layout viewer (right column, replaces the hero)', () =>
     await expect(page.locator('.pd__poster .pd__img, .pd__poster picture')).toHaveCount(0);
     for (const device of ['desktop', 'mobile']) {
       const img = page.locator(`img[alt="Full-page ${device} layout of ${target.title} homepage"]`);
-      // The visible (default Desktop) tab loads eagerly, the other one lazily on first toggle.
-      await expect(img).toHaveAttribute('loading', device === 'desktop' ? 'eager' : 'lazy');
+      // Only the visible tab's image loads eagerly (Mobile when stacked, Desktop when wide); the other loads on first toggle.
+      const wide = (page.viewportSize()?.width ?? 0) >= 1024;
+      await expect(img).toHaveAttribute('loading', (device === 'desktop') === wide ? 'eager' : 'lazy');
       await expect(img).toHaveAttribute('width', /^\d+$/);
       await expect(img).toHaveAttribute('height', /^\d+$/);
     }
     await expect(page.locator('.fpl__host').first()).toHaveText(new URL((target.link as { url: string }).url).hostname);
     // Frames scroll inside themselves and take keyboard focus.
+    if ((page.viewportSize()?.width ?? 0) < 1024) await page.getByRole('tab', { name: 'Desktop' }).click();
     const region = page.getByRole('region', { name: 'Desktop layout, scrollable' });
     await region.scrollIntoViewIfNeeded();
     await region.focus();
@@ -32,19 +34,43 @@ test.describe('full-page layout viewer (right column, replaces the hero)', () =>
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
   });
 
-  test('@sheet @fullpage Desktop | Mobile tabs switch the frame, use arrow keys and remember the choice', async ({ page }) => {
+  test('@sheet @fullpage Desktop | Mobile tabs switch the frame and use arrow keys; default depends on the layout', async ({ page }) => {
     await page.goto(`/projects/${target.slug}`);
-    const tabs = page.getByRole('tab');
-    await expect(tabs).toHaveCount(2);
-    await expect(page.getByRole('tab', { name: 'Desktop' })).toHaveAttribute('aria-selected', 'true');
-    await expect(page.locator('.fpl__panel--mobile')).toBeHidden();
-    await page.getByRole('tab', { name: 'Desktop' }).focus();
+    const wide = (page.viewportSize()?.width ?? 0) >= 1024;
+    const first = wide ? 'Desktop' : 'Mobile';
+    const second = wide ? 'Mobile' : 'Desktop';
+    await expect(page.getByRole('tab')).toHaveCount(2);
+    await expect(page.getByRole('tab', { name: first })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator(`.fpl__panel--${second.toLowerCase()}`)).toBeHidden();
+    await page.getByRole('tab', { name: first }).focus();
     await page.keyboard.press('ArrowRight');
-    await expect(page.getByRole('tab', { name: 'Mobile' })).toBeFocused();
-    await expect(page.getByRole('tab', { name: 'Mobile' })).toHaveAttribute('aria-selected', 'true');
-    await expect(page.locator('.fpl__panel--mobile')).toBeVisible();
-    await expect(page.locator('.fpl__panel--desktop')).toBeHidden();
+    await expect(page.getByRole('tab', { name: second })).toBeFocused();
+    await expect(page.getByRole('tab', { name: second })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator(`.fpl__panel--${second.toLowerCase()}`)).toBeVisible();
+    await expect(page.locator(`.fpl__panel--${first.toLowerCase()}`)).toBeHidden();
   });
+
+  for (const [w, h] of [[360, 640], [390, 844]] as const) {
+    test(`@sheet @fullpage first screen at ${w}x${h}: heading, description and the whole phone are in view`, async ({ page }) => {
+      await page.setViewportSize({ width: w, height: h });
+      await page.goto(`/projects/${target.slug}`);
+      await expect(page.getByRole('tab', { name: 'Mobile' })).toHaveAttribute('aria-selected', 'true');
+      await page.waitForTimeout(300);
+      const box = async (sel: string) => (await page.locator(sel).first().boundingBox())!;
+      const h1 = await box('h1');
+      const syn = await box('.pd__synopsis');
+      const phone = await box('.fpl__frame--mobile');
+      expect(h1.y).toBeGreaterThanOrEqual(0);
+      expect(syn.y + Math.min(syn.height, 20)).toBeLessThanOrEqual(h);
+      expect(phone.y + phone.height).toBeLessThanOrEqual(h);
+      expect(phone.height).toBeGreaterThan(220);
+      // Order on narrow screens: heading, description, viewer, details.
+      const role = await box('.pd__grid');
+      expect(syn.y).toBeLessThan(phone.y);
+      expect(phone.y).toBeLessThan(role.y);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(0);
+    });
+  }
 
   test('@sheet @fullpage on desktop the viewer sits in the right column and uses the column height', async ({ page }, info) => {
     test.skip(info.project.name !== 'desktop-1440', 'wide only');
@@ -53,22 +79,21 @@ test.describe('full-page layout viewer (right column, replaces the hero)', () =>
     const synopsis = await page.locator('.pd__synopsis').boundingBox();
     expect(viewer && synopsis && viewer.x > synopsis.x + synopsis.width - 1).toBe(true);
     const frame = await page.locator('.fpl__frame--desktop').boundingBox();
-    expect(frame!.height).toBeGreaterThan(560);
-    expect(frame!.height).toBeLessThanOrEqual(762);
-  });
-
-  test('@sheet @fullpage stacked layouts put the viewer at the top with a capped height', async ({ page }, info) => {
-    test.skip(info.project.name !== 'mobile-360' && info.project.name !== 'mobile-390', 'narrow only');
-    await page.goto(`/projects/${target.slug}`);
-    const viewer = await page.locator('.pd__poster--viewer').boundingBox();
-    const synopsis = await page.locator('.pd__synopsis').boundingBox();
-    expect(viewer!.y).toBeLessThan(synopsis!.y);
     const vh = page.viewportSize()!.height;
-    expect((await page.locator('.fpl__frame--desktop').boundingBox())!.height).toBeLessThanOrEqual(vh * 0.6 + 2);
+    // The frame fills the viewport height (minus the top bar), and stays in view while the page scrolls.
+    expect(frame!.height).toBeGreaterThan(vh * 0.75);
+    expect(frame!.height).toBeLessThanOrEqual(vh);
+    // Sticky: after a short scroll the frame is still in view, held under the top bar.
+    await page.mouse.wheel(0, 120);
+    await page.waitForTimeout(250);
+    const after = await page.locator('.fpl__frame--desktop').boundingBox();
+    expect(after!.y).toBeGreaterThanOrEqual(0);
+    expect(after!.y + after!.height).toBeLessThanOrEqual(vh + 1);
   });
 
   test('@sheet @fullpage open full size: dialog with the live link, Escape closes and focus returns', async ({ page }) => {
     await page.goto(`/projects/${target.slug}`);
+    if ((page.viewportSize()?.width ?? 0) < 1024) await page.getByRole('tab', { name: 'Desktop' }).click();
     const open = page.getByRole('button', { name: /Open full size.*desktop/ });
     await open.scrollIntoViewIfNeeded();
     await open.click();

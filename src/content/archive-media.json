@@ -5,7 +5,7 @@
       720
     ],
     "ratio": 0.8,
-    "sourceHash": "d27e99d7ec039c7b12fff911cad460109bf59d22"
+    "sourceHash": "56068232a5fdf83d257054a4fbdcb37764af6cce"
   },
   "louis-cardin": {
     "widths": [
@@ -13,7 +13,7 @@
       720
     ],
     "ratio": 0.8,
-    "sourceHash": "63e5337da273af2106be6be51c810d4fbbde1e6e"
+    "sourceHash": "295325ab2716cecb66af62c40db2614b26ffea51"
   },
   "sedefanatolia": {
     "widths": [
@@ -21,7 +21,7 @@
       720
     ],
     "ratio": 0.8,
-    "sourceHash": "b1e16b34d1396beef0716d0b5f38da052a788ce3"
+    "sourceHash": "fb19cf37be089a84bdfd130261f0a7d091c640d7"
   },
   "slurvo": {
     "widths": [
@@ -29,7 +29,7 @@
       720
     ],
     "ratio": 0.8,
-    "sourceHash": "205b49397db0bc1b6f76b612779bc0f009bbb05f"
+    "sourceHash": "661cb0d55b36578aa8ef302e253e20f2bb7af83d"
   },
   "wanhamleathers": {
     "widths": [
@@ -37,6 +37,6 @@
       720
     ],
     "ratio": 0.8,
-    "sourceHash": "e77cda390ee28f745f6d442dd5b0e336696d609d"
+    "sourceHash": "f787bd3486d81a849b907c9f5db773ae43fff8ee"
   }
 }

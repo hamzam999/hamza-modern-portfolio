@@ -55,6 +55,7 @@
 .earlier__intro { margin-top: var(--space-3); max-width: 62ch; font-family: var(--font-read); font-size: var(--fs-body); }
 .earlier__list { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: var(--space-5); max-width: 62ch; }
 .earlier__name { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--fs-ui); }
+.earlier__meta { margin-top: var(--space-1); font-size: var(--fs-small); font-weight: 600; color: var(--muted-strong); }
 .earlier__desc { margin-top: var(--space-1); font-family: var(--font-read); font-size: var(--fs-body); line-height: var(--lh-body); }
 .earlier__stack { margin-top: var(--space-1); font-size: var(--fs-small); color: var(--muted-strong); }
 .earlier--open .archive__h { margin-bottom: var(--space-3); }

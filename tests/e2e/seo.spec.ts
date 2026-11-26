@@ -20,13 +20,17 @@ for (const route of INDEXABLE) {
     expect(canonical.endsWith(route === '/' ? '/' : route)).toBe(true);
     expect(canonical.endsWith('/') && route !== '/').toBe(false);
     expect(html).toContain('<meta name="robots" content="index, follow">');
-    for (const p of ['og:title', 'og:description', 'og:url', 'og:image', 'og:image:alt', 'og:site_name', 'og:type']) {
+    for (const p of ['og:title', 'og:description', 'og:url', 'og:image', 'og:image:alt', 'og:site_name', 'og:type', 'og:locale', 'og:image:width', 'og:image:height']) {
       expect(html, p).toContain(`<meta property="${p}"`);
     }
     expect(attr(html, /<meta property="og:image:width" content="(\d+)"/)).toBe('1200');
     expect(attr(html, /<meta property="og:image:height" content="(\d+)"/)).toBe('630');
-    expect(attr(html, /<meta property="og:image" content="([^"]+)"/)).toMatch(/^https:\/\/.+\/og\/.+\.png$/);
+    expect(attr(html, /<meta property="og:image" content="([^"]+)"/)).toMatch(/^https:\/\/.+\/og\/.+\.(png|jpg)$/);
     expect(html).toContain('<meta name="twitter:card" content="summary_large_image">');
+    for (const n of ['twitter:title', 'twitter:description', 'twitter:image']) expect(html, n).toContain(`<meta name="${n}"`);
+    expect(attr(html, /<meta property="og:title" content="([^"]+)"/)).toBe(title!.replace(/&amp;/g, '&'));
+    expect(attr(html, /<meta property="og:url" content="([^"]+)"/)).toBe(canonical);
+    expect(html).toContain('<link rel="alternate" type="text/plain" href="/llms.txt"');
     expect((html.match(/<h1[\s>]/g) ?? []).length).toBe(1);
 
     const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]!);
@@ -40,14 +44,37 @@ for (const route of INDEXABLE) {
 }
 
 test('@seo og images exist and stay under 300 KB', async ({ request }) => {
-  const paths = ['/og/default.png', '/og/projects.png', '/og/arcade.png', '/og/interview.png', ...PROJECTS.map((p) => `/og/projects/${p.slug}.png`)];
+  const paths = ['/og/default.png', '/og/projects.png', '/og/arcade.png', '/og/interview.png'];
+  for (const p of PROJECTS) {
+    const html = await (await request.get(`/projects/${p.slug}`)).text();
+    paths.push(new URL(/<meta property="og:image" content="([^"]+)"/.exec(html)![1]!).pathname);
+  }
   for (const p of paths) {
     const res = await request.get(p);
     expect(res.status(), p).toBe(200);
     const body = await res.body();
     expect(body.length, p).toBeLessThan(300 * 1024);
-    expect(body.subarray(1, 4).toString(), p).toBe('PNG');
+    // Projects with a captured hero use a jpeg crop of it, the rest a generated png card.
+    if (p.endsWith('.jpg')) expect(body.subarray(0, 2).toString('hex'), p).toBe('ffd8');
+    else expect(body.subarray(1, 4).toString(), p).toBe('PNG');
   }
+});
+
+test('@seo llms.txt, llms-full.txt, robots.txt and sitemap.xml return 200 with the right content type', async ({ request }) => {
+  const want: Record<string, RegExp> = {
+    '/llms.txt': /^text\/plain/,
+    '/llms-full.txt': /^text\/plain/,
+    '/robots.txt': /^text\/plain/,
+    '/sitemap.xml': /xml/,
+  };
+  for (const [url, type] of Object.entries(want)) {
+    const res = await request.get(url);
+    expect(res.status(), url).toBe(200);
+    expect(res.headers()['content-type'], url).toMatch(type);
+    expect((await res.text()).length, url).toBeGreaterThan(40);
+  }
+  const llms = await (await request.get('/llms.txt')).text();
+  expect(llms).toContain('/projects/downtowns-fashion');
 });
 
 test('@seo robots.txt points at the sitemap and allows crawling', async ({ request }) => {

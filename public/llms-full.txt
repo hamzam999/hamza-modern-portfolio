@@ -73,7 +73,7 @@ Eighteen projects. Results marked "owner-reported" are as stated by the owner. P
 
 ## NAVIG
 
-- Category: 3D and Interactive
+- Category: Interactive web
 - Status: live
 - Year: 2026
 - Engagement: Freelance client project
@@ -161,7 +161,7 @@ The first MVP of GeSIM, a Web3 app for global eSIM mobile data. I built the web 
 
 ## Studio Solyn
 
-- Category: 3D and Interactive
+- Category: Interactive web
 - Status: live
 - Year: 2026
 - Engagement: Client
@@ -349,7 +349,7 @@ A booking plugin for WordPress sites. Hotels, restaurants and clinics let custom
 
 ## MotionGrid
 
-- Category: 3D and Interactive
+- Category: Interactive web
 - Status: live
 - Year: 2026
 - Engagement: Paid job for a design agency

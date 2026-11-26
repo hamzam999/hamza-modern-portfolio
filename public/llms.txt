@@ -11,7 +11,7 @@ This site is his portfolio. Every project below has its own page with a plain-la
 - [Skills](https://erhamza.tech/#level-skills): Frontend, Architecture, 3D & Animation, Shopify, Web3 & Blockchain, E-commerce & SaaS, ERP, DevOps & Tools, AI & Automation; currently learning backend (Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth)
 - [Contact](https://erhamza.tech/#level-contact): email erhamza.dev@gmail.com, LinkedIn, GitHub
 
-## Projects: 3D and interactive
+## Projects: interactive web
 
 - [NAVIG](https://erhamza.tech/projects/navig): Scroll-driven Three.js and GLSL website with 25,000+ GPU-driven particles at 144 FPS
 - [Studio Solyn](https://erhamza.tech/projects/studio-solyn): Mobile screens designed and built in Framer for a product design studio’s website

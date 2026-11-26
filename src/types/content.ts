@@ -1,5 +1,5 @@
 export type ProjectCategory =
-  | 'interactive'   // 3D and Interactive
+  | 'interactive'   // Interactive web
   | 'ecommerce'     // E-commerce and Shopify
   | 'web3'          // Web3
   | 'product'       // Full-stack and Product
@@ -7,7 +7,7 @@ export type ProjectCategory =
   | 'wordpress';    // WordPress and Client
 
 export const CATEGORY_LABEL: Record<ProjectCategory, string> = {
-  interactive: '3D and Interactive',
+  interactive: 'Interactive web',
   ecommerce: 'E-commerce and Shopify',
   web3: 'Web3',
   product: 'Full-stack and Product',
@@ -55,7 +55,7 @@ export interface Project {
   spineTitle: string;                // uppercase on spine, <= 14 characters
   category: ProjectCategory;
   secondaryCategories?: readonly ProjectCategory[];
-  genre: string;                     // playful VHS genre tag, paired with category in UI
+  genre: string;                     // short real descriptor (tech or kind of work), paired with the category in the eyebrow and captions
   year: string | null;               // e.g. '2024' or '2025–2026'; null only if genuinely unknown
   yearStatus: 'confirmed' | 'inferred' | 'tbc'; // 'inferred' = derived from resume role dates; UI shows e.g. "2023–2025 (approx.)"
   yearSource?: string;               // e.g. 'resume: ITH Technologies, Feb 2023 – Dec 2025'

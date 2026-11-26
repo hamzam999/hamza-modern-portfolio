@@ -27,7 +27,7 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const ym = (v) => (v === null ? 'present' : `${MONTHS[Number(v.slice(5, 7)) - 1]} ${v.slice(0, 4)}`);
 const span = (e) => `${ym(e.start)}–${ym(e.end)}`;
 const url = (slug) => `${SITE_URL}/projects/${slug}`;
-const HEADING = { interactive: '3D and interactive', ecommerce: 'e-commerce and Shopify', web3: 'Web3', product: 'full-stack and product', ai: 'AI and automation', wordpress: 'WordPress' };
+const HEADING = { interactive: 'interactive web', ecommerce: 'e-commerce and Shopify', web3: 'Web3', product: 'full-stack and product', ai: 'AI and automation', wordpress: 'WordPress' };
 const STATUS = {
   live: 'live',
   repo: 'public repository',
