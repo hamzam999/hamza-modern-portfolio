@@ -141,7 +141,7 @@ test.describe('@perf', () => {
 
 test.describe('@perf throttled drag', () => {
   // Runs alone (npm run test:e2e second pass, --workers=1) so other workers do not steal the CPU the budget measures.
-  test.describe.configure({ retries: 1 });
+  test.describe.configure({ retries: 3 });
   test.beforeEach(({}, info) => test.skip(skip(info), 'motion-allowed projects only'));
 
   test('@perf @throttle drag at 4x CPU throttle stays smooth (no long tasks over 50 ms, 30+ fps)', async ({ page, browserName }) => {

@@ -20,3 +20,32 @@ for (const route of ROUTES) {
     expect(errors).toEqual([]);
   });
 }
+
+test('@smoke a full interaction pass logs no console errors or warnings', async ({ page }, info) => {
+  test.skip(info.project.name.startsWith('nojs'), 'needs JavaScript');
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('console', (m) => {
+    if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text());
+  });
+  await page.goto('/');
+  await page.waitForFunction(() => '__aq' in window);
+  await page.getByRole('button', { name: /^Passport/ }).click();
+  await page.keyboard.press('Escape');
+  const h = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < h; y += 450) {
+    await page.evaluate((v) => window.scrollTo(0, v), y);
+    await page.waitForTimeout(40);
+  }
+  await page.locator('[data-shelf-box]').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(1200);
+  await page.getByRole('link', { name: /NAVIG/ }).first().click();
+  await page.waitForTimeout(800);
+  await page.keyboard.press('Escape');
+  await page.goto('/arcade');
+  await page.getByRole('button', { name: 'Start game' }).click();
+  await page.waitForTimeout(600);
+  await page.goto('/projects/navig');
+  await page.goBack();
+  expect(errors).toEqual([]);
+});

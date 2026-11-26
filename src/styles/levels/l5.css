@@ -20,7 +20,7 @@
 .l5__bul li::marker { color: var(--cobalt); }
 .l5__award { margin-top: var(--space-4); font-size: var(--fs-small); font-weight: 600; color: var(--vermilion-ink); }
 .l5__rel { margin-top: var(--space-3); font-size: var(--fs-small); font-weight: 500; }
-.l5__rel a { display: inline-block; padding-block: 6px; }
+.l5__rel a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Node reveal: circle clip when the checkpoint reaches the viewport. */
 html.js:not(.reduced) .l5__cp[data-state='pending'] .l5__node { clip-path: circle(0% at 50% 50%); }

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#ECE8E0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script>
-      /* Runs before first paint: html.js enables reveal states; html.reduced mirrors the saved Motion setting. */
+      /* Runs before first paint: html.js enables reveal states; html.reduced mirrors the saved Motion setting or the system reduced-motion preference. */
       (function () {
         var d = document.documentElement;
         d.classList.add('js');
@@ -14,6 +14,7 @@
           var s = JSON.parse(localStorage.getItem('aq:v1') || 'null');
           if (s && s.state && s.state.settings && s.state.settings.motion === 'off') d.classList.add('reduced');
         } catch (e) {}
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
       })();
     </script>
     <!--app-head-->

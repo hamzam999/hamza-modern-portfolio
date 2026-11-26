@@ -24,10 +24,16 @@ export function prefersReducedMotion(): boolean {
   return useGame.getState().settings.motion === 'off' || getSnapshot();
 }
 
-/** Mirrors the Motion setting onto html.reduced so CSS duration tokens collapse to 0. Mount once in the app shell. */
+/** Mirrors the Motion setting and the system preference onto html.reduced so CSS duration tokens collapse to 0. Mount once in the app shell. */
 export function useSyncMotionClass(): void {
-  const off = useGame((s) => s.settings.motion === 'off');
+  const setting = useGame((s) => s.settings.motion);
   useEffect(() => {
-    document.documentElement.classList.toggle('reduced', off);
-  }, [off]);
+    // Read the media query directly (not through useSyncExternalStore, whose hydration snapshot is false)
+    // so the class the inline script set before first paint is never removed and re-added.
+    const mq = window.matchMedia(QUERY);
+    const apply = () => document.documentElement.classList.toggle('reduced', setting === 'off' || mq.matches);
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, [setting]);
 }

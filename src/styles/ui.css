@@ -130,7 +130,4 @@ html.has-cursor dialog a, html.has-cursor dialog button { cursor: pointer; }
 @media (pointer: coarse), (hover: none) { .cursor { display: none; } }
 
 .level--page { min-height: 70vh; min-height: 70svh; }
-.level__list { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: grid; gap: 0; max-width: 62ch; }
-.level__list a { display: flex; align-items: center; min-height: 44px; font-size: var(--fs-ui); font-weight: 500; }
-.level__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 .cursor__tag { position: fixed; left: 0; top: 0; pointer-events: none; }

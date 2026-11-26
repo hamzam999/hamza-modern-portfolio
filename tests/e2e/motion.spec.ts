@@ -7,7 +7,7 @@ test.describe('@reduced', () => {
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(600);
-    const running = await page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running').map((a) => a.id || (a.effect as KeyframeEffect | null)?.target?.className || 'anon'));
+    const running = await page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running').map((a) => `${(a as CSSAnimation).animationName ?? (a as CSSTransition).transitionProperty ?? 'anim'} on ${(a.effect as KeyframeEffect | null)?.target?.nodeName}.${String((a.effect as KeyframeEffect | null)?.target?.getAttribute('class') ?? '')}`));
     expect(running).toEqual([]);
   });
 });

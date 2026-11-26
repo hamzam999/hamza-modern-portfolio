@@ -26,8 +26,8 @@ for (const route of ROUTES) {
         // WCAG 2.5.8 inline exception: a text link set inside a line of running text.
         if (el.tagName === 'A' && cs.display === 'inline') continue;
         // Visually hidden native checkbox behind a switch: its label carries the target (checked below).
-        if (el.matches('input.toggle__input')) {
-          const lr = el.closest('label')?.getBoundingClientRect();
+        if (el.matches('input.toggle__input, .pong__toggle input')) {
+          const lr = ((el as HTMLInputElement).labels?.[0] ?? el.closest('label'))?.getBoundingClientRect();
           if (lr && lr.height >= 44 - 0.5) continue;
         }
         // The reel scrubber packs ten ticks into the shelf width: 44 px tall, 24 px minimum width (2.5.8 spacing).
@@ -60,15 +60,18 @@ test('@layout the fixed ruler never covers the last focusable element of a level
     const last = level.locator('a[href], button, [tabindex="0"]').last();
     if ((await last.count()) === 0) continue;
     await last.focus();
+    if (await page.evaluate(() => document.activeElement === document.body)) continue; // not focusable in this state (closed door)
+    const id = await level.getAttribute('id');
     await page.waitForTimeout(120);
     const covered = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement | null;
       const bar = document.querySelector('nav[aria-label=Levels]');
-      if (!el || !bar) return false;
+      if (!el || el === document.body || !bar) return '';
       const a = el.getBoundingClientRect();
       const b = bar.getBoundingClientRect();
-      return a.bottom > b.top && a.top < b.bottom && a.right > b.left && a.left < b.right;
+      const hit = a.bottom > b.top && a.top < b.bottom && a.right > b.left && a.left < b.right;
+      return hit ? `${el.outerHTML.slice(0, 100)} ${Math.round(a.top)}-${Math.round(a.bottom)} vs ${Math.round(b.top)}` : '';
     });
-    expect(covered, `last focusable of ${await level.getAttribute('id')} under the ruler`).toBe(false);
+    expect(covered, `last focusable of ${await level.getAttribute('id')} under the ruler`).toBe('');
   }
 });
