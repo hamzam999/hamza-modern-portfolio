@@ -55,7 +55,11 @@ check('CSS total', css.reduce((n, f) => n + gz(`assets/${f}`), 0), BUDGET.css);
   const html = readFileSync(path.join(DIST, 'index.html'), 'utf8');
   const preloaded = [...html.matchAll(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g)].map((m) => /href="([^"]+)"/.exec(m[0])?.[1]).filter(Boolean);
   const fontBytes = preloaded.reduce((n, href) => n + readFileSync(path.join(DIST, href.replace(/^\//, ''))).length, 0);
-  check('first-view font files (count)', preloaded.length * KB, BUDGET.fonts * KB);
+  {
+    const ok = preloaded.length <= BUDGET.fonts;
+    rows.push(`${ok ? 'ok  ' : 'FAIL'} ${'first-view font files (count)'.padEnd(34)} ${String(preloaded.length).padStart(7)} files / ${BUDGET.fonts} files`);
+    if (!ok) fail.push('first-view font files (count)');
+  }
   check('first-view font bytes', fontBytes, 150 * KB);
   const htmlGz = gzipSync(readFileSync(path.join(DIST, 'index.html'))).length;
   const jsGz = [...seen].reduce((n, k) => n + gz(manifest[k].file), 0);

@@ -36,8 +36,3 @@ export const IconArrowRight = (p: SVGProps<SVGSVGElement>) => (
     <path d="M4 12h15M13 6l6 6-6 6" />
   </svg>
 );
-export const IconCheck = (p: SVGProps<SVGSVGElement>) => (
-  <svg {...base} {...p}>
-    <path d="M5 12.5l4.5 4.5L19 7.5" />
-  </svg>
-);

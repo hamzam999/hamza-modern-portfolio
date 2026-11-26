@@ -260,9 +260,21 @@ export default function Shelf({ items, onOpen, instant = false }: ShelfProps) {
 
   const focusTape = useCallback((index: number) => {
     focusMoved.current = true;
-    const el = stageRef.current?.querySelector<HTMLElement>(`a.tape[data-copy="0"][data-index="${index}"]`);
-    el?.focus({ preventScroll: true });
-  }, []);
+    const tapes = Array.from(stageRef.current?.querySelectorAll<HTMLElement>('a.tape[data-copy="0"]') ?? []).filter((t) => !t.hidden);
+    // The target tape can be hidden by the windowed pool: fall back to the nearest visible one (circular distance).
+    let best: HTMLElement | null = null;
+    let bestD = Infinity;
+    for (const t of tapes) {
+      const i = Number(t.dataset.index);
+      const raw = Math.abs(i - index);
+      const d = Math.min(raw, N - raw);
+      if (d < bestD) {
+        bestD = d;
+        best = t;
+      }
+    }
+    best?.focus({ preventScroll: true });
+  }, [N]);
 
   useShelfInput(
     wrapRef,

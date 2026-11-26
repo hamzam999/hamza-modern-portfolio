@@ -82,3 +82,20 @@ describe('persistence', () => {
     off();
   });
 });
+
+describe('resetProgress', () => {
+  it('clears progress but keeps settings and Pong preferences', () => {
+    const g = useGame.getState();
+    g.setSettings({ play: false, motion: 'off', cursor: 'classic' });
+    g.recordPong({ wins: 3, losses: 2, difficulty: 'hard', accessible: true });
+    g.grant('level:1:enter');
+    g.markArcadeSeen();
+    useGame.getState().resetProgress();
+    const s = useGame.getState();
+    expect(s.xp).toBe(0);
+    expect(s.events).toEqual({});
+    expect(s.arcadeSeen).toBe(false);
+    expect(s.pong).toEqual({ wins: 0, losses: 0, difficulty: 'hard', accessible: true });
+    expect(s.settings).toEqual({ play: false, motion: 'off', cursor: 'classic', shelfView: 'auto' });
+  });
+});

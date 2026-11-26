@@ -28,7 +28,7 @@ const STATUS = {
   offline: 'shut down (no longer online)',
 };
 const statusOf = (p) => STATUS[p.link.kind];
-const yearOf = (p) => (p.year ? (p.yearStatus === 'confirmed' ? p.year : `${p.year} (approximate, inferred from role dates)`) : 'not stated');
+const yearOf = (p) => (p.year ? (p.yearStatus === 'confirmed' ? p.year : `${p.year} (approximate, inferred from role dates)`) : 'year to be confirmed');
 const externalLink = (p) => (p.link.kind === 'live' || p.link.kind === 'repo' ? p.link.url : null);
 const CATEGORY_ORDER = ['interactive', 'ecommerce', 'web3', 'product', 'ai', 'wordpress'];
 
@@ -50,7 +50,7 @@ function projectBody(p, level) {
   if (p.subtitle) out.splice(1, 0, '', `_${p.subtitle}_`);
   if (p.highlights?.length) out.push('', `${h} Highlights`, '', p.highlights.map((x) => `- ${x}`).join('\n'));
   if (p.productScope?.length) out.push('', `${h} Product scope (facts about the product, not the owner's work)`, '', p.productScope.map((x) => `- ${x}`).join('\n'));
-  if (p.claims?.length) out.push('', `${h} Results`, '', p.claims.map((c) => `- Owner-reported: ${c.text}`).join('\n'));
+  if (p.claims?.length) out.push('', `${h} Results`, '', p.claims.map((c) => `- ${c.text.charAt(0).toUpperCase()}${c.text.slice(1)} (owner-reported)`).join('\n'));
   return out.join('\n');
 }
 
@@ -88,11 +88,18 @@ const skillTitles = SKILL_BRANCHES.filter((b) => b.id !== 'learning-backend').ma
 const learning = SKILL_BRANCHES.find((b) => b.id === 'learning-backend');
 const learningNames = learning ? learning.nodes.map((n) => n.name).join(', ') : '';
 
+const statusSuffix = (p) => {
+  const text = p.seo.llmsSummary.toLowerCase();
+  if (p.link.kind === 'private') return /private/.test(text) ? '' : '; private';
+  if (p.link.kind === 'offline') return /shut down|shut-down|offline/.test(text) ? '' : '; shut down';
+  return '';
+};
+
 const sections = CATEGORY_ORDER.map((cat) => {
   const items = PROJECTS.filter((p) => p.category === cat);
   if (!items.length) return '';
   const list = items
-    .map((p) => `- [${p.title}](${url(p.slug)}): ${p.seo.llmsSummary.replace(/\.$/, '')}${p.link.kind === 'private' ? '; private' : p.link.kind === 'offline' ? '; shut down' : ''}`)
+    .map((p) => `- [${p.title}](${url(p.slug)}): ${p.seo.llmsSummary.replace(/\.$/, '')}${statusSuffix(p)}`)
     .join('\n');
   return `## Projects: ${HEADING[cat]}\n\n${list}\n`;
 }).filter(Boolean).join('\n');
@@ -162,7 +169,7 @@ ${skills}
 
 # Projects
 
-Seventeen projects. Results marked "Owner-reported" are as stated by the owner. Private client work is described without naming the client.
+Seventeen projects. Results marked "owner-reported" are as stated by the owner. Private client work is described without naming the client.
 
 ${projectSections}
 

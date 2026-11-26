@@ -70,7 +70,7 @@
 .tape__genre { min-width: 0; }
 .tape__vhs { flex: none; }
 .tape__sp .tape__vhs { font-size: max(5.5px, calc(var(--H) * 0.024)); padding: 2px 3px; }
-.tape__sp-title { writing-mode: vertical-rl; transform: rotate(180deg); font: 600 clamp(11px, calc(var(--H) * 0.062), 17px) / 1 var(--font-ui); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+.tape__sp-title { writing-mode: vertical-rl; text-orientation: sideways; transform: rotate(180deg); font: 600 clamp(11px, calc(var(--H) * 0.062), 17px) / 1 var(--font-ui); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
 .tape__dot { flex: none; width: 52%; aspect-ratio: 1; border-radius: 50%; background: var(--tc); opacity: 0.9; }
 
 /* ---------- Caption, buttons, reel ---------- */

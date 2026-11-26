@@ -25,7 +25,7 @@ export const PROJECTS = [
     role: 'Owned frontend architecture and design direction from an abstract product brief',
     stack: ['React', 'Three.js', 'GLSL', 'GSAP'],
     highlights: [
-      'Cinematic 3D scroll-driven web experience with 25,000+ GPU-driven particles at 144 FPS',
+      'Cinematic 3D scroll-driven web experience, built around a GPU-driven particle scene',
       'Procedural shader-based visual states and WebGL blending work',
     ],
     claims: [{ text: '25,000+ GPU-driven particles at 144 FPS', source: 'resume' }],
@@ -172,7 +172,7 @@ export const PROJECTS = [
     role: 'Designed all mobile screens',
     stack: ['Framer', 'React', 'Pointer Events API'],
     productScope: [
-      'The studio’s work blends material experimentation, geometric forms and craftsmanship (client description, not the owner’s work)',
+      'The studio’s work blends material experimentation, geometric forms and craftsmanship',
     ],
     link: { kind: 'live', url: 'https://studiosolyn.com/' },
     spine: 'cobalt',
@@ -293,13 +293,13 @@ export const PROJECTS = [
     spineTitle: 'NFT MARKET',
     category: 'web3',
     genre: 'LOST FILM · NFT',
-    year: '2023–2025',
-    yearStatus: 'inferred',
-    yearSource: 'inferred, unverified: the resume lists it under Projects without a role',
+    year: null,
+    yearStatus: 'tbc',
+    yearSource: 'the resume lists it under Projects without a role or dates',
     featured: true,
     shelfOrder: 9,
     synopsis:
-      'A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles. It used ERC-721 and ERC-1155 contracts on Base, with Sui and Solana supported alongside (each with its own token standard). It had minting and trading flows, lazy minting (listing an item before it is minted), auctions and fixed-price sales, and creator dashboards, and the platform covered the network fee when creators minted. The project has since shut down.',
+      'A marketplace, similar to OpenSea, where creators make, buy and sell digital collectibles. It used ERC-721 and ERC-1155 contracts on Base, with Sui and Solana supported alongside. It had minting and trading flows, lazy minting (listing an item before it is minted), auctions and fixed-price sales, and creator dashboards, and the platform covered the network fee when creators minted. The project has since shut down.',
     role: null,
     stack: ['React', 'Solidity', 'Paymaster', 'Solana Web3', 'ERC-721', 'ERC-1155'],
     highlights: [

@@ -142,6 +142,7 @@ main h1:focus { outline: none; }
 .toggle__input:checked + .toggle__label .toggle__track { background: var(--cobalt); border-color: var(--cobalt); }
 .toggle__input:checked + .toggle__label .toggle__thumb { transform: translateX(20px); background: var(--sheet); }
 .toggle__input:focus-visible + .toggle__label .toggle__track { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+.toggle__input:disabled + .toggle__label { opacity: 0.6; cursor: not-allowed; }
 .toggle__hint { margin: 0 0 var(--space-2); font-size: var(--fs-small); color: var(--muted-strong); max-width: 44ch; }
 .reset { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
 .reset__text { flex-basis: 100%; font-size: var(--fs-small); color: var(--vermilion-ink); }

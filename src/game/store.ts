@@ -66,7 +66,10 @@ interface Actions {
   clearPassportDot: () => void;
   markArcadeSeen: () => void;
   recordPong: (patch: Partial<PongRecord>) => void;
+  /** Full reset to defaults (tests, version migration). */
   reset: () => void;
+  /** Clears progress only (XP events, arcade flag, Pong tally); Play, Motion, cursor and Pong preferences stay. */
+  resetProgress: () => void;
 }
 
 export type GameState = Persisted & Session & Actions;
@@ -147,6 +150,17 @@ export const useGame = create<GameState>()(
       clearPassportDot: () => set({ passportDot: false }),
       markArcadeSeen: () => set({ arcadeSeen: true }),
       recordPong: (patch) => set((s) => ({ pong: { ...s.pong, ...patch } })),
+      resetProgress: () =>
+        set((s) => ({
+          events: {},
+          xp: 0,
+          arcadeSeen: false,
+          pong: { ...s.pong, wins: 0, losses: 0 },
+          toast: null,
+          announcement: '',
+          passportDot: false,
+          jumping: false,
+        })),
       reset: () => set({ ...defaults(), toast: null, announcement: '', passportDot: false, jumping: false }),
     }),
     {

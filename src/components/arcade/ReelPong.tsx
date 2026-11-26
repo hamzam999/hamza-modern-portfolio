@@ -105,11 +105,13 @@ export default function ReelPong() {
       if (o === 'landscape') ctx.fillRect(p.x, p.y, PADDLE_T, len); else ctx.fillRect(p.x, p.y - PADDLE_T, len, PADDLE_T);
     }
     // Ball
-    const b = project(o, s.along, s.across);
-    ctx.fillStyle = th.ink;
-    ctx.beginPath(); ctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = th.paper;
-    ctx.beginPath(); ctx.arc(b.x, b.y, 2.2, 0, Math.PI * 2); ctx.fill();
+    if (viewRef.current.phase !== 'idle') {
+      const b = project(o, s.along, s.across);
+      ctx.fillStyle = th.ink;
+      ctx.beginPath(); ctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = th.paper;
+      ctx.beginPath(); ctx.arc(b.x, b.y, 2.2, 0, Math.PI * 2); ctx.fill();
+    }
     ctx.setTransform(k, 0, 0, k, 0, 0);
     ctx.strokeStyle = th.ink; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, f.w - 1, f.h - 1);
 
@@ -118,9 +120,15 @@ export default function ReelPong() {
     const banner = v.phase === 'idle' ? ['Reel Pong', 'press start'] : v.phase === 'paused' ? ['Paused', 'press resume or P']
       : v.phase === 'over' ? [v.winner === 'player' ? 'You win' : 'CPU wins', 'play again?'] : null;
     if (banner) {
-      ctx.fillStyle = 'rgb(20 20 20 / 0.55)';
-      ctx.fillRect(0, 0, f.w, f.h);
+      // Ink-bordered paper card: on-palette, keeps the cobalt paddles at full strength, text in ink.
+      const cw = Math.min(f.w - 32, 260);
+      const ch = 80;
       ctx.fillStyle = th.paper;
+      ctx.fillRect((f.w - cw) / 2, (f.h - ch) / 2, cw, ch);
+      ctx.strokeStyle = th.ink;
+      ctx.lineWidth = 1;
+      ctx.strokeRect((f.w - cw) / 2 + 0.5, (f.h - ch) / 2 + 0.5, cw - 1, ch - 1);
+      ctx.fillStyle = th.ink;
       ctx.textAlign = 'center';
       ctx.font = `600 24px ${th.font}`;
       ctx.fillText(banner[0] ?? '', f.w / 2, f.h / 2 - 4);

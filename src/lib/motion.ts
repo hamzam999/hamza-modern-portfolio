@@ -13,8 +13,12 @@ const getSnapshot = (): boolean => typeof window !== 'undefined' && !!window.mat
 const getServerSnapshot = (): boolean => false;
 
 /** True when the system asks for reduced motion OR the in-site Motion setting is off (plan 3.5, 7.6). SSR renders false. */
+export function useSystemReducedMotion(): boolean {
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
+
 export function useReducedMotion(): boolean {
-  const system = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const system = useSystemReducedMotion();
   const setting = useGame((s) => s.settings.motion);
   return setting === 'off' || system;
 }

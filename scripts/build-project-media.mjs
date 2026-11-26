@@ -4,7 +4,7 @@
 import sharp from 'sharp';
 import ts from 'typescript';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
@@ -146,6 +146,13 @@ async function main() {
       sourceHash: hash,
     };
     console.log(`media: ${p.slug} done`);
+  }
+
+  // Remove generated output for slugs that no longer have a source (e.g. moved to media-src/_unverified).
+  if (existsSync(OUT)) {
+    for (const d of readdirSync(OUT, { withFileTypes: true })) {
+      if (d.isDirectory() && !manifest[d.name]) rmSync(path.join(OUT, d.name), { recursive: true, force: true });
+    }
   }
 
   const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));

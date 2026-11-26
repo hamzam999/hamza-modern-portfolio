@@ -65,9 +65,9 @@ function ExpCard({ e }: { e: Experience<string> }) {
         <p className="l5__rel">
           Related projects:{' '}
           {related.map((p, i) => (
-            <span key={p.slug}>
-              {i > 0 && ' · '}
+            <span key={p.slug} className="l5__rel-i">
               <Link to={`/projects/${p.slug}`}>{p.cardTitle}</Link>
+              {i < related.length - 1 && ' '}
             </span>
           ))}
         </p>

@@ -38,7 +38,7 @@ const crumbs = (items: Array<[string, string]>): Json => ({
 });
 
 function knowsAbout(): string[] {
-  return [...new Set(SKILL_BRANCHES.flatMap((b) => b.nodes.map((n) => n.name)))];
+  return [...new Set(SKILL_BRANCHES.flatMap((b) => b.nodes.map((n) => n.name.replace(/ \(.*\)$/, ''))))];
 }
 
 function home(): Json {
@@ -92,7 +92,6 @@ function home(): Json {
 const workId = (slug: string) => `${SITE_URL}/projects/${slug}#work`;
 
 function projectNode(p: Project): Json {
-  const link = p.link as { kind: string; url?: string };
   const hero = heroImage(p.slug);
   const node: Json = {
     '@type': p.seo.schemaType,
@@ -112,8 +111,7 @@ function projectNode(p: Project): Json {
   const status: string = p.yearStatus;
   const year: string | null = p.year;
   if (status === 'confirmed' && year) node.dateCreated = year;
-  // Private, shut-down and offline work gets no outbound link.
-  if ((link.kind === 'live' || link.kind === 'repo') && link.url) node.sameAs = link.url;
+  // No sameAs: client store and app URLs are not the same entity as this page; the page keeps its own url.
   return node;
 }
 

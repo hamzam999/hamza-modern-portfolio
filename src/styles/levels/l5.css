@@ -20,6 +20,8 @@
 .l5__bul li::marker { color: var(--cobalt); }
 .l5__award { margin-top: var(--space-4); font-size: var(--fs-small); font-weight: 600; color: var(--vermilion-ink); }
 .l5__rel { margin-top: var(--space-3); font-size: var(--fs-small); font-weight: 500; }
+.l5__rel-i { white-space: nowrap; }
+.l5__rel-i + .l5__rel-i::before { content: '·'; margin-inline: 0.4em 0.5em; color: var(--muted-strong); }
 .l5__rel a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Node reveal: circle clip when the checkpoint reaches the viewport. */

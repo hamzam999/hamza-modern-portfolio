@@ -7,7 +7,7 @@
 .project-page .crumbs { margin-bottom: var(--space-5); font-size: var(--fs-small); font-weight: 500; color: var(--muted-strong); }
 .project-page .crumbs a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 .pd__eyebrow { font-size: var(--fs-label); font-weight: 600; letter-spacing: var(--tr-label); text-transform: uppercase; color: var(--cobalt); }
-.pd__title { margin-top: var(--space-3); font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--tr-h2); max-width: 20ch; }
+.pd__title { margin-top: var(--space-3); font-size: clamp(2.5rem, 1.7rem + 3.4vw, 5rem); overflow-wrap: anywhere; text-wrap: balance; line-height: var(--lh-h2); letter-spacing: var(--tr-h2); max-width: 20ch; }
 .pd__title:focus { outline: none; }
 .pd__subtitle { margin-top: var(--space-2); font-size: var(--fs-lead); font-family: var(--font-read); font-style: italic; color: var(--muted-strong); }
 .pd__poster { margin-top: var(--space-6); max-width: 960px; }
