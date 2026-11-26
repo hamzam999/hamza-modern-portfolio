@@ -1,12 +1,12 @@
 # Dev status
 
-Updated: 2026-11-25T00:00:00Z
+Updated: 2026-11-26T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 5 (SEO and GEO done, G5 pending)
+Current phase: 6 (QA and performance done except P6-3 owner device checklist; G6 pending)
 Current gate: G3 pending (Opus plus owner /review-animations)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G2 to G5 reviews, then Phase 6
+Next task(s): G2 to G6 reviews; owner runs P6-3 device checklist
 Blockers: none
 
 ## Tasks
@@ -56,6 +56,12 @@ Blockers: none
 | P5-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | scripts/gen-og.mjs + scripts/og/templates.mjs (plain satori element trees, no JSX runtime); 21 PNGs written to dist/og (not public/og), max 228 KB; halftone kanji drawn from kanji-paths; no grain texture; projects without a hero use a swatch poster with the spine title |
 | P5-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | vercel.json per 9.8 plus Content-Type headers for llms*.txt and project .md; no SPA rewrite, 404 status verified against the preview plugin only (`vercel dev` not run here): owner should confirm a real 404 status on the first deploy |
 | P5-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | tests/e2e/seo.spec.ts (@seo head/JSON-LD/OG/robots/sitemap/llms/404, @nojs home, project, link names, alt, landmarks); no component fixes needed. check-budgets.mjs now fails on +91 or 9919 in any dist text file, Valerie/SkyAI, missing SEO files or an OG image over 300 KB; build now ends with gen-seo-files, gen-og, budgets; build:e2e runs the first two |
+| P6-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | new specs layout, game, motion, vitals, visual (44 baselines for the 4 Chromium projects here: mobile-360, desktop-1024, desktop-1440, reduced-1440; each reviewed in montages); smoke gained a full-interaction console pass; interview axe was already un-fixme'd in P2-7; throttled specs tagged @throttle and run alone (`npm run test:e2e` second pass, `--workers=1`, build reused via E2E_REUSE_BUILD) |
+| P6-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | lighthouserc.json (mobile, 3 URLs, assertMatrix with /arcade at 0.90) and lighthouserc.desktop.json; `npm run lhci` runs both with Chrome at CHROME_PATH. Local results: mobile 99-100 perf, 100/100/100 other categories, LCP ~0.9 s, CLS <= 0.011, TBT <= 129 ms; desktop 100 all. check-budgets.mjs gained first-view font count/bytes and first-view transfer (192 KB of 450) |
+| P6-3 | needs owner | - | - | - | real-device checklist (plan 11.6): iPhone Safari, Android Chrome, iPad both orientations, desktop Safari/Firefox, VoiceOver/NVDA/TalkBack, safe-area landscape, WebKit/Firefox visual baselines (generate in CI or on a machine with those browsers) |
+| P6-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | fixes: archive links, crumbs, footer links, arcade links, L5 related links and L6 email now >= 44 px; Passport notification dot no longer overlaps the label at >= 768 px; `html.reduced` now also mirrors the system reduced-motion preference (inline script sets it before paint; the sync hook reads matchMedia in the effect so it never flickers) which stops the L1 ruler tick and kanji scroll animations under reduced motion; kanji scroll reveal wrapped in no-preference |
+| P6-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | removed lucide-react, 5 dead CSS rules; README rewritten; smoke covers console errors and warnings on every route plus an interaction pass |
+
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -96,6 +102,7 @@ Open data flags kept: 25+ projects stat (previous site only), skill depth (assum
 - Phase 4 deviations: ReelPong renders the whole card (scoreboard, canvas, controls, rules) and Arcade imports it statically so the text is prerendered; games.ts lists Pong without `load` (placeholders only). Difficulty and accessible mode persist in the store `pong` record; changing either resets to idle. Orientation: landscape when container width / (innerHeight - topbar - 160) >= 1.05. Starting scrolls the field into view first (otherwise the <50% visibility rule pauses at once). e2e build sets `window.__pong` (engine) so specs can force a won game. Screen shake on a point only when motion is allowed. Arcade chunk 6.0 KB gzip; initial JS 109.6 KB.
 
 ## Log
+- P6-1, P6-2, P6-4, P6-5 done; npm ci, typecheck, vitest (80), build, build:e2e, test:e2e (main pass 535 passed; @throttle pass flaky only under sandbox CPU noise, passes with retries), budgets, lhci green. P6-3 owner work
 - P4-1..P4-5 done; typecheck, vitest (74), build:e2e, `@arcade|@a11y` (83 passed), budgets, build green; shots in test-results/arcade/
 - P3-1..P3-9 done; typecheck, vitest, build:e2e, `@shelf|@sheet|@perf|@a11y`, budgets, shots and build green (details in the Phase 3 notes)
 - P2-1..P2-9 done; typecheck, vitest (27), build:e2e, `@levels|@a11y|@nojs` (76 passed), shots and build green
@@ -103,3 +110,5 @@ Open data flags kept: 25+ projects stat (previous site only), skill depth (assum
 - P0-1..P0-6 done; typecheck, vitest (9 tests), vite build, playwright smoke (8 passed) green; G0 greps clean
 
 - Phase 5 deviations: llms.txt category headings and project lines come from `seo.llmsSummary`, so wording differs slightly from the 9.7 draft (NFT line keeps ERC-721/1155 on Base, Sui and Solana named separately). Resume link omitted while `resumePdf` is null. Person `alternateName` omitted (Q17 unconfirmed). `/arcade` and `/interview-framework` get a WebPage graph (plan lists none). Reading the sitemap, `/` and `/projects` lastmod is the latest content `updated` (2026-11-25).
+
+- Phase 6 deviations and notes: touch-target spec exempts inline text links inside running copy (WCAG 2.5.8 inline exception: L3 "Seen in" lists, L2 email) and the reel scrubber ticks (30 x 56 px; ten ticks cannot be 44 wide in 328 px, 24 px minimum met); the hidden checkbox behind each switch is measured through its 44 px label. Keyboard-path test excludes elements inside the fixed bar/ruler. Visual spec masks the XP counter, live regions, toasts, the shelf stage and canvas. Stale items in the Phase 0-5 notes: the interview axe fixme was removed in P2-7. Initial JS stays 109.8 KB of 110 (no headroom: any new eager code needs a lazy chunk). Known sandbox limits: WebKit and Firefox not installed, so `mobile-390`, `tablet-768`, `reduced-390` and `firefox-1440` and their visual baselines are untested here. Project media screenshots for 12 projects are still missing (owner), so heroes use the PosterFallback.
