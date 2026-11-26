@@ -37,7 +37,7 @@ All site content is typed data in `src/content/` (types in `src/types/content.ts
 
 ## Media workflow
 
-Drop screenshots into `media-src/projects/<slug>/screenshot.png` (and optionally `mobile.png`); see Appendix C of the plan for sizes. `npm run media` (part of the build) turns them into covers and heroes; projects without a screenshot use a typographic fallback poster. `media-src/` is not shipped.
+`npm run shots:projects [-- slug ...] [--force]` captures every live project (`link.kind === 'live'`) into `media-src/projects/<slug>/desktop-full.png` (1440x900) and `mobile-full.png` (390x844 at 2x); see the tweaks table at the top of `scripts/capture-project-shots.mjs` for per-site handling. `npm run media` (part of the build) turns them into heroes (16:10 top crop), duotone covers (top of the mobile capture), hero prints and the capped `full-desktop.webp` / `full-mobile.webp` layouts shown on project pages. Projects without a capture use a typographic fallback poster. `media-src/` is not shipped.
 
 ## Hosting
 
