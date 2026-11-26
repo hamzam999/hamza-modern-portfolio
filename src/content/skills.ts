@@ -159,3 +159,6 @@ export const SKILL_BRANCHES: readonly SkillBranch<ProjectSlug>[] = [
     evidence: ['codeslytic-budget'],
   },
 ];
+
+/** ISO date for sitemap lastmod and JSON-LD dateModified; bump by hand when this file's content changes (plan 9.7). */
+export const SKILLS_UPDATED = '2026-11-25' as const;

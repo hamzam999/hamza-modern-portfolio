@@ -60,3 +60,6 @@ export const EXPERIENCES: readonly Experience<ProjectSlug>[] = [
     relatedProjects: ['codeslytic-budget', 'erpnext-manufacturing', 'ai-agent-team'],
   },
 ];
+
+/** ISO date for sitemap lastmod and JSON-LD dateModified; bump by hand when this file's content changes (plan 9.7). */
+export const EXPERIENCE_UPDATED = '2026-11-25' as const;

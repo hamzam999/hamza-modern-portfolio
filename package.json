@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run media && npm run build:client && npm run build:server && node scripts/prerender.mjs",
+    "build": "npm run media && npm run build:client && npm run build:server && node scripts/prerender.mjs && node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs && node scripts/check-budgets.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
@@ -17,8 +17,9 @@
     "media": "node scripts/build-project-media.mjs",
     "build:client": "vite build",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist-ssr",
-    "build:e2e": "npm run media && vite build --mode e2e && vite build --mode e2e --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
-    "shots": "playwright test tests/e2e/shots.spec.ts"
+    "build:e2e": "npm run media && vite build --mode e2e && vite build --mode e2e --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs && node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs",
+    "shots": "playwright test tests/e2e/shots.spec.ts",
+    "seo": "node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs"
   },
   "dependencies": {
     "@fontsource/inter-tight": "5.3.0",

@@ -2,11 +2,11 @@
 
 Updated: 2026-11-25T00:00:00Z
 Plan: docs/REVAMP_PLAN.md (revision 2)
-Current phase: 4 (Arcade, G4 pending)
+Current phase: 5 (SEO and GEO done, G5 pending)
 Current gate: G3 pending (Opus plus owner /review-animations)
 Branch: claude/bold-tesla-le6sg7
 Last commit: 7aadc8a (no Phase 0 commit yet; coordinating session commits)
-Next task(s): G2, G3, G4 reviews, then Phase 5
+Next task(s): G2 to G5 reviews, then Phase 6
 Blockers: none
 
 ## Tasks
@@ -50,6 +50,12 @@ Blockers: none
 | P4-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | useGameInput.ts (pointer, touch single-finger capture, keys); pause on hidden, blur, <50% visible, dialog open |
 | P4-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | Arcade.tsx, games.ts, arcade.css; early-visit banner; win grants XP via grantPongWin, first win lands stamp |
 | P4-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | sr-only role=status scoreboard, accessible mode, labels; tests/e2e/arcade.spec.ts (12 tests x 5 projects) |
+| P5-1 | done | sonnet | claude/bold-tesla-le6sg7 | - | meta.ts gains `og` (type, absolute image, alt); prerender head now has OG, Twitter, JSON-LD (`<` escaped), markdown alternate link on project pages; client Head.tsx unchanged (initial JS 109.8 KB of 110, so no OG tag syncing on client navigation; crawlers read prerendered HTML); font preloads already existed; src/seo/dates.ts plus `*_UPDATED` exports in profile/experience/skills |
+| P5-2 | done | sonnet | claude/bold-tesla-le6sg7 | - | src/seo/jsonld.ts (home Person/WebSite/ProfilePage, project CreativeWork or SoftwareApplication with breadcrumbs, CollectionPage, WebPage for arcade and interview) and jsonld.test.ts (id refs resolve, no telephone/worksFor, no sameAs for private/offline, no dateCreated for unconfirmed years); e2e parses every prerendered block |
+| P5-3 | done | sonnet | claude/bold-tesla-le6sg7 | - | scripts/gen-seo-files.mjs reads content through the SSR bundle (entry-server re-exports); robots, sitemap (21 urls, hero image entries use the largest built width, 1280, not 1920), llms.txt, llms-full.txt, dist/projects/<slug>.md; fails on phone pattern, Valerie/SkyAI, ERC on Sui/Solana |
+| P5-4 | done | sonnet | claude/bold-tesla-le6sg7 | - | scripts/gen-og.mjs + scripts/og/templates.mjs (plain satori element trees, no JSX runtime); 21 PNGs written to dist/og (not public/og), max 228 KB; halftone kanji drawn from kanji-paths; no grain texture; projects without a hero use a swatch poster with the spine title |
+| P5-5 | done | sonnet | claude/bold-tesla-le6sg7 | - | vercel.json per 9.8 plus Content-Type headers for llms*.txt and project .md; no SPA rewrite, 404 status verified against the preview plugin only (`vercel dev` not run here): owner should confirm a real 404 status on the first deploy |
+| P5-6 | done | sonnet | claude/bold-tesla-le6sg7 | - | tests/e2e/seo.spec.ts (@seo head/JSON-LD/OG/robots/sitemap/llms/404, @nojs home, project, link names, alt, landmarks); no component fixes needed. check-budgets.mjs now fails on +91 or 9919 in any dist text file, Valerie/SkyAI, missing SEO files or an OG image over 300 KB; build now ends with gen-seo-files, gen-og, budgets; build:e2e runs the first two |
 
 ## Deviations and notes
 - Appendix B arrays are `readonly` (needed so `as const satisfies readonly Project[]` compiles). Added optional `Project.subtitle` (AI Agent Team subtitle) and `SkillBranch.evidence` (plan 5.3 puts "Seen in" per branch, not per node; node-level evidence is empty).
@@ -95,3 +101,5 @@ Open data flags kept: 25+ projects stat (previous site only), skill depth (assum
 - P2-1..P2-9 done; typecheck, vitest (27), build:e2e, `@levels|@a11y|@nojs` (76 passed), shots and build green
 - P1-1..P1-8 done; typecheck, vitest (27), build, build:e2e, `@shell|@a11y` and shots green (see below); 22 prerendered files each with one H1
 - P0-1..P0-6 done; typecheck, vitest (9 tests), vite build, playwright smoke (8 passed) green; G0 greps clean
+
+- Phase 5 deviations: llms.txt category headings and project lines come from `seo.llmsSummary`, so wording differs slightly from the 9.7 draft (NFT line keeps ERC-721/1155 on Base, Sui and Solana named separately). Resume link omitted while `resumePdf` is null. Person `alternateName` omitted (Q17 unconfirmed). `/arcade` and `/interview-framework` get a WebPage graph (plan lists none). Reading the sitemap, `/` and `/projects` lastmod is the latest content `updated` (2026-11-25).

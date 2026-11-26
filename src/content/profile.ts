@@ -56,3 +56,6 @@ export const ABOUT_STATS = [
   { value: '30–50%', label: 'performance gains from SSR/SSG and code splitting', source: 'resume' },
   { value: '30%', label: 'more organic traffic from technical SEO at House of THL', source: 'resume' },
 ] as const;
+
+/** ISO date for sitemap lastmod and JSON-LD dateModified; bump by hand when this file's content changes (plan 9.7). */
+export const PROFILE_UPDATED = '2026-11-25' as const;

@@ -60,6 +60,23 @@ if (missing.length) fail.push(`jp-glyphs.lock misses ${missing.join('')} (run np
 const e2e = readdirSync(assets).some((f) => f.startsWith('testHooks'));
 if (!e2e && readdirSync(assets).some((f) => f.endsWith('.js') && readFileSync(path.join(assets, f), 'utf8').includes('__aq'))) fail.push('__aq test hooks found in a production build');
 
+// SEO and content guards (plan 9.7, Phase 5): no phone number, no removed projects, required generated files.
+const TEXT = /\.(html|txt|xml|md|json|js|css|svg|webmanifest)$/;
+const walkDist = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? walkDist(path.join(dir, d.name)) : [path.join(dir, d.name)]));
+const files = walkDist(DIST);
+for (const f of files.filter((x) => TEXT.test(x))) {
+  const text = readFileSync(f, 'utf8');
+  const rel = path.relative(DIST, f);
+  if (/\+91|9919/.test(text)) fail.push(`phone-number pattern (+91 or 9919) in dist/${rel}`);
+  if (/Valerie|SkyAI/i.test(text)) fail.push(`removed project name in dist/${rel}`);
+}
+for (const f of ['robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'og/default.png', 'og/projects.png', 'og/arcade.png', 'og/interview.png', '404.html']) {
+  if (!existsSync(path.join(DIST, f))) fail.push(`dist/${f} missing`);
+}
+for (const f of files.filter((x) => x.includes(`${path.sep}og${path.sep}`) && x.endsWith('.png'))) {
+  if (readFileSync(f).length > 300 * KB) fail.push(`OG image over 300 KB: ${path.relative(DIST, f)}`);
+}
+
 console.log(rows.join('\n'));
 if (fail.length) {
   console.error(`\nbudgets: FAILED: ${fail.join('; ')}`);
