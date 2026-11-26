@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { TechIcon } from '@/components/ui/TechIcon';
 
-const SKILLS = ['Shopify Functions', 'Checkout Extensions', 'React', 'Next.js', 'TypeScript', 'Three.js', 'WebGL', 'Solana', 'Wagmi', 'ERPNext', 'Frappe', 'GLSL', 'Online Store 2.0'] as const;
+export const TICKER_SKILLS = ['Shopify Functions', 'Checkout Extensions', 'React', 'Next.js', 'TypeScript', 'Three.js', 'WebGL', 'Solana', 'Wagmi', 'ERPNext', 'Frappe', 'GLSL', 'Online Store 2.0'] as const;
 
 /**
  * Skills ticker on a film strip, between level 1 and 2. The list is real text (readable without CSS motion or JS);
@@ -13,13 +14,19 @@ export function Ticker() {
       <div className="ticker__viewport">
         <div className="ticker__track">
           <ul className="ticker__list">
-            {SKILLS.map((s) => (
-              <li key={s}>{s}</li>
+            {TICKER_SKILLS.map((s) => (
+              <li key={s}>
+                <TechIcon name={s} />
+                {s}
+              </li>
             ))}
           </ul>
           <ul className="ticker__list" aria-hidden="true">
-            {SKILLS.map((s) => (
-              <li key={s}>{s}</li>
+            {TICKER_SKILLS.map((s) => (
+              <li key={s}>
+                <TechIcon name={s} />
+                {s}
+              </li>
             ))}
           </ul>
         </div>

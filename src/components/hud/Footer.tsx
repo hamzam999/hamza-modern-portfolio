@@ -92,6 +92,7 @@ export function Footer() {
           <ResetProgress />
         </div>
         <p className="footer__colophon">
+          Technology icons: Simple Icons (CC0), Devicon (MIT); logos are trademarks of their owners.<br />
           Set in Inter Tight and Newsreader. Built with React and Vite. © {__BUILD_YEAR__} {PROFILE.name}.
         </p>
       </div>

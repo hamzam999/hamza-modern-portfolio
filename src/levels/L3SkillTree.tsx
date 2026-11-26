@@ -5,6 +5,7 @@ import { EXPERIENCES } from '@/content/experience';
 import { PROJECTS } from '@/content/projects';
 import { SKILL_BRANCHES } from '@/content/skills';
 import { LevelShell } from '@/components/ui/LevelShell';
+import { TechIcon } from '@/components/ui/TechIcon';
 import { useInView } from '@/lib/useInView';
 import type { SkillBranch, SkillDepth } from '@/types/content';
 
@@ -68,6 +69,7 @@ function BranchCard({ branch, page, delay, next }: { branch: SkillBranch<string>
         {branch.nodes.map((n) => (
           <li key={n.id} className={`l3__chip l3__chip--${n.depth}`}>
             <span className="l3__dot" aria-hidden="true" />
+            <TechIcon name={n.name} size={28} />
             {n.name}
             <span className="sr-only">, {DEPTH_LABEL[n.depth]}</span>
           </li>

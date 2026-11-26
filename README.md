@@ -42,3 +42,11 @@ All site content is typed data in `src/content/` (types in `src/types/content.ts
 ## Hosting
 
 Static output in `dist/`, configured for Vercel by `vercel.json` (clean URLs, caching, real 404). Confirm a 404 status for unknown paths on the first deploy.
+
+## Technology icons
+
+Technology logos in the hero, the skills ticker and the skill tree come from open-source libraries, extracted at build time by `npm run icons` into `public/art/tech-sprite.svg` (nothing is drawn by hand; the libraries are devDependencies and never enter the client bundle). Sources: [Simple Icons](https://simpleicons.org) (CC0-1.0) and [Devicon](https://devicon.dev) (MIT). Logos are trademarks of their owners. Technologies without a library icon show a neutral initial chip. See `docs/ICON_LICENSES.md`.
+
+## Deployment and generated files
+
+Deploy with `npm run build` (set in `vercel.json` as `buildCommand`, output `dist`), not a bare `vite build`: the full build runs the media pipeline, prerenders every route, writes `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt` and `projects/<slug>.md` (also committed under `public/` so a plain `vite build` and `npm run dev` still serve them) and generates the Open Graph images. `npm run budgets` fails when the committed `public/` copies are stale. The home Open Graph image is a capture of the real hero: `npm run og:hero` (needs a prior build and Chromium) rewrites `media-src/og/home-hero.png`; the build itself needs no browser.

@@ -1,0 +1,57 @@
+# Mohammad Hamza
+
+> Mohammad Hamza is a Senior Frontend Engineer based in India, with 6+ years of experience building e-commerce platforms, Web3 applications, ERP interfaces and interactive web experiences. He works with React, Next.js, TypeScript, Shopify (Online Store 2.0, Functions, Checkout Extensions, custom apps), ERPNext/Frappe, Solana and EVM wallets, and Three.js with GLSL. He works remotely as a freelance Frontend & ERP Developer.
+
+This site is his portfolio. Every project below has its own page with a plain-language summary, his role, the tech stack and links. Results quoted on project pages are as stated by the owner. Private client work is described without naming the client or linking to it.
+
+## About
+
+- [Profile and quick facts](https://erhamza.tech/#level-origin): role, experience since 2020, education (Bachelor of Computer Science, CSJM University, Kanpur, 2020), recognition ("Promising Newcomer" at ITH Technologies)
+- [Career path](https://erhamza.tech/#level-career): Frontend & ERP Developer (Freelance) (Jan 2026–present); Frontend & Web3 Engineer at ITH Technologies (Feb 2023–Dec 2025); Shopify Developer / Frontend Developer at House of THL (Mar 2022–Jan 2023); Shopify & WordPress Developer (Founder) (Jan 2020–Jan 2022)
+- [Skills](https://erhamza.tech/#level-skills): Frontend, Architecture, 3D & Animation, Shopify, Web3 & Blockchain, E-commerce & SaaS, ERP, DevOps & Tools, AI & Automation; currently learning backend (Node.js, Express, PostgreSQL, Prisma, Zod, JWT auth)
+- [Contact](https://erhamza.tech/#level-contact): email erhamza.dev@gmail.com, LinkedIn, GitHub
+
+## Projects: 3D and interactive
+
+- [NAVIG](https://erhamza.tech/projects/navig): Scroll-driven Three.js and GLSL website with 25,000+ GPU-driven particles at 144 FPS
+- [Studio Solyn](https://erhamza.tech/projects/studio-solyn): Mobile screens designed and built in Framer for a product design studio’s website
+- [MotionGrid](https://erhamza.tech/projects/motiongrid): One-page React showcase of 12 projects for a design agency, with CSS marquee animation
+
+## Projects: e-commerce and Shopify
+
+- [Lammle’s Checkout](https://erhamza.tech/projects/lammles): Shopify Checkout Extension with form validation and Shopify Functions for delivery and payment options
+- [Nighat Ahmad Official](https://erhamza.tech/projects/nighat-ahmad-official): Fast, mobile-first Shopify Online Store 2.0 storefront on Dawn for a fashion brand
+- [Berbanto Atelier](https://erhamza.tech/projects/berbanto-atelier): Eleven custom features for a Shopify store on the Atelier theme, editable in the theme editor
+- [HE Fashion](https://erhamza.tech/projects/hefashion): Full Shopify store build for a multi-brand fashion store: reviews and popularity notices
+- [Downtowns Fashion](https://erhamza.tech/projects/downtowns-fashion): Full Shopify store build for a multi-brand-style fashion store
+
+## Projects: Web3
+
+- [GeSIM](https://erhamza.tech/projects/gesim): Web3 eSIM MVP: wallet connection, purchases and transaction status in React and React Native
+- [Trading Desk and Multi-sig](https://erhamza.tech/projects/dex-cex-multisig-wallet): Private work: real-time DEX and CEX trading dashboards and a multi-signature wallet frontend
+- [NFT Marketplace](https://erhamza.tech/projects/nft-marketplace): Shut-down NFT marketplace: ERC-721 and ERC-1155 on Base, plus Sui and Solana; lazy minting and auctions
+
+## Projects: full-stack and product
+
+- [CodesLytic Budget](https://erhamza.tech/projects/codeslytic-budget): Offline-first Next.js budgeting app with multi-currency tracking, UPI expense splitting and 160+ E2E tests
+- [Unified Trading CRM](https://erhamza.tech/projects/unified-trading-crm): Private work: Angular trading tools merged into one Next.js CRM, load times down 35%
+- [ERPNext for Manufacturing](https://erhamza.tech/projects/erpnext-manufacturing): Private work: custom ERPNext app replacing manual production tracking in a factory
+- [Muftimaaz.com](https://erhamza.tech/projects/muftimaaz): Next.js website for an Islamic scholar with YouTube API caching and audio streaming from Cloudflare R2
+
+## Projects: AI and automation
+
+- [Agent Workflows](https://erhamza.tech/projects/agent-workflows): Private work: AI agents for lead generation and social content with human approval, built with n8n and ERPNext
+
+## Projects: WordPress
+
+- [Promenade Medulin](https://erhamza.tech/projects/promenade-medulin): Five-language WordPress site for a holiday property in Medulin, Croatia, on Kadence with a custom child theme
+- [BookEase](https://erhamza.tech/projects/bookease): WordPress booking plugin in PHP 8 with free-slot selection, confirmation emails and CSV export
+
+## Optional
+
+- [Full project archive](https://erhamza.tech/projects), including an "Earlier work" list of older client sites and tools (Louis Cardin, Sedef Anatolia, Slurvo, WanHam Leathers, Bizthon Cursor) that are no longer online
+- [Full text for language models](https://erhamza.tech/llms-full.txt)
+- [Frontend interview questions](https://erhamza.tech/interview-framework)
+- [Arcade](https://erhamza.tech/arcade)
+- [GitHub](https://github.com/hamzam999)
+- [LinkedIn](https://www.linkedin.com/in/er-mohammad-hamza/)

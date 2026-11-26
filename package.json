@@ -21,6 +21,7 @@
     "shots": "playwright test tests/e2e/shots.spec.ts",
     "shots:projects": "node scripts/capture-project-shots.mjs",
     "seo": "node scripts/gen-seo-files.mjs && node scripts/gen-og.mjs",
+    "icons": "node scripts/build-icons.mjs",
     "og:hero": "node scripts/capture-og-hero.mjs"
   },
   "dependencies": {
@@ -43,11 +44,13 @@
     "@types/react": "19.3.3",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "devicon": "^2.18.0",
     "fontaine": "1.1.0",
     "harfbuzzjs": "^1.6.4",
     "opentype.js": "2.0.0",
     "satori": "^0.32.0",
     "sharp": "0.35.5",
+    "simple-icons": "^16.38.1",
     "subset-font": "2.9.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",

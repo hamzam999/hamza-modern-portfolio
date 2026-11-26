@@ -81,6 +81,47 @@
     "dominant": "#f8f8f8",
     "sourceHash": "0cc8070704b1e112ff985aaf88a3b8115ef547e3"
   },
+  "downtowns-fashion": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 342900,
+        "quality": 68
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 495,
+        "height": 11423,
+        "cropped": true,
+        "bytes": 294064,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "40cf0d1052f0ef3f42d5ee297fbb1b18dc0e7f8e"
+  },
   "gesim": {
     "hero": {
       "widths": [

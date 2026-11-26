@@ -5,6 +5,7 @@ import { HeroCollage } from '@/components/art/HeroCollage';
 import { Button } from '@/components/ui/Button';
 import { LevelShell } from '@/components/ui/LevelShell';
 import { MaskLine } from '@/components/ui/MaskLine';
+import { TechIcon } from '@/components/ui/TechIcon';
 
 const level = LEVELS[0];
 
@@ -30,7 +31,10 @@ export function L1Spawn() {
       <div className="l1__meta">
         <ul className="l1__focus" aria-label="Focus">
           {HERO_CONTENT.focus.map((f) => (
-            <li key={f}>{f}</li>
+            <li key={f}>
+              <TechIcon name={f} />
+              {f}
+            </li>
           ))}
         </ul>
         <p className="l1__avail">

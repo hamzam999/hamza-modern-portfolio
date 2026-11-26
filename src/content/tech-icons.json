@@ -1,0 +1,338 @@
+{
+ "react": {
+  "source": "simple-icons",
+  "key": "siReact",
+  "title": "React",
+  "hex": "#61DAFB"
+ },
+ "nextjs": {
+  "source": "simple-icons",
+  "key": "siNextdotjs",
+  "title": "Next.js",
+  "hex": "#000000"
+ },
+ "typescript": {
+  "source": "simple-icons",
+  "key": "siTypescript",
+  "title": "TypeScript",
+  "hex": "#3178C6"
+ },
+ "javascript": {
+  "source": "simple-icons",
+  "key": "siJavascript",
+  "title": "JavaScript",
+  "hex": "#F7DF1E"
+ },
+ "angular": {
+  "source": "simple-icons",
+  "key": "siAngular",
+  "title": "Angular",
+  "hex": "#0F0F11"
+ },
+ "redux": {
+  "source": "simple-icons",
+  "key": "siRedux",
+  "title": "Redux",
+  "hex": "#764ABC"
+ },
+ "reactrouter": {
+  "source": "simple-icons",
+  "key": "siReactrouter",
+  "title": "React Router",
+  "hex": "#CA4245"
+ },
+ "tanstack": {
+  "source": "simple-icons",
+  "key": "siReactquery",
+  "title": "React Query",
+  "hex": "#FF4154"
+ },
+ "tailwind": {
+  "source": "simple-icons",
+  "key": "siTailwindcss",
+  "title": "Tailwind CSS",
+  "hex": "#06B6D4"
+ },
+ "vite": {
+  "source": "simple-icons",
+  "key": "siVite",
+  "title": "Vite",
+  "hex": "#9135FF"
+ },
+ "html5": {
+  "source": "simple-icons",
+  "key": "siHtml5",
+  "title": "HTML5",
+  "hex": "#E34F26"
+ },
+ "css3": {
+  "source": "devicon",
+  "key": "css3/plain",
+  "title": "css3",
+  "hex": "#3d8fc6"
+ },
+ "bootstrap": {
+  "source": "simple-icons",
+  "key": "siBootstrap",
+  "title": "Bootstrap",
+  "hex": "#7952B3"
+ },
+ "shadcn": {
+  "source": "simple-icons",
+  "key": "siShadcnui",
+  "title": "shadcn/ui",
+  "hex": "#000000"
+ },
+ "threejs": {
+  "source": "simple-icons",
+  "key": "siThreedotjs",
+  "title": "Three.js",
+  "hex": "#000000"
+ },
+ "gsap": {
+  "source": "simple-icons",
+  "key": "siGreensock",
+  "title": "GreenSock",
+  "hex": "#88CE02"
+ },
+ "webgl": {
+  "source": "simple-icons",
+  "key": "siWebgl",
+  "title": "WebGL",
+  "hex": "#990000"
+ },
+ "shopify": {
+  "source": "simple-icons",
+  "key": "siShopify",
+  "title": "Shopify",
+  "hex": "#7AB55C"
+ },
+ "remix": {
+  "source": "simple-icons",
+  "key": "siRemix",
+  "title": "Remix",
+  "hex": "#000000"
+ },
+ "wordpress": {
+  "source": "simple-icons",
+  "key": "siWordpress",
+  "title": "WordPress",
+  "hex": "#21759B"
+ },
+ "woocommerce": {
+  "source": "simple-icons",
+  "key": "siWoocommerce",
+  "title": "WooCommerce",
+  "hex": "#96588A"
+ },
+ "php": {
+  "source": "simple-icons",
+  "key": "siPhp",
+  "title": "PHP",
+  "hex": "#777BB4"
+ },
+ "nodejs": {
+  "source": "simple-icons",
+  "key": "siNodedotjs",
+  "title": "Node.js",
+  "hex": "#5FA04E"
+ },
+ "express": {
+  "source": "simple-icons",
+  "key": "siExpress",
+  "title": "Express",
+  "hex": "#0A0A0A"
+ },
+ "postgresql": {
+  "source": "simple-icons",
+  "key": "siPostgresql",
+  "title": "PostgreSQL",
+  "hex": "#4169E1"
+ },
+ "prisma": {
+  "source": "simple-icons",
+  "key": "siPrisma",
+  "title": "Prisma",
+  "hex": "#2D3748"
+ },
+ "zod": {
+  "source": "simple-icons",
+  "key": "siZod",
+  "title": "Zod",
+  "hex": "#408AFF"
+ },
+ "jwt": {
+  "source": "simple-icons",
+  "key": "siJsonwebtokens",
+  "title": "JSON Web Tokens",
+  "hex": "#000000"
+ },
+ "docker": {
+  "source": "simple-icons",
+  "key": "siDocker",
+  "title": "Docker",
+  "hex": "#2496ED"
+ },
+ "aws": {
+  "source": "devicon",
+  "key": "amazonwebservices/plain",
+  "title": "amazonwebservices",
+  "hex": "#ff9900"
+ },
+ "github": {
+  "source": "simple-icons",
+  "key": "siGithub",
+  "title": "GitHub",
+  "hex": "#181717"
+ },
+ "githubactions": {
+  "source": "simple-icons",
+  "key": "siGithubactions",
+  "title": "GitHub Actions",
+  "hex": "#2088FF"
+ },
+ "git": {
+  "source": "simple-icons",
+  "key": "siGit",
+  "title": "Git",
+  "hex": "#F03C2E"
+ },
+ "bitbucket": {
+  "source": "simple-icons",
+  "key": "siBitbucket",
+  "title": "Bitbucket",
+  "hex": "#0052CC"
+ },
+ "jira": {
+  "source": "simple-icons",
+  "key": "siJira",
+  "title": "Jira",
+  "hex": "#0052CC"
+ },
+ "figma": {
+  "source": "simple-icons",
+  "key": "siFigma",
+  "title": "Figma",
+  "hex": "#F24E1E"
+ },
+ "playwright": {
+  "source": "devicon",
+  "key": "playwright/plain",
+  "title": "playwright",
+  "hex": "#2EAD33"
+ },
+ "erpnext": {
+  "source": "simple-icons",
+  "key": "siErpnext",
+  "title": "ERPNext",
+  "hex": "#0089FF"
+ },
+ "python": {
+  "source": "simple-icons",
+  "key": "siPython",
+  "title": "Python",
+  "hex": "#3776AB"
+ },
+ "solana": {
+  "source": "simple-icons",
+  "key": "siSolana",
+  "title": "Solana",
+  "hex": "#9945FF"
+ },
+ "ethereum": {
+  "source": "simple-icons",
+  "key": "siEthereum",
+  "title": "Ethereum",
+  "hex": "#3C3C3D"
+ },
+ "ethers": {
+  "source": "simple-icons",
+  "key": "siEthers",
+  "title": "Ethers",
+  "hex": "#2535A0"
+ },
+ "wagmi": {
+  "source": "simple-icons",
+  "key": "siWagmi",
+  "title": "Wagmi",
+  "hex": "#000000"
+ },
+ "walletconnect": {
+  "source": "simple-icons",
+  "key": "siWalletconnect",
+  "title": "WalletConnect",
+  "hex": "#3B99FC"
+ },
+ "pwa": {
+  "source": "simple-icons",
+  "key": "siPwa",
+  "title": "PWA",
+  "hex": "#5A0FC8"
+ },
+ "n8n": {
+  "source": "simple-icons",
+  "key": "siN8n",
+  "title": "n8n",
+  "hex": "#FF91AC"
+ },
+ "claude": {
+  "source": "simple-icons",
+  "key": "siClaude",
+  "title": "Claude",
+  "hex": "#D97757"
+ },
+ "cursor": {
+  "source": "simple-icons",
+  "key": "siCursor",
+  "title": "Cursor",
+  "hex": "#000000"
+ },
+ "vscode": {
+  "source": "devicon",
+  "key": "vscode/plain",
+  "title": "vscode",
+  "hex": "#3C99D4"
+ },
+ "postman": {
+  "source": "simple-icons",
+  "key": "siPostman",
+  "title": "Postman",
+  "hex": "#FF6C37"
+ },
+ "framer": {
+  "source": "simple-icons",
+  "key": "siFramer",
+  "title": "Framer",
+  "hex": "#0055FF"
+ },
+ "cloudflare": {
+  "source": "simple-icons",
+  "key": "siCloudflare",
+  "title": "Cloudflare",
+  "hex": "#F38020"
+ },
+ "youtube": {
+  "source": "simple-icons",
+  "key": "siYoutube",
+  "title": "YouTube",
+  "hex": "#FF0000"
+ },
+ "graphql": {
+  "source": "simple-icons",
+  "key": "siGraphql",
+  "title": "GraphQL",
+  "hex": "#E10098"
+ },
+ "postiz": {
+  "source": "simple-icons",
+  "key": "siPostiz",
+  "title": "Postiz",
+  "hex": "#612BD3"
+ },
+ "reactnative": {
+  "source": "devicon",
+  "key": "reactnative/original",
+  "title": "reactnative",
+  "hex": "#61dafb"
+ }
+}
