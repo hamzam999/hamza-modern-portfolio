@@ -1,4 +1,86 @@
 {
+  "berbanto-atelier": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5250,
+        "cropped": false,
+        "bytes": 334338,
+        "quality": 74
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 8471,
+        "cropped": false,
+        "bytes": 263828,
+        "quality": 80
+      }
+    },
+    "dominant": "#080808",
+    "sourceHash": "56b35864bf9e682a51f0ab4ee72b8078cd2fdd69"
+  },
+  "codeslytic-budget": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 146488,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 299734,
+        "quality": 74
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "0cc8070704b1e112ff985aaf88a3b8115ef547e3"
+  },
   "gesim": {
     "hero": {
       "widths": [
@@ -19,9 +101,67 @@
         600
       ]
     },
-    "mobile": null,
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 197420,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 282412,
+        "quality": 74
+      }
+    },
     "dominant": "#f8f8f8",
-    "sourceHash": "5b2a1361e38e4c1125607bda3d1082bc68ec6afe"
+    "sourceHash": "44d7e55c9a868795b9bbfb6da99e082e5aacb0b4"
+  },
+  "hefashion": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5312,
+        "cropped": false,
+        "bytes": 354886,
+        "quality": 62
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 9930,
+        "cropped": false,
+        "bytes": 306658,
+        "quality": 56
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "6622e77f8a5ad278231a0355b5b10a6434e1128f"
   },
   "lammles": {
     "hero": {
@@ -43,9 +183,149 @@
         600
       ]
     },
-    "mobile": null,
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 357430,
+        "quality": 62
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 455,
+        "height": 10500,
+        "cropped": true,
+        "bytes": 293098,
+        "quality": 50
+      }
+    },
     "dominant": "#f8f8f8",
-    "sourceHash": "762aace36281fd500ad9ea38418e3f1e006cebc0"
+    "sourceHash": "f42122868fec0585e55426c2c8a620e1da75e3c0"
+  },
+  "motiongrid": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 3660,
+        "cropped": false,
+        "bytes": 209132,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13118,
+        "cropped": false,
+        "bytes": 303680,
+        "quality": 50
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "f7f9eed2421b38d402da6932984ae97837a9e89b"
+  },
+  "muftimaaz": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 321068,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 13500,
+        "cropped": true,
+        "bytes": 301516,
+        "quality": 50
+      }
+    },
+    "dominant": "#184838",
+    "sourceHash": "c86d08c15ec84da2ce90fac2e6712fd27cd0f2c6"
+  },
+  "navig": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 860,
+        "height": 4181,
+        "cropped": true,
+        "bytes": 341408,
+        "quality": 50
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 495,
+        "height": 11423,
+        "cropped": true,
+        "bytes": 304692,
+        "quality": 50
+      }
+    },
+    "dominant": "#080808",
+    "sourceHash": "d70a83bc8f41570096f5705ed794653b4b6f64fe"
   },
   "nighat-ahmad-official": {
     "hero": {
@@ -67,8 +347,107 @@
         600
       ]
     },
-    "mobile": null,
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 231218,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 538,
+        "height": 12415,
+        "cropped": true,
+        "bytes": 296320,
+        "quality": 56
+      }
+    },
+    "dominant": "#181818",
+    "sourceHash": "7c6b95352ae199320500b8f00a87532091ea92ce"
+  },
+  "promenade-medulin": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 3695,
+        "cropped": false,
+        "bytes": 302802,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 11406,
+        "cropped": false,
+        "bytes": 304282,
+        "quality": 50
+      }
+    },
     "dominant": "#f8f8f8",
-    "sourceHash": "384378d1bf6ebf6bffef824f898ea36e577a8fad"
+    "sourceHash": "5d11cbcb66fa73ab9055ca92f5feae2df0f8c141"
+  },
+  "studio-solyn": {
+    "hero": {
+      "widths": [
+        640,
+        1280
+      ],
+      "ratio": 1.6
+    },
+    "print": {
+      "widths": [
+        360,
+        720
+      ]
+    },
+    "cover": {
+      "widths": [
+        300,
+        600
+      ]
+    },
+    "full": {
+      "desktop": {
+        "file": "full-desktop.webp",
+        "width": 1200,
+        "height": 5833,
+        "cropped": true,
+        "bytes": 167458,
+        "quality": 80
+      },
+      "mobile": {
+        "file": "full-mobile.webp",
+        "width": 585,
+        "height": 7469,
+        "cropped": false,
+        "bytes": 220530,
+        "quality": 80
+      }
+    },
+    "dominant": "#f8f8f8",
+    "sourceHash": "e863163c4eec00ce1f48c948f06da288a5dea0b3"
   }
 }

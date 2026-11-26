@@ -31,7 +31,7 @@ export const PROJECTS = [
     claims: [{ text: '25,000+ GPU-driven particles at 144 FPS', source: 'resume' }],
     link: { kind: 'live', url: 'https://navig-app.vercel.app/' },
     spine: 'ink',
-    media: { focal: FOCAL, alt: 'NAVIG homepage with a 3D particle scene rendered in WebGL', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'NAVIG homepage: the headline “The truth layer for crypto narratives” over a field of glowing particles', altStatus: 'final' },
     seo: {
       title: 'NAVIG: Three.js and GLSL particle website | Mohammad Hamza',
       description:
@@ -71,8 +71,8 @@ export const PROJECTS = [
     spine: 'cobalt',
     media: {
       focal: FOCAL,
-      alt: 'CodesLytic Budget app screenshot (alt text placeholder)',
-      altStatus: 'placeholder',
+      alt: 'CodesLytic Budget homepage: “Your money, sorted. Even offline.” next to a phone showing the app’s home screen',
+      altStatus: 'final',
     },
     seo: {
       title: 'CodesLytic Budget: offline-first Next.js app | Mohammad Hamza',
@@ -109,8 +109,8 @@ export const PROJECTS = [
     spine: 'paper',
     media: {
       focal: FOCAL,
-      alt: 'Lammle’s checkout with custom pickup and delivery options (placeholder)',
-      altStatus: 'placeholder',
+      alt: 'Lammle’s Western Wear storefront homepage with the “Fits you’ll love” banner and main navigation',
+      altStatus: 'final',
     },
     seo: {
       title: 'Lammle’s: Shopify checkout extensions | Mohammad Hamza',
@@ -144,7 +144,7 @@ export const PROJECTS = [
     ],
     link: { kind: 'live', url: 'https://gesim.xyz' },
     spine: 'graphite',
-    media: { focal: FOCAL, alt: 'GeSIM web app screenshot (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'GeSIM homepage: “Live anywhere. Explain yourself to no one.” above a phone showing the app', altStatus: 'final' },
     seo: {
       title: 'GeSIM: Web3 eSIM MVP with embedded wallets | Mohammad Hamza',
       description:
@@ -176,7 +176,7 @@ export const PROJECTS = [
     ],
     link: { kind: 'live', url: 'https://studiosolyn.com/' },
     spine: 'cobalt',
-    media: { focal: { x: 0.5, y: 0.5 }, alt: 'Studio Solyn mobile screens (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: { x: 0.5, y: 0.5 }, alt: 'Studio Solyn homepage: a grid of small material and process photographs on a white page', altStatus: 'final' },
     seo: {
       title: 'Studio Solyn: mobile design for a Framer site | Mohammad Hamza',
       description:
@@ -243,7 +243,7 @@ export const PROJECTS = [
     stack: ['Shopify Online Store 2.0', 'Dawn', 'Liquid', 'Meta Pixel'],
     link: { kind: 'live', url: 'https://nighatahmadofficial.com' },
     spine: 'paper',
-    media: { focal: FOCAL, alt: 'Nighat Ahmad Official storefront (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'Nighat Ahmad Official storefront homepage with a fashion photography slider and the main navigation', altStatus: 'final' },
     seo: {
       title: 'Nighat Ahmad Official: Shopify fashion store | Mohammad Hamza',
       description:
@@ -338,7 +338,7 @@ export const PROJECTS = [
     claims: [{ text: 'Eleven new features', source: 'csv' }],
     link: { kind: 'live', url: 'https://berbanto.com' },
     spine: 'cobalt',
-    media: { focal: FOCAL, alt: 'Berbanto storefront (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'Berbanto storefront homepage with the Berbanto Utsav 2026 offer over a photograph of a leather belt', altStatus: 'final' },
     seo: {
       title: 'Shopify Atelier theme customization | Mohammad Hamza',
       description:
@@ -365,7 +365,7 @@ export const PROJECTS = [
     tools: ['Shopify MCP'],
     link: { kind: 'live', url: 'https://hefashion.in' },
     spine: 'ink',
-    media: { focal: FOCAL, alt: 'HE Fashion storefront (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'HE Fashion storefront homepage with a yellow header, a row of product videos and a High End Fashion banner', altStatus: 'final' },
     seo: {
       title: 'Multi-brand Shopify fashion store features | Mohammad Hamza',
       description:
@@ -471,7 +471,7 @@ export const PROJECTS = [
     ],
     link: { kind: 'live', url: 'https://promenade-medulin.com' },
     spine: 'paper',
-    media: { focal: FOCAL, alt: 'Promenade Medulin website (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'Promenade Medulin homepage: the waterfront restaurant and rooms with Book a room and Reserve a table buttons', altStatus: 'final' },
     seo: {
       title: 'Promenade Medulin: multilingual WordPress site | Mohammad Hamza',
       description:
@@ -525,7 +525,7 @@ export const PROJECTS = [
     stack: ['React', 'CSS animations (marquee)'],
     link: { kind: 'live', url: 'https://motiongrid.vercel.app/' },
     spine: 'cobalt',
-    media: { focal: FOCAL, alt: 'MotionGrid showcase page (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'MotionGrid homepage: “Clarity, execution, and collaboration.” with a services overview', altStatus: 'final' },
     seo: {
       title: 'MotionGrid: agency showcase page in React | Mohammad Hamza',
       description:
@@ -551,7 +551,7 @@ export const PROJECTS = [
     stack: ['Next.js', 'YouTube Data API', 'Cloudflare R2'],
     link: { kind: 'live', url: 'https://muftimaaz.com' },
     spine: 'graphite',
-    media: { focal: FOCAL, alt: 'Muftimaaz.com website (alt text placeholder)', altStatus: 'placeholder' },
+    media: { focal: FOCAL, alt: 'Muftimaaz.com homepage with a green hero introducing Mufti Muhammad Maaz Qasmi', altStatus: 'final' },
     seo: {
       title: 'Muftimaaz.com: Next.js site with YouTube API | Mohammad Hamza',
       description:

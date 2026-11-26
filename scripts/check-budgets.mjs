@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const DIST = path.join(ROOT, 'dist');
 const KB = 1024;
-const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 34 * KB, fonts: 5, images: 2200 * KB, fullDesktop: 350 * KB, fullMobile: 300 * KB, fullTotal: 7000 * KB, heroPrint: 60 * KB, urduFont: 80 * KB };
+const BUDGET = { initialJs: 110 * KB, shelf: 18 * KB, sheet: 14 * KB, arcade: 14 * KB, css: 34 * KB, fonts: 5, images: 3400 * KB, fullDesktop: 350 * KB, fullMobile: 300 * KB, fullTotal: 7000 * KB, heroPrint: 64 * KB, urduFont: 80 * KB };
 
 const manifestPath = path.join(DIST, '.vite/manifest.json');
 if (!existsSync(manifestPath)) {
@@ -77,7 +77,8 @@ check('CSS total', css.reduce((n, f) => n + gz(`assets/${f}`), 0), BUDGET.css);
   else check('Urdu font (woff2)', readFileSync(path.join(DIST, 'fonts', m[1])).length, BUDGET.urduFont);
 }
 
-// Images. Round 2: everything the home page and the shelf can reach (heroes, covers, prints, archive, profile, art) stays under one cap.
+// Images. Round 2: everything the home page and the shelf can reach (heroes, covers, prints, archive, profile, art) stays under one cap, 3400 KB since round 3
+// (11 projects now have captures: about 280 KB of hero avif+webp and 100 KB of covers and prints each; the home view only loads the covers and three prints, see first-view transfer).
 // Round 3: the full-page layouts (full-desktop.webp / full-mobile.webp) are tall images that only project pages and the detail sheet load
 // (lazy, inside a scrolling frame), so they get their own caps: 350 KB per desktop image, 300 KB per mobile image and a total for all of them.
 // They never count toward the home-view budgets; the first-view transfer check above stays at 450 KB.

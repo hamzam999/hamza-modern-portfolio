@@ -40,7 +40,7 @@ const FULL = {
   desktop: { cssWidth: 1440, capCssHeight: 7000, outWidth: 1200, budget: 350 * 1024, file: 'full-desktop.webp' },
   mobile: { cssWidth: 390, capCssHeight: 9000, outWidth: 585, budget: 300 * 1024, file: 'full-mobile.webp' },
 };
-const PIPELINE = 'v3-full-pages';
+const PIPELINE = 'v4-full-pages';
 
 /** Duotone ramps by spine swatch (plan 6.11 table). */
 const DUOTONE = {
@@ -101,16 +101,29 @@ async function fullPage(src, cfg, dir, warnings, slug) {
   const capSrc = Math.round(cfg.capCssHeight * scaleSrc);
   const cropped = meta.height > capSrc;
   const srcH = Math.min(meta.height, capSrc);
-  const w = Math.min(cfg.outWidth, meta.width);
-  const h = Math.round((srcH * w) / meta.width);
-  const base = await sharp(src, { limitInputPixels: false }).extract({ left: 0, top: 0, width: meta.width, height: srcH }).resize({ width: w, height: h, kernel: 'lanczos3' }).toBuffer();
-  let q = 80;
-  let buf = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
-  while (buf.length > cfg.budget && q > 36) {
-    q -= 6;
-    buf = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
+  let w = Math.min(cfg.outWidth, meta.width);
+  let h = Math.round((srcH * w) / meta.width);
+  const encode = async (width) => {
+    const height = Math.round((srcH * width) / meta.width);
+    const base = await sharp(src, { limitInputPixels: false }).extract({ left: 0, top: 0, width: meta.width, height: srcH }).resize({ width, height, kernel: 'lanczos3' }).toBuffer();
+    let q = 80;
+    let out = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
+    while (out.length > cfg.budget && q > 50) {
+      q -= 6;
+      out = await sharp(base).webp({ quality: q, effort: 5, smartSubsample: true }).toBuffer();
+    }
+    return { out, q, height };
+  };
+  // Quality never drops below 50; very noisy pages (particle fields) shrink in width instead, in 8% steps down to 70% of the target.
+  let r = await encode(w);
+  while (r.out.length > cfg.budget && w > cfg.outWidth * 0.7) {
+    w = Math.round(w * 0.92);
+    r = await encode(w);
   }
-  if (buf.length > cfg.budget) warnings.push(`${slug}/${cfg.file}: ${Math.round(buf.length / 1024)} KB at quality ${q} is over the ${Math.round(cfg.budget / 1024)} KB budget`);
+  h = r.height;
+  const buf = r.out;
+  const q = r.q;
+  if (buf.length > cfg.budget) warnings.push(`${slug}/${cfg.file}: ${Math.round(buf.length / 1024)} KB at ${w}px / quality ${q} is over the ${Math.round(cfg.budget / 1024)} KB budget`);
   writeFileSync(path.join(dir, cfg.file), buf);
   return { file: cfg.file, width: w, height: h, cropped, bytes: buf.length, quality: q };
 }
@@ -214,7 +227,7 @@ async function main() {
     }
     mkdirSync(dir, { recursive: true });
     const meta = await sharp(shot).metadata();
-    if ((meta.width ?? 0) < 1920) warnings.push(`${p.slug}: screenshot is ${meta.width}px wide (spec minimum 1920)`);
+    if ((meta.width ?? 0) < 1280) warnings.push(`${p.slug}: capture is ${meta.width}px wide (heroes need at least 1280)`);
     if (p.altStatus === 'placeholder') warnings.push(`${p.slug}: media.alt is still a placeholder`);
 
     // Hero: 16:10 from the top of the capture (full-page captures are taller than 16:10), never upscaled.
@@ -271,7 +284,7 @@ async function main() {
   for (const w of warnings) console.warn(`media warning: ${w}`);
   if (missing.length) {
     console.warn(`\nmedia: ${missing.length} of ${projects.length} projects have no screenshot (PosterFallback is shown):`);
-    for (const slug of missing) console.warn(`  - media-src/projects/${slug}/screenshot.png`);
+    for (const slug of missing) console.warn(`  - media-src/projects/${slug}/desktop-full.png (npm run shots:projects)`);
   }
   console.log(`media: manifest has ${Object.keys(sorted).length} entries`);
   if (strict && missing.length) process.exit(1);

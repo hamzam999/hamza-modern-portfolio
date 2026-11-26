@@ -42,7 +42,11 @@ const TWEAKS = {
   // `stitch` scrolls one viewport at a time and joins the viewport shots, which is what a visitor sees.
   navig: { extraWait: 6000, stitch: true, stepWait: 1500, motion: true },
   // Shopify theme with lazy sections: slower scroll and lazy images forced to load.
-  lammles: { slow: true },
+  // The hero is a four-slide banner slider whose later slides never load without its script; show the first slide only, like a visitor's first view.
+  lammles: { slow: true, stitch: true, stepWait: 1200, css: '.slide-banner-item:nth-child(n+2) { display: none !important; }' },
+  gesim: { stitch: true, stepWait: 1200 },
+  'berbanto-atelier': { slow: true, stitch: true, stepWait: 1500 },
+  'studio-solyn': { stitch: true, stepWait: 1200 },
 };
 // Reduced motion is emulated by default (many sites then show reveal content at once); --reveal forces leftover hidden reveals visible.
 const REDUCED = !args.includes('--motion'); // default: prefers-reduced-motion on (sites then render reveal content without scroll animation); --motion turns it off
@@ -54,6 +58,8 @@ const HIDE_CSS = `
   iframe[src*="tawk" i],iframe[src*="crisp" i],iframe[src*="intercom" i],#tidio-chat,#hubspot-messages-iframe-container,
   [class*="chat-widget" i],[id*="chat-widget" i],#CybotCookiebotDialog,#onetrust-banner-sdk,.cc-window,.cky-consent-container { display: none !important; }
 `;
+// Phone numbers shown as tel: links are blurred (never publish a personal number, even by accident).
+const PRIVACY_CSS = `a[href^="tel:"], a[href^="https://wa.me"] { filter: blur(7px) !important; }`;
 const FREEZE_CSS = `*,*::before,*::after{animation-play-state:paused !important;scroll-behavior:auto !important;}`;
 
 async function loadLive() {
@@ -78,6 +84,18 @@ async function compact(file) {
   rmSync(tmp, { force: true });
   rmSync(file);
   return jpg;
+}
+
+/** Blurs any leaf element whose text is a phone number (+country code, or ten digits in a row). */
+async function blurPhones(page) {
+  await page.evaluate(() => {
+    const re = /(\+\d[\d\s().-]{7,}\d)|(\b\d{10}\b)/;
+    document.querySelectorAll('body *').forEach((el) => {
+      if (el.children.length === 0 && el.textContent && re.test(el.textContent) && !/script|style/i.test(el.tagName)) {
+        el.style.setProperty('filter', 'blur(7px)', 'important');
+      }
+    });
+  });
 }
 
 async function dismiss(page) {
@@ -125,6 +143,15 @@ async function stitched(page, file, variant, tweak) {
   let done = 0;
   while (done < total) {
     await page.evaluate((v) => window.scrollTo(0, v), done);
+    if (done > 0) {
+      // Sticky and fixed bars would repeat in every slice: hide the small ones after the first.
+      await page.evaluate(() => {
+        document.querySelectorAll('body *').forEach((el) => {
+          const cs = getComputedStyle(el);
+          if ((cs.position === 'fixed' || cs.position === 'sticky') && el.getBoundingClientRect().height < 220) el.style.setProperty('visibility', 'hidden', 'important');
+        });
+      });
+    }
     await sleep(tweak.stepWait ?? 800);
     const y = await page.evaluate(() => Math.round(window.scrollY));
     const shot = await page.screenshot({ fullPage: false });
@@ -167,7 +194,8 @@ async function capture(browser, slug, url, key, variant, tweak) {
         });
       });
     }
-    await page.addStyleTag({ content: FREEZE_CSS });
+    await page.addStyleTag({ content: FREEZE_CSS + PRIVACY_CSS + (tweak?.css ?? '') });
+    await blurPhones(page);
     await sleep(600);
     const file = path.join(OUT, slug, variant.file);
     mkdirSync(path.dirname(file), { recursive: true });

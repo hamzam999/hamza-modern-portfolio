@@ -153,7 +153,7 @@ export interface FullPageImage {
 export interface MediaManifestEntry {
   hero: { widths: readonly number[]; ratio: number } | null;
   cover: { widths: readonly number[] } | null;
-  full: { desktop?: FullPageImage; mobile?: FullPageImage } | null;
+  full?: { desktop?: FullPageImage; mobile?: FullPageImage } | null;
   dominant: string;
   sourceHash: string;
 }
